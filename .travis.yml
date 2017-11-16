@@ -28,9 +28,6 @@ script:
   - npm run docs
   - firebase deploy --token $FIREBASE_TOKEN --non-interactive
 
-#deploy:
- - firebase deploy --token $FIREBASE_TOKEN --non-interactive
-
 notifications:
   webhooks:
     on_success: change
