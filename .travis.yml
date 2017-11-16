@@ -26,8 +26,9 @@ script:
   - npm run test:ci
   - ng e2e
   - npm run docs
+  - firebase deploy --token $FIREBASE_TOKEN --non-interactive
 
-deploy:
+#deploy:
  - firebase deploy --token $FIREBASE_TOKEN --non-interactive
 
 notifications:
