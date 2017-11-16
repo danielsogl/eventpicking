@@ -27,6 +27,9 @@ script:
   - ng e2e
   - npm run docs
 
+deploy:
+ - firebase deploy --token "$FIREBASE_TOKEN" --non-interactive
+
 notifications:
   webhooks:
     on_success: change

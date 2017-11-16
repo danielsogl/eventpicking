@@ -43,3 +43,6 @@ Thumbs.db
 
 # Docs
 /public
+
+# Firebase
+/functions/node_modules
