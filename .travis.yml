@@ -26,7 +26,8 @@ deploy:
   provider: firebase
   token:
     secure: PBw4Yw9eBlOEelWjp4HYctlfGtvcYF+cIJddFEQd96SbQ26rsthGhqkCI3/KWyMuJJfx/wlCgPmVwVZdYgBLXbcqjXchzXSAXC6HiC43JurO3/OOAl8sgWlFUw8DovQ/9XO+qYEnCr6wycMaP7UbWzCtUyL+/tp/NmdTwX8XpjaP6dOUX1JzqF25tUDov3Ifj1cKS53vP250rn59/GVANTi9do9je0kJGcqw4GJhvEaKWLzFtH/72x2tZh6X4IxbDbKUOtDfhUCK44UVWsPLaCF42ZKyGnnGu75xTOAtsp2MShFDOlOkV71CeWWfvUpZHM+wfYLGbmteU9jgQes2EouBYBoLIJSeVD3QylrGQzUBcqt6WNGTXpktOMUMuHFv/y82xL5AXErKiN+8PxGcDv0g9Yezu0MR612lDbFx9Sq/cT4WJHgsnQ120Kcq3dPV0j6x7m8tga9dqr+ucKJy9pPKUhcUVkXrw04G/QvIb0j7F53VFq8k+vdiAP7zFZOFcWgoEWGvUifUhF9PBEcZF4dqGfq+LpZYVaZnhc1ucOxvtc5DimYF/M8tLOTWZAgejubHifJ31GytgxoqUYbN4ALpOWTWHHxt5hMm4AomhbC6zmqMyxuDvrcbW1wS+DoN/DsRekFjZ7+Z1BlTbHtixAONh+J2c5mPhmLHxhLjlAY=
-  project: mercy-5ae35
+  message: "Travis CI deployment"
+
 notifications:
   webhooks:
     on_success: change
