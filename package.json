@@ -9,6 +9,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "docs": "./node_modules/.bin/compodoc -d ./public/docs/ -p ./tsconfig.json -n \"DHBW Projekt 2017 - Dokumentation\""
@@ -55,6 +56,31 @@
   },
   "jest": {
     "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/jest.config.ts"
+    "setupTestFrameworkScriptFile": "<rootDir>/src/jest.conf.ts",
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ngrx|@ionic-native|@ionic)"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/e2e/"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{ts}",
+      "!**/*d.{ts}",
+      "!**/*interface.{ts}",
+      "!**/*module.{ts}",
+      "!**/*main.{ts}",
+      "!**/node_modules/**"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text"
+    ],
+    "coverageDirectory": "./public/coverage"
   }
 }

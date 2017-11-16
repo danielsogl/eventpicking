@@ -23,15 +23,12 @@ before_script:
 
 script:
 - ng build --prod
-- npm run test:ci
+- npm run test:coverage
 - ng e2e
 - npm run docs
 
-deploy:
-  provider: firebase
-  token:
-    secure: $FIREBASE_TOKEN
-  message: "Travis CI deployment"
+after_sucess:
+- firebase deploy --token $FIREBASE_TOKEN
 
 notifications:
   webhooks:
