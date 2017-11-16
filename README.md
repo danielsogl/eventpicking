@@ -1,5 +1,5 @@
 # DHBW Projekt 2017
-[![Build Status](https://travis-ci.org/danielsogl/dbw-projekt-2017.svg?branch=master)](https://travis-ci.org/danielsogl/dbw-projekt-2017)
+[![Build Status](https://travis-ci.org/danielsogl/dbhw-projekt-2017.svg?branch=master)](https://travis-ci.org/danielsogl/dhbw-projekt-2017)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
