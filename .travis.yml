@@ -3,7 +3,6 @@ dist: trusty
 language: node_js
 node_js:
 - 8.9.1
-
 before_install:
 - export CHROME_BIN=/usr/bin/google-chrome
 - export DISPLAY=:99.0
@@ -12,26 +11,23 @@ before_install:
 - sudo apt-get install -y libappindicator1 fonts-liberation
 - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 - sudo dpkg -i google-chrome*.deb
-
 branches:
   only:
   - master
-
 before_script:
 - npm install -g firebase-tools
 - npm install -g @angular/cli
-
 script:
 - ng build --prod
 - npm run test:coverage
 - ng e2e
 - npm run docs
-
 after_sucess:
 - firebase deploy --token $FIREBASE_TOKEN
-
 notifications:
   webhooks:
     on_success: change
     on_failure: always
     on_start: false
+  slack:
+    secure: oy934dPyd+Ap3Zz5htF5Gkg4dBvNsrX6qv3ML+qg1t3pxI80dRxeL1U1AtMHlKoEb61QzutBomATj+O4oQCUxBpGafzqmAIf2F60XyR8j1qHFu6szuBQIqpMTg+oOrm4fyVVDQDXloLmv0SgR5R5wA/QPimnnisjb9sL9X9sH5+WrtLV/KLxvByQQGB/foNwTl1IImoyV7t/5Td709kwJe5cowlMN0BKW11LrQWMTBvuDFDwsXtU7rqsBpa0iaZDh9qgXW8WZaXmnlhE5Y7dK75JTHkS/CDV4GEPo0qaSy1Nu7V9oycK7J7kxnfM5AfN6XSEYxQetfQCoRB4uRvQR5a+I7rBj4bNNxjCayArK/Zq9CR2WW8oaAG202KOyhEB4GAx4OAgc9rywjZSgJ3vAF/Q9tMck8MnXZuW+02ANrYa84r7BL1IFUrE1QPqizObcUBYCUsmI8TgjetGP06kMi82lnlCYeh0381S1gpF+GdY3NoZlpGkuPz9G6wR1lQ1yBWlA6KTaKO4u6rL9w6etUU2HzR6QE8TUdnXTYdERh26fe47vdqngw4s9tHYz/ZOC/M2TgeJWiXomy8K0zMiJHBPCZq0BNi/0Cbr7KcoKGwZw72QVwLeMZfCsX79IU6bl62dIjaCXZ+cJc3prapqkp6RbmSta4+TmLumi/Xm8F0=
