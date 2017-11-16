@@ -26,7 +26,12 @@ script:
   - npm run test:ci
   - ng e2e
   - npm run docs
-  - firebase deploy --token $FIREBASE_TOKEN --non-interactive
+
+deploy:
+  provider: firebase
+  token:
+    secure: "YOUR ENCRYPTED token"
+  project: "mercy-5ae35"
 
 notifications:
   webhooks:
