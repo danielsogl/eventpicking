@@ -41,10 +41,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Docs
-public/coverage/*
-public/docs/*
-public/dist/*
+public/
 
 # Firebase
 /functions/node_modules

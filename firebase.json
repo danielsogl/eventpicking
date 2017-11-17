@@ -1,16 +1,16 @@
 {
-  "database": {
-    "rules": "./firebase/database.rules.json"
-  },
   "hosting": {
     "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
-  },
-  "storage": {
-    "rules": "firebase/storage.rules"
   }
 }
