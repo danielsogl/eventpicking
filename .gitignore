@@ -44,6 +44,7 @@ Thumbs.db
 # Docs
 public/coverage/*
 public/docs/*
+public/dist/*
 
 # Firebase
 /functions/node_modules
