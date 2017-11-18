@@ -7,7 +7,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
+import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseDatabaseService } from './services/firebase/database/firebase-database.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
 
@@ -25,9 +27,11 @@ import { FirebaseStorageService } from './services/firebase/storage/firebase-sto
     AngularFireDatabaseModule
   ],
   providers: [
+    AuthGuard,
     FirebaseAuthService,
     FirebaseDatabaseService,
-    FirebaseStorageService
+    FirebaseStorageService,
+    RoleGuard,
   ],
   bootstrap: [AppComponent]
 })
