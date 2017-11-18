@@ -63,13 +63,14 @@
     "preset": "jest-preset-angular",
     "setupTestFrameworkScriptFile": "<rootDir>/src/jest.conf.ts",
     "transformIgnorePatterns": [
-      "node_modules/(?!@ngrx|@ionic-native|@ionic)"
+      "node_modules"
     ],
     "coveragePathIgnorePatterns": [
       "<rootDir>/e2e/"
     ],
     "collectCoverageFrom": [
       "**/*.{ts}",
+      "!**/src/*{ts}",
       "!**/*d.{ts}",
       "!**/*interface.{ts}",
       "!**/*module.{ts}",
