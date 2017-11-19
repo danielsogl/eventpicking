@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
 
 import { FirebaseAuthService } from '../firebase-auth/firebase-auth.service';
@@ -17,8 +17,19 @@ export class RoleGuard implements CanActivate {
    */
   constructor(public auth: FirebaseAuthService, public router: Router) { }
 
-  canActivate(): boolean {
-    return true;
+  /**
+   * @param  {ActivatedRouteSnapshot} route
+   * @returns {boolean}
+   */
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    const expectedRole = route.data.role;
+    const fbUser = this.auth.getCurrentFirebaseUser();
+
+    if (fbUser && this.auth.matchingRole(expectedRole)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

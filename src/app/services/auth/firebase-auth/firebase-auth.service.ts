@@ -5,6 +5,7 @@ import 'rxjs/add/operator/take';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import * as _ from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
@@ -18,15 +19,20 @@ import { User } from '../../../classes/user';
 export class FirebaseAuthService {
 
   /**
-   * firebse user
+   * Firebase user
    */
-  user: BehaviorSubject<User> = new BehaviorSubject(null);
+  public user: BehaviorSubject<User> = new BehaviorSubject(null);
+
+  /**
+   * roles of currently logged in uer
+   */
+  private userRoles: Array<string>;
 
   /**
    * @param  {AngularFireAuth} afAuth AngularFire Auth
    * @param  {AngularFireDatabase} db AngularFire Auth
    */
-  constructor(private afAuth: AngularFireAuth,  private db: AngularFireDatabase) {
+  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.afAuth.authState.switchMap(auth => {
       if (auth) {
         // user is signed in
@@ -38,6 +44,10 @@ export class FirebaseAuthService {
     }).subscribe(user => {
       this.user.next(user);
     });
+  }
+
+  getCurrentFirebaseUser() {
+    return this.afAuth.auth.currentUser;
   }
 
   /**
@@ -82,6 +92,15 @@ export class FirebaseAuthService {
           ref.update(userData);
         }
     });
+  }
+
+  /**
+  * Helper to determine if any matching roles exist
+  * @param  {any} allowedRoles roles to check
+  * @returns {boolean}
+  */
+  public matchingRole(allowedRoles: any): boolean {
+    return !_.isEmpty(_.intersection(allowedRoles, this.userRoles));
   }
 
 }
