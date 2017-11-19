@@ -1,19 +1,19 @@
-import { TestBed, inject } from '@angular/core/testing';
-
-import { FirebaseDatabaseService } from './firebase-database.service';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { inject, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestore } from 'angularfire2/firestore';
+
 import { environment } from '../../../../environments/environment.prod';
+import { FirebaseFirestoreService } from './firebase-firestore.service';
 
 describe('FirebaseDatabaseService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [AngularFireModule.initializeApp(environment.firebase)],
-      providers: [FirebaseDatabaseService, AngularFireDatabase]
+      providers: [FirebaseFirestoreService, AngularFirestore]
     });
   });
 
-  it('should be created', inject([FirebaseDatabaseService], (service: FirebaseDatabaseService) => {
+  it('should be created', inject([FirebaseFirestoreService], (service: FirebaseFirestoreService) => {
     expect(service).toBeTruthy();
   }));
 });

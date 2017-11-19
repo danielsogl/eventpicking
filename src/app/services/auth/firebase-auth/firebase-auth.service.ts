@@ -3,15 +3,14 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
 
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import * as _ from 'lodash';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../../classes/user';
-import { Router } from '@angular/router/src/router';
 
 /**
  * A service to authenticate with the firebase services
@@ -35,7 +34,6 @@ export class FirebaseAuthService {
    * @param  {AngularFireDatabase} db AngularFire Auth
    */
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
-
     this.user = this.afAuth.authState.switchMap(user => {
       if (user) {
         return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
@@ -56,8 +54,12 @@ export class FirebaseAuthService {
    * @returns {Promise<any>}
    */
   signIn(email: string, password: string): Promise<any> {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(credential => {
-      this.updateUserData(credential.user);
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  register(email: string, password: string) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(credential => {
+      this.updateUserData(credential);
     });
   }
 
@@ -78,12 +80,13 @@ export class FirebaseAuthService {
     return this.afAuth.auth.sendPasswordResetEmail(email);
   }
 
-  private updateUserData(user: any) {
+  updateUserData(user: any) {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const data = new User(user);
-
-    return userRef.set(data);
+    if (!user.roles) {
+      user = new User(user);
+    }
+    return userRef.set(JSON.parse(JSON.stringify(user)));
   }
 
   /**

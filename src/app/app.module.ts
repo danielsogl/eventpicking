@@ -21,7 +21,7 @@ import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
-import { FirebaseDatabaseService } from './services/firebase/database/firebase-database.service';
+import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
 
 
@@ -51,7 +51,7 @@ import { FirebaseStorageService } from './services/firebase/storage/firebase-sto
   providers: [
     AuthGuard,
     FirebaseAuthService,
-    FirebaseDatabaseService,
+    FirebaseFirestoreService,
     FirebaseStorageService,
     RoleGuard,
   ],
