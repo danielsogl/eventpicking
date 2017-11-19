@@ -5,11 +5,13 @@ import 'rxjs/add/operator/take';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../../classes/user';
+import { Router } from '@angular/router/src/router';
 
 /**
  * A service to authenticate with the firebase services
@@ -21,7 +23,7 @@ export class FirebaseAuthService {
   /**
    * Firebase user
    */
-  public user: BehaviorSubject<User> = new BehaviorSubject(null);
+  public user: Observable<User>;
 
   /**
    * roles of currently logged in uer
@@ -32,17 +34,14 @@ export class FirebaseAuthService {
    * @param  {AngularFireAuth} afAuth AngularFire Auth
    * @param  {AngularFireDatabase} db AngularFire Auth
    */
-  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
-    this.afAuth.authState.switchMap(auth => {
-      if (auth) {
-        // user is signed in
-        return this.db.object('users/' + auth.uid).valueChanges();
+  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+
+    this.user = this.afAuth.authState.switchMap(user => {
+      if (user) {
+        return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
       } else {
-        // user is not signed in
         return Observable.of(null);
       }
-    }).subscribe(user => {
-      this.user.next(user);
     });
   }
 
@@ -58,7 +57,7 @@ export class FirebaseAuthService {
    */
   signIn(email: string, password: string): Promise<any> {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(credential => {
-      this.updateUser(credential.user);
+      this.updateUserData(credential.user);
     });
   }
 
@@ -79,19 +78,12 @@ export class FirebaseAuthService {
     return this.afAuth.auth.sendPasswordResetEmail(email);
   }
 
-  /**
-   * Updates the users data in the firebase db
-   * @param  {any} authData Firebase auth data
-   * @returns {void}
-   */
-  private updateUser(authData: any): void {
-    const userData = new User(authData);
-    const ref = this.db.object('users/' + authData.uid);
-    ref.valueChanges().take(1).subscribe((user: User) => {
-        if (!user.roles) {
-          ref.update(userData);
-        }
-    });
+  private updateUserData(user: any) {
+    // Sets user data to firestore on login
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const data = new User(user);
+
+    return userRef.set(data);
   }
 
   /**
