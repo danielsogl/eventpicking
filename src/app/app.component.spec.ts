@@ -1,3 +1,5 @@
+import { FooterComponent } from './components/footer/footer.component';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
@@ -8,7 +10,9 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        NavigationBarComponent,
+        FooterComponent
       ],
     }).compileComponents();
   }));
