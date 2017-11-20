@@ -6,6 +6,7 @@
     "module": "es2015",
     "types": []
   },
+  "include": [ "**/*.ts", "../node_modules/angular-bootstrap-md/index.ts" ],
   "exclude": [
     "test.ts",
     "**/*.spec.ts"

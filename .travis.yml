@@ -15,7 +15,7 @@ before_script:
 - npm install -g firebase-tools
 - npm install -g @angular/cli
 script:
-- ng build --prod --progress false
+- ng build --progress false
 - npm run test:coverage
 - ng e2e
 - npm run docs
