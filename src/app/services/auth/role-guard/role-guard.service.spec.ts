@@ -13,14 +13,13 @@ describe('RoleGuardService', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule
+        AngularFireModule.initializeApp(environment.firebase)
       ],
       providers: [
         RoleGuard,
         FirebaseAuthService,
         AngularFireAuth,
-        AngularFirestore
+        { provide: AngularFirestore, depends: AngularFirestoreModule }
       ]
     });
   });

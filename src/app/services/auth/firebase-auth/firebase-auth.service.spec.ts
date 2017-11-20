@@ -12,10 +12,13 @@ describe('FirebaseAuthService', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule
+        AngularFireModule.initializeApp(environment.firebase)
       ],
-      providers: [FirebaseAuthService, AngularFireAuth, AngularFirestore]
+      providers: [
+        FirebaseAuthService,
+        AngularFireAuth,
+        { provide: AngularFirestore, depends: AngularFirestoreModule }
+      ]
     });
   });
 

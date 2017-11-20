@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "jest",
+    "test": "jest --browser",
     "test:watch": "jest --watch",
     "test:ci": "jest --runInBand",
     "test:coverage": "jest --runInBand --coverage",
