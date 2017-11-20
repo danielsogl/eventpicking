@@ -43,6 +43,10 @@ export class FirebaseAuthService {
     });
   }
 
+  getAuthState() {
+    return this.afAuth.authState;
+  }
+
   getCurrentFirebaseUser() {
     return this.afAuth.auth.currentUser;
   }
@@ -68,7 +72,9 @@ export class FirebaseAuthService {
    * @returns {Promise<any>}
    */
   signOut(): Promise<any> {
-    return this.afAuth.auth.signOut();
+    return this.afAuth.auth.signOut().then(() => {
+      this.router.navigate(['home']);
+    });
   }
 
   /**

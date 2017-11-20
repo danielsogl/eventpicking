@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
+
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationBarComponent implements OnInit {
 
-  constructor() { }
+  public fbUser: any;
+
+  constructor(private auth: FirebaseAuthService) {
+    this.auth.getAuthState().subscribe(user => {
+      this.fbUser = user;
+    });
+  }
 
   ngOnInit() {
+  }
+
+  login() {
+    this.auth.signIn('daniel@sogls.de', 'passwort');
+  }
+
+  logout() {
+    this.auth.signOut();
   }
 
 }
