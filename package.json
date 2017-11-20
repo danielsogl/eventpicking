@@ -12,7 +12,7 @@
     "test:coverage": "jest --browser --runInBand --coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "docs": "./node_modules/.bin/compodoc -d ./public/docs/ -p ./tsconfig.json -n \"DHBW Projekt 2017 - Dokumentation\""
+    "docs": "./node_modules/.bin/compodoc -d ./public/docs/ -p ./tsconfig.json -n \"Eventpicking - Dokumentation\""
   },
   "private": true,
   "dependencies": {
@@ -27,7 +27,7 @@
     "@angular/router": "^5.0.2",
     "angular-bootstrap-md": "^5.0.5",
     "angularfire2": "5.0.0-rc.4",
-    "chart.js": "^2.5.0",
+    "chart.js": "2.5.0",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
     "firebase": "^4.6.2",
@@ -40,7 +40,7 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "^1.5.2",
+    "@angular/cli": "1.5.0",
     "@angular/compiler-cli": "^5.0.2",
     "@angular/language-service": "^5.0.2",
     "@compodoc/compodoc": "^1.0.4",

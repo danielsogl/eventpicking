@@ -8,6 +8,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PhotoDetailPageComponent } from './pages/photo-detail-page/photo-detail-page.component';
 import { PhotographerPageComponent } from './pages/photographer-page/photographer-page.component';
+import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'event/:id', component: EventPageComponent },
   { path: 'home', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
+  { path: 'prices', component: PricesPageComponent },
   { path: 'photo/:id', component: PhotoDetailPageComponent },
   { path: 'photographer/:id', component: PhotographerPageComponent },
   { path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard] },

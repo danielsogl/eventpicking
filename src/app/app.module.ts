@@ -24,6 +24,7 @@ import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
+import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 
 
 
@@ -41,14 +42,15 @@ import { FirebaseStorageService } from './services/firebase/storage/firebase-sto
     LoginPageComponent,
     PhotoDetailPageComponent,
     PhotographerPageComponent,
+    PricesPageComponent,
   ],
   imports: [
     BrowserModule,
-    MDBBootstrapModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [
     AuthGuard,

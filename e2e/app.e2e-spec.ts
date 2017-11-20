@@ -9,6 +9,6 @@ describe('dhbw-projekt-app App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitle()).toEqual('DhbwProjektApp');
+    expect(page.getTitle()).toEqual('Eventpicking');
   });
 });

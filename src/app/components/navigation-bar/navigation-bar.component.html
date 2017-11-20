@@ -1,3 +1,28 @@
-<p>
-  navigation-bar works!
-</p>
+<header>
+  <!--Navbar-->
+  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo sticky-top">
+
+    <!-- Navbar brand -->
+    <logo>
+      <a class="navbar-brand" routerLink="/home">Eventpicking</a>
+    </logo>
+
+    <!-- Collapsible content -->
+    <links>
+
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link waves-light" mdbRippleRadius routerLink="/home">Home </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link waves-light" mdbRippleRadius routerLink="/prices">Preise</a>
+        </li>
+
+      </ul>
+    </links>
+    <!-- Collapsible content -->
+
+  </mdb-navbar>
+  <!--/.Navbar-->
+</header>

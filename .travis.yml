@@ -13,7 +13,7 @@ before_install:
 - sudo dpkg -i google-chrome*.deb
 before_script:
 - npm install -g firebase-tools
-- npm install -g @angular/cli
+- npm install -g @angular/cli@1.5.0
 script:
 - ng build --progress false
 - npm run test:coverage
@@ -23,8 +23,6 @@ deploy:
   provider: firebase
   token:
     secure: x5uZyEu15hCjYFkwIDgtFQFom4xinxj90prNLrKwSuILI3EjepQzKUOjKm2KsjkvV8JZwtnhRE5GBFZNXZ9Ot4S0DXZTR2Ts+9J2ynkxi47FRBRd4uWM5mwXvb/HUgbaHnQglQe/Ud3lnOl5wggeE7w02RpoaHKnFkxEIbZI0+kIX7EylIYvlH2fQCgHJRhE2Pyv8Aiqs4Q9lU1vJmorWZ8plkTb6EewRBD+lxoaMqkCkpfIdCF1js2W4xKFDK3D0KgKPUr1nAhfgdfWosYXGQm+769TnKav+dR1EEkPGQQMZEvMfkMxZWt61XAkkSM55ZoomIvh7mJ5InUn/AKMq+mSpz9Wnyr96vV3VDINAK08NOPmSq/UWHsNidZeMQVIEtYEPFwXKEOevAmE3FRkkC9/pHaBcmZgOEqCNonuOAAunD1R4sAFprMFZOwYRTfNmKk6Ir9a2JnQTWiWuBnJTWhMNHaGpjP4HRfuV9UprPk9+9GeWwduMn5Cqw0FuBTAoRzMTITsNFURlZeakx9KBg8l4Huz3HVbuNz6bNIT45NDgr0CMX8nFOv3NY16QCXJnjY2uDWuVqMUIBxCpOJuXfB14yf1lqr1E145UVKNkyGqEi9Ep0HJ1IXmygJS4pto1BoWlCcMnSH03gLZ3TQ1VYd7ouaN2RJQXg96sji//oA=
-  on:
-    branch: master
 notifications:
   webhooks:
     on_success: change
