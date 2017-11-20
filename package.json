@@ -7,9 +7,9 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "jest --browser",
-    "test:watch": "jest --watch",
-    "test:ci": "jest --runInBand",
-    "test:coverage": "jest --runInBand --coverage",
+    "test:watch": "jest --browser --watch",
+    "test:ci": "jest --browser --runInBand",
+    "test:coverage": "jest --browser --runInBand --coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "docs": "./node_modules/.bin/compodoc -d ./public/docs/ -p ./tsconfig.json -n \"DHBW Projekt 2017 - Dokumentation\""
