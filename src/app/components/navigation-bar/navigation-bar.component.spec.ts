@@ -10,11 +10,10 @@ describe('NavigationBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MDBBootstrapModule.forRoot()],
-      declarations: [ NavigationBarComponent ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      declarations: [NavigationBarComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

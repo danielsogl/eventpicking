@@ -17,6 +17,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PhotoDetailPageComponent } from './pages/photo-detail-page/photo-detail-page.component';
 import { PhotographerPageComponent } from './pages/photographer-page/photographer-page.component';
+import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
@@ -24,7 +25,6 @@ import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
-import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 
 
 
