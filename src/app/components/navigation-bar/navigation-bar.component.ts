@@ -20,10 +20,6 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
-    this.auth.signIn('daniel@sogls.de', 'passwort');
-  }
-
   logout() {
     this.auth.signOut();
   }

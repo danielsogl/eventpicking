@@ -23,7 +23,12 @@
 
       <ul class="nav navbar-nav nav-flex-icons ml-auto">
         <li class="nav-item" *ngIf="!fbUser">
-          <a class="nav-link waves-effect waves-light" (click)="login()">
+          <a class="nav-link waves-effect waves-light" routerLink="/signup">
+            <span class="clearfix d-none d-sm-inline-block">Registrieren</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="!fbUser">
+          <a class="nav-link waves-effect waves-light" routerLink="/login">
             <i class="fa fa-sign-in mr-1"></i>
             <span class="clearfix d-none d-sm-inline-block">Anmelden</span>
           </a>
@@ -33,12 +38,13 @@
           <a dropdownToggle class="nav-link dropdown-toggle waves-effect waves-light">
             <i class="fa fa-user"></i> Profil
           </a>
-          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-cyan" role="menu">
-            <a class="dropdown-item waves-effect waves-light" mdbRippleRaius routerLink="/profile">Mein Konto</a>
-            <a class="dropdown-item waves-effect waves-light" mdbRippleRadius (click)="logout()">Abmelden</a>
+          <div *dropdownMenu class="dropdown-menu dropdown-menu" role="menu">
+            <a class="dropdown-item" routerLink="/profile">Mein Konto</a>
+            <a class="dropdown-item" (click)="logout()">Abmelden</a>
           </div>
         </li>
       </ul>
+
 
     </links>
     <!-- Collapsible content -->
