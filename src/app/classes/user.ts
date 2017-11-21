@@ -1,20 +1,4 @@
-/**
- * User roles interface
- */
-export interface Roles {
-  /**
-   * user role
-   */
-  user?: boolean;
-  /**
-   * admin role
-   */
-  admin?: boolean;
-  /**
-   * photographer role
-   */
-  photographer?: boolean;
-}
+import { UserRoles } from '../interfaces/user-roles';
 
 /**
  * Application User
@@ -41,7 +25,7 @@ export class User {
   /**
    * user roles
    */
-  roles: Roles;
+  roles: UserRoles;
 
   /**
    * @param  {any} authData firebase user
