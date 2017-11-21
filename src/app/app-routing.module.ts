@@ -16,7 +16,7 @@ import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '404', component: PageNotFoundComponent },
-  { path: 'check-out', component: CheckoutPageComponent },
+  { path: 'check-out', component: CheckoutPageComponent, canActivate: [AuthGuard] },
   { path: 'event/:id', component: EventPageComponent },
   { path: 'home', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },

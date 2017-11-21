@@ -10,14 +10,18 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 })
 export class LoginPageComponent implements OnInit {
 
+  public email: string;
+  public emailReset: string;
+  public password: string;
+
   constructor(private auth: FirebaseAuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  loginWithCredentials(email: string, password: string) {
-    this.auth.signInWithEmail(email, password).then(value => {
-      console.log('Singed in with Google', value);
+  loginWithCredentials() {
+    this.auth.signInWithEmail(this.email, this.password).then(() => {
+      console.log('Singed in with Email and password');
       this.router.navigate(['profile']);
     }).catch(err => {
       console.log('error', err);
@@ -25,8 +29,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   loginWithGoogle() {
-    this.auth.signInWithGoogle().then(value => {
-      console.log('Singed in with Google', value);
+    this.auth.signInWithGoogle().then(() => {
+      console.log('Singed in with Google');
       this.router.navigate(['profile']);
     }).catch(err => {
       console.log('error', err);
@@ -34,8 +38,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   loginWithFacebook() {
-    this.auth.signInWithFacebook().then(value => {
-      console.log('Singed in with Google', value);
+    this.auth.signInWithFacebook().then(() => {
+      console.log('Singed in with Facebook');
       this.router.navigate(['profile']);
     }).catch(err => {
       console.log('error', err);
@@ -43,12 +47,16 @@ export class LoginPageComponent implements OnInit {
   }
 
   loginWithTwitter() {
-    this.auth.signInWithTwitter().then(value => {
-      console.log('Singed in with Google', value);
+    this.auth.signInWithTwitter().then(() => {
+      console.log('Singed in with twitter');
       this.router.navigate(['profile']);
     }).catch(err => {
       console.log('error', err);
     });
+  }
+
+  resetPassword() {
+    this.auth.sendResetPasswordMail(this.emailReset);
   }
 
 }

@@ -1,1 +1,89 @@
-<h1>Loginpage</h1>
+<div class="row mt-5 pt-5">
+  <div class="col align-self-start"></div>
+  <div class="col align-self-center">
+    <div class="card" style="width: 24rem">
+
+      <div class="card-body mx-4">
+
+        <!--Header-->
+        <div class="text-center">
+          <h3 class="dark-grey-text mb-5">
+            <strong>Anmelden</strong>
+          </h3>
+        </div>
+
+        <!--Body-->
+        <div class="md-form">
+          <input type="text" class="form-control" [(ngModel)]="email">
+          <label for="Form-email1" class="">Ihre E-Mail</label>
+        </div>
+
+        <div class="md-form pb-3">
+          <input type="password" class="form-control" [(ngModel)]="password">
+          <label for="Form-pass1" class="">Ihr Passwort</label>
+          <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" (click)="demoBasic.show()">Passwort
+            <a class="blue-text ml-1"> vergessen?</a>
+          </p>
+        </div>
+
+        <div class="text-center mb-3">
+          <button type="button" class="btn btn-indigo btn-lg btn-block" (click)="loginWithCredentials()">Anmelden</button>
+        </div>
+        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> oder Anmelden mit:</p>
+
+        <div class="row my-3 d-flex justify-content-center">
+          <!--Facebook-->
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithFacebook()">
+            <i class="fa fa-facebook blue-text text-center"></i>
+          </button>
+          <!--Twitter-->
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithTwitter()">
+            <i class="fa fa-twitter blue-text"></i>
+          </button>
+          <!--Google +-->
+          <button type="button" class="btn btn-white btn-rounded z-depth-1a waves-effect waves-light" (click)="loginWithGoogle()">
+            <i class="fa fa-google-plus blue-text"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">Kein Konto?
+          <a routerLink="/signup" class="blue-text ml-1"> Hier registrieren</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+  <div class="col align-self-end"></div>
+</div>
+
+
+<!-- Reset password modal -->
+<div mdbModal #demoBasic="mdb-modal" class="modal fade" id="basicExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Passwort zurücksetzen</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="demoBasic.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Geben Sie Ihre Email-Adresse an, an welche die Rücksetztmail gesendet werden soll</p>
+        <div class="md-form">
+          <input mdbActive type="text" id="form1" class="form-control" [(ngModel)]="emailReset">
+          <label for="form1" class="">Email Adresse</label>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-sm waves-light" data-dismiss="modal" (click)="demoBasic.hide()" mdbRippleRadius>Abbrechen</button>
+        <button type="button" class="btn btn-primary btn-sm waves-light" mdbRippleRadius (click)="demoBasic.hide(); resetPassword()">Passwort zurücksetzen</button>
+      </div>
+    </div>
+  </div>
+</div>
