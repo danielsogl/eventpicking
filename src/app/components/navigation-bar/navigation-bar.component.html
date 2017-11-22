@@ -35,12 +35,12 @@
         </li>
 
         <li class="nav-item dropdown" dropdown *ngIf="fbUser">
-          <a dropdownToggle class="nav-link dropdown-toggle waves-effect waves-light">
+          <a dropdownToggle class="nav-link dropdown-toggle waves-effect waves-light" id="a_toggle_profile">
             <i class="fa fa-user"></i> Profil
           </a>
           <div *dropdownMenu class="dropdown-menu dropdown-menu" role="menu">
-            <a class="dropdown-item" routerLink="/profile">Mein Konto</a>
-            <a class="dropdown-item" (click)="logout()">Abmelden</a>
+            <a class="dropdown-item" routerLink="/profile" id="a_profile">Mein Konto</a>
+            <a class="dropdown-item" (click)="logout()" id="a_logout">Abmelden</a>
           </div>
         </li>
       </ul>

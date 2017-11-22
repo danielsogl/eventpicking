@@ -8,40 +8,40 @@
         <!--Header-->
         <div class="text-center">
           <h3 class="dark-grey-text mb-5">
-            <strong>Anmelden</strong>
+            <strong id="page_title">Anmelden</strong>
           </h3>
         </div>
 
         <!--Body-->
         <div class="md-form">
-          <input type="text" class="form-control" [(ngModel)]="email">
+          <input type="text" class="form-control" [(ngModel)]="email" id="input_email">
           <label for="Form-email1" class="">Ihre E-Mail</label>
         </div>
 
         <div class="md-form pb-3">
-          <input type="password" class="form-control" [(ngModel)]="password">
+          <input type="password" class="form-control" [(ngModel)]="password" id="input_password">
           <label for="Form-pass1" class="">Ihr Passwort</label>
-          <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" (click)="demoBasic.show()">Passwort
+          <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" (click)="demoBasic.show()" id="p_open_reset_modal">Passwort
             <a class="blue-text ml-1"> vergessen?</a>
           </p>
         </div>
 
         <div class="text-center mb-3">
-          <button type="button" class="btn btn-indigo btn-lg btn-block" (click)="loginWithCredentials()">Anmelden</button>
+          <button type="button" class="btn btn-indigo btn-lg btn-block" (click)="loginWithCredentials()" id="button_login">Anmelden</button>
         </div>
         <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> oder Anmelden mit:</p>
 
         <div class="row my-3 d-flex justify-content-center">
           <!--Facebook-->
-          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithFacebook()">
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithFacebook()" id="button_login_with_facebook">
             <i class="fa fa-facebook blue-text text-center"></i>
           </button>
           <!--Twitter-->
-          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithTwitter()">
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithTwitter()" id="button_login_with_twitter">
             <i class="fa fa-twitter blue-text"></i>
           </button>
           <!--Google +-->
-          <button type="button" class="btn btn-white btn-rounded z-depth-1a waves-effect waves-light" (click)="loginWithGoogle()">
+          <button type="button" class="btn btn-white btn-rounded z-depth-1a waves-effect waves-light" (click)="loginWithGoogle()" id="button_login_with_google">
             <i class="fa fa-google-plus blue-text"></i>
           </button>
         </div>
@@ -51,7 +51,7 @@
       <!--Footer-->
       <div class="modal-footer mx-5 pt-3 mb-1">
         <p class="font-small grey-text d-flex justify-content-end">Kein Konto?
-          <a routerLink="/signup" class="blue-text ml-1"> Hier registrieren</a>
+          <a routerLink="/signup" class="blue-text ml-1" id="a_signup"> Hier registrieren</a>
         </p>
       </div>
 

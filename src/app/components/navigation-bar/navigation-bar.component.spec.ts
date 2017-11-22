@@ -19,12 +19,12 @@ describe('NavigationBarComponent', () => {
         RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebase)
       ],
-      declarations: [NavigationBarComponent],
       providers: [
         FirebaseAuthService,
         AngularFireAuth,
         { provide: AngularFirestore, depends: AngularFirestoreModule }
       ],
+      declarations: [NavigationBarComponent],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();

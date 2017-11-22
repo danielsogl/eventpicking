@@ -6,7 +6,6 @@ export class AppPage {
   }
 
   getTitle() {
-    browser.ignoreSynchronization = true;
     return browser.getTitle();
   }
 }
