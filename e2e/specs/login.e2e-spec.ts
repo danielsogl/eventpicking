@@ -1,12 +1,9 @@
-import { Navbar } from '../pages/navbar.po';
 import { browser } from 'protractor';
 
 import { LoginPage } from '../pages/login-page.po';
 
 describe('login e2e test', () => {
   let page: LoginPage;
-  let nav: Navbar;
-
   beforeEach(() => {
     browser.ignoreSynchronization = true;
     page = new LoginPage();
