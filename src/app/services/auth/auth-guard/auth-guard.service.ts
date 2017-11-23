@@ -22,7 +22,9 @@ export class AuthGuard implements CanActivate {
   constructor(public auth: FirebaseAuthService, public router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+
     const user = this.auth.getCurrentFirebaseUser();
+
     if (user) {
       return true;
     } else {

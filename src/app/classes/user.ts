@@ -1,3 +1,5 @@
+import { BillingDetails } from '../interfaces/billing-details';
+import { Adress } from '../interfaces/adress';
 import { UserRoles } from '../interfaces/user-roles';
 
 /**
@@ -28,6 +30,16 @@ export class User {
   roles: UserRoles;
 
   /**
+   * Adress
+   */
+  adress: Adress;
+
+  /**
+   * Billing details
+   */
+  billingDetails: BillingDetails;
+
+  /**
    * @param  {any} authData firebase user
    */
   constructor(authData: any) {
@@ -36,5 +48,7 @@ export class User {
     this.photoURL = authData.photoURL;
     this.displayName = authData.displayName;
     this.roles = { user: true };
+    this.adress = authData.adress;
+    this.billingDetails = authData.billingDetails;
   }
 }

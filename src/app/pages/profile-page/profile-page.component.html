@@ -1,5 +1,21 @@
 <div class="row mt-5 pt-5">
-    <div class="col text-center">
-      <h1>Profile Page</h1>
-    </div>
+  <div class="col text-center">
+    <ng-container *ngTemplateOutlet="template"></ng-container>
   </div>
+</div>
+
+<ng-template #loadingTmpl>
+    <h1>Lade Profil ...</h1>
+  </ng-template>
+
+<ng-template #userTmpl>
+  <h1>Benutzer</h1>
+</ng-template>
+
+<ng-template #photographerTmpl>
+    <h1>Fotograf</h1>
+</ng-template>
+
+<ng-template #adminTmpl>
+    <h1>Admin</h1>
+</ng-template>
