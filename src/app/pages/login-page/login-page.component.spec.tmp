@@ -9,6 +9,8 @@ import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore
 import { environment } from '../../../environments/environment';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { LoginPageComponent } from './login-page.component';
+import { ModalModule } from 'angular-bootstrap-md/modals/modal.module';
+import { ModalDirective } from 'angular-bootstrap-md/modals/modal.directive';
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
@@ -18,7 +20,8 @@ describe('LoginPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        AngularFireModule.initializeApp(environment.firebase)
+        AngularFireModule.initializeApp(environment.firebase),
+        MDBBootstrapModule.forRoot()
       ],
       providers: [
         FirebaseAuthService,

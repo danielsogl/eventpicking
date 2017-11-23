@@ -25,4 +25,20 @@ describe('FirebaseAuthService', () => {
   it('should be created', inject([FirebaseAuthService], (service: FirebaseAuthService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should login user', inject([FirebaseAuthService], (service: FirebaseAuthService) => {
+    service.signInWithEmail('daniel@sogls.de', 'passwort').then(() => {
+      expect(service.getCurrentFirebaseUser).toBeDefined().then(() => {
+        service.signOut();
+      });
+    });
+  }));
+
+  it('should logout user', inject([FirebaseAuthService], (service: FirebaseAuthService) => {
+    service.signInWithEmail('daniel@sogls.de', 'passwort').then(() => {
+        service.signOut().then(() => {
+          expect(service.getCurrentFirebaseUser()).toBeUndefined();
+        });
+    });
+  }));
 });
