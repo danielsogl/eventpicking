@@ -2,7 +2,7 @@ import { inject, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
 import { FirebaseFirestoreService } from './firebase-firestore.service';
 
 describe('FirebaseDatabaseService', () => {
