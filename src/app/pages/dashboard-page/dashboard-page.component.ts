@@ -4,11 +4,11 @@ import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 
 @Component({
-  selector: 'app-profile-page',
-  templateUrl: './profile-page.component.html',
-  styleUrls: ['./profile-page.component.scss']
+  selector: 'app-dashboard-page',
+  templateUrl: './dashboard-page.component.html',
+  styleUrls: ['./dashboard-page.component.scss']
 })
-export class ProfilePageComponent implements OnInit, OnDestroy {
+export class DashboardPageComponent implements OnInit, OnDestroy {
 
     public user: User;
 

@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
+import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -20,7 +21,6 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { PhotoDetailPageComponent } from './pages/photo-detail-page/photo-detail-page.component';
 import { PhotographerPageComponent } from './pages/photographer-page/photographer-page.component';
 import { PricesPageComponent } from './pages/prices-page/prices-page.component';
-import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
@@ -29,8 +29,8 @@ import { FirebaseFirestoreService } from './services/firebase/firestore/firebase
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
 import { MDBBootstrapModule } from './typescripts/free';
 import { ToastModule } from './typescripts/pro/alerts/toast/toast.module';
-import { MDBBootstrapModulePro } from './typescripts/pro/index';
 import { MDBSpinningPreloader } from './typescripts/pro/index';
+import { MDBBootstrapModulePro } from './typescripts/pro/index';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { MDBSpinningPreloader } from './typescripts/pro/index';
     HomePageComponent,
     NavigationBarComponent,
     PageNotFoundComponent,
-    ProfilePageComponent,
+    DashboardPageComponent,
     CheckoutPageComponent,
     SignupPageComponent,
     LoginPageComponent,

@@ -6,11 +6,11 @@ import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore
 
 import { environment } from '../../../environments/environment';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
-import { ProfilePageComponent } from './profile-page.component';
+import { DashboardPageComponent } from './dashboard-page.component';
 
-describe('ProfilePageComponent', () => {
-  let component: ProfilePageComponent;
-  let fixture: ComponentFixture<ProfilePageComponent>;
+describe('DashboardPageComponent', () => {
+  let component: DashboardPageComponent;
+  let fixture: ComponentFixture<DashboardPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,13 +23,13 @@ describe('ProfilePageComponent', () => {
         AngularFireAuth,
         { provide: AngularFirestore, depends: AngularFirestoreModule }
       ],
-      declarations: [ ProfilePageComponent ]
+      declarations: [ DashboardPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfilePageComponent);
+    fixture = TestBed.createComponent(DashboardPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

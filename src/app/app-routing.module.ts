@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
+import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -9,7 +10,6 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { PhotoDetailPageComponent } from './pages/photo-detail-page/photo-detail-page.component';
 import { PhotographerPageComponent } from './pages/photographer-page/photographer-page.component';
 import { PricesPageComponent } from './pages/prices-page/prices-page.component';
-import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 
@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'prices', component: PricesPageComponent },
   { path: 'photo/:id', component: PhotoDetailPageComponent },
   { path: 'photographer/:id', component: PhotographerPageComponent },
-  { path: 'dashboard', component: ProfilePageComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupPageComponent },
   { path: '**', redirectTo: '404' }
 ];
