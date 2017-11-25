@@ -1,6 +1,4 @@
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
@@ -21,7 +19,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     @ViewChild('photographerTmpl') photographerTmpl: TemplateRef<any>;
     @ViewChild('adminTmpl') adminTmpl: TemplateRef<any>;
 
-    constructor(private router: ActivatedRoute, private auth: FirebaseAuthService) { }
+    constructor(private auth: FirebaseAuthService) { }
 
     ngOnInit() {
       this.template = this.loadingTmpl;
