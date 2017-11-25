@@ -21,23 +21,26 @@
         <div class="md-form pb-3">
           <input mdbActive type="password" class="form-control" [(ngModel)]="password" id="input_password">
           <label for="Form-pass1" class="">Ihr Passwort</label>
-          <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" (click)="demoBasic.show()" id="p_open_reset_modal">
+          <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" (click)="demoBasic.show()"
+            id="p_open_reset_modal">
             <a class="blue-text ml-1">Passwort vergessen?</a>
           </p>
         </div>
 
         <div class="text-center mb-3">
-          <button type="button" class="btn near-moon-gradient btn-lg btn-block" (click)="loginWithCredentials()" id="button_login">Anmelden</button>
+          <button type="button" class="btn aqua-gradient btn-lg btn-block" (click)="loginWithCredentials()" id="button_login">Anmelden</button>
         </div>
         <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> oder Anmelden mit:</p>
 
         <div class="row my-3 d-flex justify-content-center">
           <!--Facebook-->
-          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithFacebook()" id="button_login_with_facebook">
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithFacebook()"
+            id="button_login_with_facebook">
             <i class="fa fa-facebook blue-text text-center"></i>
           </button>
           <!--Twitter-->
-          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithTwitter()" id="button_login_with_twitter">
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithTwitter()"
+            id="button_login_with_twitter">
             <i class="fa fa-twitter blue-text"></i>
           </button>
           <!--Google +-->

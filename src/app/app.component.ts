@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-// import { ToastService } from './typescripts/pro/alerts';
+import { Component, OnInit } from '@angular/core';
+
+import { MDBSpinningPreloader } from './typescripts/pro/index';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,13 @@ import { Component } from '@angular/core';
 
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+
+  constructor(private mdbSpinningPreloader: MDBSpinningPreloader) { }
+  
+    ngOnInit() {
+      this.mdbSpinningPreloader.stop();
+    }
+
 }

@@ -14,12 +14,54 @@
 </head>
 
 <body>
-    <app-root></app-root>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.2/web-animations.min.js"></script>
-        <script>
-        	new WOW().init();
-        </script>
+    <app-root>
+        <div class="spinning-preloader-container">
+            <div class="preloader-wrapper big active">
+
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"> </div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"> </div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"> </div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"> </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </app-root>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.2/web-animations.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
 </body>
 
 </html>

@@ -1,10 +1,12 @@
 <header>
   <!--Navbar-->
-  <mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark near-moon-gradient">
+  <mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark aqua-gradient">
 
     <!-- Navbar brand -->
     <logo>
-      <a class="navbar-brand" routerLink="/home">Eventpicking</a>
+      <a class="navbar-brand" routerLink="/">
+        <img src="assets/logo.png" height="30" class="d-inline-block align-top" alt="logo"> Eventpicking
+      </a>
     </logo>
 
     <!-- Collapsible content -->
@@ -39,7 +41,7 @@
             <i class="fa fa-user"></i> Profil
           </a>
           <div *dropdownMenu class="dropdown-menu dropdown-menu" role="menu">
-            <a class="dropdown-item" routerLink="/profile" id="a_profile">Mein Konto</a>
+            <a class="dropdown-item" routerLink="/dashboard" id="a_profile">Dashboard</a>
             <a class="dropdown-item" (click)="logout()" id="a_logout">Abmelden</a>
           </div>
         </li>

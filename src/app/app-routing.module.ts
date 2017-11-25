@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'prices', component: PricesPageComponent },
   { path: 'photo/:id', component: PhotoDetailPageComponent },
   { path: 'photographer/:id', component: PhotographerPageComponent },
-  { path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: ProfilePageComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupPageComponent },
   { path: '**', redirectTo: '404' }
 ];

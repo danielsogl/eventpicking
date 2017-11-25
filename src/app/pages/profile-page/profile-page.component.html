@@ -5,17 +5,61 @@
 </div>
 
 <ng-template #loadingTmpl>
-    <h1>Lade Profil ...</h1>
-  </ng-template>
+  <mdb-spinner spinnerType="big" spinnerColor="blue"></mdb-spinner>
+</ng-template>
 
 <ng-template #userTmpl>
-  <h1>Benutzer</h1>
+  <!-- Nav tabs -->
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="'card'">
+      <!--Events -->
+      <mdb-tab heading="Käufe">
+        <div class="row">
+          <div class="col-12">
+            <br>
+          </div>
+        </div>
+      </mdb-tab>
+      <!--Verkäufe -->
+      <mdb-tab heading="Profil">
+        <div class="row">
+          <div class="col-12">
+            <br>
+          </div>
+        </div>
+      </mdb-tab>
+    </mdb-tabset>
 </ng-template>
 
 <ng-template #photographerTmpl>
-    <h1>Fotograf</h1>
+  <!-- Nav tabs -->
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="'card'">
+    <!--Events -->
+    <mdb-tab heading="Events">
+      <div class="row">
+        <div class="col-12">
+          <br>
+        </div>
+      </div>
+    </mdb-tab>
+    <!--Verkäufe -->
+    <mdb-tab heading="Verkäufe">
+      <div class="row">
+        <div class="col-12">
+          <br>
+        </div>
+      </div>
+    </mdb-tab>
+    <!--Profil -->
+    <mdb-tab heading="Profil">
+      <div class="row">
+        <div class="col-12">
+          <br>
+        </div>
+      </div>
+    </mdb-tab>
+  </mdb-tabset>
 </ng-template>
 
 <ng-template #adminTmpl>
-    <h1>Admin</h1>
+  <h1>Admin</h1>
 </ng-template>
