@@ -22,7 +22,7 @@ export class LoginPageComponent implements OnInit {
   loginWithCredentials() {
     this.auth.signInWithEmail(this.email, this.password).then(() => {
       console.log('Singed in with Email and password');
-      this.router.navigate(['profile']);
+      this.router.navigate(['dashboard']);
     }).catch(err => {
       console.log('error', err);
     });
@@ -31,7 +31,7 @@ export class LoginPageComponent implements OnInit {
   loginWithGoogle() {
     this.auth.signInWithGoogle().then(() => {
       console.log('Singed in with Google');
-      this.router.navigate(['profile']);
+      this.router.navigate(['dashboard']);
     }).catch(err => {
       console.log('error', err);
     });
@@ -40,7 +40,7 @@ export class LoginPageComponent implements OnInit {
   loginWithFacebook() {
     this.auth.signInWithFacebook().then(() => {
       console.log('Singed in with Facebook');
-      this.router.navigate(['profile']);
+      this.router.navigate(['dashboard']);
     }).catch(err => {
       console.log('error', err);
     });
@@ -49,7 +49,7 @@ export class LoginPageComponent implements OnInit {
   loginWithTwitter() {
     this.auth.signInWithTwitter().then(() => {
       console.log('Singed in with twitter');
-      this.router.navigate(['profile']);
+      this.router.navigate(['dashboard']);
     }).catch(err => {
       console.log('error', err);
     });

@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
+import { FeaturesPageComponent } from './pages/features-page/features-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: '404', component: PageNotFoundComponent },
   { path: 'check-out', component: CheckoutPageComponent, canActivate: [AuthGuard] },
   { path: 'event/:id', component: EventPageComponent },
+  { path: 'features', component: FeaturesPageComponent },
   { path: 'home', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'prices', component: PricesPageComponent },

@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
 
   constructor(private mdbSpinningPreloader: MDBSpinningPreloader) { }
-  
+
     ngOnInit() {
       this.mdbSpinningPreloader.stop();
     }

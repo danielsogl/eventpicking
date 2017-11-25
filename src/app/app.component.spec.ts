@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
+import { MDBSpinningPreloader } from './typescripts/pro/preloader/preloader.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -26,6 +27,7 @@ describe('AppComponent', () => {
       providers: [
         FirebaseAuthService,
         AngularFireAuth,
+        MDBSpinningPreloader,
         { provide: AngularFirestore, depends: AngularFirestoreModule }
       ],
       schemas: [NO_ERRORS_SCHEMA]

@@ -31,6 +31,7 @@ import { MDBBootstrapModule } from './typescripts/free';
 import { ToastModule } from './typescripts/pro/alerts/toast/toast.module';
 import { MDBSpinningPreloader } from './typescripts/pro/index';
 import { MDBBootstrapModulePro } from './typescripts/pro/index';
+import { FeaturesPageComponent } from './pages/features-page/features-page.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MDBBootstrapModulePro } from './typescripts/pro/index';
     LoginPageComponent,
     PhotoDetailPageComponent,
     PhotographerPageComponent,
-    PricesPageComponent
+    PricesPageComponent,
+    FeaturesPageComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,6 @@ import { MDBBootstrapModulePro } from './typescripts/pro/index';
     AngularFirestoreModule,
     MDBBootstrapModule.forRoot(),
     ToastModule.forRoot(),
-    MDBBootstrapModule.forRoot(),
     MDBBootstrapModulePro.forRoot(),
     NgbModule.forRoot()
   ],

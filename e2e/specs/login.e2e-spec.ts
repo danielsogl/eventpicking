@@ -10,14 +10,35 @@ describe('login e2e test', () => {
     page.navigateTo();
   });
 
-  // Bla
   it('should login user with email and password', () => {
-    page.getEmailInput().sendKeys('daniel@sogls.de');
+    page.getEmailInput().sendKeys('user@test.de');
     page.getPasswordInput().sendKeys('passwort');
     page.getLoginButton().click().then(() => {
-      browser.driver.sleep(2000);
+      browser.driver.sleep(5000);
       browser.getCurrentUrl().then(url => {
-        expect(url).toContain('/profile');
+        expect(url).toContain('/dashboard');
+      });
+    });
+  });
+
+  it('should login photographer with email and password', () => {
+    page.getEmailInput().sendKeys('fotograf@test.de');
+    page.getPasswordInput().sendKeys('passwort');
+    page.getLoginButton().click().then(() => {
+      browser.driver.sleep(5000);
+      browser.getCurrentUrl().then(url => {
+        expect(url).toContain('/dashboard');
+      });
+    });
+  });
+
+  it('should login admin with email and password', () => {
+    page.getEmailInput().sendKeys('admin@test.de');
+    page.getPasswordInput().sendKeys('passwort');
+    page.getLoginButton().click().then(() => {
+      browser.driver.sleep(5000);
+      browser.getCurrentUrl().then(url => {
+        expect(url).toContain('/dashboard');
       });
     });
   });

@@ -75,11 +75,11 @@ export class SignupPageComponent implements OnInit {
         user.roles.photographer = true;
         user.roles.user = false;
         this.auth.updateUserData(user).then(() => {
-          this.router.navigate(['profile']);
+          this.router.navigate(['dashboard']);
         });
       });
     } else {
-      this.router.navigate(['profile']);
+      this.router.navigate(['dashboard']);
     }
   }
 
