@@ -19,7 +19,6 @@ import { User } from '../../../classes/user';
  */
 @Injectable()
 export class FirebaseAuthService {
-
   /**
    * Firebase user
    */
@@ -34,7 +33,11 @@ export class FirebaseAuthService {
    * @param  {AngularFireAuth} afAuth AngularFire Auth
    * @param  {AngularFireDatabase} db AngularFire Auth
    */
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private router: Router
+  ) {
     this.user = this.afAuth.authState.switchMap(user => {
       if (user) {
         return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
@@ -68,9 +71,9 @@ export class FirebaseAuthService {
    */
   signInWithGoogle(): Promise<any> {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return this.afAuth.auth.signInWithPopup(provider).then(credential =>  {
-          this.updateUserData(credential.user);
-      });
+    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
+      this.updateUserData(credential.user);
+    });
   }
 
   /**
@@ -79,9 +82,9 @@ export class FirebaseAuthService {
    */
   signInWithFacebook(): Promise<any> {
     const provider = new firebase.auth.FacebookAuthProvider();
-    return this.afAuth.auth.signInWithPopup(provider).then(credential =>  {
-          this.updateUserData(credential.user);
-      });
+    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
+      this.updateUserData(credential.user);
+    });
   }
 
   /**
@@ -90,18 +93,20 @@ export class FirebaseAuthService {
    */
   signInWithTwitter(): Promise<any> {
     const provider = new firebase.auth.TwitterAuthProvider();
-    return this.afAuth.auth.signInWithPopup(provider).then(credential =>  {
-          this.updateUserData(credential.user);
-      });
+    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
+      this.updateUserData(credential.user);
+    });
   }
 
   /**
    * @returns {Promise<any>}
    */
   register(email: string, password: string): Promise<any> {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(credential => {
-      this.updateUserData(credential);
-    });
+    return this.afAuth.auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(credential => {
+        this.updateUserData(credential);
+      });
   }
 
   /**
@@ -130,7 +135,9 @@ export class FirebaseAuthService {
    */
   updateUserData(user: any): Promise<void> {
     // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${user.uid}`
+    );
     if (!user.roles) {
       user = new User(user);
     }
@@ -138,12 +145,11 @@ export class FirebaseAuthService {
   }
 
   /**
-  * Helper to determine if any matching roles exist
-  * @param  {any} allowedRoles roles to check
-  * @returns {boolean}
-  */
+   * Helper to determine if any matching roles exist
+   * @param  {any} allowedRoles roles to check
+   * @returns {boolean}
+   */
   public matchingRole(allowedRoles: any): boolean {
     return !_.isEmpty(_.intersection(allowedRoles, this.userRoles));
   }
-
 }

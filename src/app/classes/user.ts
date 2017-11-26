@@ -1,6 +1,6 @@
-import { BillingDetails } from "../interfaces/billing-details";
-import { Adress } from "../interfaces/adress";
-import { UserRoles } from "../interfaces/user-roles";
+import { BillingDetails } from '../interfaces/billing-details';
+import { Adress } from '../interfaces/adress';
+import { UserRoles } from '../interfaces/user-roles';
 
 /**
  * Application User
