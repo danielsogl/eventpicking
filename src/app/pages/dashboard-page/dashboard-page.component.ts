@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/c
 
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
+import { Event } from '../../typescripts/free/utils/facade/browser';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -15,6 +16,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     public events: Event[] = [];
     public sales: any[] = [];
     public optionsSelect: Array<any>;
+
+    public newEvent: Event = new Event('');
 
     public template: TemplateRef<any>;
 
@@ -47,6 +50,10 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+    }
+
+    createNewEvent() {
+      console.log(this.newEvent);
     }
 
   }
