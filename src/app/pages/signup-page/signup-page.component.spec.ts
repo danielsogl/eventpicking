@@ -10,6 +10,7 @@ import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { SignupPageComponent } from './signup-page.component';
+import { FirebaseErrorPipe } from '../../pipes/firebase-error/firebase-error.pipe';
 
 describe('SignupPageComponent', () => {
   let component: SignupPageComponent;
@@ -29,7 +30,7 @@ describe('SignupPageComponent', () => {
         AngularFireAuth,
         { provide: AngularFirestore, depends: AngularFirestoreModule }
       ],
-      declarations: [ SignupPageComponent ],
+      declarations: [ SignupPageComponent, FirebaseErrorPipe ],
       schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
