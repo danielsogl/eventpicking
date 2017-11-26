@@ -10,34 +10,40 @@
 
 <ng-template #userTmpl>
   <!-- Nav tabs -->
-  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="'card'">
-      <!--Events -->
-      <mdb-tab heading="Käufe">
-        <div class="row">
-          <div class="col-12">
-            <br>
-          </div>
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="''">
+    <!--Events -->
+    <mdb-tab heading="Käufe">
+      <div class="row">
+        <div class="col-12">
+          <br>
         </div>
-      </mdb-tab>
-      <!--Verkäufe -->
-      <mdb-tab heading="Profil">
-        <div class="row">
-          <div class="col-12">
-            <br>
-          </div>
+      </div>
+    </mdb-tab>
+    <!--Verkäufe -->
+    <mdb-tab heading="Profil">
+      <div class="row">
+        <div class="col-12">
+          <br>
         </div>
-      </mdb-tab>
-    </mdb-tabset>
+      </div>
+    </mdb-tab>
+  </mdb-tabset>
 </ng-template>
 
 <ng-template #photographerTmpl>
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-lg aqua-gradient waves-light" mdbRippleRadius>
+      <i class="fa fa-plus"></i>
+    </a>
+  </div>
   <!-- Nav tabs -->
-  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="'card'">
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="''">
     <!--Events -->
     <mdb-tab heading="Events">
       <div class="row">
         <div class="col-12">
           <br>
+          <h3 *ngIf="events.length === 0">Noch keine Events angelegt</h3>
         </div>
       </div>
     </mdb-tab>
@@ -46,14 +52,62 @@
       <div class="row">
         <div class="col-12">
           <br>
+          <h3 *ngIf="sales.length === 0">Noch keine Verkäufe</h3>
         </div>
       </div>
     </mdb-tab>
     <!--Profil -->
     <mdb-tab heading="Profil">
-      <div class="row">
+      <div class="row text-left">
         <div class="col-12">
           <br>
+          <form>
+            <h5>Persönlichedaten</h5>
+            <hr>
+            <div class="md-form">
+              <mdb-select [options]="optionsSelect" placeholder="Anrede"></mdb-select>
+            </div>
+            <div class="md-form">
+              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <label for="email" class="">Vorname</label>
+            </div>
+            <div class="md-form">
+              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <label for="email" class="">Nachname</label>
+            </div>
+            <h5>Kontaktdaten</h5>
+            <hr>
+            <div class="md-form">
+              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <label for="email" class="">Straße</label>
+            </div>
+            <div class="md-form">
+              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <label for="email" class="">Stadt</label>
+            </div>
+            <div class="md-form">
+              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <label for="email" class="">PLZ</label>
+            </div>
+            <h5>Soziale Netzwerke</h5>
+            <div class="md-form">
+              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <label for="email" class="">Facebook</label>
+            </div>
+            <div class="md-form">
+              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <label for="email" class="">Twitter</label>
+            </div>
+            <div class="md-form">
+              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <label for="email" class="">Instagram</label>
+            </div>
+            <div class="md-form">
+              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <label for="email" class="">Tumbler</label>
+            </div>
+            <hr>
+          </form>
         </div>
       </div>
     </mdb-tab>

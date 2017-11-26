@@ -26,6 +26,7 @@ import { PhotoDetailPageComponent } from './pages/photo-detail-page/photo-detail
 import { PhotographerPageComponent } from './pages/photographer-page/photographer-page.component';
 import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { FirebaseErrorPipe } from './pipes/firebase-error/firebase-error.pipe';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
@@ -35,7 +36,6 @@ import { MDBBootstrapModule } from './typescripts/free';
 import { ToastModule } from './typescripts/pro/alerts/toast/toast.module';
 import { MDBSpinningPreloader } from './typescripts/pro/index';
 import { MDBBootstrapModulePro } from './typescripts/pro/index';
-import { FirebaseErrorPipe } from './pipes/firebase-error/firebase-error.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

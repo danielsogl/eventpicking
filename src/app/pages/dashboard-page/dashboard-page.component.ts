@@ -1,3 +1,4 @@
+import { Event } from '../../classes/event';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import { User } from '../../classes/user';
@@ -11,6 +12,9 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 export class DashboardPageComponent implements OnInit, OnDestroy {
 
     public user: User;
+    public events: Event[] = [];
+    public sales: any[] = [];
+    public optionsSelect: Array<any>;
 
     public template: TemplateRef<any>;
 
@@ -22,6 +26,10 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     constructor(private auth: FirebaseAuthService) { }
 
     ngOnInit() {
+      this.optionsSelect = [
+        { value: 'male', label: 'Frau' },
+        { value: 'female', label: 'Herr' },
+    ];
       this.template = this.loadingTmpl;
       this.auth.user.subscribe((user: any) => {
         if (user) {
