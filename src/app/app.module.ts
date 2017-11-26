@@ -35,6 +35,7 @@ import { MDBBootstrapModule } from './typescripts/free';
 import { ToastModule } from './typescripts/pro/alerts/toast/toast.module';
 import { MDBSpinningPreloader } from './typescripts/pro/index';
 import { MDBBootstrapModulePro } from './typescripts/pro/index';
+import { FirebaseErrorPipe } from './pipes/firebase-error/firebase-error.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -55,7 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PhotoDetailPageComponent,
     PhotographerPageComponent,
     PricesPageComponent,
-    FeaturesPageComponent
+    FeaturesPageComponent,
+    FirebaseErrorPipe
   ],
   imports: [
     BrowserModule,

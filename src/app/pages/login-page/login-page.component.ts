@@ -13,6 +13,7 @@ export class LoginPageComponent implements OnInit {
   public email: string;
   public emailReset: string;
   public password: string;
+  public error: {name: string, message: string, code: string} = {name: '', message: '', code: ''};
 
   constructor(private auth: FirebaseAuthService, private router: Router) { }
 
@@ -24,6 +25,7 @@ export class LoginPageComponent implements OnInit {
       console.log('Singed in with Email and password');
       this.router.navigate(['dashboard']);
     }).catch(err => {
+      this.error = err;
       console.log('error', err);
     });
   }
@@ -33,6 +35,7 @@ export class LoginPageComponent implements OnInit {
       console.log('Singed in with Google');
       this.router.navigate(['dashboard']);
     }).catch(err => {
+      this.error = err;
       console.log('error', err);
     });
   }
@@ -42,6 +45,7 @@ export class LoginPageComponent implements OnInit {
       console.log('Singed in with Facebook');
       this.router.navigate(['dashboard']);
     }).catch(err => {
+      this.error = err;
       console.log('error', err);
     });
   }
@@ -51,6 +55,7 @@ export class LoginPageComponent implements OnInit {
       console.log('Singed in with twitter');
       this.router.navigate(['dashboard']);
     }).catch(err => {
+      this.error = err;
       console.log('error', err);
     });
   }

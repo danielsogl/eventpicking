@@ -13,23 +13,29 @@
         </div>
 
         <!--Body-->
-        <div class="md-form">
-          <input mdbActive type="text" class="form-control" [(ngModel)]="email" id="input_email">
-          <label for="Form-email1" class="">Ihre E-Mail</label>
-        </div>
+        <form (ngSubmit)="loginWithCredentials()">
+          <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input mdbActive type="text" class="form-control" [(ngModel)]="email" id="input_email" name="email">
+            <label for="email" class="">Ihre E-Mail</label>
+          </div>
 
-        <div class="md-form pb-3">
-          <input mdbActive type="password" class="form-control" [(ngModel)]="password" id="input_password">
-          <label for="Form-pass1" class="">Ihr Passwort</label>
-          <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" (click)="demoBasic.show()"
-            id="p_open_reset_modal">
-            <a class="blue-text ml-1">Passwort vergessen?</a>
-          </p>
-        </div>
+          <div class="md-form pb-3">
+            <i class="fa fa-lock prefix"></i>
+            <input mdbActive type="password" class="form-control" [(ngModel)]="password" name="password" id="input_password">
+            <label for="password" class="">Ihr Passwort</label>
+            <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" (click)="demoBasic.show()"
+              id="p_open_reset_modal">
+              <a class="blue-text ml-1">Passwort vergessen?</a>
+            </p>
+            <p1 class="text-danger" *ngIf="error">{{error.code | firebaseError }}</p1>
+          </div>
 
-        <div class="text-center mb-3">
-          <button type="button" class="btn aqua-gradient btn-lg btn-block" (click)="loginWithCredentials()" id="button_login">Anmelden</button>
-        </div>
+
+          <div class="text-center mb-3">
+            <button type="button" class="btn aqua-gradient btn-lg btn-block" (click)="loginWithCredentials()" id="button_login">Anmelden</button>
+          </div>
+        </form>
         <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> oder Anmelden mit:</p>
 
         <div class="row my-3 d-flex justify-content-center">

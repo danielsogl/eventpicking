@@ -16,6 +16,8 @@ export class SignupPageComponent implements OnInit {
 
   public template: TemplateRef<any>;
 
+  public error: {name: string, message: string, code: string} = {name: '', message: '', code: ''};
+
   @ViewChild('formUser') formUser: TemplateRef<any>;
   @ViewChild('formPhotographer') formPhotographer: TemplateRef<any>;
 
@@ -38,6 +40,7 @@ export class SignupPageComponent implements OnInit {
       console.log('Singed in with Email and password');
       this.updateUser();
     }).catch(err => {
+      this.error = err;
       console.log('error', err);
     });
   }
@@ -47,6 +50,7 @@ export class SignupPageComponent implements OnInit {
       console.log('Singed in with Google');
       this.updateUser();
     }).catch(err => {
+      this.error = err;
       console.log('error', err);
     });
   }
@@ -56,6 +60,7 @@ export class SignupPageComponent implements OnInit {
       console.log('Singed in with Facebook');
       this.updateUser();
     }).catch(err => {
+      this.error = err;
       console.log('error', err);
     });
   }
@@ -65,6 +70,7 @@ export class SignupPageComponent implements OnInit {
       console.log('Singed in with twitter');
       this.updateUser();
     }).catch(err => {
+      this.error = err;
       console.log('error', err);
     });
   }
