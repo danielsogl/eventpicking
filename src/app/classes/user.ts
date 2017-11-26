@@ -1,6 +1,6 @@
-import { BillingDetails } from '../interfaces/billing-details';
-import { Adress } from '../interfaces/adress';
-import { UserRoles } from '../interfaces/user-roles';
+import { BillingDetails } from "../interfaces/billing-details";
+import { Adress } from "../interfaces/adress";
+import { UserRoles } from "../interfaces/user-roles";
 
 /**
  * Application User
@@ -20,8 +20,8 @@ export class User {
   photoURL?: string;
 
   /**
-  * display name
-  */
+   * display name
+   */
   displayName?: string;
 
   /**
@@ -47,7 +47,7 @@ export class User {
     this.email = authData.email;
     this.photoURL = authData.photoURL;
     this.displayName = authData.displayName;
-    this.roles = { user: true };
+    this.roles = { user: true, admin: false, photographer: false };
     this.adress = authData.adress;
     this.billingDetails = authData.billingDetails;
   }
