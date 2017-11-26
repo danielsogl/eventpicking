@@ -4,10 +4,16 @@ import { LoginPage } from '../pages/login-page.po';
 
 describe('login e2e test', () => {
   let page: LoginPage;
+
   beforeEach(() => {
     browser.ignoreSynchronization = true;
     page = new LoginPage();
     page.navigateTo();
+  });
+
+  afterEach(function() {
+    browser.executeScript('window.sessionStorage.clear();');
+    browser.executeScript('window.localStorage.clear();');
   });
 
   it('should login user with email and password', () => {
