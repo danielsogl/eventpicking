@@ -9,8 +9,6 @@
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-    <!-- <link href="css/mdb.css" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -61,6 +59,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.2/web-animations.min.js"></script>
     <script>
         new WOW().init();
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((registration) => {
+                    console.log('SW registered');
+                })
+                .catch((err) => {
+                    console.log('SW error', err);
+                });
+        }
     </script>
 </body>
 

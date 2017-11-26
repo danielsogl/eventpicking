@@ -18,11 +18,11 @@ before_install:
   - "npm config set spin false"
 before_script:
 - npm install -g firebase-tools
-- npm install -g @angular/cli
 script:
-- ng build --prod -pr false
 - npm run test:ci
-- ng e2e
+- npm run e2e
+before_deploy:
+- npm run pwa
 deploy:
   provider: firebase
   token:

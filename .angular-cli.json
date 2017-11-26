@@ -7,10 +7,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico", "manifest.json"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -45,24 +42,15 @@
   "lint": [
     {
       "project": "src/tsconfig.app.json",
-      "exclude": [
-        "**/typescripts/**",
-        "e2e/"
-      ]
+      "exclude": ["**/typescripts/**", "e2e/"]
     },
     {
       "project": "src/tsconfig.spec.json",
-      "exclude": [
-        "**/typescripts/**",
-        "e2e/"
-      ]
+      "exclude": ["**/typescripts/**", "e2e/"]
     },
     {
       "project": "e2e/tsconfig.e2e.json",
-      "exclude": [
-        "**/typescripts/**",
-        "e2e/"
-      ]
+      "exclude": ["**/typescripts/**", "e2e/"]
     }
   ],
   "test": {
@@ -72,7 +60,6 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "component": {
-    }
+    "component": {}
   }
 }
