@@ -1,19 +1,21 @@
 import { browser } from 'protractor';
 
 import { LoginPage } from '../pages/login-page.po';
+import { Navbar } from '../pages/navbar.po';
 
 describe('login e2e test', () => {
   let page: LoginPage;
+  let nav: Navbar;
 
   beforeEach(() => {
     browser.ignoreSynchronization = true;
     page = new LoginPage();
-    page.navigateTo();
+    nav = new Navbar();
+    nav.getLoginLink().click();
   });
 
   afterEach(function() {
-    browser.executeScript('window.sessionStorage.clear();');
-    browser.executeScript('window.localStorage.clear();');
+    nav.getLogoutLink().click();
   });
 
   it('should login user with email and password', () => {

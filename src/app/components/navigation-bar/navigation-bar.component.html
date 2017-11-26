@@ -4,7 +4,7 @@
 
     <!-- Navbar brand -->
     <logo>
-      <a class="navbar-brand" routerLink="/">
+      <a class="navbar-brand" routerLink="/" id="a_logo">
         <img src="assets/logo.png" height="30" class="d-inline-block align-top" alt="logo"> Eventpicking
       </a>
     </logo>
@@ -15,38 +15,42 @@
       <!-- Links -->
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link waves-light" mdbRippleRadius routerLink="/home">Home </a>
+          <a class="nav-link waves-light" mdbRippleRadius routerLink="/home" id="a_home">Home </a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link waves-light" mdbRippleRadius routerLink="/features">Features </a>
+          <a class="nav-link waves-light" mdbRippleRadius routerLink="/features" id="a_features">Features </a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link waves-light" mdbRippleRadius routerLink="/prices">Preise </a>
+          <a class="nav-link waves-light" mdbRippleRadius routerLink="/prices" id="a_prices">Preise </a>
         </li>
 
       </ul>
 
       <ul class="nav navbar-nav nav-flex-icons ml-auto">
         <li class="nav-item" *ngIf="!fbUser">
-          <a class="nav-link waves-effect waves-light" routerLink="/signup">
+          <a class="nav-link waves-effect waves-light" routerLink="/signup" id="a_signup">
             <span class="clearfix d-none d-sm-inline-block">Registrieren</span>
           </a>
         </li>
         <li class="nav-item" *ngIf="!fbUser">
-          <a class="nav-link waves-effect waves-light" routerLink="/login">
+          <a class="nav-link waves-effect waves-light" routerLink="/login" id="a_login">
             <i class="fa fa-sign-in mr-1"></i>
             <span class="clearfix d-none d-sm-inline-block">Anmelden</span>
           </a>
         </li>
 
-        <li class="nav-item dropdown" dropdown *ngIf="fbUser">
-          <a dropdownToggle class="nav-link dropdown-toggle waves-effect waves-light" id="a_toggle_profile">
-            <i class="fa fa-user"></i> Profil
+        <li class="nav-item" *ngIf="fbUser">
+          <a class="nav-link waves-effect waves-light" routerLink="/dashboard" id="a_dashboard">
+            <i class="fa fa-tachometer mr-1"></i>
+            <span class="clearfix d-none d-sm-inline-block">Dashboard</span>
           </a>
-          <div *dropdownMenu class="dropdown-menu dropdown-menu" role="menu">
-            <a class="dropdown-item" routerLink="/dashboard" id="a_profile">Dashboard</a>
-            <a class="dropdown-item" (click)="logout()" id="a_logout">Abmelden</a>
-          </div>
+        </li>
+
+        <li class="nav-item" *ngIf="fbUser">
+          <a class="nav-link waves-effect waves-light" (click)="logout()" id="a_logout">
+            <i class="fa fa-sign-out mr-1"></i>
+            <span class="clearfix d-none d-sm-inline-block">Abmelden</span>
+          </a>
         </li>
       </ul>
 
