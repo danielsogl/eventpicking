@@ -135,6 +135,11 @@
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
-    "directive-class-suffix": true
+    "directive-class-suffix": true,
+    "ban-comma-operator": true,
+    "jsdoc-format": true,
+    "no-duplicate-switch-case": true,
+    "no-implicit-dependencies": true,
+    "no-return-await": true,
   }
 }
