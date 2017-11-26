@@ -12,7 +12,7 @@
     "test:coverage": "jest --browser --runInBand --coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "docs": "./node_modules/.bin/compodoc -d ./public/docs/ -p ./tsconfig.json -n \"Eventpicking - Dokumentation\"",
+    "docs": "./node_modules/.bin/compodoc -d ./docs/ -p ./tsconfig.json -n \"Eventpicking - Dokumentation\"",
     "build:free": "ngm build -p src/app/typescripts/free --clean && gulp npmFree && gulp startFree && gulp onlyFree",
     "build:pro": "ngm build -p src/app/typescripts/pro --clean && gulp only-pro && gulp startPro",
     "build:all": "npm run build:free && npm run build:pro",
@@ -111,6 +111,6 @@
       "lcov",
       "text"
     ],
-    "coverageDirectory": "./public/coverage"
+    "coverageDirectory": "./coverage"
   }
 }
