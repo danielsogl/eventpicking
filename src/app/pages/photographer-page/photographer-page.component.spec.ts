@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { PhotographerPageComponent } from './photographer-page.component';
 
 describe('PhotographerPageComponent', () => {
@@ -9,7 +11,12 @@ describe('PhotographerPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [
+        RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: {provide: TranslateLoader, useClass: FakeLoader},
+        })
+      ],
       declarations: [ PhotographerPageComponent ]
     })
     .compileComponents();

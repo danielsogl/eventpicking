@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { CheckoutPageComponent } from './checkout-page.component';
 
 describe('CheckoutPageComponent', () => {
@@ -8,6 +10,11 @@ describe('CheckoutPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot({
+          loader: {provide: TranslateLoader, useClass: FakeLoader},
+        })
+      ],
       declarations: [ CheckoutPageComponent ]
     })
     .compileComponents();

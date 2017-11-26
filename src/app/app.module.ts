@@ -1,8 +1,11 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -15,6 +18,7 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
+import { FeaturesPageComponent } from './pages/features-page/features-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -31,7 +35,10 @@ import { MDBBootstrapModule } from './typescripts/free';
 import { ToastModule } from './typescripts/pro/alerts/toast/toast.module';
 import { MDBSpinningPreloader } from './typescripts/pro/index';
 import { MDBBootstrapModulePro } from './typescripts/pro/index';
-import { FeaturesPageComponent } from './pages/features-page/features-page.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -55,13 +62,21 @@ import { FeaturesPageComponent } from './pages/features-page/features-page.compo
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
     MDBBootstrapModule.forRoot(),
     ToastModule.forRoot(),
     MDBBootstrapModulePro.forRoot(),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  })
   ],
   providers: [
     MDBSpinningPreloader,

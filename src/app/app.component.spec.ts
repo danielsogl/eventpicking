@@ -1,10 +1,12 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 
+import { FakeLoader } from '../../jest-mocks/fake-loader';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -17,7 +19,10 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        AngularFireModule.initializeApp(environment.firebase)
+        AngularFireModule.initializeApp(environment.firebase),
+        TranslateModule.forRoot({
+          loader: {provide: TranslateLoader, useClass: FakeLoader},
+        })
       ],
       declarations: [
         AppComponent,
@@ -28,6 +33,7 @@ describe('AppComponent', () => {
         FirebaseAuthService,
         AngularFireAuth,
         MDBSpinningPreloader,
+        TranslateService,
         { provide: AngularFirestore, depends: AngularFirestoreModule }
       ],
       schemas: [NO_ERRORS_SCHEMA]
