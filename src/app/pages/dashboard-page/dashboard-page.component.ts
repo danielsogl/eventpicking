@@ -1,9 +1,8 @@
-import { Event } from '../../classes/event';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
+import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
-import { Event } from '../../typescripts/free/utils/facade/browser';
 
 @Component({
   selector: 'app-dashboard-page',
