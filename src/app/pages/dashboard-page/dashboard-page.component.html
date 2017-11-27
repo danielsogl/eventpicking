@@ -10,7 +10,7 @@
 
 <ng-template #userTmpl>
   <!-- Nav tabs -->
-  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="'card'">
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="''">
     <!--Events -->
     <mdb-tab heading="Käufe">
       <div class="row">
@@ -37,13 +37,35 @@
     </a>
   </div>
   <!-- Nav tabs -->
-  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="'card'">
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="''">
     <!--Events -->
     <mdb-tab heading="Events">
       <div class="row">
         <div class="col-12">
           <br>
           <h3 *ngIf="events.length === 0">Noch keine Events angelegt</h3>
+
+          <!--Card Light-->
+          <div class="card-columns">
+            <!-- Card -->
+            <div *ngFor="let event of events" class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
+
+              <!-- Content -->
+              <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                <div>
+                  <h5 class="pink-text">
+                    <i class="fa fa-calendar"></i> 26.07.2017</h5>
+                  <p>Hochzeit: Mark und Linda
+                  </p>
+                  <a class="btn btn-pink waves-light">
+                    <i class="fa fa-clone left"></i>bearbeiten</a>
+                </div>
+              </div>
+              <!-- Content -->
+            </div>
+            <!-- Card -->
+          </div>
+
         </div>
       </div>
     </mdb-tab>

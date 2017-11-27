@@ -1,6 +1,7 @@
 import { BillingDetails } from '../interfaces/billing-details';
 import { Adress } from '../interfaces/adress';
 import { UserRoles } from '../interfaces/user-roles';
+import { Event } from './event';
 
 /**
  * Application User
@@ -39,6 +40,8 @@ export class User {
    */
   billingDetails: BillingDetails;
 
+  events: Event[];
+
   /**
    * @param  {any} authData firebase user
    */
@@ -50,5 +53,7 @@ export class User {
     this.roles = { user: true, admin: false, photographer: false };
     this.adress = authData.adress;
     this.billingDetails = authData.billingDetails;
+    this.events = authData.events;
   }
+
 }

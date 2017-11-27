@@ -1,3 +1,4 @@
+import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
@@ -31,17 +32,18 @@ describe('DashboardPageComponent', () => {
         FormsModule,
         AngularFireModule.initializeApp(environment.firebase),
         TranslateModule.forRoot({
-          loader: {provide: TranslateLoader, useClass: FakeLoader},
+          loader: { provide: TranslateLoader, useClass: FakeLoader },
         })
       ],
       providers: [
         FirebaseAuthService,
+        FirebaseFirestoreService,
         AngularFireAuth,
         { provide: AngularFirestore, depends: AngularFirestoreModule }
       ],
-      declarations: [ DashboardPageComponent, FirebaseErrorPipe ]
+      declarations: [DashboardPageComponent, FirebaseErrorPipe]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

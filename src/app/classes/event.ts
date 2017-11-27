@@ -8,8 +8,6 @@ export class Event {
   name: string;
   photographerUid: string;
   pictures: Picture[];
-  uid: string;
-
 
   constructor(eventData: any) {
     this.date = eventData.date;
@@ -18,6 +16,5 @@ export class Event {
     this.name = eventData.name;
     this.photographerUid = eventData.photographerUid;
     this.pictures = eventData.pictures;
-    this.uid = eventData.uid;
   }
 }
