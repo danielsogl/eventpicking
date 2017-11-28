@@ -41,16 +41,13 @@
   },
   "lint": [
     {
-      "project": "src/tsconfig.app.json",
-      "exclude": ["e2e/"]
+      "project": "src/tsconfig.app.json"
     },
     {
-      "project": "src/tsconfig.spec.json",
-      "exclude": ["e2e/"]
+      "project": "src/tsconfig.spec.json"
     },
     {
-      "project": "e2e/tsconfig.e2e.json",
-      "exclude": ["e2e/"]
+      "project": "e2e/tsconfig.e2e.json"
     }
   ],
   "test": {
