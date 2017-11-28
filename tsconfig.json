@@ -15,5 +15,6 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "include": ["node_modules/ng-mdb-pro/**/*.ts",  "src/**/*.ts"]
 }

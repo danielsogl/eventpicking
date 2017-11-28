@@ -3,12 +3,13 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
+import { MDBSpinningPreloader } from 'ng-mdb-pro/pro/preloader/preloader.service';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -32,10 +33,6 @@ import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
-import { MDBBootstrapModule } from './typescripts/free';
-import { ToastModule } from './typescripts/pro/alerts/toast/toast.module';
-import { MDBSpinningPreloader } from './typescripts/pro/index';
-import { MDBBootstrapModulePro } from './typescripts/pro/index';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -68,10 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    MDBBootstrapModule.forRoot(),
-    ToastModule.forRoot(),
-    MDBBootstrapModulePro.forRoot(),
-    NgbModule.forRoot(),
+    MDBBootstrapModules.forRoot(),
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,

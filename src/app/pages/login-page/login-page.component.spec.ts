@@ -8,13 +8,12 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
+import { MDBBootstrapModules } from 'ng-mdb-pro';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
 import { FirebaseErrorPipe } from '../../pipes/firebase-error/firebase-error.pipe';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
-import { MDBBootstrapModule } from '../../typescripts/free/index';
-import { MDBBootstrapModulePro } from '../../typescripts/pro/index';
 import { LoginPageComponent } from './login-page.component';
 
 describe('LoginPageComponent', () => {
@@ -26,8 +25,7 @@ describe('LoginPageComponent', () => {
       imports: [
         BrowserDynamicTestingModule,
         NoopAnimationsModule,
-        MDBBootstrapModule.forRoot(),
-        MDBBootstrapModulePro.forRoot(),
+        MDBBootstrapModules.forRoot(),
         RouterTestingModule,
         FormsModule,
         AngularFireModule.initializeApp(environment.firebase),

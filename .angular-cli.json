@@ -17,8 +17,8 @@
       "prefix": "app",
       "styles": [
         "../node_modules/font-awesome/scss/font-awesome.scss",
-        "../scss/bootstrap/bootstrap.scss",
-        "../scss/mdb.scss",
+        "../node_modules/ng-mdb-pro/assets/scss/bootstrap/bootstrap.scss",
+        "../node_modules/ng-mdb-pro/assets/scss/mdb.scss",
         "./styles.scss"
       ],
       "scripts": [
@@ -42,15 +42,15 @@
   "lint": [
     {
       "project": "src/tsconfig.app.json",
-      "exclude": ["**/typescripts/**", "e2e/"]
+      "exclude": ["e2e/"]
     },
     {
       "project": "src/tsconfig.spec.json",
-      "exclude": ["**/typescripts/**", "e2e/"]
+      "exclude": ["e2e/"]
     },
     {
       "project": "e2e/tsconfig.e2e.json",
-      "exclude": ["**/typescripts/**", "e2e/"]
+      "exclude": ["e2e/"]
     }
   ],
   "test": {

@@ -1,1 +1,0 @@
-https://github.com/basvandenberg/ng-select/blob/master/LICENSE.txt

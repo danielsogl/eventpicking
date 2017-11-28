@@ -1,1 +1,0 @@
-https://github.com/Nolanus/ng2-page-scroll/blob/master/LICENSE

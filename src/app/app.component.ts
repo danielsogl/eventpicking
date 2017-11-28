@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-import { MDBSpinningPreloader } from './typescripts/pro/index';
 import { TranslateService } from '@ngx-translate/core';
+import { MDBSpinningPreloader } from 'ng-mdb-pro';
 
 @Component({
   selector: 'app-root',

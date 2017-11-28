@@ -1,20 +1,18 @@
-import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
+import { MDBBootstrapModules } from 'ng-mdb-pro';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
 import { FirebaseErrorPipe } from '../../pipes/firebase-error/firebase-error.pipe';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
-import { MDBBootstrapModule } from '../../typescripts/free/index';
-import { MDBBootstrapModulePro } from '../../typescripts/pro/index';
+import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { DashboardPageComponent } from './dashboard-page.component';
 
 describe('DashboardPageComponent', () => {
@@ -26,9 +24,7 @@ describe('DashboardPageComponent', () => {
       imports: [
         BrowserDynamicTestingModule,
         NoopAnimationsModule,
-        MDBBootstrapModule.forRoot(),
-        MDBBootstrapModulePro.forRoot(),
-        RouterTestingModule,
+        MDBBootstrapModules.forRoot(),
         FormsModule,
         AngularFireModule.initializeApp(environment.firebase),
         TranslateModule.forRoot({
