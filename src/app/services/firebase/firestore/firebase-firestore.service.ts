@@ -16,19 +16,14 @@ export class FirebaseFirestoreService {
    */
   constructor(private afs: AngularFirestore) { }
 
-  putEvent(event: Event): Promise<any> {
-    const eventRef: AngularFirestoreCollection<any> = this.afs.collection(`events`);
-    return eventRef.add(JSON.parse(JSON.stringify(event)));
+  getEvent(uid: string): AngularFirestoreDocument<Event> {
+    const eventRef: AngularFirestoreDocument<Event> = this.afs.doc(`events/${uid}`);
+    return eventRef;
   }
 
-  getEvent(uid: string): Observable<any> {
-    const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`events/${uid}`);
-    return eventRef.valueChanges();
-  }
-
-  getPhotographerEvents(uid: string): Observable<any[]> {
-    const eventRef: AngularFirestoreCollection<any> = this.afs.collection('events', ref => ref.where('photographerUid', '>=', uid));
-    return eventRef.valueChanges();
+  getPhotographerEvents(uid: string): AngularFirestoreCollection<Event[]> {
+    const eventRef: AngularFirestoreCollection<Event[]> = this.afs.collection('events', ref => ref.where('photographerUid', '>=', uid));
+    return eventRef;
   }
 
 }

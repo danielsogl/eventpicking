@@ -8,6 +8,8 @@ export class Event {
   name: string;
   photographerUid: string;
   pictures: Picture[];
+  id: string;
+  public: boolean;
 
   constructor(eventData: any) {
     this.date = eventData.date;
@@ -16,5 +18,7 @@ export class Event {
     this.name = eventData.name;
     this.photographerUid = eventData.photographerUid;
     this.pictures = eventData.pictures;
+    this.id = eventData.id;
+    this.public = eventData.public;
   }
 }

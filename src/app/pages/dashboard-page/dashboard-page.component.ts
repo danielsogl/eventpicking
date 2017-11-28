@@ -4,6 +4,8 @@ import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -13,9 +15,13 @@ import { FirebaseFirestoreService } from '../../services/firebase/firestore/fire
 export class DashboardPageComponent implements OnInit, OnDestroy {
 
   public user: User;
-  public events: Event[] = [];
+  public fsEvents: any;
+  public eventDocs: AngularFirestoreCollection<Event[]>;
+  public events: Observable<Event[]>;
   public sales: any[] = [];
   public optionsSelect: Array<any>;
+  public activeEvent: number;
+  public eventEdit: Event;
 
   public newEvent: Event = new Event('');
 
@@ -24,6 +30,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   @ViewChild('loadingTmpl') loadingTmpl: TemplateRef<any>;
   @ViewChild('userTmpl') userTmpl: TemplateRef<any>;
   @ViewChild('photographerTmpl') photographerTmpl: TemplateRef<any>;
+  @ViewChild('editEventModal') public editEventModal;
   @ViewChild('adminTmpl') adminTmpl: TemplateRef<any>;
 
   constructor(private auth: FirebaseAuthService, private afs: FirebaseFirestoreService) { }
@@ -45,11 +52,13 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         } else {
           this.template = this.photographerTmpl;
           // Load Events
-          this.afs.getPhotographerEvents(this.user.uid).subscribe(events => {
-            console.log('Firebase events', events);
-            if (events) {
-              this.events = events;
-            }
+          this.eventDocs = this.afs.getPhotographerEvents(this.user.uid);
+          this.events = this.eventDocs.snapshotChanges().map((events: any) => {
+            return events.map(event => {
+              const data = event.payload.doc.data() as Event;
+              const id = event.payload.doc.id;
+              return { id, ...data };
+            });
           });
         }
       }
@@ -61,10 +70,28 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   createNewEvent() {
     this.newEvent.photographerUid = this.auth.getCurrentFirebaseUser().uid;
-    this.afs.putEvent(this.newEvent).then(event => {
+    this.eventDocs.add(JSON.parse(JSON.stringify(this.newEvent))).then(event => {
       console.log('New Event', event);
       this.newEvent = new Event('');
     });
+  }
+
+  editEvent(event: Event) {
+    console.log(event);
+    this.eventEdit = JSON.parse(JSON.stringify(event));
+    this.editEventModal.show();
+  }
+
+  updateEvent() {
+    this.eventDocs.doc(this.eventEdit.id).update(JSON.parse(JSON.stringify(this.eventEdit)));
+    this.eventEdit = null;
+    this.editEventModal.hide();
+  }
+
+  deleteEvent() {
+    this.eventDocs.doc(this.eventEdit.id).delete();
+    this.eventEdit = null;
+    this.editEventModal.hide();
   }
 
 }
