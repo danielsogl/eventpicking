@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'prices', component: PricesPageComponent },
   { path: 'photo/:id', component: PhotoDetailPageComponent },
-  { path: 'photographer/:id', component: PhotographerPageComponent },
+  { path: 'photographer/:shopurl', component: PhotographerPageComponent },
   {
     path: 'dashboard',
     component: DashboardPageComponent,

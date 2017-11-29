@@ -26,6 +26,7 @@ export class FirebaseFirestoreService {
   }
 
   updateUserData(user: any): Promise<void> {
+    console.log('USer to safe into the db', user);
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
@@ -33,11 +34,20 @@ export class FirebaseFirestoreService {
     if (!user.roles) {
       user = new User(user);
     }
+    if (user.shopurl) {
+      console.log('User has shopurl');
+      this.afs.doc(`shopurls/${user.shopurl}`).set({ uid: user.uid });
+    }
     return userRef.set(JSON.parse(JSON.stringify(user)));
   }
 
   getUser(uid: string): AngularFirestoreDocument<User> {
     return this.afs.doc<User>(`users/${uid}`);
+  }
+
+  checkDisplayname(shopUrl: string) {
+    shopUrl = shopUrl.toLowerCase();
+    return this.afs.doc(`shopurls/${shopUrl}`);
   }
 
   getEvent(uid: string): AngularFirestoreDocument<Event> {

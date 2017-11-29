@@ -85,6 +85,11 @@
       </div>
 
       <div class="md-form">
+        <input mdbActive type="text" class="form-control" [(ngModel)]="shopurl" id="input_shopurl" (keyup)="checkShopurl()">
+        <label>Ihr Shop-URL</label>
+      </div>
+
+      <div class="md-form">
         <input mdbActive type="password" class="form-control" [(ngModel)]="password" id="input_password">
         <label>Ihr Passwort</label>
       </div>
@@ -100,7 +105,8 @@
       </div>
 
       <div class="text-center mb-3">
-        <button type="button" class="btn aqua-gradient btn-lg btn-block" (click)="signupWithCredentials()" id="button_login">Registrieren</button>
+        <button type="button" [disabled]="!shopurlAvailable" class="btn aqua-gradient btn-lg btn-block" (click)="signupWithCredentials()"
+          id="button_login">Registrieren</button>
       </div>
     </div>
 

@@ -16,6 +16,8 @@ export class SignupPageComponent implements OnInit {
   public email: string;
   public password: string;
   public password_repeated: string;
+  public shopurl: string;
+  public shopurlAvailable: boolean;
 
   public template: TemplateRef<any>;
 
@@ -46,6 +48,19 @@ export class SignupPageComponent implements OnInit {
     } else {
       this.template = this.formUser;
     }
+  }
+
+  checkShopurl() {
+    this.afs
+      .checkDisplayname(this.shopurl)
+      .valueChanges()
+      .subscribe(shopurl => {
+        if (shopurl) {
+          this.shopurlAvailable = false;
+        } else {
+          this.shopurlAvailable = true;
+        }
+      });
   }
 
   signupWithCredentials() {
@@ -105,6 +120,7 @@ export class SignupPageComponent implements OnInit {
       this.auth.user.subscribe(user => {
         user.roles.photographer = true;
         user.roles.user = false;
+        user.shopurl = this.shopurl;
         this.afs.updateUserData(user).then(() => {
           this.router.navigate(['dashboard']);
         });
