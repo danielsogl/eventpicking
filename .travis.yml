@@ -29,7 +29,6 @@ deploy:
     secure: 1/MlHp9O2bdGOJUvy5Zv_tEZIJ7ZKjOWWeo8ft5A7N8xo
   on:
     branch:
-      - develop
       - master
 notifications:
   webhooks:
