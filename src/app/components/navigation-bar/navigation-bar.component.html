@@ -1,0 +1,63 @@
+<header>
+  <!--Navbar-->
+  <mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark aqua-gradient">
+
+    <!-- Navbar brand -->
+    <logo>
+      <a class="navbar-brand" routerLink="/" id="a_logo">
+        <img src="assets/logo.png" height="30" class="d-inline-block align-top" alt="logo"> Eventpicking
+      </a>
+    </logo>
+
+    <!-- Collapsible content -->
+    <links>
+
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link waves-light" mdbRippleRadius routerLink="/home" id="a_home">Home </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link waves-light" mdbRippleRadius routerLink="/features" id="a_features">Features </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link waves-light" mdbRippleRadius routerLink="/prices" id="a_prices">Preise </a>
+        </li>
+
+      </ul>
+
+      <ul class="nav navbar-nav nav-flex-icons ml-auto">
+        <li class="nav-item" *ngIf="!fbUser">
+          <a class="nav-link waves-effect waves-light" routerLink="/signup" id="a_signup">
+            <span class="clearfix d-none d-sm-inline-block">Registrieren</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="!fbUser">
+          <a class="nav-link waves-effect waves-light" routerLink="/login" id="a_login">
+            <i class="fa fa-sign-in mr-1"></i>
+            <span class="clearfix d-none d-sm-inline-block">Anmelden</span>
+          </a>
+        </li>
+
+        <li class="nav-item" *ngIf="fbUser">
+          <a class="nav-link waves-effect waves-light" routerLink="/dashboard" id="a_dashboard">
+            <i class="fa fa-tachometer mr-1"></i>
+            <span class="clearfix d-none d-sm-inline-block">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item" *ngIf="fbUser">
+          <a class="nav-link waves-effect waves-light" (click)="logout()" id="a_logout">
+            <i class="fa fa-sign-out mr-1"></i>
+            <span class="clearfix d-none d-sm-inline-block">Abmelden</span>
+          </a>
+        </li>
+      </ul>
+
+
+    </links>
+    <!-- Collapsible content -->
+
+  </mdb-navbar>
+  <!--/.Navbar-->
+</header>

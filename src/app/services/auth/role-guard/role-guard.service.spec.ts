@@ -2,6 +2,7 @@ import { inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { environment } from '../../../../environments/environment';
 import { FirebaseAuthService } from '../firebase-auth/firebase-auth.service';
@@ -17,7 +18,8 @@ describe('RoleGuardService', () => {
       providers: [
         RoleGuard,
         FirebaseAuthService,
-        AngularFireAuth
+        AngularFireAuth,
+        { provide: AngularFirestore, depends: AngularFirestoreModule }
       ]
     });
   });

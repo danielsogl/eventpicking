@@ -1,0 +1,103 @@
+<div class="row mt-5 pt-5">
+  <div class="col align-self-start"></div>
+  <div class="col align-self-center">
+    <div class="card" style="width: 24rem">
+
+      <div class="card-body mx-4">
+
+        <!--Header-->
+        <div class="text-center">
+          <h3 class="dark-grey-text mb-5">
+            <strong id="page_title">Anmelden</strong>
+          </h3>
+        </div>
+
+        <!--Body-->
+        <form (ngSubmit)="loginWithCredentials()">
+          <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input mdbActive type="text" class="form-control" [(ngModel)]="email" id="input_email" name="email">
+            <label for="email" class="">Ihre E-Mail</label>
+          </div>
+
+          <div class="md-form pb-3">
+            <i class="fa fa-lock prefix"></i>
+            <input mdbActive type="password" class="form-control" [(ngModel)]="password" name="password" id="input_password">
+            <label for="password" class="">Ihr Passwort</label>
+            <p class="font-small blue-text d-flex justify-content-end" (click)="resetPasswordModal.show()" id="p_open_reset_modal">
+              <a class="blue-text ml-1">Passwort vergessen?</a>
+            </p>
+            <p1 class="text-danger" *ngIf="error">{{error.code | firebaseError }}</p1>
+          </div>
+
+
+          <div class="text-center mb-3">
+            <button type="button" class="btn aqua-gradient btn-lg btn-block" (click)="loginWithCredentials()" id="button_login">Anmelden</button>
+          </div>
+        </form>
+        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> oder Anmelden mit:</p>
+
+        <div class="row my-3 d-flex justify-content-center">
+          <!--Facebook-->
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithFacebook()"
+            id="button_login_with_facebook">
+            <i class="fa fa-facebook blue-text text-center"></i>
+          </button>
+          <!--Twitter-->
+          <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithTwitter()"
+            id="button_login_with_twitter">
+            <i class="fa fa-twitter blue-text"></i>
+          </button>
+          <!--Google +-->
+          <button type="button" class="btn btn-white btn-rounded z-depth-1a waves-effect waves-light" (click)="loginWithGoogle()" id="button_login_with_google">
+            <i class="fa fa-google-plus blue-text"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">Kein Konto?
+          <a routerLink="/signup" class="blue-text ml-1" id="a_signup"> Hier registrieren</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+  <div class="col align-self-end"></div>
+</div>
+
+
+
+<!--Modal: Contact form-->
+<div mdbModal #resetPasswordModal="mdb-modal" class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header aqua-gradient darken-3 white-text">
+        <h4 class="title">Passwort zurücksetzen</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="resetPasswordModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Geben Sie Ihre Email-Adresse an, an welche die Rücksetztmail gesendet werden soll</p>
+        <div class="md-form">
+          <input mdbActive type="text" id="form1" class="form-control" [(ngModel)]="emailReset">
+          <label for="form1" class="">Email Adresse</label>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-sm waves-light" data-dismiss="modal" (click)="resetPasswordModal.hide()"
+          mdbRippleRadius>Abbrechen</button>
+        <button type="button" class="btn btn-primary btn-sm waves-light" mdbRippleRadius (click)="resetPasswordModal.hide(); resetPassword()">Passwort zurücksetzen</button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: Contact form-->

@@ -1,14 +1,84 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>DhbwProjektApp</title>
-  <base href="/">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <title>Eventpicking</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="theme-color" content="#f48c5b">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
-  <app-root></app-root>
+    <noscript>
+        <h1>Enable JavaScript to use Eventpicking</h1>
+    </noscript>
+    <app-root>
+        <div class="spinning-preloader-container">
+            <div class="preloader-wrapper big active">
+
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"> </div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"> </div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"> </div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"> </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"> </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </app-root>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.2/web-animations.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((registration) => {
+                    console.log('SW registered');
+                })
+                .catch((err) => {
+                    console.log('SW error', err);
+                });
+        }
+    </script>
 </body>
+
 </html>

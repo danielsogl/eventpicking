@@ -1,28 +1,92 @@
 # DHBW Projekt 2017
-[![Build Status](https://travis-ci.org/danielsogl/dbhw-projekt-2017.svg?branch=master)](https://travis-ci.org/danielsogl/dhbw-projekt-2017)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
+Master:
+[![Build Status Master](https://travis-ci.com/danielsogl/eventpicking.svg?token=TnE38j2B5MyqLFwcdqer&branch=master)](https://travis-ci.com/danielsogl/eventpicking)
 
-## Development server
+Develop:
+[![Build Status Develop](https://travis-ci.com/danielsogl/eventpicking.svg?token=TnE38j2B5MyqLFwcdqer&branch=develop)](https://travis-ci.com/danielsogl/eventpicking)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Beschreibung
 
-## Code scaffolding
+## Inhaltsverzeichnis
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* [Einrichtung der Entwicklungsumgebung](#einrichtung-der-entwicklungsumgebung)
+* [Angular CLI Befehle](#angular-cli-befehle)
 
-## Build
+## Einrichtung der Entwicklungsumgebung
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+### Software
 
-## Running unit tests
+Um mit dem Projektdaten arbeiten zu können, bedarfs es folgender Tools und
+Programme. Alle Tools und Programme lassen sich unter Windows und macOS
+installieren und nutzen.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* [Node.js LTS](https://nodejs.org)
+* [Visual Studio Code](https://code.visualstudio.com) oder ein vergleichbarer
+  Editor
+* [Google Chrome](https://www.google.com/chrome/browser/desktop/index.html)
+* [GitKraken](https://www.gitkraken.com) oder ein vergleichbarer Git-Client
 
-## Running end-to-end tests
+### Installation der Angular CLI und der Firebase Tools
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Nach der Instalaltion der Software kann in der Konsole/Terminal auf das Node
+Package Repository mit NPM zugegriffen werden. Hierzu die Konsole öffnen und
+folgende Befehle für die Installation der benötigten Tools ausführen:
 
-## Further help
+```bash
+npm install -g @angular-cli firebase-tools live-server
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Einrichtung von Visual Studio Code
+
+Visual Studio ist ein Editor, vergleichbar mit Nodepad++ und muss daher für die
+benötigte Programmiersprache und Frameworks mit Plugins erweitert werden.
+Installiert werden diese entweder über das Plugin Symbol auf der linken Seite
+oder über das Betätigen der F1 Taste und dem befehl `ext install plugin-name`.
+Folgende Plugins sind für die ENtwicklung von Web- und Angular-Anwendungen
+sinnvoll:
+
+* Angular Essentials
+* Add jsdoc comments
+* Auto Rename Tag
+* BEautify
+* Bracket Pair Colorizer
+* Debugger for Chrome
+* Material Icon Theme
+* Prettier - Code Formater
+* TypeScript Hero
+
+Nach der Installation der Plugin sollten folgende Einstellungen eingetragen
+werden:
+
+```json
+{
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "prettier.semi": true,
+  "editor.trimAutoWhitespace": true,
+  "files.trimTrailingWhitespace": true,
+  "auto-rename-tag.activationOnLanguage": ["html"]
+}
+```
+
+### Klonen des Projektes
+
+Um das Projekt Klonen und weiterentwicklen zu können, muss dieses lediglich über
+GitKraken geklont werden. Nach dem Klonen kann das Projekt über VSCode geöffnet
+werden und die Abhänigkeiten über die Konsole mit dem Befehl `npm install`
+installiert werden. Nun kann die Anwendung mit dem Befehl `ng serve -o`
+ausgeführt werden.
+
+## Angular CLI und Skript Befehle
+
+* Ausführen der Anwendung: `ng serve`
+* Generierung neuer Components/Pipes etc: `ng g <typ> <name>`
+* Bauen der Anwendung als SPA: `ng build--prod`
+* Bauen der Anwendung als PWA: `npm run pwa`
+* Ausführen der Unit-Tests: `npm run test`
+* Ausführen der E2E-Tests: `ng e2e`
+* Generierung der Dokumentation: `npm run docs`
+* Generierung der Dokumentation: `npm run docs`
