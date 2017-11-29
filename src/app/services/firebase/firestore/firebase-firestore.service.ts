@@ -8,6 +8,7 @@ import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
 import { User } from '../../../classes/user';
+import { Upload } from '../../../classes/upload';
 
 /**
  * Ein Service für die Kommunikation mit der Firebase Datenbank
@@ -35,7 +36,9 @@ export class FirebaseFirestoreService {
       user = new User(user);
     }
     if (user.photographerUrl) {
-      this.afs.doc(`photographerUrls/${user.photographerUrl}`).set({ uid: user.uid });
+      this.afs
+        .doc(`photographerUrls/${user.photographerUrl}`)
+        .set({ uid: user.uid });
     }
     return userRef.set(JSON.parse(JSON.stringify(user)));
   }
@@ -62,5 +65,11 @@ export class FirebaseFirestoreService {
       ref => ref.where('photographerUid', '==', uid)
     );
     return eventRef;
+  }
+
+  saveFileData(upload: Upload) {
+    // this.afs
+    //   .doc(`events/${upload.event}/pictures`)
+    //   .add(JSON.parse(JSON.stringify(upload)));
   }
 }

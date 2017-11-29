@@ -10,7 +10,7 @@
 
 <ng-template #userTmpl>
   <!-- Nav tabs -->
-  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="''">
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="'card'">
     <!--Events -->
     <mdb-tab heading="Käufe">
       <div class="row">
@@ -37,7 +37,7 @@
     </a>
   </div>
   <!-- Nav tabs -->
-  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="''">
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="'card'">
     <!--Events -->
     <mdb-tab heading="Events">
       <div class="row">
@@ -233,6 +233,19 @@
           <input mdbActive type="text" class="form-control" name="event_date" [(ngModel)]="eventEdit.date">
           <label for="form19">Datum</label>
         </div>
+
+        <div class="file-field">
+          <div class="btn btn-primary btn-sm waves-light" mdbRippleRadius>
+            <span>Bilder auswählen</span>
+            <input type="file" mdbFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path" type="text" placeholder="Upload your file" [value]="showFiles()">
+          </div>
+        </div>
+
+
+
 
 
         <div class="text-center mt-1-half">
