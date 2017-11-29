@@ -1,8 +1,9 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Log } from 'ng2-logger';
 
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
-import { Log } from 'ng2-logger';
+import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -27,7 +28,11 @@ export class SignupPageComponent implements OnInit {
   @ViewChild('formUser') formUser: TemplateRef<any>;
   @ViewChild('formPhotographer') formPhotographer: TemplateRef<any>;
 
-  constructor(private auth: FirebaseAuthService, private router: Router) {}
+  constructor(
+    private auth: FirebaseAuthService,
+    private afs: FirebaseFirestoreService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.template = this.formUser;
@@ -100,7 +105,7 @@ export class SignupPageComponent implements OnInit {
       this.auth.user.subscribe(user => {
         user.roles.photographer = true;
         user.roles.user = false;
-        this.auth.updateUserData(user).then(() => {
+        this.afs.updateUserData(user).then(() => {
           this.router.navigate(['dashboard']);
         });
       });
