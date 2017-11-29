@@ -68,11 +68,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     MDBBootstrapModules.forRoot(),
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
-  })
+    })
   ],
   providers: [
     MDBSpinningPreloader,
@@ -83,6 +83,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     RoleGuard
   ],
   bootstrap: [AppComponent],
-  schemas: [ NO_ERRORS_SCHEMA ]
+  schemas: [NO_ERRORS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {}

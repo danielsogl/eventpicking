@@ -8,17 +8,18 @@ describe('FooterComponent', () => {
   let component: FooterComponent;
   let fixture: ComponentFixture<FooterComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot({
-          loader: {provide: TranslateLoader, useClass: FakeLoader},
-        })
-      ],
-      declarations: [ FooterComponent ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          TranslateModule.forRoot({
+            loader: { provide: TranslateLoader, useClass: FakeLoader }
+          })
+        ],
+        declarations: [FooterComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FooterComponent);
