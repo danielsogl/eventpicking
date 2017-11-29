@@ -34,9 +34,8 @@ export class FirebaseFirestoreService {
     if (!user.roles) {
       user = new User(user);
     }
-    if (user.shopurl) {
-      console.log('User has shopurl');
-      this.afs.doc(`shopurls/${user.shopurl}`).set({ uid: user.uid });
+    if (user.photographerUrl) {
+      this.afs.doc(`photographerUrls/${user.photographerUrl}`).set({ uid: user.uid });
     }
     return userRef.set(JSON.parse(JSON.stringify(user)));
   }
@@ -45,9 +44,9 @@ export class FirebaseFirestoreService {
     return this.afs.doc<User>(`users/${uid}`);
   }
 
-  checkDisplayname(shopUrl: string) {
-    shopUrl = shopUrl.toLowerCase();
-    return this.afs.doc(`shopurls/${shopUrl}`);
+  checkDisplayname(photographerUrl: string) {
+    photographerUrl = photographerUrl.toLowerCase();
+    return this.afs.doc(`photographerUrls/${photographerUrl}`);
   }
 
   getEvent(uid: string): AngularFirestoreDocument<Event> {

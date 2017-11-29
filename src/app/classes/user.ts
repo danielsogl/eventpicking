@@ -23,7 +23,7 @@ export class User {
   /**
    * display name
    */
-  shopurl?: string;
+  photographerUrl?: string;
 
   /**
    * user roles
@@ -49,7 +49,7 @@ export class User {
     this.uid = authData.uid;
     this.email = authData.email;
     this.photoURL = authData.photoURL;
-    this.shopurl = authData.shopurl;
+    this.photographerUrl = authData.photographerUrl;
     this.roles = { user: true, admin: false, photographer: false };
     this.adress = authData.adress;
     this.billingDetails = authData.billingDetails;

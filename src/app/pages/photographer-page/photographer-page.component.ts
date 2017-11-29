@@ -11,7 +11,7 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
   private log = Log.create('PhotographerPageComponent');
 
   private sub: any;
-  private shopurl: string;
+  private photographerUrl: string;
 
   constructor(private router: ActivatedRoute) {}
 
@@ -19,7 +19,7 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
     this.log.color = 'orange';
     this.log.d('Component initialized');
     this.sub = this.router.params.subscribe(params => {
-      this.shopurl = params['shopurl'];
+      this.photographerUrl = params['photographerUrl'];
     });
   }
 
