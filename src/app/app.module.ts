@@ -8,8 +8,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
-import { MDBSpinningPreloader } from 'ng-mdb-pro/pro/preloader/preloader.service';
+import { MDBBootstrapModules, MDBSpinningPreloader } from 'ng-mdb-pro';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';

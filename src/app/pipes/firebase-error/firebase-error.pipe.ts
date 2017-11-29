@@ -74,6 +74,9 @@ export class FirebaseErrorPipe implements PipeTransform {
       case 'auth/email-already-in-use':
         message = 'Email Adresse wird bereits verwendet';
         break;
+      default:
+        message = value;
+        break;
     }
     return message;
   }
