@@ -1,11 +1,21 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+import {
+  AngularFirestoreDocument,
+  AngularFirestoreCollection
+} from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+import { Log } from 'ng2-logger';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -13,6 +23,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent implements OnInit, OnDestroy {
+  private log = Log.create('DashboardPageComponent');
 
   public user: User;
   public fsEvents: any;
@@ -33,12 +44,17 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   @ViewChild('editEventModal') public editEventModal;
   @ViewChild('adminTmpl') adminTmpl: TemplateRef<any>;
 
-  constructor(private auth: FirebaseAuthService, private afs: FirebaseFirestoreService) { }
+  constructor(
+    private auth: FirebaseAuthService,
+    private afs: FirebaseFirestoreService
+  ) {}
 
   ngOnInit() {
+    this.log.color = 'orange';
+    this.log.d('Component initialized');
     this.optionsSelect = [
       { value: 'male', label: 'Frau' },
-      { value: 'female', label: 'Herr' },
+      { value: 'female', label: 'Herr' }
     ];
     this.template = this.loadingTmpl;
     this.auth.user.subscribe((user: any) => {
@@ -65,15 +81,16 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 
   createNewEvent() {
     this.newEvent.photographerUid = this.auth.getCurrentFirebaseUser().uid;
-    this.eventDocs.add(JSON.parse(JSON.stringify(this.newEvent))).then(event => {
-      console.log('New Event', event);
-      this.newEvent = new Event('');
-    });
+    this.eventDocs
+      .add(JSON.parse(JSON.stringify(this.newEvent)))
+      .then(event => {
+        console.log('New Event', event);
+        this.newEvent = new Event('');
+      });
   }
 
   editEvent(event: Event) {
@@ -83,7 +100,9 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   updateEvent() {
-    this.eventDocs.doc(this.eventEdit.id).update(JSON.parse(JSON.stringify(this.eventEdit)));
+    this.eventDocs
+      .doc(this.eventEdit.id)
+      .update(JSON.parse(JSON.stringify(this.eventEdit)));
     this.eventEdit = null;
     this.editEventModal.hide();
   }
@@ -93,5 +112,4 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.eventEdit = null;
     this.editEventModal.hide();
   }
-
 }

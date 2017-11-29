@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Log } from 'ng2-logger';
 
 /**
  * Some utility functions in one service
@@ -6,7 +7,10 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class UtilityService {
+  private log = Log.create('UtilityService');
 
-  constructor() { }
-
+  constructor() {
+    this.log.color = 'green';
+    this.log.d('Service injected');
+  }
 }

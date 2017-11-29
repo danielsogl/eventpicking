@@ -1,6 +1,10 @@
-import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
+import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
 
@@ -10,20 +14,28 @@ import { Event } from '../../../classes/event';
  */
 @Injectable()
 export class FirebaseFirestoreService {
+  private log = Log.create('FirebaseFirestoreService');
 
   /**
    * @param  {AngularFirestore} afs AngularFire Datenbank
    */
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore) {
+    this.log.color = 'green';
+    this.log.d('Service injected');
+  }
 
   getEvent(uid: string): AngularFirestoreDocument<Event> {
-    const eventRef: AngularFirestoreDocument<Event> = this.afs.doc(`events/${uid}`);
+    const eventRef: AngularFirestoreDocument<Event> = this.afs.doc(
+      `events/${uid}`
+    );
     return eventRef;
   }
 
   getPhotographerEvents(uid: string): AngularFirestoreCollection<Event[]> {
-    const eventRef: AngularFirestoreCollection<Event[]> = this.afs.collection('events', ref => ref.where('photographerUid', '>=', uid));
+    const eventRef: AngularFirestoreCollection<Event[]> = this.afs.collection(
+      'events',
+      ref => ref.where('photographerUid', '>=', uid)
+    );
     return eventRef;
   }
-
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
+import { Log } from 'ng2-logger';
 
 @Component({
   selector: 'app-signup-page',
@@ -9,6 +10,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
   styleUrls: ['./signup-page.component.scss']
 })
 export class SignupPageComponent implements OnInit {
+  private log = Log.create('SignupPageComponent');
 
   public email: string;
   public password: string;
@@ -16,15 +18,21 @@ export class SignupPageComponent implements OnInit {
 
   public template: TemplateRef<any>;
 
-  public error: {name: string, message: string, code: string} = {name: '', message: '', code: ''};
+  public error: { name: string; message: string; code: string } = {
+    name: '',
+    message: '',
+    code: ''
+  };
 
   @ViewChild('formUser') formUser: TemplateRef<any>;
   @ViewChild('formPhotographer') formPhotographer: TemplateRef<any>;
 
-  constructor(private auth: FirebaseAuthService, private router: Router) { }
+  constructor(private auth: FirebaseAuthService, private router: Router) {}
 
   ngOnInit() {
     this.template = this.formUser;
+    this.log.color = 'orange';
+    this.log.d('Component initialized');
   }
 
   switchForms() {
@@ -36,43 +44,55 @@ export class SignupPageComponent implements OnInit {
   }
 
   signupWithCredentials() {
-    this.auth.register(this.email, this.password).then(() => {
-      console.log('Singed in with Email and password');
-      this.updateUser();
-    }).catch(err => {
-      this.error = err;
-      console.log('error', err);
-    });
+    this.auth
+      .register(this.email, this.password)
+      .then(() => {
+        console.log('Singed in with Email and password');
+        this.updateUser();
+      })
+      .catch(err => {
+        this.error = err;
+        console.log('error', err);
+      });
   }
 
   loginWithGoogle() {
-    this.auth.signInWithGoogle().then(() => {
-      console.log('Singed in with Google');
-      this.updateUser();
-    }).catch(err => {
-      this.error = err;
-      console.log('error', err);
-    });
+    this.auth
+      .signInWithGoogle()
+      .then(() => {
+        console.log('Singed in with Google');
+        this.updateUser();
+      })
+      .catch(err => {
+        this.error = err;
+        console.log('error', err);
+      });
   }
 
   loginWithFacebook() {
-    this.auth.signInWithFacebook().then(() => {
-      console.log('Singed in with Facebook');
-      this.updateUser();
-    }).catch(err => {
-      this.error = err;
-      console.log('error', err);
-    });
+    this.auth
+      .signInWithFacebook()
+      .then(() => {
+        console.log('Singed in with Facebook');
+        this.updateUser();
+      })
+      .catch(err => {
+        this.error = err;
+        console.log('error', err);
+      });
   }
 
   loginWithTwitter() {
-    this.auth.signInWithTwitter().then(() => {
-      console.log('Singed in with twitter');
-      this.updateUser();
-    }).catch(err => {
-      this.error = err;
-      console.log('error', err);
-    });
+    this.auth
+      .signInWithTwitter()
+      .then(() => {
+        console.log('Singed in with twitter');
+        this.updateUser();
+      })
+      .catch(err => {
+        this.error = err;
+        console.log('error', err);
+      });
   }
 
   updateUser() {
@@ -88,5 +108,4 @@ export class SignupPageComponent implements OnInit {
       this.router.navigate(['dashboard']);
     }
   }
-
 }

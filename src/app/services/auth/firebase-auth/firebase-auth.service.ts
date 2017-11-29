@@ -6,12 +6,16 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../../classes/user';
+import { Log } from 'ng2-logger';
 
 /**
  * A service to authenticate with the firebase services
@@ -19,6 +23,7 @@ import { User } from '../../../classes/user';
  */
 @Injectable()
 export class FirebaseAuthService {
+  private log = Log.create('FirebaseAuthService');
   /**
    * Firebase user
    */
@@ -38,6 +43,8 @@ export class FirebaseAuthService {
     private afs: AngularFirestore,
     private router: Router
   ) {
+    this.log.color = 'green';
+    this.log.d('Service injected');
     this.user = this.afAuth.authState.switchMap(user => {
       if (user) {
         return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
