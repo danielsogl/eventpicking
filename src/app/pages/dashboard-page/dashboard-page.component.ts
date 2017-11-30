@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
@@ -66,8 +60,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
           this.template = this.userTmpl;
         } else {
           this.template = this.photographerTmpl;
-          // Load Events
-          this.log.d('Load events');
           this.eventDocs = this.afs.getPhotographerEvents(this.user.uid);
           this.events = this.eventDocs.snapshotChanges().map((events: any) => {
             return events.map(event => {
@@ -90,13 +82,21 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.eventDocs
       .add(JSON.parse(JSON.stringify(this.newEvent)))
       .then(event => {
-        if (!this.user.events) {
-          this.user.events = [];
-          this.user.events.push(event.id);
-        } else {
-          this.user.events.push(event.id);
-        }
-        this.afs.updateUserData(this.user);
+        // if (!this.user.events) {
+        //   this.user.events = [];
+        //   this.user.events.push(event.id);
+        // } else {
+        //   this.user.events.push(event.id);
+        // }
+        this.afs
+          .getUser(this.user.uid)
+          .collection(`events`)
+          .doc(event.id)
+          .set(JSON.parse(JSON.stringify({ id: event.id })))
+          .then(res => {
+            this.log.d('Added event to events user collection');
+          });
+        // this.afs.updateUserData(this.user);
         this.newEvent = new Event('');
       })
       .catch(err => {

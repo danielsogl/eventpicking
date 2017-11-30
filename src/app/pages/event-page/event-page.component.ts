@@ -21,7 +21,73 @@ export class EventPageComponent implements OnInit, OnDestroy {
 
   public event: Observable<Event>;
   public user: User;
-  public isOwner: boolean;
+  public isOwner = false;
+
+  images = [
+    {
+      img:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg',
+      thumb:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg',
+      description: 'Image 1'
+    },
+    {
+      img:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg',
+      thumb:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg',
+      description: 'Image 2'
+    },
+    {
+      img:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg',
+      thumb:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg',
+      description: 'Image 3'
+    },
+    {
+      img:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg',
+      thumb:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg',
+      description: 'Image 4'
+    },
+    {
+      img:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg',
+      thumb:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg',
+      description: 'Image 5'
+    },
+    {
+      img:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg',
+      thumb:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg',
+      description: 'Image 6'
+    },
+    {
+      img:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg',
+      thumb:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg',
+      description: 'Image 7'
+    },
+    {
+      img:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg',
+      thumb:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg',
+      description: 'Image 8'
+    },
+    {
+      img:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg',
+      thumb:
+        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg',
+      description: 'Image 9'
+    }
+  ];
 
   constructor(
     private router: ActivatedRoute,
@@ -36,24 +102,26 @@ export class EventPageComponent implements OnInit, OnDestroy {
       this.id = params['id'];
       this.log.d('Event ID', this.id);
       if (this.id) {
-        this.auth.user.subscribe((user: any) => {
-          this.user = user;
-          this.afs
-            .getEvent(this.id)
-            .valueChanges()
-            .subscribe((event: any) => {
-              this.event = event;
-              this.log.d('Event data', this.event);
-              if (
-                this.user.roles.photographer &&
-                this.user.events.includes(this.id)
-              ) {
-                this.isOwner = true;
-                this.log.d('Photographer is owner of this event');
-              } else {
-                this.log.d('Photographer is not the owner of this event');
-              }
-            });
+        this.event = this.afs.getEvent(this.id).valueChanges();
+
+        this.event.subscribe(event => {
+          this.log.d('Event data', event);
+          this.auth.user.subscribe((user: any) => {
+            if (user) {
+              this.user = user;
+              this.afs
+                .getPhotographerEventsFromProfile(this.user.uid)
+                .valueChanges()
+                .subscribe(data => {
+                  if (data.filter((e: any) => e.id === this.id).length > 0) {
+                    this.isOwner = true;
+                    this.log.d('Photographer is owner of this event');
+                  } else {
+                    this.log.d('Photographer is not the owner of this event');
+                  }
+                });
+            }
+          });
         });
       }
     });

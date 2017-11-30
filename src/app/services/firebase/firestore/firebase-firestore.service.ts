@@ -46,6 +46,13 @@ export class FirebaseFirestoreService {
     return this.afs.doc<User>(`users/${uid}`);
   }
 
+  getPhotographerByUrl(url: string) {
+    const shopUrlDoc: AngularFirestoreDocument<any> = this.afs.doc(
+      `/photographerUrls/${url}`
+    );
+    return shopUrlDoc;
+  }
+
   checkDisplayname(photographerUrl: string) {
     photographerUrl = photographerUrl.toLowerCase();
     return this.afs.doc(`photographerUrls/${photographerUrl}`);
@@ -64,6 +71,10 @@ export class FirebaseFirestoreService {
       ref => ref.where('photographerUid', '==', uid)
     );
     return eventRef;
+  }
+
+  getPhotographerEventsFromProfile(uid: string) {
+    return this.afs.doc(`users/${uid}`).collection('events');
   }
 
   saveFileData(upload: Upload) {

@@ -1,5 +1,46 @@
 <div class="row mt-5 pt-5">
-    <div class="col text-center">
-      <h1>Event Page</h1>
+  <div class="col text-center">
+    <!-- Nav tabs -->
+    <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 indigo'" [contentClass]="''" *ngIf="isOwner">
+      <mdb-tab heading="<i class='fa fa-picture-o'></i> Gallerie">
+        <div class="row">
+          <div class="col-12">
+            <br>
+            <mdb-image-modal [modalImages]="images" type="margin"></mdb-image-modal>
+          </div>
+        </div>
+      </mdb-tab>
+      <mdb-tab heading="<i class='fa fa-upload'></i> Bilder Verwalten">
+        <div class="row">
+          <div class="col-12">
+            <br>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </mdb-tab>
+    </mdb-tabset>
+
+    <div class="row" *ngIf="!isOwner">
+      <mdb-image-modal [modalImages]="images" type="margin"></mdb-image-modal>
     </div>
+
   </div>
+</div>
