@@ -1,12 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as _ from 'lodash';
+import {
+  humanizeBytes,
+  UploadFile,
+  UploadInput,
+  UploadOutput
+} from 'ng-mdb-pro/pro/file-input';
 import { Log } from 'ng2-logger';
-import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
+import { Upload } from '../../classes/upload';
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 
 @Component({
   selector: 'app-event-page',
@@ -19,79 +27,22 @@ export class EventPageComponent implements OnInit, OnDestroy {
   private sub: any;
   private id: string;
 
-  public event: Observable<Event>;
+  public event: Event;
+
+  public images: any[] = [];
+
   public user: User;
   public isOwner = false;
 
-  images = [
-    {
-      img:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg',
-      thumb:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg',
-      description: 'Image 1'
-    },
-    {
-      img:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg',
-      thumb:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg',
-      description: 'Image 2'
-    },
-    {
-      img:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg',
-      thumb:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg',
-      description: 'Image 3'
-    },
-    {
-      img:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg',
-      thumb:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg',
-      description: 'Image 4'
-    },
-    {
-      img:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg',
-      thumb:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg',
-      description: 'Image 5'
-    },
-    {
-      img:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg',
-      thumb:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg',
-      description: 'Image 6'
-    },
-    {
-      img:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg',
-      thumb:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg',
-      description: 'Image 7'
-    },
-    {
-      img:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg',
-      thumb:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg',
-      description: 'Image 8'
-    },
-    {
-      img:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg',
-      thumb:
-        'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg',
-      description: 'Image 9'
-    }
-  ];
+  public formData: FormData;
+
+  public selectedFiles: FileList;
+  public currentUpload: Upload;
 
   constructor(
     private router: ActivatedRoute,
     private afs: FirebaseFirestoreService,
+    private storage: FirebaseStorageService,
     private auth: FirebaseAuthService
   ) {}
 
@@ -102,32 +53,69 @@ export class EventPageComponent implements OnInit, OnDestroy {
       this.id = params['id'];
       this.log.d('Event ID', this.id);
       if (this.id) {
-        this.event = this.afs.getEvent(this.id).valueChanges();
+        this.afs
+          .getEvent(this.id)
+          .valueChanges()
+          .subscribe(event => {
+            this.event = event;
+            this.log.d('Event data', this.event);
 
-        this.event.subscribe(event => {
-          this.log.d('Event data', event);
-          this.auth.user.subscribe((user: any) => {
-            if (user) {
-              this.user = user;
-              this.afs
-                .getPhotographerEventsFromProfile(this.user.uid)
-                .valueChanges()
-                .subscribe(data => {
-                  if (data.filter((e: any) => e.id === this.id).length > 0) {
-                    this.isOwner = true;
-                    this.log.d('Photographer is owner of this event');
-                  } else {
-                    this.log.d('Photographer is not the owner of this event');
-                  }
-                });
-            }
+            this.afs
+              .getEventPictures(event.id)
+              .valueChanges()
+              .subscribe(images => {
+                this.log.d('images', images);
+              });
+
+            this.auth.user.subscribe((user: any) => {
+              if (user) {
+                this.user = user;
+                this.afs
+                  .getPhotographerEventsFromProfile(this.user.uid)
+                  .valueChanges()
+                  .subscribe(data => {
+                    if (data.filter((e: any) => e.id === this.id).length > 0) {
+                      this.isOwner = true;
+                      this.log.d('Photographer is owner of this event');
+                    } else {
+                      this.log.d('Photographer is not the owner of this event');
+                    }
+                  });
+              }
+            });
           });
-        });
       }
     });
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  detectFiles(event) {
+    this.selectedFiles = event.target.files;
+  }
+
+  uploadMulti() {
+    const files = this.selectedFiles;
+    const filesIndex = _.range(files.length);
+    _.each(filesIndex, idx => {
+      this.currentUpload = new Upload(files[idx]);
+      this.currentUpload.event = this.id;
+      this.storage.pushUpload(this.user.uid, this.currentUpload);
+    });
+  }
+
+  showFiles() {
+    let files = '';
+    if (this.selectedFiles) {
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        files += this.selectedFiles[i].name;
+        if (!(this.selectedFiles.length - 1 === i)) {
+          files += ', ';
+        }
+      }
+    }
+    return files;
   }
 }

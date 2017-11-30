@@ -77,9 +77,36 @@ export class FirebaseFirestoreService {
     return this.afs.doc(`users/${uid}`).collection('events');
   }
 
-  saveFileData(upload: Upload) {
+  setPictureData(upload: Upload) {
     // this.afs
-    //   .doc(`events/${upload.event}/pictures`)
-    //   .add(JSON.parse(JSON.stringify(upload)));
+    //   .collection('events')
+    //   .doc(upload.event)
+    //   .collection('images')
+    //   .add(
+    //     JSON.parse(
+    //       JSON.stringify({
+    //         img_thumb: upload.url,
+    //         img_preview: upload.url
+    //       })
+    //     )
+    //   );
+    this.afs
+      .collection('events')
+      .doc(upload.event)
+      .collection('images_original')
+      .add(
+        JSON.parse(
+          JSON.stringify({
+            img: upload.url
+          })
+        )
+      );
+  }
+
+  getEventPictures(event: string) {
+    return this.afs
+      .collection('events')
+      .doc(event)
+      .collection('images');
   }
 }

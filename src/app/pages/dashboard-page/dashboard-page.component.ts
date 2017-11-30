@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
@@ -82,12 +88,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.eventDocs
       .add(JSON.parse(JSON.stringify(this.newEvent)))
       .then(event => {
-        // if (!this.user.events) {
-        //   this.user.events = [];
-        //   this.user.events.push(event.id);
-        // } else {
-        //   this.user.events.push(event.id);
-        // }
         this.afs
           .getUser(this.user.uid)
           .collection(`events`)
@@ -96,7 +96,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
           .then(res => {
             this.log.d('Added event to events user collection');
           });
-        // this.afs.updateUserData(this.user);
         this.newEvent = new Event('');
       })
       .catch(err => {

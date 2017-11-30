@@ -21,26 +21,29 @@ export class FirebaseStorageService {
     this.log.d('Service injected');
   }
 
-  pushUpload(upload: Upload) {
+  getEventPictures(uid: string, event: string) {
+    const storageRef = firebase.storage().ref();
+    return storageRef.child(`events/${uid}/${event}/public/`);
+  }
+
+  pushUpload(uid: string, upload: Upload) {
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef
-      .child(`events/${upload.event}/${upload.file.name}`)
+      .child(`events/${uid}/${upload.event}/originals/${upload.file.name}`)
       .put(upload.file);
     uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot: any) => {
-        // upload in progress
         upload.progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
       },
-      error => {
-        // upload failed
-        console.log(error);
+      err => {
+        this.log.er('Image upload error', err);
       },
       () => {
-        // upload success
+        this.log.d('Image uploaded successful');
         upload.url = uploadTask.snapshot.downloadURL;
         upload.name = upload.file.name;
-        this.afs.saveFileData(upload);
+        this.afs.setPictureData(upload);
       }
     );
   }
