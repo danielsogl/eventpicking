@@ -27,8 +27,7 @@ export class FirebaseFirestoreService {
   }
 
   updateUserData(user: any): Promise<void> {
-    console.log('USer to safe into the db', user);
-    // Sets user data to firestore on login
+    this.log.d('Update user in firestore', user);
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );

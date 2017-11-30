@@ -40,7 +40,7 @@ export class User {
    */
   billingDetails: BillingDetails;
 
-  events: Event[];
+  events: string[];
 
   /**
    * @param  {any} authData firebase user
