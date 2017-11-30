@@ -61,10 +61,11 @@ export class EventPageComponent implements OnInit, OnDestroy {
             this.log.d('Event data', this.event);
 
             this.afs
-              .getEventPictures(event.id)
+              .getEventPictures(this.id)
               .valueChanges()
               .subscribe(images => {
                 this.log.d('images', images);
+                this.images = images;
               });
 
             this.auth.user.subscribe((user: any) => {
