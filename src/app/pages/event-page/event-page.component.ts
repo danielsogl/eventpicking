@@ -1,12 +1,6 @@
-import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
-import {
-  humanizeBytes,
-  UploadFile,
-  UploadInput,
-  UploadOutput
-} from 'ng-mdb-pro/pro/file-input';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../classes/event';
@@ -34,8 +28,6 @@ export class EventPageComponent implements OnInit, OnDestroy {
   public user: User;
   public isOwner = false;
 
-  public formData: FormData;
-
   public selectedFiles: FileList;
   public currentUpload: Upload;
 
@@ -61,10 +53,11 @@ export class EventPageComponent implements OnInit, OnDestroy {
             this.log.d('Event data', this.event);
 
             this.afs
-              .getEventPictures(event.id)
+              .getEventPictures(this.id)
               .valueChanges()
               .subscribe(images => {
                 this.log.d('images', images);
+                this.images = images;
               });
 
             this.auth.user.subscribe((user: any) => {

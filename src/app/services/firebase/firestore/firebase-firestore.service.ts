@@ -78,25 +78,14 @@ export class FirebaseFirestoreService {
   }
 
   setPictureData(upload: Upload) {
-    // this.afs
-    //   .collection('events')
-    //   .doc(upload.event)
-    //   .collection('images')
-    //   .add(
-    //     JSON.parse(
-    //       JSON.stringify({
-    //         img_thumb: upload.url,
-    //         img_preview: upload.url
-    //       })
-    //     )
-    //   );
     this.afs
       .collection('events')
       .doc(upload.event)
-      .collection('images_original')
+      .collection('originals')
       .add(
         JSON.parse(
           JSON.stringify({
+            name: upload.name,
             img: upload.url
           })
         )
@@ -107,6 +96,6 @@ export class FirebaseFirestoreService {
     return this.afs
       .collection('events')
       .doc(event)
-      .collection('images');
+      .collection('public');
   }
 }
