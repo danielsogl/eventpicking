@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../classes/event';
+import { PHOTOGRAPHER } from '../photographer-page/photographer-mock';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { User } from '../../classes/user';
 
 @Component({
   selector: 'app-photographer-page',
@@ -14,8 +16,10 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
   private log = Log.create('PhotographerPageComponent');
 
   private sub: any;
-  private photographerUrl: string;
 
+  public photographer: User = PHOTOGRAPHER;
+
+  private photographerUrl: string;
   public events: Event[];
 
   constructor(

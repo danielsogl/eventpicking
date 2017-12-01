@@ -1,5 +1,48 @@
 <div class="row mt-5 pt-5">
+  <div class="col text-center">
     <div class="col text-center">
-      <h1>Photographer Page</h1>
+      <div *ngIf="photographer.uid">
+        <div class="author-box">
+          <!--Name-->
+          <h3 class="h3-responsive text-center">About {{photographer.name}} {{photographer.lastname}}
+          </h3>
+          <hr>
+          <div class="row">
+            <!--Avatar-->
+            <div class="col-12 col-sm-2">
+              <img src="{{photographer.photoURL}}" alt="Bild nicht verfügbar" class="img-fluid rounded-circle z-depth-2">
+            </div>
+            <!--Author Data-->
+            <div class=" col-12 col-sm-10">
+              <p>
+                <strong>{{photographer.email}}</strong>
+              </p>
+              <div class="personal-sm">
+                <a class="email-ic" href="{{photographer.sovialNetworks.website}}">
+                  <i class="fa fa-home"> </i>
+                </a>
+                <a class="fb-ic" href="{{photographer.sovialNetworks.facebook}}">
+                  <i class="fa fa-facebook"> </i>
+                </a>
+                <a class="tw-ic" href="{{photographer.sovialNetworks.twitter}}">
+                  <i class="fa fa-twitter"> </i>
+                </a>
+                <a class="ins-ic" href="{{photographer.sovialNetworks.instagram}}">
+                  <i class="fa fa-instagram"> </i>
+                </a>
+              </div>
+              <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+              </p>
+              <p class="hidden-md-down">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint esse nulla quia quam veniam commodi dicta, iusto
+                inventore. Voluptatum pariatur eveniet ea, officiis vitae praesentium beatae quas libero, esse facere.
+              </p>
+              <p class="hidden-md-down">{{photographer.salutation}} {{photographer.name}} {{photographer.lastname}}
+                <br/>{{photographer.adress.street}} {{photographer.adress.street_number}} {{photographer.adress.zip}} {{photographer.adress.city}}</p>
+            </div>
+          </div>
+        </div>
+        <!--/.Author box-->
+        <br/>
+      </div>
     </div>
   </div>
