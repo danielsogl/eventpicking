@@ -53,10 +53,10 @@ exports.transformImage = functions.storage
           sharp(tempFilePath)
             .resize(size, null)
             .toFile(newFileTemp, (err, info) => {
-              return bucket.upload(newFileTemp, {
+              bucket.upload(newFileTemp, {
                 destination: newFilePath
               });
             });
         });
-      });
+      })
   });

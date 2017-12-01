@@ -61,6 +61,26 @@
         <div class="row">
           <div class="col-12">
             <br>
+            <form>
+              <div class="md-form">
+                <input mdbActive type="text" class="form-control" name="event_name" [(ngModel)]="event.name" required>
+                <label for="form2">Event Name</label>
+              </div>
+              <div class="md-form">
+                <input mdbActive type="text" class="form-control" name="event_name" required>
+                <label for="form2">Preis pro Bild</label>
+              </div>
+              <div class="md-form">
+                <input mdbActive type="text" class="form-control" name="event_name" required>
+                <label for="form2">Preis für gesamtes Event</label>
+              </div>
+              <div class="md-form">
+                <div class="form-group">
+                  <input type="checkbox" class="filled-in" id="checkbox2">
+                  <label for="checkbox2">Veröffentlicht</label>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </mdb-tab>

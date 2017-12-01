@@ -89,42 +89,46 @@
               <mdb-select [options]="optionsSelect" placeholder="Anrede"></mdb-select>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <input mdbActive type="text" class="form-control" id="input_email" name="name" [(ngModel)]="user.name">
               <label for="email" class="">Vorname</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <input mdbActive type="text" class="form-control" id="input_email" name="lastname" [(ngModel)]="user.lastname">
               <label for="email" class="">Nachname</label>
             </div>
             <h5>Kontaktdaten</h5>
             <hr>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <input mdbActive type="text" class="form-control" id="input_email" name="street" [(ngModel)]="user.adress.street">
               <label for="email" class="">Straße</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <input mdbActive type="text" class="form-control" id="input_email" name="city" [(ngModel)]="user.adress.city">
               <label for="email" class="">Stadt</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <input mdbActive type="text" class="form-control" id="input_email" name="zip" [(ngModel)]="user.adress.zip">
               <label for="email" class="">PLZ</label>
             </div>
             <h5>Soziale Netzwerke</h5>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <input mdbActive type="text" class="form-control" id="input_email" name="homepage" [(ngModel)]="user.sovialNetworks.website">
+              <label for="email" class="">Homepage</label>
+            </div>
+            <div class="md-form">
+              <input mdbActive type="text" class="form-control" id="input_email" name="facebook" [(ngModel)]="user.sovialNetworks.facebook">
               <label for="email" class="">Facebook</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <input mdbActive type="text" class="form-control" id="input_email" name="twitter" [(ngModel)]="user.sovialNetworks.twitter">
               <label for="email" class="">Twitter</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <input mdbActive type="text" class="form-control" id="input_email" name="instagram" [(ngModel)]="user.sovialNetworks.instagram">
               <label for="email" class="">Instagram</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="email">
+              <input mdbActive type="text" class="form-control" id="input_email" name="tumbler" [(ngModel)]="user.sovialNetworks.twitter">
               <label for="email" class="">Tumbler</label>
             </div>
             <hr>
