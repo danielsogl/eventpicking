@@ -96,42 +96,44 @@
               <input mdbActive type="text" class="form-control" id="input_email" name="lastname" [(ngModel)]="user.lastname">
               <label for="email" class="">Nachname</label>
             </div>
-            <h5>Kontaktdaten</h5>
+            <h5>Rechnungsadresse</h5>
             <hr>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="street" [(ngModel)]="user.adress.street">
+              <input mdbActive type="text" class="form-control" id="input_email" name="street" [(ngModel)]="user.street">
               <label for="email" class="">Straße</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="city" [(ngModel)]="user.adress.city">
+              <input mdbActive type="text" class="form-control" id="input_email" name="city" [(ngModel)]="user.city">
               <label for="email" class="">Stadt</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="zip" [(ngModel)]="user.adress.zip">
+              <input mdbActive type="text" class="form-control" id="input_email" name="zip" [(ngModel)]="user.zip">
               <label for="email" class="">PLZ</label>
             </div>
             <h5>Soziale Netzwerke</h5>
+            <hr>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="homepage" [(ngModel)]="user.sovialNetworks.website">
+              <input mdbActive type="text" class="form-control" id="input_email" name="homepage" [(ngModel)]="photographerProfile.website">
               <label for="email" class="">Homepage</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="facebook" [(ngModel)]="user.sovialNetworks.facebook">
+              <input mdbActive type="text" class="form-control" id="input_email" name="facebook" [(ngModel)]="photographerProfile.facebook">
               <label for="email" class="">Facebook</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="twitter" [(ngModel)]="user.sovialNetworks.twitter">
+              <input mdbActive type="text" class="form-control" id="input_email" name="twitter" [(ngModel)]="photographerProfile.twitter">
               <label for="email" class="">Twitter</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="instagram" [(ngModel)]="user.sovialNetworks.instagram">
+              <input mdbActive type="text" class="form-control" id="input_email" name="instagram" [(ngModel)]="photographerProfile.instagram">
               <label for="email" class="">Instagram</label>
             </div>
             <div class="md-form">
-              <input mdbActive type="text" class="form-control" id="input_email" name="tumbler" [(ngModel)]="user.sovialNetworks.twitter">
+              <input mdbActive type="text" class="form-control" id="input_email" name="tumbler" [(ngModel)]="photographerProfile.tumbler">
               <label for="email" class="">Tumbler</label>
             </div>
             <hr>
+            <button type="button" class="btn btn-light-blue btn-lg btn-block waves-light" (click)="updateProfile()" mdbRippleRadius>Speichern</button>
           </form>
         </div>
       </div>
