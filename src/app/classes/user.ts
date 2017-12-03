@@ -38,7 +38,7 @@ export class User {
   city: string;
   zip: string;
   phone: string;
-
+  stripeId: string;
   /**
    * @param  {any} authData firebase user
    */
@@ -56,5 +56,6 @@ export class User {
     this.street = authData.street;
     this.city = authData.city;
     this.zip = authData.zip;
+    this.stripeId = authData.stripeId;
   }
 }
