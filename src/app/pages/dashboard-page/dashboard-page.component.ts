@@ -114,6 +114,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   createNewEvent() {
     this.newEvent.photographerUid = this.auth.getCurrentFirebaseUser().uid;
+    this.newEvent.public = false;
     this.eventDocs
       .add(JSON.parse(JSON.stringify(this.newEvent)))
       .then(event => {

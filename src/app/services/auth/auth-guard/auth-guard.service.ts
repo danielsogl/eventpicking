@@ -14,7 +14,7 @@ import { FirebaseAuthService } from '../firebase-auth/firebase-auth.service';
 import { Log } from 'ng2-logger';
 
 /**
- * Prüft ob ein Nutzer angemeldet ist
+ * Auth Guard for Firebase Authentication State
  * @author Daniel Sogl
  */
 @Injectable()
@@ -37,9 +37,10 @@ export class AuthGuard implements CanActivate {
     const user = this.auth.getCurrentFirebaseUser();
 
     if (user) {
+      this.log.d(`User can navigate to ${next.url.toString()}`);
       return true;
     } else {
-      this.log.er('User is not authenticated');
+      this.log.er(`User can not navigate to ${next.url.toString()}`);
       this.router.navigate(['login']);
       return false;
     }

@@ -10,7 +10,7 @@
 
 <ng-template #userTmpl>
   <!-- Nav tabs -->
-  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="'card'">
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 unique-color'" [contentClass]="'card'">
     <!--Events -->
     <mdb-tab heading="Käufe">
       <div class="row">
@@ -31,15 +31,17 @@
 </ng-template>
 
 <ng-template #photographerTmpl>
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-lg aqua-gradient waves-light" mdbRippleRadius (click)="createEventModal.show()">
-      <i class="fa fa-plus"></i>
-    </a>
-  </div>
   <!-- Nav tabs -->
-  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 aqua-gradient'" [contentClass]="'card'">
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 unique-color'" [contentClass]="'card'">
     <!--Events -->
     <mdb-tab heading="Events">
+
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-lg unique-color waves-light" mdbRippleRadius (click)="createEventModal.show()">
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+
       <div class="row">
         <div class="col-12">
           <br>
@@ -74,6 +76,15 @@
         <div class="col-12">
           <br>
           <h3 *ngIf="sales.length === 0">Noch keine Verkäufe</h3>
+        </div>
+      </div>
+    </mdb-tab>
+    <!--Abbo -->
+    <mdb-tab heading="Verkäufe">
+      <div class="row">
+        <div class="col-12">
+          <br>
+          <h1>Noch kein Abbo gekauft</h1>
         </div>
       </div>
     </mdb-tab>
@@ -153,9 +164,9 @@
     <div class="modal-content">
 
       <!--Header-->
-      <div class="modal-header aqua-gradient darken-3 white-text">
+      <div class="modal-header unique-color darken-3 white-text">
         <h4 class="title">
-          <i class="fa fa-calendar"></i> Event erstellen</h4>
+          <i class="fa fa-calendar"></i>Event erstellen</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="createEventModal.hide()">
           <span aria-hidden="true">×</span>
         </button>
@@ -181,21 +192,9 @@
           <label for="form19">Datum</label>
         </div>
 
-        <div class="form-group">
-          <label for="form19">Veröffentlichen</label>
-          <div class="switch">
-            <label>
-              Nein
-              <input type="checkbox" [(ngModel)]="newEvent.public">
-              <span class="lever"></span>
-              Ja
-            </label>
-          </div>
-        </div>
-
 
         <div class="text-center mt-1-half">
-          <button class="btn aqua-gradient mb-2 waves-light" mdbRippleRadius (click)="createNewEvent(); createEventModal.hide()">Event anlegen
+          <button class="btn unique-color mb-2 waves-light" mdbRippleRadius (click)="createNewEvent(); createEventModal.hide()">Event anlegen
             <i class="fa fa-plus ml-1"></i>
           </button>
         </div>

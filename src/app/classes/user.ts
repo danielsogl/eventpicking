@@ -1,8 +1,4 @@
-import { BillingDetails } from '../interfaces/billing-details';
-import { Adress } from '../interfaces/adress';
 import { UserRoles } from '../interfaces/user-roles';
-import { Event } from './event';
-import { SocialNetworkLinks } from '../interfaces/social-network-links';
 
 /**
  * Application User
