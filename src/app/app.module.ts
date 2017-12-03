@@ -62,7 +62,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     AngularFirestoreModule,
     MDBBootstrapModules.forRoot(),

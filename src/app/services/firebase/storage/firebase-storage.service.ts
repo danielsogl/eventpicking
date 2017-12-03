@@ -14,7 +14,7 @@ export class FirebaseStorageService {
   private log = Log.create('FirebaseStorageService');
 
   /**
-   * @param  {FirebaseApp} fbApp AngularFire Firebase App
+   * @param  {FirebaseFirestoreService} afs AngularFire Firebase App
    */
   constructor(private afs: FirebaseFirestoreService) {
     this.log.color = 'green';

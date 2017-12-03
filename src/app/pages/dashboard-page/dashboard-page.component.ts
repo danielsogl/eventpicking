@@ -6,15 +6,18 @@ import {
   ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFirestoreCollection } from 'angularfire2/firestore';
+import {
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
+import { PhotographerProfile } from '../../interfaces/photographer-page';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -34,6 +37,19 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   public eventEdit: Event;
   public newEvent: Event = new Event('');
   public template: TemplateRef<any>;
+  public photographerProfileDoc: AngularFirestoreDocument<PhotographerProfile>;
+  public photographerProfile: PhotographerProfile = {
+    about: '',
+    email: '',
+    facebook: '',
+    instagram: '',
+    name: '',
+    phone: '',
+    tumbler: '',
+    twitter: '',
+    uid: '',
+    website: ''
+  };
 
   @ViewChild('loadingTmpl') loadingTmpl: TemplateRef<any>;
   @ViewChild('userTmpl') userTmpl: TemplateRef<any>;
@@ -44,7 +60,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
-    private storage: FirebaseStorageService,
     private router: Router
   ) {}
 
@@ -66,6 +81,18 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
           this.template = this.userTmpl;
         } else {
           this.template = this.photographerTmpl;
+
+          this.photographerProfileDoc = this.afs.getPhotographerProfile(
+            this.user.uid
+          );
+
+          this.photographerProfileDoc.valueChanges().subscribe(profile => {
+            if (profile) {
+              this.photographerProfile = profile;
+              this.log.d('Photographer Profile', profile);
+            }
+          });
+
           this.eventDocs = this.afs.getPhotographerEvents(this.user.uid);
           this.events = this.eventDocs.snapshotChanges().map((events: any) => {
             return events.map(event => {
@@ -85,6 +112,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   createNewEvent() {
     this.newEvent.photographerUid = this.auth.getCurrentFirebaseUser().uid;
+    this.newEvent.public = false;
     this.eventDocs
       .add(JSON.parse(JSON.stringify(this.newEvent)))
       .then(event => {
@@ -105,5 +133,28 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   editEvent(event: Event) {
     this.router.navigate(['event', event.id]);
+  }
+
+  updateProfile() {
+    this.afs
+      .updateUserData(this.user)
+      .then(() => {
+        this.log.d('Updated user');
+      })
+      .catch(err => {
+        this.log.er('Could not update user data', err);
+      });
+    if (this.template === this.photographerTmpl) {
+      this.photographerProfile.uid = this.user.uid;
+      this.photographerProfile.name = `${this.user.name} ${this.user.lastname}`;
+      this.photographerProfileDoc
+        .set(this.photographerProfile)
+        .then(() => {
+          this.log.d('Updated photographer page data');
+        })
+        .catch(err => {
+          this.log.er('Could not update photographer page data', err);
+        });
+    }
   }
 }
