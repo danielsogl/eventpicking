@@ -15,10 +15,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
+import { PhotographerProfile } from '../../interfaces/photographer-page';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
-import { PhotographerProfile } from '../../interfaces/photographer-page';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -61,7 +60,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
-    private storage: FirebaseStorageService,
     private router: Router
   ) {}
 

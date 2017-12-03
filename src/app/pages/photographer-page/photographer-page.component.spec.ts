@@ -1,18 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { FakeLoader } from '../../../../jest-mocks/fake-loader';
-import { PhotographerPageComponent } from './photographer-page.component';
 import { AngularFireModule } from 'angularfire2';
-import { environment } from '../../../environments/environment';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
-import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import {
   AngularFirestore,
   AngularFirestoreModule
 } from 'angularfire2/firestore';
+
+import { FakeLoader } from '../../../../jest-mocks/fake-loader';
+import { environment } from '../../../environments/environment';
+import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
+import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
+import { PhotographerPageComponent } from './photographer-page.component';
 
 describe('PhotographerPageComponent', () => {
   let component: PhotographerPageComponent;
@@ -29,8 +30,9 @@ describe('PhotographerPageComponent', () => {
           })
         ],
         providers: [
-          AngularFireAuth,
           FirebaseAuthService,
+          AngularFireAuth,
+          FirebaseStorageService,
           FirebaseFirestoreService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
