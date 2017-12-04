@@ -18,6 +18,8 @@ import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-page';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
+import { StripeCheckoutComponent } from '../../components/stripe-checkout/stripe-checkout.component';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -56,6 +58,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   @ViewChild('photographerTmpl') photographerTmpl: TemplateRef<any>;
   @ViewChild('editEventModal') public editEventModal;
   @ViewChild('adminTmpl') adminTmpl: TemplateRef<any>;
+  @ViewChild('stripeModal') stripeModal: StripeCheckoutComponent;
 
   constructor(
     private auth: FirebaseAuthService,
@@ -156,5 +159,9 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
           this.log.er('Could not update photographer page data', err);
         });
     }
+  }
+
+  upgradeSubscription(membership: string) {
+    this.stripeModal.showModal();
   }
 }

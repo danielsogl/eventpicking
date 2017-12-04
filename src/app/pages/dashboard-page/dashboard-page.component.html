@@ -80,11 +80,151 @@
       </div>
     </mdb-tab>
     <!--Abbo -->
-    <mdb-tab heading="Verkäufe">
+    <mdb-tab heading="Abonnement">
       <div class="row">
         <div class="col-12">
           <br>
-          <h1>Noch kein Abbo gekauft</h1>
+
+
+
+
+          <!--Section: Pricing v.1-->
+          <section class="section pb-3">
+            <!--Section heading-->
+            <h1 class="section-heading h1 pt-4">Ihr aktueller Abonnement Plan:
+              <span *ngIf="user.subscription.membership === 'free'">FREE</span>
+              <span *ngIf="user.subscription.membership === 'basic'">BASIC</span>
+              <span *ngIf="user.subscription.membership === 'smart'">SMART</span>
+              <span *ngIf="user.subscription.membership === 'pro'">PRO</span>
+            </h1>
+            <hr>
+
+            <!--First row-->
+            <div class="row">
+
+              <!--First column-->
+              <div class="col-lg-4 col-md-12 mb-r">
+
+                <!--Pricing card-->
+                <div class="card pricing-card">
+                  <!--Price-->
+                  <div class="price header blue">
+                    <h1>25</h1>
+                    <div class="version">
+                      <h5>Basic</h5>
+                    </div>
+                  </div>
+                  <!--/.Price-->
+
+                  <!--Features-->
+                  <div class="card-body striped">
+                    <ul>
+                      <li>
+                        <p>
+                          <i class="fa fa-check"></i> 15 Events</p>
+                      </li>
+                      <li>
+                        <p>
+                          <i class="fa fa-check"></i> Keine Speicherbegrenzung</p>
+                      </li>
+                      <li>
+                        <p>
+                          <i class="fa fa-check"></i> 10% Provisionsgebühr</p>
+                      </li>
+                    </ul>
+
+                    <button class="btn btn-blue waves-light" (click)="upgradeSubscription('basic')" mdbRippleRadius [disabled]="user.subscription.membership === 'basic'">Upgraden</button>
+                  </div>
+                  <!--/.Features-->
+
+                </div>
+                <!--/.Pricing card-->
+
+              </div>
+              <!--/First column-->
+
+              <div class="col-lg-4 col-md-6 mb-r">
+
+                <!--Pricing card-->
+                <div class="card pricing-card">
+                  <!--Price-->
+                  <div class="price header blue">
+                    <h1>35</h1>
+                    <div class="version">
+                      <h5>Smart</h5>
+                    </div>
+                  </div>
+                  <!--/.Price-->
+
+                  <!--Features-->
+                  <div class="card-body striped">
+                    <ul>
+                      <li>
+                        <p>
+                          <i class="fa fa-check"></i> 25 Events</p>
+                      </li>
+                      <li>
+                        <p>
+                          <i class="fa fa-check"></i> Keine Speicherbegrenzung</p>
+                      </li>
+                      <li>
+                        <p>
+                          <i class="fa fa-check"></i> 10% Provisionsgebühr</p>
+                      </li>
+                    </ul>
+
+                    <button class="btn btn-blue waves-light" (click)="upgradeSubscription('smart')" mdbRippleRadius [disabled]="user.subscription.membership === 'smart'">Upgraden</button>
+                  </div>
+                  <!--/.Features-->
+
+                </div>
+                <!--/.Pricing card-->
+              </div>
+
+              <div class="col-lg-4 col-md-6 mb-r">
+
+                <!--Pricing card-->
+                <div class="card pricing-card">
+                  <!--Price-->
+                  <div class="price header blue">
+                    <h1>50</h1>
+                    <div class="version">
+                      <h5>Pro</h5>
+                    </div>
+                  </div>
+                  <!--/.Price-->
+
+                  <!--Features-->
+                  <div class="card-body striped">
+                    <ul>
+                      <li>
+                        <p>
+                          <i class="fa fa-check"></i> 50 Events</p>
+                      </li>
+                      <li>
+                        <p>
+                          <i class="fa fa-check"></i> Keine Speicherbegrenzung</p>
+                      </li>
+                      <li>
+                        <p>
+                          <i class="fa fa-check"></i> 10% Provisionsgebühr</p>
+                      </li>
+                    </ul>
+
+                    <button class="btn btn-blue waves-light" (click)="upgradeSubscription('pro')" mdbRippleRadius [disabled]="user.subscription.membership === 'pro'">Upgraden</button>
+                  </div>
+                  <!--/.Features-->
+
+                </div>
+                <!--/.Pricing card-->
+              </div>
+
+
+            </div>
+            <!--/First row-->
+          </section>
+          <!--Section: Pricing v.1-->
+
         </div>
       </div>
     </mdb-tab>
@@ -204,3 +344,5 @@
     <!--/.Content-->
   </div>
 </div>
+
+<app-stripe-checkout #stripeModal></app-stripe-checkout>

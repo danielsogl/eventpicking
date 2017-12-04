@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+import { StripeCheckoutComponent } from './components/stripe-checkout/stripe-checkout.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
@@ -32,6 +33,7 @@ import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
+import { StripeService } from './services/stripe/stripe.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,7 +55,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PhotographerPageComponent,
     PricesPageComponent,
     FeaturesPageComponent,
-    FirebaseErrorPipe
+    FirebaseErrorPipe,
+    StripeCheckoutComponent
   ],
   imports: [
     BrowserModule,
@@ -74,12 +77,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
-    MDBSpinningPreloader,
     AuthGuard,
     FirebaseAuthService,
     FirebaseFirestoreService,
     FirebaseStorageService,
-    RoleGuard
+    MDBSpinningPreloader,
+    RoleGuard,
+    StripeService
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]

@@ -16,7 +16,7 @@ exports.createStripeCustomerHandler = event => {
         .firestore()
         .collection('users')
         .doc(`${data.uid}`)
-        .update({ stripeId: customer.id });
+        .set({ stripeId: customer.id }, { merge: true });
     });
 };
 
