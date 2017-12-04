@@ -65,7 +65,11 @@
     </app-root>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.2/web-animations.min.js"></script>
-    <script src="https://checkout.stripe.com/checkout.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+        var stripe = Stripe('pk_test_HAX2HpQ1LizdcxCoTOopfGVZ');
+        var elements = stripe.elements();
+    </script>
     <script>
         new WOW().init();
     </script>

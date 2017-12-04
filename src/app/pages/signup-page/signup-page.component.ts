@@ -121,12 +121,18 @@ export class SignupPageComponent implements OnInit {
         user.roles.photographer = true;
         user.roles.user = false;
         user.photographerUrl = this.photographerUrl;
+        user.subscription = { membership: 'free', status: 'valid', token: '' };
         this.afs.updateUserData(user).then(() => {
           this.router.navigate(['dashboard']);
         });
       });
     } else {
-      this.router.navigate(['dashboard']);
+      this.auth.user.subscribe(user => {
+        user.subscription = { membership: 'user', status: 'valid', token: '' };
+        this.afs.updateUserData(user).then(() => {
+          this.router.navigate(['dashboard']);
+        });
+      });
     }
   }
 }

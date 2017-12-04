@@ -33,6 +33,7 @@ export class FirebaseFirestoreService {
       `users/${user.uid}`
     );
     if (!user.roles) {
+      user.stripeId = '';
       user = new User(user);
     }
     if (user.photographerUrl) {
