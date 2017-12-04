@@ -5,7 +5,7 @@ import { Log } from 'ng2-logger';
 import { Event } from '../../classes/event';
 import { PHOTOGRAPHER } from '../photographer-page/photographer-mock';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { User } from '../../classes/user';
+import { PhotographerProfile } from '../../interfaces/photographer-page';
 
 @Component({
   selector: 'app-photographer-page',
@@ -20,6 +20,9 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
   public photographer: User = PHOTOGRAPHER;
 
   private photographerUrl: string;
+
+  public photographer: PhotographerProfile;
+
   public events: Event[];
 
   constructor(
@@ -39,6 +42,13 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
           .valueChanges()
           .subscribe(data => {
             this.log.d('Photographer UID', data.uid);
+            this.afs
+              .getPhotographerProfile(data.uid)
+              .valueChanges()
+              .subscribe(photographer => {
+                this.photographer = photographer;
+                this.log.d('Photographer Profile', this.photographer);
+              });
             this.afs
               .getPhotographerEvents(data.uid)
               .valueChanges()

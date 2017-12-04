@@ -1,11 +1,16 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreModule
+} from 'angularfire2/firestore';
 import { MDBBootstrapModules } from 'ng-mdb-pro';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
@@ -19,28 +24,31 @@ describe('DashboardPageComponent', () => {
   let component: DashboardPageComponent;
   let fixture: ComponentFixture<DashboardPageComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        BrowserDynamicTestingModule,
-        NoopAnimationsModule,
-        MDBBootstrapModules.forRoot(),
-        FormsModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        TranslateModule.forRoot({
-          loader: { provide: TranslateLoader, useClass: FakeLoader },
-        })
-      ],
-      providers: [
-        FirebaseAuthService,
-        FirebaseFirestoreService,
-        AngularFireAuth,
-        { provide: AngularFirestore, depends: AngularFirestoreModule }
-      ],
-      declarations: [DashboardPageComponent, FirebaseErrorPipe]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule,
+          BrowserDynamicTestingModule,
+          NoopAnimationsModule,
+          MDBBootstrapModules.forRoot(),
+          FormsModule,
+          AngularFireModule.initializeApp(environment.firebase),
+          TranslateModule.forRoot({
+            loader: { provide: TranslateLoader, useClass: FakeLoader }
+          })
+        ],
+        providers: [
+          FirebaseAuthService,
+          FirebaseFirestoreService,
+          AngularFireAuth,
+          { provide: AngularFirestore, depends: AngularFirestoreModule }
+        ],
+        declarations: [DashboardPageComponent, FirebaseErrorPipe],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
     })
-      .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardPageComponent);

@@ -9,6 +9,7 @@ import { Log } from 'ng2-logger';
 import { Event } from '../../../classes/event';
 import { User } from '../../../classes/user';
 import { Upload } from '../../../classes/upload';
+import { PhotographerProfile } from '../../../interfaces/photographer-page';
 
 /**
  * Ein Service für die Kommunikation mit der Firebase Datenbank
@@ -44,6 +45,13 @@ export class FirebaseFirestoreService {
 
   getUser(uid: string): AngularFirestoreDocument<User> {
     return this.afs.doc<User>(`users/${uid}`);
+  }
+
+  getPhotographerProfile(uid: string) {
+    const doc: AngularFirestoreDocument<PhotographerProfile> = this.afs.doc(
+      `/photographer/${uid}`
+    );
+    return doc;
   }
 
   getPhotographerByUrl(url: string) {
