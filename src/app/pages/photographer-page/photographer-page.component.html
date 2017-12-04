@@ -1,48 +1,75 @@
 <div class="row mt-5 pt-5">
-  <div class="col text-center">
-    <div class="col text-center">
-      <div *ngIf="photographer.uid">
-        <div class="author-box">
-          <!--Name-->
-          <h3 class="h3-responsive text-center">About {{photographer.name}} {{photographer.lastname}}
-          </h3>
-          <hr>
-          <div class="row">
-            <!--Avatar-->
-            <div class="col-12 col-sm-2">
-              <img src="{{photographer.photoURL}}" alt="Bild nicht verfügbar" class="img-fluid rounded-circle z-depth-2">
-            </div>
-            <!--Author Data-->
-            <div class=" col-12 col-sm-10">
-              <p>
-                <strong>{{photographer.email}}</strong>
-              </p>
-              <div class="personal-sm">
-                <a class="email-ic" href="{{photographer.sovialNetworks.website}}">
-                  <i class="fa fa-home"> </i>
-                </a>
-                <a class="fb-ic" href="{{photographer.sovialNetworks.facebook}}">
-                  <i class="fa fa-facebook"> </i>
-                </a>
-                <a class="tw-ic" href="{{photographer.sovialNetworks.twitter}}">
-                  <i class="fa fa-twitter"> </i>
-                </a>
-                <a class="ins-ic" href="{{photographer.sovialNetworks.instagram}}">
-                  <i class="fa fa-instagram"> </i>
-                </a>
-              </div>
-              <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-              </p>
-              <p class="hidden-md-down">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint esse nulla quia quam veniam commodi dicta, iusto
-                inventore. Voluptatum pariatur eveniet ea, officiis vitae praesentium beatae quas libero, esse facere.
-              </p>
-              <p class="hidden-md-down">{{photographer.salutation}} {{photographer.name}} {{photographer.lastname}}
-                <br/>{{photographer.adress.street}} {{photographer.adress.street_number}} {{photographer.adress.zip}} {{photographer.adress.city}}</p>
-            </div>
-          </div>
+  <div *ngIf="photographer.uid">
+    <div class="author-box">
+      <!--Name-->
+      <h3 class="h3-responsive text-center">About {{photographer.name}}</h3>
+      <hr>
+      <div class="row">
+        <!--Avatar-->
+        <div class="col-12 col-sm-3">
+          <img src="{{photographer.photoUrl}}" alt="Bild nicht verfügbar" class="img-fluid rounded-circle z-depth-2">
         </div>
-        <!--/.Author box-->
-        <br/>
+        <!--Author Data-->
+        <div id="authorData" class=" col-12 col-sm-9">
+          <p>
+            <strong>{{photographer.email}}</strong>
+          </p>
+          <!--Show Social Networks if photograph entered them-->
+          <div class="personal-sm">
+            <a *ngIf="photographer.website" class="email-ic" href="{{photographer.website}}">
+              <i class="fa fa-home"> </i>
+            </a>
+            <a *ngIf="photographer.facebook" class="fb-ic" href="{{photographer.facebook}}">
+              <i class="fa fa-facebook"> </i>
+            </a>
+            <a *ngIf="photographer.twitter" class="tw-ic" href="{{photographer.twitter}}">
+              <i class="fa fa-twitter"> </i>
+            </a>
+            <a *ngIf="photographer.instagram" class="ins-ic" href="{{photographer.instagram}}">
+              <i class="fa fa-instagram"> </i>
+            </a>
+            <a *ngIf="photographer.tumbler" class="email-ic" href="{{photographer.tumbler}}">
+              <i class="fa fa-tumblr"> </i>
+            </a>
+            <a *ngIf="photographer.email" class="email-ic" href="mailto:{{photographer.email}}">
+              <i class="fa fa-envelope"> </i>
+            </a>
+          </div>
+          <p>{{photographer.about}}</p>
+        </div>
       </div>
     </div>
+    <!--/.Author box-->
+    <br/>
   </div>
+</div>
+<!--/-->
+<!--Event cards-->
+<div *ngFor="let event of events" class="col-lg-4 col-md-6">
+
+  <!--Card-->
+  <div class="card card-cascade wider">
+
+    <!--Card image-->
+    <div class="view gradient-card-header peach-gradient">
+      <h2 class="h2-responsive mb-2">{{event.name}}</h2>
+      <p class="">
+        <i class="fa fa-calendar"></i>{{event.date}}</p>
+
+    </div>
+    <!--/Card image-->
+
+    <!--Card content-->
+    <div class="card-body text-center">
+
+      <p class="card-text mr-2 ml-2">{{event.description}}</p>
+
+      <a href="#" class="orange-text mt-1 d-flex flex-row-reverse">
+        <h5 class="waves-effect p-2" mdbRippleRadius>View Pictures
+          <i class="fa fa-chevron-right"></i>
+        </h5>
+      </a>
+    </div>
+    <!--/.Card content-->
+  </div>
+  <!--/.Card-->

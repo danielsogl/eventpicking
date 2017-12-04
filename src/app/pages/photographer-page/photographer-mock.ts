@@ -1,34 +1,17 @@
-import { SocialNetworkLinks } from '../../interfaces/social-network-links';
-import { Picture } from '../../interfaces/picture';
-import { BillingDetails } from '../../interfaces/billing-details';
-import { UserRoles } from '../../interfaces/user-roles';
-import { User } from '../../classes/user';
-import { Adress } from '../../interfaces/adress';
-import { Event } from '../../classes/event';
+import { PhotographerProfile } from '../../interfaces/photographer-page';
 
-export const PHOTOGRAPHER: User = {
-  uid: '100',
-  email: 'photoattack@web.de',
-  photographerUrl: 'fotostar',
-  photoURL:
-    'http://www.ausbildungen.info/wp-content/uploads/2014/06/Fotograf-Ausbildung.jpg',
-  roles: { photographer: true },
-  adress: {
-    street: 'Hauptstrasse',
-    street_number: '14',
-    city: 'Metzingen',
-    zip: '72555'
-  },
-  billingDetails: {},
-  events: ['', ''],
-  sovialNetworks: {
-    facebook: 'https://de-de.facebook.com/',
-    twitter: 'www.twitter.com',
-    instagram: 'instagram.com',
-    tumbler: 'tumblr.com',
-    website: 'webseite.com'
-  },
-  salutation: 'Herr',
-  name: 'Tim',
-  lastname: 'Krießler'
+export const PHOTOGRAPHERMOCK: PhotographerProfile = {
+  about:
+    'Wir haben 30 Jahre Berufserfahrung und sind spezialisiert auf Events in geschlossenen Räumen. Aufgrund professioneller Belichtungstechnik werden helle Bilder innerhalb dunkler Räume ermöglicht. Ob Party-Portraits oder Gruppen- und Szenenaufnahmen - Wir erfüllen Ihnen jeden fotografischen Wunsch! Gerne bringen wir auch unser Spaß-Masken-Set mit.',
+  email: 'chiara@web.de',
+  facebook: 'www.facebook.com',
+  instagram: 'www.instagram.com',
+  name: 'Nikolai Morscheck',
+  phone: '0711320934',
+  tumbler: 'tumbler',
+  twitter: 'twitter',
+  uid: '1',
+  website: 'www.google.de',
+  photoUrl:
+    'http://25pictures.de/wp-content/uploads/2015/07/25pictures-Fotografie-Thorsten-Guettes-II-640x640.jpg'
 };
