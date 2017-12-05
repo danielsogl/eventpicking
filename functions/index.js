@@ -18,7 +18,7 @@ exports.createStripeCustomer = functions.firestore
  */
 exports.createSubscription = functions.firestore
   .document('users/{userID}')
-  .onWrite(stripeModule.createStripeCustomerHandler);
+  .onUpdate(stripeModule.createSubscription);
 
 /**
  * Transform Image

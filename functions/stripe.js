@@ -24,48 +24,63 @@ exports.createStripeCustomerHandler = event => {
 //  * Create user subscription
 //  */
 exports.createSubscription = event => {
-  const tokenId = event.data.val();
-  const userId = event.params.userId;
+  var newValue = event.data.data();
+  var previousValue = event.data.previous.data();
 
-  var newValue = event.data.data().subscription;
-  var previousValue = event.data.previous.data().subscription;
+  if (newValue.subscription === previousValue.subscription) return;
 
-  if(newValue === previousValue) {
-    return;
+  if (!newValue.subscription.token) throw new Error('token missing');
+
+  if (previousValue.subscription.membership === 'free') {
+    console.log('Create Subscription');
+    return stripe.subscriptions
+      .create({
+        customer: newValue.stripeId,
+        source: newValue.subscription.token,
+        items: [
+          {
+            plan: newValue.subscription.membership
+          }
+        ],
+        tax_percent: 19
+      })
+      .then(sub => {
+        admin
+          .firestore()
+          .doc(`users/${newValue.uid}`)
+          .set(
+            { subscription: { status: 'valid', subId: sub.id } },
+            { merge: true }
+          );
+      });
+  } else {
+    console.log('Update Subscription');
+    return stripe.subscriptions
+      .retrieve(newValue.subscription.subId)
+      .then(subscription => {
+        var item_id = subscription.items.data[0].id;
+        return stripe.subscriptions
+          .update(newValue.subscription.subId, {
+            items: [
+              {
+                id: item_id,
+                plan: newValue.subscription.membership
+              }
+            ],
+            tax_percent: 19
+          })
+          .then(sub => {
+            admin
+              .firestore()
+              .doc(`users/${newValue.uid}`)
+              .set(
+                { subscription: { status: 'valid', subId: sub.id } },
+                { merge: true }
+              );
+          });
+      });
   }
-
-  if (!tokenId) throw new Error('token missing');
-
-  // return admin
-  // .firestore()
-  // .collection('users')
-  // .doc(data.uid)
-  // .set({ stripeId: customer.id }, { merge: true });
-
-// return admin
-//   .database()
-//   .ref(`/users/${userId}`)
-//   .once('value')
-//   .then(snapshot => snapshot.val())
-//   .then(user => {
-//     return stripe.subscriptions.create({
-//       customer: user.customerId,
-//       source: tokenId,
-//       items: [
-//         {
-//           plan: 'pro-membership'
-//         }
-//       ]
-//     });
-//   })
-//   .then(sub => {
-//     admin
-//       .database()
-//       .ref(`/users/${userId}/pro-membership`)
-//       .update({ status: 'active' });
-//   })
-//   .catch(err => console.log(err));
-// };
+};
 
 // /**
 //  * Handle Recurring Payments with Webhooks

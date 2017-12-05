@@ -118,16 +118,11 @@ export class FirebaseFirestoreService {
         {
           subscription: {
             membership: product.name.toLowerCase(),
-            token: token.id
+            token: token.id,
+            status: 'processing'
           }
         },
         { merge: true }
       );
-    // this.afs
-    //   .collection('payments')
-    //   .doc(uid)
-    //   .collection('stripe')
-    //   .doc(token.id)
-    //   .set(JSON.parse(JSON.stringify(product)));
   }
 }
