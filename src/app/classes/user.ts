@@ -60,7 +60,7 @@ export class User {
     this.street = authData.street;
     this.city = authData.city;
     this.zip = authData.zip;
-    this.subscription = { membership: 'free', status: 'valid', token: '' };
+    this.subscription = { membership: 'free', status: '', token: '' };
     this.stripeId = authData.stripeId;
   }
 }

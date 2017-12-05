@@ -9,6 +9,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { MDBBootstrapModules, MDBSpinningPreloader } from 'ng-mdb-pro';
+import {StripeCheckoutModule} from 'ng-stripe-checkout';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -67,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    StripeCheckoutModule,
     MDBBootstrapModules.forRoot(),
     TranslateModule.forRoot({
       loader: {

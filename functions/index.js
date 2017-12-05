@@ -7,11 +7,18 @@ const imageModule = require('./transform-image.js');
 const stripeModule = require('./stripe.js');
 
 /**
- * Stripe Functions
+ * Create Stripe user account
  */
-exports.createStripeCustomer = functions.auth
-  .user()
+exports.createStripeCustomer = functions.firestore
+  .document('users/{userID}')
   .onCreate(stripeModule.createStripeCustomerHandler);
+
+/**
+ *
+ */
+exports.createSubscription = functions.firestore
+  .document('users/{userID}')
+  .onWrite(stripeModule.createStripeCustomerHandler);
 
 /**
  * Transform Image

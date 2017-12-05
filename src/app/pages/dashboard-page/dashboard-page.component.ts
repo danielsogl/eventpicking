@@ -3,7 +3,8 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
-  ViewChild
+  ViewChild,
+  HostListener
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -12,6 +13,10 @@ import {
 } from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
+import {
+  StripeCheckoutLoader,
+  StripeCheckoutHandler
+} from 'ng-stripe-checkout';
 
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
@@ -20,6 +25,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { StripeCheckoutComponent } from '../../components/stripe-checkout/stripe-checkout.component';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -29,6 +35,7 @@ import { StripeCheckoutComponent } from '../../components/stripe-checkout/stripe
 export class DashboardPageComponent implements OnInit, OnDestroy {
   private log = Log.create('DashboardPageComponent');
 
+  public handler: any;
   public user: User;
   public fsEvents: any;
   public eventDocs: AngularFirestoreCollection<Event[]>;
@@ -53,6 +60,10 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     website: ''
   };
 
+  private subPlan: any;
+
+  private stripeCheckoutHandler: StripeCheckoutHandler;
+
   @ViewChild('loadingTmpl') loadingTmpl: TemplateRef<any>;
   @ViewChild('userTmpl') userTmpl: TemplateRef<any>;
   @ViewChild('photographerTmpl') photographerTmpl: TemplateRef<any>;
@@ -63,12 +74,26 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
-    private router: Router
+    private router: Router,
+    private stripeCheckoutLoader: StripeCheckoutLoader
   ) {}
 
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
+
+    this.stripeCheckoutLoader
+      .createHandler({
+        key: environment.stripeKey,
+        token: token => {
+          this.log.d('Payment successful!');
+          this.afs.processPayment(token, this.subPlan, this.user.uid);
+        }
+      })
+      .then((handler: StripeCheckoutHandler) => {
+        this.stripeCheckoutHandler = handler;
+      });
+
     this.optionsSelect = [
       { value: 'male', label: 'Frau' },
       { value: 'female', label: 'Herr' }
@@ -162,6 +187,37 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   upgradeSubscription(membership: string) {
-    this.stripeModal.showModal();
+    if (membership === 'basic') {
+      this.subPlan = {
+        email: this.user.email,
+        name: 'BASIC',
+        description: 'Legen Sie bis zu 15 Events an',
+        amount: 2500,
+        currency: 'eur'
+      };
+    } else if (membership === 'smart') {
+      this.subPlan = {
+        email: this.user.email,
+        name: 'SMART',
+        description: 'Legen Sie bis zu 35 Events an',
+        amount: 3500,
+        currency: 'eur'
+      };
+    } else {
+      this.subPlan = {
+        email: this.user.email,
+        name: 'PRO',
+        description: 'Legen Sie bis zu 50 Events an',
+        amount: 5000,
+        currency: 'eur'
+      };
+    }
+
+    this.stripeCheckoutHandler.open(this.subPlan);
+  }
+
+  public onClickCancel() {
+    // If the window has been opened, this is how you can close it:
+    this.stripeCheckoutHandler.close();
   }
 }

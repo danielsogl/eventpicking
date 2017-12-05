@@ -6,7 +6,7 @@ const stripe = require('stripe')(functions.config().stripe.testkey);
  * Create Strip user on signup
  */
 exports.createStripeCustomerHandler = event => {
-  const data = event.data;
+  const data = event.data.data();
   return stripe.customers
     .create({
       email: data.email
@@ -15,7 +15,7 @@ exports.createStripeCustomerHandler = event => {
       return admin
         .firestore()
         .collection('users')
-        .doc(`${data.uid}`)
+        .doc(data.uid)
         .set({ stripeId: customer.id }, { merge: true });
     });
 };
@@ -23,35 +23,48 @@ exports.createStripeCustomerHandler = event => {
 // /**
 //  * Create user subscription
 //  */
-// exports.createSubscription = event => {
-//   const tokenId = event.data.val();
-//   const userId = event.params.userId;
+exports.createSubscription = event => {
+  const tokenId = event.data.val();
+  const userId = event.params.userId;
 
-//   if (!tokenId) throw new Error('token missing');
+  var newValue = event.data.data().subscription;
+  var previousValue = event.data.previous.data().subscription;
 
-//   return admin
-//     .database()
-//     .ref(`/users/${userId}`)
-//     .once('value')
-//     .then(snapshot => snapshot.val())
-//     .then(user => {
-//       return stripe.subscriptions.create({
-//         customer: user.customerId,
-//         source: tokenId,
-//         items: [
-//           {
-//             plan: 'pro-membership'
-//           }
-//         ]
-//       });
-//     })
-//     .then(sub => {
-//       admin
-//         .database()
-//         .ref(`/users/${userId}/pro-membership`)
-//         .update({ status: 'active' });
-//     })
-//     .catch(err => console.log(err));
+  if(newValue === previousValue) {
+    return;
+  }
+
+  if (!tokenId) throw new Error('token missing');
+
+  // return admin
+  // .firestore()
+  // .collection('users')
+  // .doc(data.uid)
+  // .set({ stripeId: customer.id }, { merge: true });
+
+// return admin
+//   .database()
+//   .ref(`/users/${userId}`)
+//   .once('value')
+//   .then(snapshot => snapshot.val())
+//   .then(user => {
+//     return stripe.subscriptions.create({
+//       customer: user.customerId,
+//       source: tokenId,
+//       items: [
+//         {
+//           plan: 'pro-membership'
+//         }
+//       ]
+//     });
+//   })
+//   .then(sub => {
+//     admin
+//       .database()
+//       .ref(`/users/${userId}/pro-membership`)
+//       .update({ status: 'active' });
+//   })
+//   .catch(err => console.log(err));
 // };
 
 // /**

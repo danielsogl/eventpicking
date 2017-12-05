@@ -33,7 +33,6 @@ export class FirebaseFirestoreService {
       `users/${user.uid}`
     );
     if (!user.roles) {
-      user.stripeId = '';
       user = new User(user);
     }
     if (user.photographerUrl) {
@@ -106,5 +105,29 @@ export class FirebaseFirestoreService {
       .collection('events')
       .doc(event)
       .collection('public');
+  }
+
+  processPayment(token: any, product: any, uid: string) {
+    this.log.d('Token', token);
+    this.log.d('product', product);
+    product.token = token;
+    return this.afs
+      .collection('users')
+      .doc(uid)
+      .set(
+        {
+          subscription: {
+            membership: product.name.toLowerCase(),
+            token: token.id
+          }
+        },
+        { merge: true }
+      );
+    // this.afs
+    //   .collection('payments')
+    //   .doc(uid)
+    //   .collection('stripe')
+    //   .doc(token.id)
+    //   .set(JSON.parse(JSON.stringify(product)));
   }
 }

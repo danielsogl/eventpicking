@@ -85,17 +85,10 @@
         <div class="col-12">
           <br>
 
-
-
-
           <!--Section: Pricing v.1-->
           <section class="section pb-3">
             <!--Section heading-->
-            <h1 class="section-heading h1 pt-4">Ihr aktueller Abonnement Plan:
-              <span *ngIf="user.subscription.membership === 'free'">FREE</span>
-              <span *ngIf="user.subscription.membership === 'basic'">BASIC</span>
-              <span *ngIf="user.subscription.membership === 'smart'">SMART</span>
-              <span *ngIf="user.subscription.membership === 'pro'">PRO</span>
+            <h1 class="section-heading h1 pt-4">Ihr aktueller Abonnement Plan: {{ user.subscription.membership | uppercase }}
             </h1>
             <hr>
 
