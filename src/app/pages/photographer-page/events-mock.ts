@@ -13,11 +13,44 @@ export const EVENTS: Event[] = [
     public: true
   },
   {
-    date: '19.06.1999',
+    date: '1.12.2017',
     description:
       'Große Geburtstagsfeier anlässlich des 40. Geburtstags von Martina mit vielen prominenten Gästen',
     location: 'Rügenwalder Mühle',
-    name: 'Rolfs 40. Geburtstag',
+    name: 'Rolfs 20. Geburtstag',
+    photographerUid: '100',
+    pictures: [],
+    id: '2',
+    public: true
+  },
+  {
+    date: '8.2.2017',
+    description:
+      'Große Geburtstagsfeier anlässlich des 40. Geburtstags von Martina mit vielen prominenten Gästen',
+    location: 'Rügenwalder Mühle',
+    name: 'Davids 20. Geburtstag',
+    photographerUid: '100',
+    pictures: [],
+    id: '2',
+    public: true
+  },
+  {
+    date: '23.5.2017',
+    description:
+      'Große Geburtstagsfeier anlässlich des 40. Geburtstags von Martina mit vielen prominenten Gästen',
+    location: 'Rügenwalder Mühle',
+    name: 'Marks 20. Geburtstag',
+    photographerUid: '100',
+    pictures: [],
+    id: '2',
+    public: true
+  },
+  {
+    date: '23.5.2017',
+    description:
+      'Große Geburtstagsfeier anlässlich des 40. Geburtstags von Martina mit vielen prominenten Gästen',
+    location: 'Rügenwalder Mühle',
+    name: 'Marks 20. Geburtstag',
     photographerUid: '100',
     pictures: [],
     id: '2',
