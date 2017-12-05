@@ -9,4 +9,5 @@ export interface PhotographerProfile {
   twitter?: string;
   uid?: string;
   website?: string;
+  photoUrl?: string;
 }
