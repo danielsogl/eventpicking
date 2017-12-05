@@ -1,3 +1,4 @@
+import { PHOTOGRAPHERMOCK } from './photographer-mock';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
@@ -5,6 +6,7 @@ import { Log } from 'ng2-logger';
 import { Event } from '../../classes/event';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { PhotographerProfile } from '../../interfaces/photographer-page';
+import { EVENTS } from './events-mock';
 
 @Component({
   selector: 'app-photographer-page',
@@ -16,9 +18,7 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
 
   private sub: any;
   private photographerUrl: string;
-
   public photographer: PhotographerProfile;
-
   public events: Event[];
 
   constructor(
@@ -55,6 +55,8 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
           });
       }
     });
+    this.photographer = PHOTOGRAPHERMOCK;
+    this.events = EVENTS;
   }
 
   ngOnDestroy() {
