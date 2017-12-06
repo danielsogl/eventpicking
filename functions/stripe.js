@@ -54,10 +54,11 @@ exports.createSubscription = event => {
           eventsLeftCounter = 50;
         }
 
-        if (newValue.subscription.eventsLeft) {
-          eventsLeftCounter - 1;
+        if (newValue.subscription.eventsLeft !== 0) {
+          eventsLeftCounter - newValue.subscription.eventsLeft;
+        } else {
+          eventsLeftCounter = eventsLeftCounter - 1;
         }
-
         admin
           .firestore()
           .doc(`users/${newValue.uid}`)
@@ -86,11 +87,28 @@ exports.createSubscription = event => {
             tax_percent: 19
           })
           .then(sub => {
+            let eventsLeftCounter = 0;
+            if (newValue.subscription.membership === 'basic') {
+              eventsLeftCounter = 15;
+            } else if (newValue.subscription.membership === 'smart') {
+              eventsLeftCounter = 25;
+            } else {
+              eventsLeftCounter = 50;
+            }
+
+            if (newValue.subscription.eventsLeft !== 0) {
+              eventsLeftCounter - newValue.subscription.eventsLeft;
+            } else {
+              eventsLeftCounter = eventsLeftCounter - 1;
+            }
             admin
               .firestore()
               .doc(`users/${newValue.uid}`)
               .set(
-                { subscription: { status: 'valid', subId: sub.id } },
+                {
+                  subscription: { status: 'valid', subId: sub.id },
+                  eventsLeft: eventsLeftCounter
+                },
                 { merge: true }
               );
           });
