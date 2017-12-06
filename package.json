@@ -39,7 +39,7 @@
     "ng-mdb-pro": "git+https://oauth2:w67qvcj6w1FbSFmHZpjX@git.mdbootstrap.com/mdb/angular/ng-pro.git",
     "ng-stripe-checkout": "^1.0.2",
     "ng2-logger": "^1.0.3",
-    "rxjs": "^5.5.3",
+    "rxjs": "^5.5.4",
     "screenfull": "^3.3.2",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.18"

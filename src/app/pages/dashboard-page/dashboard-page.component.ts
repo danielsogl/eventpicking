@@ -60,6 +60,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     website: ''
   };
 
+  public canCreateEvent: boolean;
+
   private subPlan: any;
 
   private stripeCheckoutHandler: StripeCheckoutHandler;
@@ -110,6 +112,12 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         } else {
           this.template = this.photographerTmpl;
 
+          if (this.user.eventsLeft > 0) {
+            this.canCreateEvent = true;
+          } else {
+            this.canCreateEvent = false;
+          }
+
           this.photographerProfileDoc = this.afs.getPhotographerProfile(
             this.user.uid
           );
@@ -139,24 +147,28 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   createNewEvent() {
-    this.newEvent.photographerUid = this.auth.getCurrentFirebaseUser().uid;
-    this.newEvent.public = false;
-    this.eventDocs
-      .add(JSON.parse(JSON.stringify(this.newEvent)))
-      .then(event => {
-        this.afs
-          .getUser(this.user.uid)
-          .collection(`events`)
-          .doc(event.id)
-          .set(JSON.parse(JSON.stringify({ id: event.id })))
-          .then(res => {
-            this.log.d('Added event to events user collection');
-          });
-        this.newEvent = new Event('');
-      })
-      .catch(err => {
-        this.log.er('Could not update the user', err);
-      });
+    if (this.canCreateEvent) {
+      this.newEvent.photographerUid = this.auth.getCurrentFirebaseUser().uid;
+      this.newEvent.public = false;
+      this.eventDocs
+        .add(JSON.parse(JSON.stringify(this.newEvent)))
+        .then(event => {
+          this.afs
+            .getUser(this.user.uid)
+            .collection(`events`)
+            .doc(event.id)
+            .set(JSON.parse(JSON.stringify({ id: event.id })))
+            .then(res => {
+              this.log.d('Added event to events user collection');
+            });
+          this.newEvent = new Event('');
+        })
+        .catch(err => {
+          this.log.er('Could not update the user', err);
+        });
+    } else {
+      this.log.d('User can not create another event without upgrading');
+    }
   }
 
   editEvent(event: Event) {

@@ -122,6 +122,7 @@ export class SignupPageComponent implements OnInit {
         user.roles.user = false;
         user.photographerUrl = this.photographerUrl;
         user.subscription = { membership: 'free', status: 'valid' };
+        user.eventsLeft = 1;
         this.afs.updateUserData(user).then(() => {
           this.router.navigate(['dashboard']);
         });

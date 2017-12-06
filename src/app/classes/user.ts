@@ -43,6 +43,8 @@ export class User {
 
   subscription: EventpickingSub;
 
+  eventsLeft: number;
+
   /**
    * @param  {any} authData firebase user
    */
@@ -62,5 +64,6 @@ export class User {
     this.zip = authData.zip;
     this.subscription = { membership: 'free', status: '', token: '' };
     this.stripeId = authData.stripeId;
+    this.eventsLeft = authData.eventsLeft;
   }
 }
