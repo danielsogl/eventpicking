@@ -17,12 +17,10 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - "npm config set spin false"
 before_script:
-- npm install -g firebase-tools codecov
+- npm install -g firebase-tools
 script:
-- npm run test:coverage
+- npm run test:ci
 - npm run e2e
-after_success:
-  - codecov
 before_deploy:
 - npm run pwa
 deploy:
