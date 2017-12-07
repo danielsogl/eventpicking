@@ -38,12 +38,11 @@ exports.transformImageHandler = event => {
     })
     .then(() => {
       _.each(SIZES, size => {
-        let newFileName = `${fileName}_thumb.png`;
+        // I should change the path to events/{photographer}/{id}/public
+        let newFileName = `${fileName}_${size}_thumb.png`;
         let newFileTemp = path.join(os.tmpdir(), newFileName);
         let newFilePath =
-          filePath.split('originals')[0] + 'public/' + newFileName;
-
-        console.log('newFilePath', newFilePath);
+          filePath.split('originals/')[0] + `publics/${newFileName}`;
 
         sharp(tempFilePath)
           .resize(size, null)

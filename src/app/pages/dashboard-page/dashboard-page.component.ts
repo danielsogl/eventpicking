@@ -10,9 +10,14 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from 'angularfire2/firestore';
+import {
+  StripeCheckoutHandler,
+  StripeCheckoutLoader
+} from 'ng-stripe-checkout';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
+import { environment } from '../../../environments/environment';
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-page';
@@ -27,6 +32,7 @@ import { FirebaseFirestoreService } from '../../services/firebase/firestore/fire
 export class DashboardPageComponent implements OnInit, OnDestroy {
   private log = Log.create('DashboardPageComponent');
 
+  public handler: any;
   public user: User;
   public fsEvents: any;
   public eventDocs: AngularFirestoreCollection<Event[]>;
@@ -51,6 +57,12 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     website: ''
   };
 
+  public canCreateEvent: boolean;
+
+  private subPlan: any;
+
+  private stripeCheckoutHandler: StripeCheckoutHandler;
+
   @ViewChild('loadingTmpl') loadingTmpl: TemplateRef<any>;
   @ViewChild('userTmpl') userTmpl: TemplateRef<any>;
   @ViewChild('photographerTmpl') photographerTmpl: TemplateRef<any>;
@@ -60,12 +72,26 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
-    private router: Router
+    private router: Router,
+    private stripeCheckoutLoader: StripeCheckoutLoader
   ) {}
 
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
+
+    this.stripeCheckoutLoader
+      .createHandler({
+        key: environment.stripeKey,
+        token: token => {
+          this.log.d('Payment successful!');
+          this.afs.processPayment(token, this.subPlan, this.user.uid);
+        }
+      })
+      .then((handler: StripeCheckoutHandler) => {
+        this.stripeCheckoutHandler = handler;
+      });
+
     this.optionsSelect = [
       { value: 'male', label: 'Frau' },
       { value: 'female', label: 'Herr' }
@@ -81,6 +107,12 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
           this.template = this.userTmpl;
         } else {
           this.template = this.photographerTmpl;
+
+          if (this.user.eventsLeft > 0) {
+            this.canCreateEvent = true;
+          } else {
+            this.canCreateEvent = false;
+          }
 
           this.photographerProfileDoc = this.afs.getPhotographerProfile(
             this.user.uid
@@ -111,24 +143,30 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   createNewEvent() {
-    this.newEvent.photographerUid = this.auth.getCurrentFirebaseUser().uid;
-    this.newEvent.public = false;
-    this.eventDocs
-      .add(JSON.parse(JSON.stringify(this.newEvent)))
-      .then(event => {
-        this.afs
-          .getUser(this.user.uid)
-          .collection(`events`)
-          .doc(event.id)
-          .set(JSON.parse(JSON.stringify({ id: event.id })))
-          .then(res => {
-            this.log.d('Added event to events user collection');
-          });
-        this.newEvent = new Event('');
-      })
-      .catch(err => {
-        this.log.er('Could not update the user', err);
-      });
+    if (this.canCreateEvent) {
+      this.newEvent.photographerUid = this.auth.getCurrentFirebaseUser().uid;
+      this.newEvent.public = false;
+      this.eventDocs
+        .add(JSON.parse(JSON.stringify(this.newEvent)))
+        .then(event => {
+          this.afs
+            .getUser(this.user.uid)
+            .collection(`events`)
+            .doc(event.id)
+            .set(JSON.parse(JSON.stringify({ id: event.id })))
+            .then(res => {
+              this.log.d('Added event to events user collection');
+            });
+          // this.user.eventsLeft--;
+          // this.afs.updateUserData(this.user);
+          this.newEvent = new Event('');
+        })
+        .catch(err => {
+          this.log.er('Could not update the user', err);
+        });
+    } else {
+      this.log.d('User can not create another event without upgrading');
+    }
   }
 
   editEvent(event: Event) {
@@ -156,5 +194,42 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
           this.log.er('Could not update photographer page data', err);
         });
     }
+  }
+
+  deleteEvent() {}
+
+  upgradeSubscription(membership: string) {
+    if (membership === 'basic') {
+      this.subPlan = {
+        email: this.user.email,
+        name: 'BASIC',
+        description: 'Legen Sie bis zu 15 Events an',
+        amount: 2500,
+        currency: 'eur'
+      };
+    } else if (membership === 'smart') {
+      this.subPlan = {
+        email: this.user.email,
+        name: 'SMART',
+        description: 'Legen Sie bis zu 35 Events an',
+        amount: 3500,
+        currency: 'eur'
+      };
+    } else {
+      this.subPlan = {
+        email: this.user.email,
+        name: 'PRO',
+        description: 'Legen Sie bis zu 50 Events an',
+        amount: 5000,
+        currency: 'eur'
+      };
+    }
+
+    this.stripeCheckoutHandler.open(this.subPlan);
+  }
+
+  public onClickCancel() {
+    // If the window has been opened, this is how you can close it:
+    this.stripeCheckoutHandler.close();
   }
 }

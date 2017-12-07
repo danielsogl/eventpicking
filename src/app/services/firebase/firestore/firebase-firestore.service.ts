@@ -106,4 +106,23 @@ export class FirebaseFirestoreService {
       .doc(event)
       .collection('public');
   }
+
+  processPayment(token: any, product: any, uid: string) {
+    this.log.d('Token', token);
+    this.log.d('product', product);
+    product.token = token;
+    return this.afs
+      .collection('users')
+      .doc(uid)
+      .set(
+        {
+          subscription: {
+            membership: product.name.toLowerCase(),
+            token: token.id,
+            status: 'processing'
+          }
+        },
+        { merge: true }
+      );
+  }
 }

@@ -12,6 +12,11 @@ import {
   AngularFirestoreModule
 } from 'angularfire2/firestore';
 import { MDBBootstrapModules } from 'ng-mdb-pro';
+import {
+  StripeCheckoutLoader,
+  StripeCheckoutModule,
+  StripeCheckoutHandler
+} from 'ng-stripe-checkout';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
@@ -33,6 +38,7 @@ describe('DashboardPageComponent', () => {
           NoopAnimationsModule,
           MDBBootstrapModules.forRoot(),
           FormsModule,
+          StripeCheckoutModule,
           AngularFireModule.initializeApp(environment.firebase),
           TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useClass: FakeLoader }
@@ -42,6 +48,8 @@ describe('DashboardPageComponent', () => {
           FirebaseAuthService,
           FirebaseFirestoreService,
           AngularFireAuth,
+          StripeCheckoutHandler,
+          { provide: StripeCheckoutLoader, depends: StripeCheckoutModule },
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [DashboardPageComponent, FirebaseErrorPipe],

@@ -49,7 +49,7 @@ sinnvoll:
 * Angular Essentials
 * Add jsdoc comments
 * Auto Rename Tag
-* BEautify
+* Beautify
 * Bracket Pair Colorizer
 * Debugger for Chrome
 * Material Icon Theme

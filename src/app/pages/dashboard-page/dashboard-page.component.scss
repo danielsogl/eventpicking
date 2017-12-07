@@ -1,10 +1,15 @@
-@import "../../../../node_modules/ng-mdb-pro/assets/scss/bootstrap/bootstrap-grid.scss";
+@import '../../../../node_modules/ng-mdb-pro/assets/scss/bootstrap/bootstrap-grid.scss';
 
 .card-columns {
-    @include media-breakpoint-only(lg) {
-      column-count: 3;
-    }
-    @include media-breakpoint-only(xl) {
-      column-count: 4;
-    }
+  @include media-breakpoint-only(lg) {
+    column-count: 3;
   }
+  @include media-breakpoint-only(xl) {
+    column-count: 4;
+  }
+}
+
+.pricing-card .price h1:before,
+.pricing-card .price h2:before {
+  content: '€';
+}

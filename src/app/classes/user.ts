@@ -1,3 +1,4 @@
+import { EventpickingSub } from '../interfaces/subscription';
 import { UserRoles } from '../interfaces/user-roles';
 
 /**
@@ -38,6 +39,12 @@ export class User {
   city: string;
   zip: string;
   phone: string;
+  stripeId: string;
+
+  subscription: EventpickingSub;
+
+  eventsLeft: number;
+  eventCounter: number;
 
   /**
    * @param  {any} authData firebase user
@@ -56,5 +63,9 @@ export class User {
     this.street = authData.street;
     this.city = authData.city;
     this.zip = authData.zip;
+    this.subscription = { membership: 'free', status: '', token: '' };
+    this.stripeId = authData.stripeId;
+    this.eventsLeft = authData.eventsLeft;
+    this.eventCounter = authData.eventCounter;
   }
 }
