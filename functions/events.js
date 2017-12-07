@@ -9,21 +9,25 @@ exports.decreaseEventsLeftHandler = event => {
     .collection('users')
     .doc(photographerUid)
     .get()
-    .then(profile => {
-      console.log(profile);
+    .then(function(profile) {
       return admin
         .firestore()
         .collection('users')
         .doc(photographerUid)
-        .set({
-          eventsLeft: profile.eventsLeft - 1
-        }, {
-          merge: true
-        });
+        .set(
+          {
+            eventsLeft: profile.data().eventsLeft - 1,
+            eventCounter: profile.data().eventCounter + 1
+          },
+          {
+            merge: true
+          }
+        );
     });
 };
 
 exports.increaseEventsLeftHandler = event => {
+  ``;
   var eventData = event.data.data();
   var photographerUid = eventData.photographerUid;
 
@@ -32,16 +36,19 @@ exports.increaseEventsLeftHandler = event => {
     .collection('users')
     .doc(photographerUid)
     .get()
-    .then(profile => {
-      console.log(profile);
+    .then(function(profile) {
       return admin
         .firestore()
         .collection('users')
         .doc(photographerUid)
-        .set({
-          eventsLeft: profile.eventsLeft + 1
-        }, {
-          merge: true
-        });
+        .set(
+          {
+            eventsLeft: profile.data().eventsLeft + 1,
+            eventCounter: profile.data().eventCounter - 1
+          },
+          {
+            merge: true
+          }
+        );
     });
 };

@@ -58,8 +58,7 @@ exports.createSubscription = event => {
         }
 
         if (newValue.subscription.eventsLeft !== 0) {
-          eventsLeftCounter =
-            eventsLeftCounter - newValue.subscription.eventsLeft;
+          eventsLeftCounter = eventsLeftCounter - newValue.eventCounter;
         } else {
           eventsLeftCounter = eventsLeftCounter - 1;
         }
@@ -101,10 +100,9 @@ exports.createSubscription = event => {
             }
 
             if (newValue.subscription.eventsLeft !== 0) {
-              eventsLeftCounter =
-                eventsLeftCounter - newValue.subscription.eventsLeft;
+              eventsLeftCounter = eventsLeftCounter - newValue.eventCounter;
             } else {
-              eventsLeftCounter = eventsLeftCounter - 1;
+              eventsLeftCounter = -1;
             }
             admin
               .firestore()

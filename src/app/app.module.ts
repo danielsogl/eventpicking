@@ -9,14 +9,13 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { MDBBootstrapModules, MDBSpinningPreloader } from 'ng-mdb-pro';
-import {StripeCheckoutModule} from 'ng-stripe-checkout';
+import { StripeCheckoutModule } from 'ng-stripe-checkout';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
-import { StripeCheckoutComponent } from './components/stripe-checkout/stripe-checkout.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
@@ -34,7 +33,6 @@ import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
-import { StripeService } from './services/stripe/stripe.service';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -58,7 +56,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     PricesPageComponent,
     FeaturesPageComponent,
     FirebaseErrorPipe,
-    StripeCheckoutComponent,
     ShoppingCartComponent
   ],
   imports: [
@@ -86,8 +83,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FirebaseFirestoreService,
     FirebaseStorageService,
     MDBSpinningPreloader,
-    RoleGuard,
-    StripeService
+    RoleGuard
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]

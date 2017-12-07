@@ -3,29 +3,26 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
-  ViewChild,
-  HostListener
+  ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from 'angularfire2/firestore';
+import {
+  StripeCheckoutHandler,
+  StripeCheckoutLoader
+} from 'ng-stripe-checkout';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
-import {
-  StripeCheckoutLoader,
-  StripeCheckoutHandler
-} from 'ng-stripe-checkout';
 
+import { environment } from '../../../environments/environment';
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-page';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
-import { StripeCheckoutComponent } from '../../components/stripe-checkout/stripe-checkout.component';
-import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -71,7 +68,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   @ViewChild('photographerTmpl') photographerTmpl: TemplateRef<any>;
   @ViewChild('editEventModal') public editEventModal;
   @ViewChild('adminTmpl') adminTmpl: TemplateRef<any>;
-  @ViewChild('stripeModal') stripeModal: StripeCheckoutComponent;
 
   constructor(
     private auth: FirebaseAuthService,
