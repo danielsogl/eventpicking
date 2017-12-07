@@ -10,11 +10,16 @@ exports.decreaseEventsLeftHandler = event => {
     .doc(photographerUid)
     .get()
     .then(profile => {
+      console.log(profile);
       return admin
         .firestore()
         .collection('users')
         .doc(photographerUid)
-        .set({ eventsLeft: profile.eventsLeft - 1 }, { merge: true });
+        .set({
+          eventsLeft: profile.eventsLeft - 1
+        }, {
+          merge: true
+        });
     });
 };
 
@@ -28,10 +33,15 @@ exports.increaseEventsLeftHandler = event => {
     .doc(photographerUid)
     .get()
     .then(profile => {
+      console.log(profile);
       return admin
         .firestore()
         .collection('users')
         .doc(photographerUid)
-        .set({ eventsLeft: profile.eventsLeft + 1 }, { merge: true });
+        .set({
+          eventsLeft: profile.eventsLeft + 1
+        }, {
+          merge: true
+        });
     });
 };

@@ -126,7 +126,7 @@
                       </li>
                     </ul>
 
-                    <button class="btn btn-blue waves-light" (click)="upgradeSubscription('basic')" mdbRippleRadius [disabled]="user.subscription.membership === 'basic'">Upgraden</button>
+                    <button class="btn btn-blue waves-light" (click)="upgradeSubscription('basic')" mdbRippleRadius [disabled]="user.subscription.membership === 'basic' || user.subscription.status === 'processing'">Upgraden</button>
                   </div>
                   <!--/.Features-->
 
@@ -166,7 +166,7 @@
                       </li>
                     </ul>
 
-                    <button class="btn btn-blue waves-light" (click)="upgradeSubscription('smart')" mdbRippleRadius [disabled]="user.subscription.membership === 'smart'">Upgraden</button>
+                    <button class="btn btn-blue waves-light" (click)="upgradeSubscription('smart')" mdbRippleRadius [disabled]="user.subscription.membership === 'smart' || user.subscription.status === 'processing'">Upgraden</button>
                   </div>
                   <!--/.Features-->
 
@@ -204,7 +204,7 @@
                       </li>
                     </ul>
 
-                    <button class="btn btn-blue waves-light" (click)="upgradeSubscription('pro')" mdbRippleRadius [disabled]="user.subscription.membership === 'pro'">Upgraden</button>
+                    <button class="btn btn-blue waves-light" (click)="upgradeSubscription('pro')" mdbRippleRadius [disabled]="user.subscription.membership === 'pro' || user.subscription.status === 'processing'">Upgraden</button>
                   </div>
                   <!--/.Features-->
 

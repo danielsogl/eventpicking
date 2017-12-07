@@ -161,6 +161,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
             .then(res => {
               this.log.d('Added event to events user collection');
             });
+          // this.user.eventsLeft--;
+          // this.afs.updateUserData(this.user);
           this.newEvent = new Event('');
         })
         .catch(err => {
@@ -197,6 +199,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         });
     }
   }
+
+  deleteEvent() {}
 
   upgradeSubscription(membership: string) {
     if (membership === 'basic') {

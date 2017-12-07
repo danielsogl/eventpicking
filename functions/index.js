@@ -28,16 +28,16 @@ exports.transformImage = functions.storage
   .object('events/{photographer}/{id}/originals')
   .onChange(imageModule.transformImageHandler);
 
-/**
- * Decrease events left counter
- */
-exports.decreaseEventsLeft = functions.firestore
-  .document('events/{eventID}')
-  .onCreate(eventModule.decreaseEventsLeftHandler);
+// /**
+//  * Decrease events left counter
+//  */
+// exports.decreaseEventsLeft = functions.firestore
+//   .document('events/{eventID}')
+//   .onCreate(eventModule.decreaseEventsLeftHandler);
 
-/**
- * Increase events left counter
- */
-exports.increaseEventsLeft = functions.firestore
-  .document('events/{eventID}')
-  .onDelete(eventModule.increaseEventsLeftHandler);
+// /**
+//  * Increase events left counter
+//  */
+// exports.increaseEventsLeft = functions.firestore
+//   .document('events/{eventID}')
+//   .onDelete(eventModule.increaseEventsLeftHandler);

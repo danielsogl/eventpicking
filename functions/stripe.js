@@ -27,7 +27,10 @@ exports.createSubscription = event => {
   var newValue = event.data.data();
   var previousValue = event.data.previous.data();
 
-  if (newValue.subscription === previousValue.subscription) return;
+  if (
+    newValue.subscription.membership === previousValue.subscription.membership
+  )
+    return;
 
   if (!newValue.subscription.token) throw new Error('token missing');
 
@@ -55,7 +58,8 @@ exports.createSubscription = event => {
         }
 
         if (newValue.subscription.eventsLeft !== 0) {
-          eventsLeftCounter - newValue.subscription.eventsLeft;
+          eventsLeftCounter =
+            eventsLeftCounter - newValue.subscription.eventsLeft;
         } else {
           eventsLeftCounter = eventsLeftCounter - 1;
         }
@@ -97,7 +101,8 @@ exports.createSubscription = event => {
             }
 
             if (newValue.subscription.eventsLeft !== 0) {
-              eventsLeftCounter - newValue.subscription.eventsLeft;
+              eventsLeftCounter =
+                eventsLeftCounter - newValue.subscription.eventsLeft;
             } else {
               eventsLeftCounter = eventsLeftCounter - 1;
             }
