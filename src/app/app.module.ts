@@ -35,6 +35,7 @@ import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
 import { StripeService } from './services/stripe/stripe.service';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -57,7 +58,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PricesPageComponent,
     FeaturesPageComponent,
     FirebaseErrorPipe,
-    StripeCheckoutComponent
+    StripeCheckoutComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
