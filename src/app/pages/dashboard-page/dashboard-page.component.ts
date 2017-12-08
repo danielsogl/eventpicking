@@ -183,6 +183,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         this.log.er('Could not update user data', err);
       });
     if (this.template === this.photographerTmpl) {
+      this.photographerProfile.photoURL = this.user.photoURL;
       this.photographerProfile.uid = this.user.uid;
       this.photographerProfile.name = `${this.user.name} ${this.user.lastname}`;
       this.photographerProfileDoc

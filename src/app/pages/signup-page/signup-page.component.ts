@@ -131,6 +131,19 @@ export class SignupPageComponent implements OnInit {
     } else {
       this.auth.user.subscribe(user => {
         user.subscription = { membership: 'user', status: 'valid' };
+        this.afs.getPhotographerProfile(user.uid).set({
+          about: '',
+          email: '',
+          facebook: '',
+          instagram: '',
+          name: '',
+          phone: '',
+          tumbler: '',
+          twitter: '',
+          uid: '',
+          website: '',
+          photoURL: user.photoURL
+        });
         this.afs.updateUserData(user).then(() => {
           this.router.navigate(['dashboard']);
         });

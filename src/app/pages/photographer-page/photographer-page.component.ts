@@ -1,4 +1,3 @@
-import { PHOTOGRAPHERMOCK } from './photographer-mock';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
@@ -6,7 +5,7 @@ import { Log } from 'ng2-logger';
 import { Event } from '../../classes/event';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { PhotographerProfile } from '../../interfaces/photographer-page';
-import { EVENTS } from './events-mock';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-photographer-page',
@@ -19,7 +18,7 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
   private sub: any;
   private photographerUrl: string;
   public photographer: PhotographerProfile;
-  public events: Event[];
+  public events: Observable<Event[]>;
 
   constructor(
     private router: ActivatedRoute,
@@ -45,18 +44,17 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
                 this.photographer = photographer;
                 this.log.d('Photographer Profile', this.photographer);
               });
-            this.afs
-              .getPhotographerEvents(data.uid)
-              .valueChanges()
-              .subscribe((events: any) => {
-                this.events = events;
-                this.log.d('Photographer Events', this.events);
+            const eventDocs = this.afs.getPhotographerEvents(data.uid);
+            this.events = eventDocs.snapshotChanges().map((events: any) => {
+              return events.map(event => {
+                const tmp = event.payload.doc.data() as Event;
+                const id = event.payload.doc.id;
+                return { id, ...tmp };
               });
+            });
           });
       }
     });
-    this.photographer = PHOTOGRAPHERMOCK;
-    this.events = EVENTS;
   }
 
   ngOnDestroy() {

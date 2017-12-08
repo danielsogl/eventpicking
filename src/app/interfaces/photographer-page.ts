@@ -10,4 +10,5 @@ export interface PhotographerProfile {
   uid?: string;
   website?: string;
   photoUrl?: string;
+  photoURL?: string;
 }

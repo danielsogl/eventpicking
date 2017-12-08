@@ -35,6 +35,10 @@ export class FirebaseFirestoreService {
     if (!user.roles) {
       user = new User(user);
     }
+    if (!user.photoURL) {
+      user.photoURL =
+        'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
+    }
     if (user.photographerUrl) {
       this.afs
         .doc(`photographerUrls/${user.photographerUrl}`)
