@@ -7,11 +7,11 @@ export const environment = {
   production: false,
   stripeKey: 'pk_test_HAX2HpQ1LizdcxCoTOopfGVZ',
   firebase: {
-    apiKey: 'AIzaSyCdwMeRUCrTWok90nQsT28-JhiaVQUsoyY',
-    authDomain: 'mercy-5ae35.firebaseapp.com',
-    databaseURL: 'https://mercy-5ae35.firebaseio.com',
-    projectId: 'mercy-5ae35',
-    storageBucket: 'mercy-5ae35.appspot.com',
-    messagingSenderId: '22833461657'
+    apiKey: 'AIzaSyBnB8M0rd5R87WvE57NzQVPuEQ6JiRbq_I',
+    authDomain: 'eventpicking-development.firebaseapp.com',
+    databaseURL: 'https://eventpicking-development.firebaseio.com',
+    projectId: 'eventpicking-development',
+    storageBucket: 'eventpicking-development.appspot.com',
+    messagingSenderId: '311467263618'
   }
 };

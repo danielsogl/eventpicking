@@ -24,12 +24,15 @@ script:
 before_deploy:
 - npm run pwa
 deploy:
-  provider: firebase
-  token:
-    secure: 1/MlHp9O2bdGOJUvy5Zv_tEZIJ7ZKjOWWeo8ft5A7N8xo
+  provider: script
+  script: ./scripts/staging.sh
   on:
-    branch:
-      - master
+    branch: staging
+deploy:
+  provider: script
+  script: ./scripts/master.sh
+  on:
+    branch: master
 notifications:
   webhooks:
     on_success: change

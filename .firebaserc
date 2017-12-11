@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "mercy-5ae35"
+    "default": "mercy-5ae35",
+    "master": "mercy-5ae35",
+    "staging": "eventpicking-development"
   }
 }
