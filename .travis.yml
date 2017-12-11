@@ -22,15 +22,16 @@ script:
 - npm run test:ci
 - npm run e2e
 deploy:
+  # deploy develop to the staging environment
   - provider: script
-    script: ./scripts/staging.sh
+    script: scripts/staging.sh
     on:
-     branch: staging
+      branch: staging
+  # deploy master to production
   - provider: script
-    script: ./scripts/master.sh
+    script: scripts/master.sh
     on:
       branch: master
-
 notifications:
   webhooks:
     on_success: change
