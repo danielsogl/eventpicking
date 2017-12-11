@@ -140,7 +140,7 @@ export class SignupPageComponent implements OnInit {
           phone: '',
           tumbler: '',
           twitter: '',
-          uid: '',
+          uid: user.uid,
           website: '',
           photoURL: user.photoURL
         });
