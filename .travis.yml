@@ -26,11 +26,11 @@ deploy:
   script: ./scripts/staging.sh
   on:
     branch: staging
-deploy:
   provider: script
   script: ./scripts/master.sh
   on:
     branch: master
+
 notifications:
   webhooks:
     on_success: change
