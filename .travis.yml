@@ -31,17 +31,18 @@ jobs:
     - stage: compile
       script: ng build --prod
 
-    - stage: e2e tests
+    - stage: E2E
       script: npm run e2e
 
     - stage: deploy to staging
+      before_script: npm install -g firebase-tools
       script: ng build --prod --env=dev
       after_success: firebase deploy --only hosting -P staging --token $FIREBASE_TOKEN
 
     - stage: deploy to production
-      script:
-        - npm install -g firebase-tools
-        - npm run pwa
+      if: branch = master
+      before_script: npm install -g firebase-tools
+      script: npm run pwa
       after_success: firebase deploy --only hosting -P prod --token $FIREBASE_TOKEN
 
 notifications:
