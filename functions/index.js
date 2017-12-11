@@ -23,7 +23,7 @@ exports.createSubscription = functions.firestore
 
 /**
  * Transform Image
- */ ``;
+ */
 exports.transformImage = functions.storage
   .object('events/{photographer}/{id}/originals')
   .onChange(imageModule.transformImageHandler);
