@@ -20,7 +20,6 @@ import {
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
-import { FirebaseErrorPipe } from '../../pipes/firebase-error/firebase-error.pipe';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { DashboardPageComponent } from './dashboard-page.component';
@@ -52,7 +51,7 @@ describe('DashboardPageComponent', () => {
           { provide: StripeCheckoutLoader, depends: StripeCheckoutModule },
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
-        declarations: [DashboardPageComponent, FirebaseErrorPipe],
+        declarations: [DashboardPageComponent],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

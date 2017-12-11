@@ -12,11 +12,11 @@ import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
-import { FirebaseErrorPipe } from '../../pipes/firebase-error/firebase-error.pipe';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { LoginPageComponent } from './login-page.component';
+import { FormBuilder } from '@angular/forms';
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
@@ -38,9 +38,10 @@ describe('LoginPageComponent', () => {
           AngularFireAuth,
           FirebaseStorageService,
           FirebaseFirestoreService,
+          FormBuilder,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
-        declarations: [LoginPageComponent, FirebaseErrorPipe],
+        declarations: [LoginPageComponent],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

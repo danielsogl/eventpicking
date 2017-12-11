@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     translate: TranslateService
   ) {
     // Configure ngx-translate
-    translate.setDefaultLang('de');
+    translate.setDefaultLang('en');
     translate.use(translate.getBrowserLang());
   }
 

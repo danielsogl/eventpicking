@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -27,7 +27,6 @@ import { PhotoDetailPageComponent } from './pages/photo-detail-page/photo-detail
 import { PhotographerPageComponent } from './pages/photographer-page/photographer-page.component';
 import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
-import { FirebaseErrorPipe } from './pipes/firebase-error/firebase-error.pipe';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
@@ -57,7 +56,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     PhotographerPageComponent,
     PricesPageComponent,
     FeaturesPageComponent,
-    FirebaseErrorPipe,
     ShoppingCartComponent,
     ImprintPageComponent,
     DataProtectionPageComponent
@@ -67,6 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,

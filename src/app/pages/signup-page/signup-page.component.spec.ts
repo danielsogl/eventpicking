@@ -11,7 +11,6 @@ import {
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
-import { FirebaseErrorPipe } from '../../pipes/firebase-error/firebase-error.pipe';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { SignupPageComponent } from './signup-page.component';
@@ -36,7 +35,7 @@ describe('SignupPageComponent', () => {
           FirebaseFirestoreService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
-        declarations: [SignupPageComponent, FirebaseErrorPipe],
+        declarations: [SignupPageComponent],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

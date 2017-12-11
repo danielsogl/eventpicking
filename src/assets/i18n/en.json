@@ -1,3 +1,49 @@
 {
-    "TEST": "test"
+  "INPUTS": {
+    "USER_EMAIL": "Your email",
+    "USER_PASSWORD": "Your password"
+  },
+  "BUTTONS": {
+    "LOGIN": "Sign in",
+    "CANCEL": "Cancel",
+    "RESET_PASSWORD": "Reset Password"
+  },
+  "LABELS": {
+    "FORGOT_PASSWORD": "Forgot Password?",
+    "LOGIN": "Sign in",
+    "SIGN_IN_WITH": "or Sign in with:",
+    "NO_MEMBER": "Not a member?",
+    "SIGN_UP": "Sign Up",
+    "RESET_PASSWORD": "Reset Password"
+  },
+  "TEXTS": {
+    "PASSWORT_RESET_MODAL":
+      "To which email address should the password reset email be sent?",
+      "PROVIDE_VALID_EMAIL": "Please provide a valid email",
+      "PROVIDE_VALID_PASSWORD": "Please provide a valid password"
+  },
+  "FIREBASE_ERRORS": {
+      "auth/app-deleted": "",
+      "auth/app-not-authorized": "",
+      "auth/argument-error": "",
+      "auth/invalid-api-key": "",
+      "auth/invalid-user-token": "",
+      "auth/network-request-failed": "",
+      "auth/operation-not-allowed": "",
+      "auth/requires-recent-login": "",
+      "auth/too-many-requests": "",
+      "auth/unauthorized-domain": "",
+      "auth/user-disabled": "",
+      "auth/user-token-expired": "",
+      "auth/web-storage-unsupported": "",
+      "auth/user-mismatch": "",
+      "auth/user-not-found": "",
+      "auth/invalid-credential": "",
+      "auth/invalid-email": "",
+      "auth/wrong-password": "",
+      "auth/invalid-verification-code": "",
+      "auth/invalid-verification-id": "",
+      "auth/weak-password": "",
+      "auth/email-already-in-use": ""
+  }
 }
