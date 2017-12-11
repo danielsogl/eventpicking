@@ -8,11 +8,13 @@
     "build": "ng build",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "pwa": "ng build --prod && sw-precache --root=public --config=precache-config.js",
+    "pwa":
+      "ng build --prod && sw-precache --root=public --config=precache-config.js",
     "test": "jest --browser",
     "test:ci": "jest --browser --runInBand",
     "test:coverage": "jest --browser --runInBand --coverage",
-    "docs": "./node_modules/.bin/compodoc -d ./docs/ -p ./tsconfig.json -n \"Eventpicking - Dokumentation\""
+    "docs":
+      "./node_modules/.bin/compodoc -d ./docs/ -p ./tsconfig.json -n \"Eventpicking - Dokumentation\""
   },
   "private": true,
   "dependencies": {
@@ -36,7 +38,8 @@
     "hammerjs": "^2.0.8",
     "intl": "^1.2.5",
     "lodash": "^4.17.4",
-    "ng-mdb-pro": "git+https://oauth2:w67qvcj6w1FbSFmHZpjX@git.mdbootstrap.com/mdb/angular/ng-pro.git",
+    "ng-mdb-pro":
+      "git+https://oauth2:w67qvcj6w1FbSFmHZpjX@git.mdbootstrap.com/mdb/angular/ng-pro.git",
     "ng-stripe-checkout": "^1.0.2",
     "ng2-logger": "^1.0.3",
     "rxjs": "^5.5.5",
@@ -74,17 +77,13 @@
     "preset": "jest-preset-angular",
     "setupTestFrameworkScriptFile": "<rootDir>/src/jest.conf.ts",
     "coverageDirectory": "./coverage/",
-    "setupFiles": [
-      "<rootDir>/jest-mocks/shimSetup.ts"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(@ngrx|ng-mdb-pro))"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/e2e/"
-    ],
+    "setupFiles": ["<rootDir>/jest-mocks/shimSetup.ts"],
+    "transformIgnorePatterns": ["node_modules/(?!(@ngrx|ng-mdb-pro))"],
+    "coveragePathIgnorePatterns": ["<rootDir>/e2e/"],
     "collectCoverageFrom": [
       "**/*.{ts}",
+      "!**/environments/*{ts}",
+      "!**/jest-mocks/*{ts}",
       "!**/src/*{ts}",
       "!**/*d.{ts}",
       "!**/*interface.{ts}",
@@ -92,15 +91,7 @@
       "!**/*main.{ts}",
       "!**/node_modules/**"
     ],
-    "moduleFileExtensions": [
-      "ts",
-      "js",
-      "json"
-    ],
-    "coverageReporters": [
-      "json",
-      "lcov",
-      "text"
-    ]
+    "moduleFileExtensions": ["ts", "js", "json"],
+    "coverageReporters": ["lcov"]
   }
 }

@@ -1,10 +1,14 @@
 # DHBW Projekt 2017
 
-Master:
-[![Build Status Master](https://travis-ci.com/danielsogl/eventpicking.svg?token=TnE38j2B5MyqLFwcdqer&branch=master)](https://travis-ci.com/danielsogl/eventpicking)
+### Master:
 
-Develop:
-[![Build Status Develop](https://travis-ci.com/danielsogl/eventpicking.svg?token=TnE38j2B5MyqLFwcdqer&branch=develop)](https://travis-ci.com/danielsogl/eventpicking)
+[![Build Status Master](https://travis-ci.com/danielsogl/eventpicking.svg?token=TnE38j2B5MyqLFwcdqer&branch=master)](https://travis-ci.com/danielsogl/eventpicking)
+[![codecov](https://codecov.io/gh/danielsogl/eventpicking/branch/master/graph/badge.svg?token=cFfwpxO3bB)](https://codecov.io/gh/danielsogl/eventpicking)
+
+### Staging:
+
+[![Build Status Staging](https://travis-ci.com/danielsogl/eventpicking.svg?token=TnE38j2B5MyqLFwcdqer&branch=staging)](https://travis-ci.com/danielsogl/eventpicking)
+[![codecov](https://codecov.io/gh/danielsogl/eventpicking/branch/staging/graph/badge.svg?token=cFfwpxO3bB)](https://codecov.io/gh/danielsogl/eventpicking)
 
 ## Beschreibung
 
