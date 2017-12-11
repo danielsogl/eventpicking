@@ -31,35 +31,18 @@ jobs:
     - stage: compile
       script: ng build --prod
 
-    - stage: unit tests
-      script: npm run test:ci
-
     - stage: e2e tests
       script: npm run e2e
 
     - stage: deploy to staging
-      before_deploy:
-        - npm install -g firebase-tools
-        - ng build --prod --env=dev
-      deploy:
-        provider: firebase
-        token:
-          secure: U4DP26kkjP5Xljo0/HDAWJlqS2bksIgtFW5Q9CCTXveQUIQPyhnVxF99ufXCnYHniNyVd8zIYkjIzCED1ugHSareeKLkzjFcjIOZn7Omq0qiaX42PBXaIiUbn9gMhHb+GHGAvXyyJnqfxisMWReeR+u/N7sY2i+nX2GbpRo3pqAQtDmPD/krHylzBzrn8ObxqqI0XqXoiI0n2UMqoy74dWAq2h10LFvUCcxaSVp+C3Cr9CBExy4/KSrP1cVilA68XJJiAOpEGVaA14vS+8F1irGejD67//BXW8NXNljZczKMhaEtMdMmjyxYpR7HrYzpMzUDioaM673tFhirUA/x0syXF1bGHuKaB1CdSzwusYO+8/qtlTFJJj4+qOWbpMWXKEGOl8x69BbjvyXOF829kBwIMT9/qVeq7whfpgRv4PPhJf14leWGJk6Qibk5Sgx1pAuRwLDgVDhjf1uFPT/Jk4Hz6Ykhr6gu9xiXASIy6Tc774ycfzMEU8SfGPXt08j2nyk/cZABLRUabcQPlWTJ7pbsa8KhnW44GeK9avhv0J3OZqj8NsfC2ySDPpCK/tiwZ7RLz5FKq7/3tJ5eY4MMJ6ucPjOCTF5yrrFbF1xwSzW9g9sVkHB/B3w5HsEioJ+hJEWkFz1lqXSWLdxdC5/zLQbDLqYPVEVGb574lj78UX8=
-        project: "eventpicking-development"
-        on:
-          branch: staging
+      script: ng build --prod --env=dev
+      after_success: firebase deploy --only hosting -P staging --token $FIREBASE_TOKEN
 
     - stage: deploy to production
-      before_deploy:
+      script:
         - npm install -g firebase-tools
         - npm run pwa
-      deploy:
-        provider: firebase
-        token:
-          secure: U4DP26kkjP5Xljo0/HDAWJlqS2bksIgtFW5Q9CCTXveQUIQPyhnVxF99ufXCnYHniNyVd8zIYkjIzCED1ugHSareeKLkzjFcjIOZn7Omq0qiaX42PBXaIiUbn9gMhHb+GHGAvXyyJnqfxisMWReeR+u/N7sY2i+nX2GbpRo3pqAQtDmPD/krHylzBzrn8ObxqqI0XqXoiI0n2UMqoy74dWAq2h10LFvUCcxaSVp+C3Cr9CBExy4/KSrP1cVilA68XJJiAOpEGVaA14vS+8F1irGejD67//BXW8NXNljZczKMhaEtMdMmjyxYpR7HrYzpMzUDioaM673tFhirUA/x0syXF1bGHuKaB1CdSzwusYO+8/qtlTFJJj4+qOWbpMWXKEGOl8x69BbjvyXOF829kBwIMT9/qVeq7whfpgRv4PPhJf14leWGJk6Qibk5Sgx1pAuRwLDgVDhjf1uFPT/Jk4Hz6Ykhr6gu9xiXASIy6Tc774ycfzMEU8SfGPXt08j2nyk/cZABLRUabcQPlWTJ7pbsa8KhnW44GeK9avhv0J3OZqj8NsfC2ySDPpCK/tiwZ7RLz5FKq7/3tJ5eY4MMJ6ucPjOCTF5yrrFbF1xwSzW9g9sVkHB/B3w5HsEioJ+hJEWkFz1lqXSWLdxdC5/zLQbDLqYPVEVGb574lj78UX8=
-        project: "mercy-5ae35"
-        on:
-          branch: master
+      after_success: firebase deploy --only hosting -P prod --token $FIREBASE_TOKEN
 
 notifications:
   webhooks:
