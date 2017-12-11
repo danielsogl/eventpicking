@@ -3,9 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { DataProtectionPageComponent } from './pages/data-protection-page/data-protection-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
 import { FeaturesPageComponent } from './pages/features-page/features-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ImprintPageComponent } from './pages/imprint-page/imprint-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PhotoDetailPageComponent } from './pages/photo-detail-page/photo-detail-page.component';
@@ -24,9 +26,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'cart', component: ShoppingCartComponent },
+  { path: 'data-protection', component: DataProtectionPageComponent },
   { path: 'event/:id', component: EventPageComponent },
   { path: 'features', component: FeaturesPageComponent },
   { path: 'home', component: HomePageComponent },
+  { path: 'imprint', component: ImprintPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'prices', component: PricesPageComponent },
   { path: 'photo/:id', component: PhotoDetailPageComponent },
