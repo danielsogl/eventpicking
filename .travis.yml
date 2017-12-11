@@ -22,14 +22,14 @@ script:
 - npm run test:ci
 - npm run e2e
 deploy:
-  provider: script
-  script: ./scripts/staging.sh
-  on:
-    branch: staging
-  provider: script
-  script: ./scripts/master.sh
-  on:
-    branch: master
+  - provider: script
+    script: ./scripts/staging.sh
+    on:
+     branch: staging
+  - provider: script
+    script: ./scripts/master.sh
+    on:
+      branch: master
 
 notifications:
   webhooks:
