@@ -74,15 +74,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.log.color = 'orange';
     this.log.d('Component initialized');
 
-    this.handler = StripeCheckout.configure({
-      key: environment.stripeKey,
-      // image: '/your/awesome/logo.jpg',
-      locale: 'auto',
-      token: token => {
-        this.afs.processPayment(token, this.subPlan, this.user.uid);
-      }
-    });
-
     this.optionsSelect = [
       { value: 'male', label: 'Frau' },
       { value: 'female', label: 'Herr' }
@@ -135,7 +126,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   createNewEvent() {
     if (this.canCreateEvent) {
-      this.newEvent.photographerUid = this.auth.getCurrentFirebaseUser().uid;
+      this.newEvent.photographerUid = this.user.uid;
       this.newEvent.public = false;
       this.eventDocs
         .add(JSON.parse(JSON.stringify(this.newEvent)))
@@ -178,8 +169,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteEvent() {}
-
   upgradeSubscription(membership: string) {
     if (membership === 'basic') {
       this.subPlan = {
@@ -206,12 +195,5 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
         currency: 'eur'
       };
     }
-
-    this.handler.open(this.subPlan);
-  }
-
-  @HostListener('window:popstate')
-  onPopstate() {
-    this.handler.close();
   }
 }

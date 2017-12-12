@@ -4,22 +4,7 @@ admin.initializeApp(functions.config().firebase);
 
 // Function modules
 const imageModule = require('./transform-image.js');
-const stripeModule = require('./stripe.js');
 const eventModule = require('./events.js');
-
-/**
- * Create Stripe user account
- */
-exports.createStripeCustomer = functions.firestore
-  .document('users/{userID}')
-  .onCreate(stripeModule.createStripeCustomerHandler);
-
-/**
- * Handle Stripe subscriptions
- */
-exports.createSubscription = functions.firestore
-  .document('users/{userID}')
-  .onUpdate(stripeModule.createSubscription);
 
 /**
  * Transform Image
