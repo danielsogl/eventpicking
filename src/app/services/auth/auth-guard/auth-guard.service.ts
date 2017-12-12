@@ -9,9 +9,9 @@ import {
   Router,
   RouterStateSnapshot
 } from '@angular/router';
+import { Log } from 'ng2-logger';
 
 import { FirebaseAuthService } from '../firebase-auth/firebase-auth.service';
-import { Log } from 'ng2-logger';
 
 /**
  * Auth Guard for Firebase Authentication State
@@ -19,9 +19,11 @@ import { Log } from 'ng2-logger';
  */
 @Injectable()
 export class AuthGuard implements CanActivate {
+  /** Logger */
   private log = Log.create('AuthGuard');
 
   /**
+   * Constructor
    * @param  {FirebaseAuthService} auth Firebase Auth Service
    * @param  {Router} router Angular Router
    */
@@ -30,10 +32,13 @@ export class AuthGuard implements CanActivate {
     this.log.d('Service injected');
   }
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
+  /**
+   * Check if user is allowed to visit route
+   * @param  {ActivatedRouteSnapshot} next ActivatedRouteSnapshot
+   * @param  {RouterStateSnapshot} state RouterStateSnapshot
+   * @returns {boolean}
+   */
+  canActivate(next: ActivatedRouteSnapshot): boolean {
     const user = this.auth.getCurrentFirebaseUser();
 
     if (user) {

@@ -59,10 +59,10 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   private subPlan: any;
 
   @ViewChild('loadingTmpl') loadingTmpl: TemplateRef<any>;
-  @ViewChild('userTmpl') userTmpl: TemplateRef<any>;
-  @ViewChild('photographerTmpl') photographerTmpl: TemplateRef<any>;
+  @ViewChild('dashboardUser') dashboardUser: TemplateRef<any>;
+  @ViewChild('dashboardPhotographer') dashboardPhotographer: TemplateRef<any>;
+  @ViewChild('dashboardAdmin') dashboardAdmin: TemplateRef<any>;
   @ViewChild('editEventModal') public editEventModal;
-  @ViewChild('adminTmpl') adminTmpl: TemplateRef<any>;
 
   constructor(
     private auth: FirebaseAuthService,
@@ -74,47 +74,43 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.log.color = 'orange';
     this.log.d('Component initialized');
 
-    this.optionsSelect = [
-      { value: 'male', label: 'Frau' },
-      { value: 'female', label: 'Herr' }
-    ];
     this.template = this.loadingTmpl;
     this.auth.user.subscribe((user: any) => {
       if (user) {
         this.user = user;
         this.log.d('Loaded user', this.user);
         if (this.user.roles.admin) {
-          this.template = this.adminTmpl;
+          this.template = this.dashboardAdmin;
         } else if (this.user.roles.user) {
-          this.template = this.userTmpl;
+          this.template = this.dashboardUser;
         } else {
-          this.template = this.photographerTmpl;
+          this.template = this.dashboardPhotographer;
 
-          if (this.user.eventsLeft > 0) {
-            this.canCreateEvent = true;
-          } else {
-            this.canCreateEvent = false;
-          }
+          // if (this.user.eventsLeft > 0) {
+          //   this.canCreateEvent = true;
+          // } else {
+          //   this.canCreateEvent = false;
+          // }
 
-          this.photographerProfileDoc = this.afs.getPhotographerProfile(
-            this.user.uid
-          );
+          // this.photographerProfileDoc = this.afs.getPhotographerProfile(
+          //   this.user.uid
+          // );
 
-          this.photographerProfileDoc.valueChanges().subscribe(profile => {
-            if (profile) {
-              this.photographerProfile = profile;
-              this.log.d('Photographer Profile', profile);
-            }
-          });
+          // this.photographerProfileDoc.valueChanges().subscribe(profile => {
+          //   if (profile) {
+          //     this.photographerProfile = profile;
+          //     this.log.d('Photographer Profile', profile);
+          //   }
+          // });
 
-          this.eventDocs = this.afs.getPhotographerEvents(this.user.uid);
-          this.events = this.eventDocs.snapshotChanges().map((events: any) => {
-            return events.map(event => {
-              const data = event.payload.doc.data() as Event;
-              const id = event.payload.doc.id;
-              return { id, ...data };
-            });
-          });
+          // this.eventDocs = this.afs.getPhotographerEvents(this.user.uid);
+          // this.events = this.eventDocs.snapshotChanges().map((events: any) => {
+          //   return events.map(event => {
+          //     const data = event.payload.doc.data() as Event;
+          //     const id = event.payload.doc.id;
+          //     return { id, ...data };
+          //   });
+          // });
         }
       }
     });
@@ -154,7 +150,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       .catch(err => {
         this.log.er('Could not update user data', err);
       });
-    if (this.template === this.photographerTmpl) {
+    if (this.template === this.dashboardPhotographer) {
       this.photographerProfile.photoURL = this.user.photoURL;
       this.photographerProfile.uid = this.user.uid;
       this.photographerProfile.name = `${this.user.name} ${this.user.lastname}`;
