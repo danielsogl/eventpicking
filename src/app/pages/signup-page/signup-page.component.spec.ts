@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { FormBuilder } from '@angular/forms';
 import {
   AngularFirestore,
   AngularFirestoreModule
@@ -33,6 +34,7 @@ describe('SignupPageComponent', () => {
           FirebaseAuthService,
           AngularFireAuth,
           FirebaseFirestoreService,
+          FormBuilder,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [SignupPageComponent],

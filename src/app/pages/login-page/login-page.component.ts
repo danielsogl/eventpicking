@@ -39,6 +39,7 @@ export class LoginPageComponent implements OnInit {
   };
 
   /**
+   * Constructor
    * @param  {FirebaseAuthService} auth FirebaseAuthService
    * @param  {Router} router Router
    * @param  {FormBuilder} formBuilder FormBuilder

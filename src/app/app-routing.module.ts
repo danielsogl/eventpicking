@@ -17,7 +17,7 @@ import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.compo
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '404', component: PageNotFoundComponent },
   {
