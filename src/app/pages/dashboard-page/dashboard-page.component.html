@@ -8,6 +8,18 @@
   <mdb-spinner spinnerType="big" spinnerColor="blue"></mdb-spinner>
 </ng-template>
 
+<ng-template #dashboardUser>
+  <app-dashboard-user></app-dashboard-user>
+</ng-template>
+
+<ng-template #dashboardPhotographer>
+  <app-dashboard-photographer></app-dashboard-photographer>
+</ng-template>
+
+<ng-template #dashboardAdmin>
+  <app-dashboard-admin></app-dashboard-admin>
+</ng-template>
+
 <ng-template #userTmpl>
   <!-- Nav tabs -->
   <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 unique-color'" [contentClass]="'card'">
@@ -337,5 +349,3 @@
     <!--/.Content-->
   </div>
 </div>
-
-<app-stripe-checkout #stripeModal></app-stripe-checkout>
