@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
 import {
   AngularFirestore,
   AngularFirestoreModule
@@ -13,6 +14,7 @@ import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { EventPageComponent } from './event-page.component';
 
 describe('EventPageComponent', () => {
@@ -31,8 +33,10 @@ describe('EventPageComponent', () => {
           })
         ],
         providers: [
+          AngularFireAuth,
           FirebaseAuthService,
           FirebaseFirestoreService,
+          FirebaseStorageService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [EventPageComponent],

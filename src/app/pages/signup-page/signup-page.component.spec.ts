@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { FormBuilder } from '@angular/forms';
 import {
   AngularFirestore,
   AngularFirestoreModule
@@ -11,7 +12,6 @@ import {
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
-import { FirebaseErrorPipe } from '../../pipes/firebase-error/firebase-error.pipe';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { SignupPageComponent } from './signup-page.component';
@@ -34,9 +34,10 @@ describe('SignupPageComponent', () => {
           FirebaseAuthService,
           AngularFireAuth,
           FirebaseFirestoreService,
+          FormBuilder,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
-        declarations: [SignupPageComponent, FirebaseErrorPipe],
+        declarations: [SignupPageComponent],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

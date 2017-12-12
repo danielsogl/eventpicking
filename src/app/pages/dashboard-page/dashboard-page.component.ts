@@ -1,5 +1,6 @@
 import {
   Component,
+  HostListener,
   OnDestroy,
   OnInit,
   TemplateRef,
@@ -10,10 +11,6 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from 'angularfire2/firestore';
-import {
-  StripeCheckoutHandler,
-  StripeCheckoutLoader
-} from 'ng-stripe-checkout';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
@@ -61,8 +58,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   private subPlan: any;
 
-  private stripeCheckoutHandler: StripeCheckoutHandler;
-
   @ViewChild('loadingTmpl') loadingTmpl: TemplateRef<any>;
   @ViewChild('userTmpl') userTmpl: TemplateRef<any>;
   @ViewChild('photographerTmpl') photographerTmpl: TemplateRef<any>;
@@ -72,25 +67,21 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
-    private router: Router,
-    private stripeCheckoutLoader: StripeCheckoutLoader
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
 
-    this.stripeCheckoutLoader
-      .createHandler({
-        key: environment.stripeKey,
-        token: token => {
-          this.log.d('Payment successful!');
-          this.afs.processPayment(token, this.subPlan, this.user.uid);
-        }
-      })
-      .then((handler: StripeCheckoutHandler) => {
-        this.stripeCheckoutHandler = handler;
-      });
+    this.handler = StripeCheckout.configure({
+      key: environment.stripeKey,
+      // image: '/your/awesome/logo.jpg',
+      locale: 'auto',
+      token: token => {
+        this.afs.processPayment(token, this.subPlan, this.user.uid);
+      }
+    });
 
     this.optionsSelect = [
       { value: 'male', label: 'Frau' },
@@ -226,11 +217,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       };
     }
 
-    this.stripeCheckoutHandler.open(this.subPlan);
+    this.handler.open(this.subPlan);
   }
 
-  public onClickCancel() {
-    // If the window has been opened, this is how you can close it:
-    this.stripeCheckoutHandler.close();
+  @HostListener('window:popstate')
+  onPopstate() {
+    this.handler.close();
   }
 }

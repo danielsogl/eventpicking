@@ -1,5 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  inject,
+  TestBed
+} from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
@@ -12,7 +18,6 @@ import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
-import { FirebaseErrorPipe } from '../../pipes/firebase-error/firebase-error.pipe';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
@@ -38,9 +43,10 @@ describe('LoginPageComponent', () => {
           AngularFireAuth,
           FirebaseStorageService,
           FirebaseFirestoreService,
+          FormBuilder,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
-        declarations: [LoginPageComponent, FirebaseErrorPipe],
+        declarations: [LoginPageComponent],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
@@ -54,5 +60,45 @@ describe('LoginPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should validate login form correctly', () => {
+    component.loginForm.setValue({
+      email: 'user@test.de',
+      password: 'password'
+    });
+    expect(component.loginForm.valid).toBeTruthy();
+
+    component.loginForm.setValue({
+      email: '',
+      password: ''
+    });
+    expect(component.loginForm.valid).toBeFalsy();
+
+    component.loginForm.setValue({
+      email: 'invalid email',
+      password: 'password'
+    });
+    expect(component.loginForm.valid).toBeFalsy();
+  });
+
+  it(
+    'should login with credentials',
+    inject([FirebaseAuthService], (service: FirebaseAuthService) => {
+      component.loginForm.setValue({
+        email: 'user@test.de',
+        password: 'password'
+      });
+      component.loginWithCredentials();
+      expect(service.getCurrentFirebaseUser()).toBeDefined();
+    })
+  );
+
+  it('should validate reset password form', () => {
+    component.resetPasswordForm.setValue({ email: 'user@test.de' });
+    expect(component.resetPasswordForm.valid).toBeTruthy();
+
+    component.resetPasswordForm.setValue({ email: 'invalid email' });
+    expect(component.resetPasswordForm.valid).toBeFalsy();
   });
 });

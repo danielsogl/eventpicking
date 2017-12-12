@@ -15,33 +15,49 @@
       <!--Header-->
       <div class="text-center">
         <h4 class="dark-grey-text mb-5">
-          <strong id="page_title">Als Nutzer registrieren</strong>
+          <strong id="page_title">{{ 'LABELS.SIGNUP_AS_USER' | translate }}</strong>
         </h4>
       </div>
 
       <!--Body-->
-      <div class="md-form">
-        <input mdbActive type="text" class="form-control" [(ngModel)]="email" id="input_email">
-        <label>Ihre E-Mail Adresse</label>
-      </div>
+      <form [formGroup]="signupForm" (ngSubmit)="signupWithCredentials()">
+        <div class="md-form">
+          <input mdbActive type="text" class="form-control" formControlName="email" id="input_email" [class.is-valid]="!signupForm.controls.email.errors"
+            [class.is-invalid]="signupForm.controls.email.errors">
+          <label>{{ 'INPUTS.USER_EMAIL' | translate }}</label>
+          <div class="invalid-feedback" *ngIf="signupForm.controls.email.errors">
+            {{ 'TEXTS.PROVIDE_VALID_EMAIL' | translate }}
+          </div>
+        </div>
 
-      <div class="md-form">
-        <input mdbActive type="password" class="form-control" [(ngModel)]="password" id="input_password">
-        <label>Ihr Passwort</label>
-      </div>
+        <div class="md-form">
+          <input mdbActive type="password" class="form-control" formControlName="password" id="input_password" [class.is-valid]="!signupForm.controls.password.errors"
+            [class.is-invalid]="signupForm.controls.password.errors">
+          <label>{{ 'INPUTS.USER_PASSWORD' | translate }}</label>
+          <div class="invalid-feedback" *ngIf="signupForm.controls.password.errors">
+            {{ 'TEXTS.PROVIDE_VALID_PASSWORD' | translate }}
+          </div>
+        </div>
 
-      <div class="md-form">
-        <input mdbActive type="password" class="form-control" [(ngModel)]="password_repeated" id="input_password">
-        <label>Passwort wiederholen</label>
-        <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" id="p_open_reset_modal">
-          <a class="blue-text ml-1" (click)="switchForms()">Als Fotograf registrieren</a>
+        <div class="md-form">
+          <input mdbActive type="password" class="form-control" formControlName="confirmPassword" id="input_password" [class.is-valid]="!signupForm.controls.confirmPassword.errors"
+            [class.is-invalid]="signupForm.controls.confirmPassword.errors">
+          <label>{{ 'INPUTS.CONFIRM_PASSWORD' | translate }}</label>
+          <p1 class="text-danger" *ngIf="error.code">{{ ('FIREBASE_ERRORS.' + error.code) | translate }}
+            <br>
+          </p1>
+          <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" id="p_open_reset_modal">
+            <a class="blue-text ml-1" (click)="switchForms()">{{ 'LABELS.SIGNUP_AS_PHOTOGRAPHER' | translate }}</a>
+          </p>
+        </div>
+
+        <div class="text-center mb-3">
+          <button type="submit" [disabled]="!signupForm.valid" class="btn unique-color btn-lg btn-block" id="button_login">{{ 'LABELS.SIGN_UP' | translate }}</button>
+        </div>
+        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> {{ 'LABELS.SIGN_UP_WITH' | translate }}
         </p>
-      </div>
 
-      <div class="text-center mb-3">
-        <button type="button" class="btn unique-color btn-lg btn-block" (click)="signupWithCredentials()" id="button_login">Registrieren</button>
-      </div>
-      <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> oder Registrieren mit:</p>
+      </form>
 
       <div class="row my-3 d-flex justify-content-center">
         <!--Facebook-->
@@ -74,40 +90,55 @@
       <!--Header-->
       <div class="text-center">
         <h4 class="dark-grey-text mb-5">
-          <strong id="page_title">Als Fotograf registrieren</strong>
+          <strong id="page_title">{{ 'LABELS.SIGNUP_AS_PHOTOGRAPHER' | translate }}</strong>
         </h4>
       </div>
 
       <!--Body-->
-      <div class="md-form">
-        <input mdbActive type="text" class="form-control" [(ngModel)]="email" id="input_email">
-        <label>Ihre E-Mail Adresse</label>
-      </div>
+      <form [formGroup]="signupForm" (ngSubmit)="signupWithCredentials()">
+        <div class="md-form">
+          <input mdbActive type="text" class="form-control" formControlName="email" id="input_email" [class.is-valid]="!signupForm.controls.email.errors"
+            [class.is-invalid]="signupForm.controls.email.errors">
+          <label>{{ 'INPUTS.USER_EMAIL' | translate }}</label>
+          <div class="invalid-feedback" *ngIf="signupForm.controls.email.errors">
+            {{ 'TEXTS.PROVIDE_VALID_EMAIL' | translate }}
+          </div>
+        </div>
 
-      <div class="md-form">
-        <input mdbActive type="text" class="form-control" [(ngModel)]="photographerUrl" id="input_photographerUrl" (keyup)="checkphotographerUrl()">
-        <label>Ihr Profil-URL</label>
-      </div>
+        <div class="md-form">
+          <input mdbActive type="text" class="form-control" formControlName="photographerUrl" id="input_photographerUrl" (keyup)="checkphotographerUrl()"
+            [class.is-valid]="!signupForm.controls.photographerUrl.errors" [class.is-invalid]="signupForm.controls.photographerUrl.errors">
+          <label>{{ 'INPUTS.PROFILE_URL' | translate }}</label>
+          <div class="invalid-feedback" *ngIf="signupForm.controls.photographerUrl.errors">
+            {{ 'TEXTS.PROVIDE_VALID_URL' | translate }}
+          </div>
+        </div>
 
-      <div class="md-form">
-        <input mdbActive type="password" class="form-control" [(ngModel)]="password" id="input_password">
-        <label>Ihr Passwort</label>
-      </div>
+        <div class="md-form">
+          <input mdbActive type="password" class="form-control" formControlName="password" id="input_password" [class.is-valid]="!signupForm.controls.password.errors"
+            [class.is-invalid]="signupForm.controls.password.errors">
+          <label>{{ 'INPUTS.USER_PASSWORD' | translate }}</label>
+          <div class="invalid-feedback" *ngIf="signupForm.controls.password.errors">
+            {{ 'TEXTS.PROVIDE_VALID_PASSWORD' | translate }}
+          </div>
+        </div>
 
-      <div class="md-form">
-        <input mdbActive type="password" class="form-control" [(ngModel)]="password_repeated" id="input_password">
-        <label>Passwort wiederholen</label>
-        <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" id="p_open_reset_modal"
-          (click)="switchForms()">
-          <a class="blue-text ml-1">Als Benutzer registrieren</a>
-        </p>
-        <p1 class="text-danger" *ngIf="error">{{error.code | firebaseError }}</p1>
-      </div>
+        <div class="md-form">
+          <input mdbActive type="password" class="form-control" formControlName="confirmPassword" id="input_password">
+          <label>{{ 'INPUTS.CONFIRM_PASSWORD' | translate }}</label>
+          <p class="font-small blue-text d-flex justify-content-end" data-toggle="modal" data-target="#basicExample" id="p_open_reset_modal"
+            (click)="switchForms()">
+            <a class="blue-text ml-1">{{ 'LABELS.SIGNUP_AS_USER' | translate }}</a>
+          </p>
+          <p1 class="text-danger" *ngIf="error.code">{{ ('FIREBASE_ERRORS.' + error.code) | translate }}</p1>
+        </div>
 
-      <div class="text-center mb-3">
-        <button type="button" [disabled]="!photographerUrlAvailable" class="btn unique-color btn-lg btn-block" (click)="signupWithCredentials()"
-          id="button_login">Registrieren</button>
-      </div>
+        <div class="text-center mb-3">
+          <button type="submit" [disabled]="!signupForm.valid && !photographerUrlAvailable" [disabled]="" class="btn unique-color btn-lg btn-block"
+            id="button_login">{{ 'LABELS.SIGN_UP' | translate }}</button>
+        </div>
+      </form>
+
     </div>
 
   </div>
