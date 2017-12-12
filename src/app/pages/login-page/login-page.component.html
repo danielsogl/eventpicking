@@ -39,7 +39,7 @@
           </div>
 
           <div class="text-center mb-3">
-            <button type="submit" class="btn unique-color btn-lg btn-block" id="button_login" [disabled]="loginForm.valid">{{ 'BUTTONS.LOGIN' | translate }}</button>
+            <button type="submit" class="btn unique-color btn-lg btn-block" id="button_login" [disabled]="!loginForm.valid">{{ 'BUTTONS.LOGIN' | translate }}</button>
           </div>
         </form>
 
