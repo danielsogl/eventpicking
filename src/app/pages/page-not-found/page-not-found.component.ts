@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Log } from 'ng2-logger';
 
 @Component({
   selector: 'app-page-not-found',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-not-found.component.scss']
 })
 export class PageNotFoundComponent implements OnInit {
+  private log = Log.create('PageNotFoundComponent');
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    this.log.color = 'orange';
+    this.log.d('Component initialized');
   }
-
 }

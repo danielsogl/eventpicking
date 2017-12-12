@@ -1,5 +1,94 @@
 <div class="row mt-5 pt-5">
-    <div class="col text-center">
-      <h1>Event Page</h1>
+  <div class="col text-center">
+    <!-- Nav tabs -->
+    <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3 indigo'" [contentClass]="''" *ngIf="isOwner">
+      <mdb-tab heading="<i class='fa fa-picture-o'></i> Gallerie">
+        <div class="row">
+          <div class="col-12" *ngIf="images">
+            <br>
+            <mdb-image-modal [modalImages]="images" type="margin"></mdb-image-modal>
+          </div>
+        </div>
+      </mdb-tab>
+      <mdb-tab heading="<i class='fa fa-upload'></i> Bilder Verwalten">
+        <div class="row">
+          <div class="col-12">
+            <br>
+            <form>
+              <div class="file-field">
+                <div class="btn btn-primary btn-sm waves-light" mdbRippleRadius>
+                  <span>Bilder auswählen</span>
+                  <input type="file" (change)="detectFiles($event)" multiple>
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path" type="text" placeholder="Bilder hochladen" [value]="showFiles()">
+                </div>
+              </div>
+              <br>
+              <div *ngIf="currentUpload">
+                <mdb-progressbar [value]="currentUpload?.progress" min="0" max="100" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></mdb-progressbar>
+                Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Hochgeladen
+              </div>
+              <br>
+              <button type="button" class="btn btn-default btn-lg btn-block waves-light" [disabled]="!selectedFiles" mdbRippleRadius (click)="uploadMulti()">Upload starten</button>
+            </form>
+            <hr>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Format</th>
+                  <th>Auflösung</th>
+                  <th>Löschen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let picture of event.pictures">
+                  <th scope="row">1</th>
+                  <th>Name</th>
+                  <th>Format</th>
+                  <th>Auflösung</th>
+                  <th>Löschen</th>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </mdb-tab>
+      <mdb-tab heading="<i class='fa fa-cog'></i> Event Einstellungen">
+        <div class="row">
+          <div class="col-12">
+            <br>
+            <form>
+              <div class="md-form">
+                <input mdbActive type="text" class="form-control" name="event_name" [(ngModel)]="event.name" required>
+                <label for="form2">Event Name</label>
+              </div>
+              <div class="md-form">
+                <input mdbActive type="text" class="form-control" name="event_name" required>
+                <label for="form2">Preis pro Bild</label>
+              </div>
+              <div class="md-form">
+                <input mdbActive type="text" class="form-control" name="event_name" required>
+                <label for="form2">Preis für gesamtes Event</label>
+              </div>
+              <div class="md-form">
+                <div class="form-group">
+                  <input type="checkbox" class="filled-in" id="checkbox2">
+                  <label for="checkbox2">Veröffentlicht</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </mdb-tab>
+    </mdb-tabset>
+
+    <div class="row" *ngIf="!isOwner">
+      <mdb-image-modal [modalImages]="images" type="margin"></mdb-image-modal>
     </div>
+
   </div>
+</div>

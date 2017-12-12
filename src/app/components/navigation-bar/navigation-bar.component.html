@@ -1,6 +1,6 @@
 <header>
   <!--Navbar-->
-  <mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark aqua-gradient">
+  <mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark unique-color">
 
     <!-- Navbar brand -->
     <logo>
@@ -50,6 +50,12 @@
           <a class="nav-link waves-effect waves-light" (click)="logout()" id="a_logout">
             <i class="fa fa-sign-out mr-1"></i>
             <span class="clearfix d-none d-sm-inline-block">Abmelden</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" routerLink="/cart">
+            <i class="fa fa-shopping-cart"></i>
           </a>
         </li>
       </ul>

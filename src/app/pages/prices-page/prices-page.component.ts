@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Log } from 'ng2-logger';
 
 @Component({
   selector: 'app-prices-page',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./prices-page.component.scss']
 })
 export class PricesPageComponent implements OnInit {
+  private log = Log.create('PricesPageComponent');
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    this.log.color = 'orange';
+    this.log.d('Component initialized');
   }
-
 }
