@@ -139,21 +139,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       this.newEvent.public = false;
       this.eventDocs
         .add(JSON.parse(JSON.stringify(this.newEvent)))
-        .then(event => {
-          this.afs
-            .getUser(this.user.uid)
-            .collection(`events`)
-            .doc(event.id)
-            .set(JSON.parse(JSON.stringify({ id: event.id })))
-            .then(res => {
-              this.log.d('Added event to events user collection');
-            });
-          // this.user.eventsLeft--;
-          // this.afs.updateUserData(this.user);
-          this.newEvent = new Event('');
+        .then(() => {
+          this.log.d('Added new event to firestore');
         })
         .catch(err => {
-          this.log.er('Could not update the user', err);
+          this.log.er('Could not save event to firestore', err);
         });
     } else {
       this.log.d('User can not create another event without upgrading');
