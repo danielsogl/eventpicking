@@ -11,11 +11,11 @@ import { Log } from 'ng2-logger';
 export class NavigationBarComponent implements OnInit {
   private log = Log.create('NavigationBarComponent');
 
-  public fbUser: any;
+  public user: any;
 
   constructor(private auth: FirebaseAuthService) {
     this.auth.getAuthState().subscribe(user => {
-      this.fbUser = user;
+      this.user = user;
     });
   }
 

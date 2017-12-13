@@ -48,15 +48,7 @@ export class LoginPageComponent implements OnInit {
     private auth: FirebaseAuthService,
     private router: Router,
     private formBuilder: FormBuilder
-  ) {}
-
-  /**
-   * Initialise component
-   */
-  ngOnInit() {
-    this.log.color = 'orange';
-    this.log.d('Component initialized');
-
+  ) {
     // Init login form
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.email],
@@ -67,6 +59,14 @@ export class LoginPageComponent implements OnInit {
     this.resetPasswordForm = this.formBuilder.group({
       email: ['', Validators.email]
     });
+  }
+
+  /**
+   * Initialise component
+   */
+  ngOnInit() {
+    this.log.color = 'orange';
+    this.log.d('Component initialized');
   }
 
   /**

@@ -43,6 +43,8 @@ export class User {
 
   subscription: EventpickingSub;
 
+  isValidated: boolean;
+
   eventsLeft: number;
   eventCounter: number;
 
@@ -67,5 +69,6 @@ export class User {
     this.stripeId = authData.stripeId;
     this.eventsLeft = authData.eventsLeft;
     this.eventCounter = authData.eventCounter;
+    this.isValidated = false;
   }
 }
