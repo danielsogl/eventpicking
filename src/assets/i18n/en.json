@@ -1,4 +1,13 @@
 {
+  "NAV": {
+    "HOME": "Home",
+    "FEATURES": "Features",
+    "PRICES": "Prices",
+    "SIGNIN": "Sign in",
+    "SIGNUP": "Sign up",
+    "LOGOUT": "Log out",
+    "DASHBOARD": "Dashboard"
+  },
   "INPUTS": {
     "USER_EMAIL": "Your email",
     "USER_PASSWORD": "Your password",
@@ -19,7 +28,12 @@
     "RESET_PASSWORD": "Reset Password",
     "SIGNUP_AS_USER": "Signup as new user",
     "SIGNUP_AS_PHOTOGRAPHER": "Signup as new photographer",
-    "SIGN_UP_WITH": "Or Signup with:"
+    "SIGN_UP_WITH": "Or Signup with:",
+    "CREATE_NEW_EVENT": "Create new event",
+    "CREATE": "Create",
+    "EVENT_NAME": "Event name",
+    "EVENT_LOCATION": "Event location",
+    "EVENT_DATE": "Event date"
   },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":
@@ -27,6 +41,15 @@
     "PROVIDE_VALID_EMAIL": "Please provide a valid email",
     "PROVIDE_VALID_PASSWORD": "Please provide a valid password",
     "PROVIDE_VALID_URL": "Please provide a valid URL"
+  },
+  "TABS": {
+    "EVENTS": "Events",
+    "SALES": "Sales",
+    "PROFILE": "Profile",
+    "SUBSCRIPTION": "Subscription",
+    "REVENUE": "Revenue",
+    "USER": "User",
+    "PRINTING_HOUSES": "Printing house"
   },
   "FIREBASE_ERRORS": {
     "auth/app-deleted": "",

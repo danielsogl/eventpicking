@@ -1,5 +1,39 @@
-<mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
-  <mdb-tab heading="Tab">
+<mdb-tabset [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
+
+  <mdb-tab heading="{{ 'TABS.EVENTS' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+      </div>
+    </div>
+
+
+    <!-- Add new event floating button -->
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large indigo waves-light" mdbRippleRadius (click)="newEventModal.show()">
+        <i class="fa fa-plus"></i>
+      </a>
+    </div>
+
+  </mdb-tab>
+
+  <mdb-tab heading="{{ 'TABS.SALES' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+      </div>
+    </div>
+  </mdb-tab>
+
+  <mdb-tab heading="{{ 'TABS.SUBSCRIPTION' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+      </div>
+    </div>
+  </mdb-tab>
+
+  <mdb-tab heading="{{ 'TABS.PROFILE' | translate }}">
     <div class="row">
       <div class="col-12">
         <br>
@@ -7,3 +41,50 @@
     </div>
   </mdb-tab>
 </mdb-tabset>
+
+<div mdbModal #newEventModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: true}">
+  <div class="modal-dialog cascading-modal" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header indigo white-text">
+        <h4 class="title">
+          <i class="fa fa-calendar"></i>{{ 'LABELS.CREATE_NEW_EVENT' | translate }}</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="newEventModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body mb-0">
+
+
+        <form [formGroup]="newEventForm" (ngSubmit)="createNewEvent(); newEventModal.hide()">
+
+          <div class="md-form">
+            <input mdbActive type="text" class="form-control" id="input_newevent_name" formControlName="name">
+            <label for="form2">{{ 'LABELS.EVENT_NAME' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input mdbActive type="text" class="form-control" id="input_newevent_location" formControlName="location">
+            <label for="form2">{{ 'LABELS.EVENT_LOCATION' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input mdbActive type="text" class="form-control" id="input_newevent_date" formControlName="date">
+            <label for="form2">{{ 'LABELS.EVENT_DATE' | translate }}</label>
+          </div>
+
+          <div class="text-center mt-1-half">
+            <button type="submit" class="btn indigo mb-2 waves-light" mdbRippleRadius>{{ 'LABELS.CREATE' | translate }}
+              <i class="fa fa-plus ml-1"></i>
+            </button>
+          </div>
+
+        </form>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>

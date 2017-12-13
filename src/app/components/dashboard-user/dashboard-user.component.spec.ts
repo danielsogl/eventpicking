@@ -1,5 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
@@ -35,6 +36,7 @@ describe('DashboardUserComponent', () => {
           FirebaseAuthService,
           FirebaseFirestoreService,
           AngularFireAuth,
+          FormBuilder,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [DashboardUserComponent],

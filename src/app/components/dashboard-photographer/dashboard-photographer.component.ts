@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   AngularFirestoreCollection,
@@ -28,6 +29,8 @@ export class DashboardPhotographerComponent implements OnInit {
   public user: User;
   public canCreateEvent: boolean;
 
+  public newEventForm: FormGroup;
+
   public eventEdit: Event;
   public newEvent: Event = new Event('');
 
@@ -46,15 +49,21 @@ export class DashboardPhotographerComponent implements OnInit {
     uid: '',
     website: ''
   };
-  public subPlan: any;
 
   @ViewChild('createEventModal') public createEventModal;
 
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+    this.newEventForm = this.formBuilder.group({
+      name: ['', Validators.required, Validators.minLength(6)],
+      location: ['', Validators.required, Validators.minLength(6)],
+      date: ['', Validators.required]
+    });
+  }
 
   ngOnInit() {
     this.log.color = 'orange';
@@ -133,33 +142,5 @@ export class DashboardPhotographerComponent implements OnInit {
       .catch(err => {
         this.log.er('Could not update photographer page data', err);
       });
-  }
-
-  upgradeSubscription(membership: string) {
-    if (membership === 'basic') {
-      this.subPlan = {
-        email: this.user.email,
-        name: 'BASIC',
-        description: 'Legen Sie bis zu 15 Events an',
-        amount: 2500,
-        currency: 'eur'
-      };
-    } else if (membership === 'smart') {
-      this.subPlan = {
-        email: this.user.email,
-        name: 'SMART',
-        description: 'Legen Sie bis zu 35 Events an',
-        amount: 3500,
-        currency: 'eur'
-      };
-    } else {
-      this.subPlan = {
-        email: this.user.email,
-        name: 'PRO',
-        description: 'Legen Sie bis zu 50 Events an',
-        amount: 5000,
-        currency: 'eur'
-      };
-    }
   }
 }
