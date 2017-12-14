@@ -1,4 +1,4 @@
-<mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
+<mdb-tabset [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
   <mdb-tab heading="{{ 'TABS.REVENUE' | translate }}">
     <div class="row">
       <div class="col-12">
@@ -51,7 +51,7 @@
               </td>
               <td>{{ user.subscription.membership }}</td>
               <td>
-                <a>
+                <a (click)="editUser(user)">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
               </td>
@@ -69,3 +69,60 @@
     </div>
   </mdb-tab>
 </mdb-tabset>
+
+<div mdbModal #editUserModal="mdb-modal" class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header indigo white-text">
+        <h4 class="title">
+          <i class="fa fa-pencil"></i> Edit user</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="editUserModal.hide()">
+          <span class="white-text" aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body mb-0">
+        <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+          <mdb-tabset [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
+
+            <mdb-tab heading="Personal data">
+              <div class="row">
+                <div class="col-12">
+                  <br>
+
+                  <div class="md-form form-sm">
+                    <input mdbActive type="text" class="form-control" formControlName="uid">
+                    <label for="">UID</label>
+                  </div>
+                </div>
+              </div>
+            </mdb-tab>
+
+            <mdb-tab heading="Contact">
+              <div class="row">
+                <div class="col-12">
+                  <br>
+                </div>
+              </div>
+            </mdb-tab>
+
+            <mdb-tab heading="Roles and Subscriptions">
+              <div class="row">
+                <div class="col-12">
+                  <br>
+                </div>
+              </div>
+            </mdb-tab>
+
+          </mdb-tabset>
+          <br>
+          <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>
+            <i class="fa fa-refresh mr-1"></i>Update user</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
