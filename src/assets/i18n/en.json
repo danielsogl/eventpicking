@@ -1,4 +1,17 @@
 {
+  "DASHBOARD": {
+    "EMAIL": "Email",
+    "ROLE": "Role",
+    "SUBSCRIPTION": "Subscription",
+    "EDIT": "Edit",
+    "ADMIN": "Admin",
+    "PHOTOGRAPHER": "Photographer",
+    "USER": "User",
+    "NAME": "Name",
+    "DATE": "Date",
+    "LOCATION": "Location",
+    "PICTURES": "Pictures"
+  },
   "NAV": {
     "HOME": "Home",
     "FEATURES": "Features",
