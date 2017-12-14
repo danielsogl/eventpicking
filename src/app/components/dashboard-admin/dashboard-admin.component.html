@@ -88,15 +88,10 @@
         <form [formGroup]="userForm" (ngSubmit)="updateUser()">
           <mdb-tabset [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
 
-            <mdb-tab heading="Personal data">
+            <mdb-tab heading="Account data">
               <div class="row">
                 <div class="col-12">
                   <br>
-
-                  <div class="md-form form-sm">
-                    <input mdbActive type="text" class="form-control" formControlName="uid">
-                    <label for="">UID</label>
-                  </div>
                 </div>
               </div>
             </mdb-tab>
@@ -109,7 +104,15 @@
               </div>
             </mdb-tab>
 
-            <mdb-tab heading="Roles and Subscriptions">
+            <mdb-tab heading="Payment">
+              <div class="row">
+                <div class="col-12">
+                  <br>
+                </div>
+              </div>
+            </mdb-tab>
+
+            <mdb-tab heading="Subscription">
               <div class="row">
                 <div class="col-12">
                   <br>
@@ -122,6 +125,26 @@
           <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>
             <i class="fa fa-refresh mr-1"></i>Update user</button>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #editEventModal="mdb-modal" class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header indigo white-text">
+        <h4 class="title">
+          <i class="fa fa-pencil"></i> Edit user</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="editEventModal.hide()">
+          <span class="white-text" aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body mb-0">
       </div>
     </div>
   </div>

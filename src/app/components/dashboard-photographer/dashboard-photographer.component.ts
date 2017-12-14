@@ -15,7 +15,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 
 /**
- * User dashboard component
+ * Photographer dashboard component
  * @author Daniel Sogl
  */
 @Component({
@@ -24,19 +24,31 @@ import { FirebaseFirestoreService } from '../../services/firebase/firestore/fire
   styleUrls: ['./dashboard-photographer.component.scss']
 })
 export class DashboardPhotographerComponent implements OnInit {
+  /** Logger */
   private log = Log.create('DashboardPhotographerComponent');
 
+  /** Firebase user */
   public user: User;
+
+  /** Can create a new event */
   public canCreateEvent: boolean;
 
+  /** New event form */
   public newEventForm: FormGroup;
 
+  /** Edited event */
   public eventEdit: Event;
+
+  /** New event object */
   public newEvent: Event = new Event('');
 
+  /** Events firebase collection */
   public eventDocs: AngularFirestoreCollection<Event[]>;
+  /** Photographer events */
   public events: Observable<Event[]>;
+  /** Photographer profile document */
   public photographerProfileDoc: AngularFirestoreDocument<PhotographerProfile>;
+  /** Photographer profile */
   public photographerProfile: PhotographerProfile = {
     about: '',
     email: '',
@@ -50,8 +62,16 @@ export class DashboardPhotographerComponent implements OnInit {
     website: ''
   };
 
+  /** Create new event modal */
   @ViewChild('createEventModal') public createEventModal;
 
+  /**
+   * Constructor
+   * @param  {FirebaseAuthService} auth Firebase Auth Service
+   * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
+   * @param  {Router} router Router
+   * @param  {FormBuilder} formBuilder FormBuilder
+   */
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
@@ -65,6 +85,9 @@ export class DashboardPhotographerComponent implements OnInit {
     });
   }
 
+  /**
+   * Initialize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
@@ -101,6 +124,9 @@ export class DashboardPhotographerComponent implements OnInit {
     });
   }
 
+  /**
+   * Create new event
+   */
   createNewEvent() {
     if (this.canCreateEvent) {
       this.newEvent.photographerUid = this.user.uid;
@@ -118,10 +144,16 @@ export class DashboardPhotographerComponent implements OnInit {
     }
   }
 
+  /**
+   * Open event to edit it
+   */
   editEvent(event: Event) {
     this.router.navigate(['event', event.id]);
   }
 
+  /**
+   * Update user data
+   */
   updateProfile() {
     this.afs
       .updateUserData(this.user)
