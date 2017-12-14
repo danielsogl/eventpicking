@@ -63,17 +63,11 @@ export class EventPageComponent implements OnInit, OnDestroy {
             this.auth.user.subscribe((user: any) => {
               if (user) {
                 this.user = user;
-                this.afs
-                  .getPhotographerEventsFromProfile(this.user.uid)
-                  .valueChanges()
-                  .subscribe(data => {
-                    if (data.filter((e: any) => e.id === this.id).length > 0) {
-                      this.isOwner = true;
-                      this.log.d('Photographer is owner of this event');
-                    } else {
-                      this.log.d('Photographer is not the owner of this event');
-                    }
-                  });
+                if (this.user.uid === this.event.photographerUid) {
+                  this.isOwner = true;
+                } else {
+                  this.isOwner = false;
+                }
               }
             });
           });

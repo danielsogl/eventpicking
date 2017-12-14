@@ -34,6 +34,9 @@ import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
+import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
+import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
+import { DashboardPhotographerComponent } from './components/dashboard-photographer/dashboard-photographer.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -57,7 +60,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FeaturesPageComponent,
     ShoppingCartComponent,
     ImprintPageComponent,
-    DataProtectionPageComponent
+    DataProtectionPageComponent,
+    DashboardUserComponent,
+    DashboardAdminComponent,
+    DashboardPhotographerComponent
   ],
   imports: [
     BrowserModule,

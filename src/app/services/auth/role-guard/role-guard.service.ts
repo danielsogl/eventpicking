@@ -5,14 +5,16 @@ import { FirebaseAuthService } from '../firebase-auth/firebase-auth.service';
 import { Log } from 'ng2-logger';
 
 /**
- * Prüft die Rollen des Nutzers
+ * Authguard for user roles
  * @author Daniel Sogl
  */
 @Injectable()
 export class RoleGuard implements CanActivate {
+  /** Logger */
   private log = Log.create('RoleGuard');
 
   /**
+   * Constructor
    * @param  {FirebaseAuthService} auth Firebase Auth Service
    * @param  {Router} router Angular Router
    */
@@ -22,6 +24,7 @@ export class RoleGuard implements CanActivate {
   }
 
   /**
+   * Check if user is allowed to visit route
    * @param  {ActivatedRouteSnapshot} route
    * @returns {boolean}
    */

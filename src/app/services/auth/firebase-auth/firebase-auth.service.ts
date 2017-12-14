@@ -19,21 +19,19 @@ import { FirebaseFirestoreService } from '../../firebase/firestore/firebase-fire
  */
 @Injectable()
 export class FirebaseAuthService {
+  /** Logger */
   private log = Log.create('FirebaseAuthService');
-  /**
-   * Firebase user
-   */
+  /** Firebase user */
   public user: Observable<User>;
 
-  /**
-   * roles of currently logged in uer
-   */
+  /** roles of currently logged in uer */
   private userRoles: Array<string>;
 
   /**
+   * Constructor
    * @param  {AngularFireAuth} afAuth AngularFire Auth
-   * @param  {FirebaseFirestoreService} afs AngularFire Auth
-   * @param  {Router} router Angular Router
+   * @param  {FirebaseFirestoreService} afs Firestore Service
+   * @param  {Router} router Router
    */
   constructor(
     private afAuth: AngularFireAuth,
@@ -51,11 +49,19 @@ export class FirebaseAuthService {
     });
   }
 
-  getAuthState(): Observable<firebase.User> {
+  /**
+   * Get user auth state
+   * @returns {Observable}
+   */
+  public getAuthState(): Observable<firebase.User> {
     return this.afAuth.authState;
   }
 
-  getCurrentFirebaseUser(): firebase.User {
+  /**
+   * Get current firebase user
+   * @returns {firebase.User}
+   */
+  public getCurrentFirebaseUser(): firebase.User {
     return this.afAuth.auth.currentUser;
   }
 
@@ -65,7 +71,7 @@ export class FirebaseAuthService {
    * @param  {string} password user password
    * @returns {Promise<any>}
    */
-  signInWithEmail(email: string, password: string): Promise<any> {
+  public signInWithEmail(email: string, password: string): Promise<any> {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
@@ -73,7 +79,7 @@ export class FirebaseAuthService {
    * Signs user in with his Google account
    * @returns {Promise<any>}
    */
-  signInWithGoogle(): Promise<any> {
+  public signInWithGoogle(): Promise<any> {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider).then(credential => {
       this.afs.updateUserData(credential.user);
@@ -84,7 +90,7 @@ export class FirebaseAuthService {
    * Signs user in with his Facebook account
    * @returns {Promise<any>}
    */
-  signInWithFacebook(): Promise<any> {
+  public signInWithFacebook(): Promise<any> {
     const provider = new firebase.auth.FacebookAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider).then(credential => {
       this.afs.updateUserData(credential.user);
@@ -95,7 +101,7 @@ export class FirebaseAuthService {
    * Signs user in with his twitter account
    * @returns {Promise<any>}
    */
-  signInWithTwitter(): Promise<any> {
+  public signInWithTwitter(): Promise<any> {
     const provider = new firebase.auth.TwitterAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider).then(credential => {
       this.afs.updateUserData(credential.user);
@@ -103,9 +109,12 @@ export class FirebaseAuthService {
   }
 
   /**
-   * @returns {Promise<any>}
+   * Register user with credentials
+   * @param  {string} email
+   * @param  {string} password
+   * @returns {Promise}
    */
-  register(email: string, password: string): Promise<any> {
+  public register(email: string, password: string): Promise<any> {
     return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(credential => {
@@ -117,7 +126,7 @@ export class FirebaseAuthService {
    * Signs user out
    * @returns {Promise<any>}
    */
-  signOut(): Promise<any> {
+  public signOut(): Promise<any> {
     return this.afAuth.auth.signOut().then(() => {
       this.router.navigate(['home']);
     });
@@ -128,7 +137,7 @@ export class FirebaseAuthService {
    * @param  {string} email Email
    * @returns {Promise<any>}
    */
-  sendResetPasswordMail(email: string): Promise<any> {
+  public sendResetPasswordMail(email: string): Promise<any> {
     return this.afAuth.auth.sendPasswordResetEmail(email);
   }
 

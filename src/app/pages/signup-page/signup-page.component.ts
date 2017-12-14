@@ -49,15 +49,7 @@ export class SignupPageComponent implements OnInit {
     private afs: FirebaseFirestoreService,
     private router: Router,
     private formBuilder: FormBuilder
-  ) {}
-
-  /** Initi component */
-  ngOnInit() {
-    this.log.color = 'orange';
-    this.log.d('Component initialized');
-
-    this.template = this.formUser;
-
+  ) {
     // Signup form
     this.signupForm = this.formBuilder.group({
       email: ['', Validators.email],
@@ -65,6 +57,14 @@ export class SignupPageComponent implements OnInit {
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
+  }
+
+  /** Initi component */
+  ngOnInit() {
+    this.log.color = 'orange';
+    this.log.d('Component initialized');
+
+    this.template = this.formUser;
   }
 
   /** Switch between signup forms */
