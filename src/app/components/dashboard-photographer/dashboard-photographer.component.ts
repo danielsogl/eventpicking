@@ -93,12 +93,14 @@ export class DashboardPhotographerComponent implements OnInit {
     this.log.d('Component initialized');
 
     this.auth.user.subscribe(user => {
-      this.user = user;
-      this.log.d('Loaded user', user);
-      if (this.user.eventsLeft > 0) {
-        this.canCreateEvent = true;
-      } else {
-        this.canCreateEvent = false;
+      if (user) {
+        this.user = user;
+        this.log.d('Loaded user', user);
+        if (this.user.eventsLeft > 0) {
+          this.canCreateEvent = true;
+        } else {
+          this.canCreateEvent = false;
+        }
       }
     });
 

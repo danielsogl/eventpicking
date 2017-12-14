@@ -95,8 +95,10 @@ export class DashboardAdminComponent implements OnInit {
     this.log.d('Component initialized');
 
     this.auth.user.subscribe(user => {
-      this.user = user;
-      this.log.d('Loaded user', user);
+      if (user) {
+        this.user = user;
+        this.log.d('Loaded user', user);
+      }
     });
 
     if (this.auth.getCurrentFirebaseUser()) {
