@@ -53,7 +53,6 @@ export class User {
    */
   constructor(authData: any) {
     this.email = authData.email;
-    this.events = authData.events;
     this.photographerUrl = authData.photographerUrl;
     this.photoURL = authData.photoURL;
     this.roles = { user: true, admin: false, photographer: false };
@@ -66,7 +65,6 @@ export class User {
     this.city = authData.city;
     this.zip = authData.zip;
     this.subscription = { membership: 'free', status: '', token: '' };
-    this.stripeId = authData.stripeId;
     this.eventsLeft = authData.eventsLeft;
     this.eventCounter = authData.eventCounter;
     this.isValidated = false;
