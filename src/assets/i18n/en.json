@@ -40,7 +40,9 @@
       "To which email address should the password reset email be sent?",
     "PROVIDE_VALID_EMAIL": "Please provide a valid email",
     "PROVIDE_VALID_PASSWORD": "Please provide a valid password",
-    "PROVIDE_VALID_URL": "Please provide a valid URL"
+    "PROVIDE_VALID_URL": "Please provide a valid URL",
+    "PAGE_NOT_FOUND": "Well, that's not what we expected!",
+    "PAGE_NOT_FOUND_DESCRIPTION": "Looks like someone left the lens cap on..."
   },
   "TABS": {
     "EVENTS": "Events",
