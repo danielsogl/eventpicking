@@ -99,10 +99,12 @@ export class DashboardAdminComponent implements OnInit {
       this.log.d('Loaded user', user);
     });
 
-    // Load users from Firestore
-    this.users = this.afs.getAllUser().valueChanges();
-    // Load events from Firestore
-    this.events = this.afs.getAllEvents().valueChanges();
+    if (this.auth.getCurrentFirebaseUser()) {
+      // Load users from Firestore
+      this.users = this.afs.getAllUser().valueChanges();
+      // Load events from Firestore
+      this.events = this.afs.getAllEvents().valueChanges();
+    }
   }
 
   /**

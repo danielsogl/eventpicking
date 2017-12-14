@@ -95,15 +95,16 @@ export class DashboardPhotographerComponent implements OnInit {
     this.auth.user.subscribe(user => {
       this.user = user;
       this.log.d('Loaded user', user);
-
       if (this.user.eventsLeft > 0) {
         this.canCreateEvent = true;
       } else {
         this.canCreateEvent = false;
       }
+    });
 
+    if (this.auth.getCurrentFirebaseUser()) {
       this.photographerProfileDoc = this.afs.getPhotographerProfile(
-        this.user.uid
+        this.auth.getCurrentFirebaseUser().uid
       );
 
       this.photographerProfileDoc.valueChanges().subscribe(profile => {
@@ -113,7 +114,9 @@ export class DashboardPhotographerComponent implements OnInit {
         }
       });
 
-      this.eventDocs = this.afs.getPhotographerEvents(this.user.uid);
+      this.eventDocs = this.afs.getPhotographerEvents(
+        this.auth.getCurrentFirebaseUser().uid
+      );
       this.events = this.eventDocs.snapshotChanges().map((events: any) => {
         return events.map(event => {
           const data = event.payload.doc.data() as Event;
@@ -121,7 +124,7 @@ export class DashboardPhotographerComponent implements OnInit {
           return { id, ...data };
         });
       });
-    });
+    }
   }
 
   /**
