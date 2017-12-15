@@ -72,7 +72,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PhotographerSearchPageComponent,
     EventUserComponent,
     EventPhotographerComponent,
-    PictureDetailComponent
+    PictureDetailComponent,
     DashboardPhotographerComponent,
     GtcpageComponent
   ],
