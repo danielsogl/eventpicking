@@ -32,8 +32,8 @@ describe('DashboardPageComponent', () => {
         ],
         providers: [
           FirebaseAuthService,
-          FirebaseFirestoreService,
           AngularFireAuth,
+          FirebaseFirestoreService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [DashboardPageComponent],

@@ -37,6 +37,10 @@ import { FirebaseStorageService } from './services/firebase/storage/firebase-sto
 import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
 import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
 import { DashboardPhotographerComponent } from './components/dashboard-photographer/dashboard-photographer.component';
+import { PhotographerSearchPageComponent } from './pages/photographer-search-page/photographer-search-page.component';
+import { EventUserComponent } from './components/event-user/event-user.component';
+import { EventPhotographerComponent } from './components/event-photographer/event-photographer.component';
+import { PictureDetailComponent } from './components/picture-detail/picture-detail.component';
 import { GtcpageComponent } from './pages/gtcpage/gtcpage.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -64,6 +68,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     DataProtectionPageComponent,
     DashboardUserComponent,
     DashboardAdminComponent,
+    DashboardPhotographerComponent,
+    PhotographerSearchPageComponent,
+    EventUserComponent,
+    EventPhotographerComponent,
+    PictureDetailComponent
     DashboardPhotographerComponent,
     GtcpageComponent
   ],

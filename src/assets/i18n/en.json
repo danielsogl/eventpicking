@@ -19,7 +19,8 @@
     "SIGNIN": "Sign in",
     "SIGNUP": "Sign up",
     "LOGOUT": "Log out",
-    "DASHBOARD": "Dashboard"
+    "DASHBOARD": "Dashboard",
+    "SEARCH": "Photographer near you"
   },
   "INPUTS": {
     "USER_EMAIL": "Your email",
