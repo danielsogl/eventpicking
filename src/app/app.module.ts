@@ -37,6 +37,10 @@ import { FirebaseStorageService } from './services/firebase/storage/firebase-sto
 import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
 import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
 import { DashboardPhotographerComponent } from './components/dashboard-photographer/dashboard-photographer.component';
+import { PhotographerSearchPageComponent } from './pages/photographer-search-page/photographer-search-page.component';
+import { EventUserComponent } from './components/event-user/event-user.component';
+import { EventPhotographerComponent } from './components/event-photographer/event-photographer.component';
+import { PictureDetailComponent } from './components/picture-detail/picture-detail.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -63,7 +67,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     DataProtectionPageComponent,
     DashboardUserComponent,
     DashboardAdminComponent,
-    DashboardPhotographerComponent
+    DashboardPhotographerComponent,
+    PhotographerSearchPageComponent,
+    EventUserComponent,
+    EventPhotographerComponent,
+    PictureDetailComponent
   ],
   imports: [
     BrowserModule,
