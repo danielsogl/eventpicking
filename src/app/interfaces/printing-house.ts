@@ -1,5 +1,5 @@
-import { Adress } from './adress';
+import { Address } from './address';
 
 export interface PrintingHouse {
-    adress: Adress;
+  adress: Address;
 }

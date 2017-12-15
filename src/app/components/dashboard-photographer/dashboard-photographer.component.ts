@@ -37,6 +37,15 @@ export class DashboardPhotographerComponent implements OnInit {
   /** New event form */
   public newEventForm: FormGroup;
 
+  /** Account data form */
+  public accountDataForm: FormGroup;
+
+  /** Billing Address Form */
+  public billingAddressForm: FormGroup;
+
+  /** Public profile data form */
+  public publicProfileForm: FormGroup;
+
   /** Edited event */
   public eventEdit: Event;
 
@@ -85,6 +94,38 @@ export class DashboardPhotographerComponent implements OnInit {
       location: ['', Validators.required],
       date: ['', Validators.required]
     });
+
+    this.accountDataForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      lastname: ['', Validators.required],
+      email: ['', Validators.required, Validators.email]
+    });
+
+    this.billingAddressForm = this.formBuilder.group({
+      city: ['', Validators.required],
+      company: [''],
+      email: ['', Validators.required, Validators.email],
+      name: [''],
+      lastname: [''],
+      phone: ['', Validators.required],
+      street: ['', Validators.required],
+      streetnumber: ['', Validators.required],
+      zip: ['', Validators.required]
+    });
+
+    this.publicProfileForm = this.formBuilder.group({
+      about: ['', Validators.required],
+      email: ['', Validators.required],
+      facebook: ['', Validators.required],
+      instagram: ['', Validators.required],
+      name: ['', Validators.required],
+      phone: ['', Validators.required],
+      tumbler: ['', Validators.required],
+      twitter: ['', Validators.required],
+      uid: ['', Validators.required],
+      website: ['', Validators.required],
+      photoUrl: ['', Validators.required]
+    });
   }
 
   /**
@@ -98,6 +139,7 @@ export class DashboardPhotographerComponent implements OnInit {
       if (user) {
         this.user = user;
         this.log.d('Loaded user', user);
+
         if (!user.isValidated) {
           this.notValidatedModal.show();
         }
@@ -133,9 +175,9 @@ export class DashboardPhotographerComponent implements OnInit {
             return { id, ...data };
           });
         });
-        this.events.subscribe(events => {
-          this.log.d('Events', events);
-        });
+      this.events.subscribe(events => {
+        this.log.d('Events', events);
+      });
     }
   }
 
@@ -184,24 +226,19 @@ export class DashboardPhotographerComponent implements OnInit {
   }
 
   /**
-   * Open event page to edit it
-   */
-  editEvent(event: Event) {
-    this.router.navigate(['event', event.id]);
-  }
-
-  /**
    * Update user data
    */
   updateProfile() {
-    this.afs
-      .updateUserData(this.user)
-      .then(() => {
-        this.log.d('Updated user');
-      })
-      .catch(err => {
-        this.log.er('Could not update user data', err);
-      });
+    if (this.accountDataForm.valid) {
+      this.afs
+        .updateUserData(this.user)
+        .then(() => {
+          this.log.d('Updated user');
+        })
+        .catch(err => {
+          this.log.er('Could not update user data', err);
+        });
+    }
   }
 
   updatePhotographerProfile() {

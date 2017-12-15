@@ -42,6 +42,7 @@ import { EventUserComponent } from './components/event-user/event-user.component
 import { EventPhotographerComponent } from './components/event-photographer/event-photographer.component';
 import { PictureDetailComponent } from './components/picture-detail/picture-detail.component';
 import { GtcpageComponent } from './pages/gtcpage/gtcpage.component';
+import { DashboardEventCardComponent } from './components/dashboard-event-card/dashboard-event-card.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -74,7 +75,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventPhotographerComponent,
     PictureDetailComponent,
     DashboardPhotographerComponent,
-    GtcpageComponent
+    GtcpageComponent,
+    DashboardEventCardComponent
   ],
   imports: [
     BrowserModule,

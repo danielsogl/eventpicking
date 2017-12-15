@@ -5,27 +5,13 @@
       <div class="col-12">
         <br>
         <div class="card-columns">
-            <div class="card card-cascade" *ngFor="let event of events | async">
-
-                                <!--Card image-->
-        <div class="view gradient-card-header blue-gradient">
-            <h2 class="h2-responsive">{{ event.name }}</h2>
-            <p>{{ event.location }} - {{ event.date }}</p>
-        </div>
-        <!--/Card image-->
-
-                <!--Card content-->
-                <div class="card-body">
-                    <a [routerLink]="['/event', event.id]" class="btn indigo waves-light" mdbRippleRadius>Edit event</a>
-                </div>
-
-            </div>
+          <app-dashboard-event-card *ngFor="let event of events | async" [event]="event"></app-dashboard-event-card>
         </div>
       </div>
     </div>
 
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a class="btn-floating btn-large indigo waves-light" mdbRippleRadius (click)="createNewEvent()">
+      <a class="btn-floating btn-large pink waves-light" mdbRippleRadius (click)="createNewEvent()">
         <i class="fa fa-plus"></i>
       </a>
     </div>
@@ -44,25 +30,285 @@
     <div class="row">
       <div class="col-12">
         <br>
+
+        <!--Section: Pricing v.1-->
+        <section class="section pb-3">
+          <!--Section heading-->
+          <h1 class="section-heading h1 pt-4">Our pricing plans</h1>
+          <!--Section description-->
+          <p class="section-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse
+            quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur accusamus veniam.</p>
+
+
+          <div class="row">
+
+            <div class="col-lg-4 col-md-12 mb-r">
+
+              <div class="card pricing-card">
+                <!--Price-->
+                <div class="price header indigo">
+                  <h1>25</h1>
+                  <div class="version">
+                    <h5>Basic</h5>
+                  </div>
+                </div>
+                <!--/.Price-->
+
+                <!--Features-->
+                <div class="card-body striped">
+                  <ul>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i> 15 Events</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i> No storage limitation</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i> 10% provision</p>
+                    </li>
+                  </ul>
+                  <p>Premium listing</p>
+                  <div class="form-group">
+                    <input type="checkbox" class="filled-in">
+                    <label for="checkbox2">Add for 10€ more</label>
+                  </div>
+                  <hr>
+
+                  <button class="btn btn-indigo waves-light" mdbRippleRadius>Upgrade</button>
+                </div>
+                <!--/.Features-->
+
+              </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-r">
+              <div class="card pricing-card">
+                <!--Price-->
+                <div class="price header indigo">
+                  <h1>35</h1>
+                  <div class="version">
+                    <h5>Smart</h5>
+                  </div>
+                </div>
+                <!--/.Price-->
+
+                <!--Features-->
+                <div class="card-body striped">
+                  <ul>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i> 25 Events</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i> No storage limitation</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i> 10% provision</p>
+                    </li>
+                  </ul>
+                  <p>Premium listing</p>
+                  <div class="form-group">
+                    <input type="checkbox" class="filled-in">
+                    <label for="checkbox2">Add for 10€ more</label>
+                  </div>
+                  <hr>
+
+                  <button class="btn btn-indigo waves-light" mdbRippleRadius>Upgrade</button>
+                </div>
+                <!--/.Features-->
+
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-r">
+              <div class="card pricing-card">
+                <!--Price-->
+                <div class="price header indigo">
+                  <h1>50</h1>
+                  <div class="version">
+                    <h5>Pro</h5>
+                  </div>
+                </div>
+                <!--/.Price-->
+
+                <!--Features-->
+                <div class="card-body striped">
+                  <ul>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i> 50 Events</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i> No storage limitation</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i> 10% provision</p>
+                    </li>
+                  </ul>
+                  <p>Premium listing</p>
+                  <div class="form-group">
+                    <input type="checkbox" class="filled-in">
+                    <label for="checkbox2">Add for 10€ more</label>
+                  </div>
+                  <hr>
+
+                  <button class="btn btn-indigo waves-light" mdbRippleRadius>Upgrade</button>
+                </div>
+                <!--/.Features-->
+
+              </div>
+            </div>
+
+          </div>
+        </section>
+
       </div>
     </div>
   </mdb-tab>
 
   <mdb-tab heading="{{ 'TABS.PRINTING_HOUSES' | translate }}">
-      <div class="row">
-        <div class="col-12">
-          <br>
-        </div>
+    <div class="row">
+      <div class="col-12">
+        <br>
       </div>
-    </mdb-tab>
+    </div>
+  </mdb-tab>
 
   <mdb-tab heading="{{ 'TABS.PROFILE' | translate }}">
-      <div class="row">
-        <div class="col-12">
-          <br>
-        </div>
+    <div class="row">
+      <div class="col-12">
+        <br>
+        <mdb-squeezebox [multiple]="false" aria-multiselectable="true" class="text-left">
+          <mdb-item>
+            <mdb-item-head>Account Data</mdb-item-head>
+            <mdb-item-body>
+              <form [formGroup]="accountDataForm">
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="name">
+                  <label class="active">Name</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="lastname">
+                  <label class="active">Lastname</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="email">
+                  <label class="active">Contact E-Mail</label>
+                </div>
+              </form>
+            </mdb-item-body>
+          </mdb-item>
+          <mdb-item>
+            <mdb-item-head>Billing Information</mdb-item-head>
+            <mdb-item-body>
+              <form [formGroup]="billingAddressForm">
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="company">
+                  <label class="active">Company</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="name">
+                  <label class="active">Name</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="lastname">
+                  <label class="active">Lastname</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="phone">
+                  <label class="active">Phone</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="email">
+                  <label class="active">Contact E-Mail</label>
+                </div>
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="street">
+                      <label class="active">Street</label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="md-form">
+                      <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="streetnumber">
+                      <label class="active">Streetnumber</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="city">
+                      <label class="active">City</label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="md-form">
+                      <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="zip">
+                      <label class="active">ZIP</label>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </mdb-item-body>
+          </mdb-item>
+          <mdb-item>
+            <mdb-item-head>Public Profile Data</mdb-item-head>
+            <mdb-item-body>
+              <form [formGroup]="publicProfileForm">
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="name">
+                  <label class="active">Displayed name</label>
+                </div>
+                <div class="md-form">
+                  <textarea class="md-textarea" type="text" length="120" mdbCharCounter mdbActive formControlName="about"></textarea>
+                  <label class="active">About you</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="facebook">
+                  <label class="active">Facebook Profile</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="instagram">
+                  <label class="active">Instagram Profile</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="tumbler">
+                  <label class="active">Tumbler Profile</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="twitter">
+                  <label class="active">Twitter Profile</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="website">
+                  <label class="active">Website Profile</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="phone">
+                  <label class="active">Phone</label>
+                </div>
+                <div class="md-form">
+                  <input mdbActive type="text" class="form-control" mdbInputValidate formControlName="email">
+                  <label class="active">Contact E-Mail</label>
+                </div>
+              </form>
+            </mdb-item-body>
+          </mdb-item>
+        </mdb-squeezebox>
+        <button type="submit" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius>Update Profile</button>
       </div>
-    </mdb-tab>
+    </div>
+  </mdb-tab>
 </mdb-tabset>
 
 <div mdbModal #newEventModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"

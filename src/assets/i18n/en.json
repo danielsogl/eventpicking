@@ -34,20 +34,20 @@
     "RESET_PASSWORD": "Reset Password"
   },
   "LABELS": {
-    "FORGOT_PASSWORD": "Forgot Password?",
-    "LOGIN": "Sign in",
-    "SIGN_IN_WITH": "or Sign in with:",
-    "NO_MEMBER": "Not a member?",
-    "SIGN_UP": "Sign Up",
-    "RESET_PASSWORD": "Reset Password",
-    "SIGNUP_AS_USER": "Signup as new user",
-    "SIGNUP_AS_PHOTOGRAPHER": "Signup as new photographer",
-    "SIGN_UP_WITH": "Or Signup with:",
     "CREATE_NEW_EVENT": "Create new event",
     "CREATE": "Create",
-    "EVENT_NAME": "Event name",
+    "EVENT_DATE": "Event date",
     "EVENT_LOCATION": "Event location",
-    "EVENT_DATE": "Event date"
+    "EVENT_NAME": "Event name",
+    "FORGOT_PASSWORD": "Forgot Password?",
+    "LOGIN": "Sign in",
+    "NO_MEMBER": "Not a member?",
+    "RESET_PASSWORD": "Reset Password",
+    "SIGN_IN_WITH": "or Sign in with:",
+    "SIGN_UP_WITH": "Or Signup with:",
+    "SIGN_UP": "Sign Up",
+    "SIGNUP_AS_PHOTOGRAPHER": "Signup as new photographer",
+    "SIGNUP_AS_USER": "Signup as new user"
   },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":
@@ -58,35 +58,35 @@
   },
   "TABS": {
     "EVENTS": "Events",
-    "SALES": "Sales",
+    "PRINTING_HOUSES": "Printing house",
     "PROFILE": "Profile",
-    "SUBSCRIPTION": "Subscription",
     "REVENUE": "Revenue",
-    "USER": "User",
-    "PRINTING_HOUSES": "Printing house"
+    "SALES": "Sales",
+    "SUBSCRIPTION": "Subscription",
+    "USER": "User"
   },
   "FIREBASE_ERRORS": {
     "auth/app-deleted": "",
     "auth/app-not-authorized": "",
     "auth/argument-error": "",
+    "auth/email-already-in-use": "",
     "auth/invalid-api-key": "",
+    "auth/invalid-credential": "",
+    "auth/invalid-email": "",
     "auth/invalid-user-token": "",
+    "auth/invalid-verification-code": "",
+    "auth/invalid-verification-id": "",
     "auth/network-request-failed": "",
     "auth/operation-not-allowed": "",
     "auth/requires-recent-login": "",
     "auth/too-many-requests": "",
     "auth/unauthorized-domain": "",
     "auth/user-disabled": "",
-    "auth/user-token-expired": "",
-    "auth/web-storage-unsupported": "",
     "auth/user-mismatch": "",
     "auth/user-not-found": "",
-    "auth/invalid-credential": "",
-    "auth/invalid-email": "",
-    "auth/wrong-password": "",
-    "auth/invalid-verification-code": "",
-    "auth/invalid-verification-id": "",
+    "auth/user-token-expired": "",
     "auth/weak-password": "",
-    "auth/email-already-in-use": ""
+    "auth/web-storage-unsupported": "",
+    "auth/wrong-password": ""
   }
 }
