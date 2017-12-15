@@ -37,6 +37,7 @@ import { FirebaseStorageService } from './services/firebase/storage/firebase-sto
 import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
 import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
 import { DashboardPhotographerComponent } from './components/dashboard-photographer/dashboard-photographer.component';
+import { GtcpageComponent } from './pages/gtcpage/gtcpage.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -63,7 +64,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DataProtectionPageComponent,
     DashboardUserComponent,
     DashboardAdminComponent,
-    DashboardPhotographerComponent
+    DashboardPhotographerComponent,
+    GtcpageComponent
   ],
   imports: [
     BrowserModule,
