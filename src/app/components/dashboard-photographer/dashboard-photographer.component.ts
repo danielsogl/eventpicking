@@ -13,6 +13,7 @@ import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-page';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 
 /**
  * Photographer dashboard component
@@ -39,11 +40,8 @@ export class DashboardPhotographerComponent implements OnInit {
   /** Edited event */
   public eventEdit: Event;
 
-  /** New event object */
-  public newEvent: Event = new Event('');
-
   /** Events firebase collection */
-  public eventDocs: AngularFirestoreCollection<Event[]>;
+  public eventCollection: AngularFirestoreCollection<Event>;
   /** Photographer events */
   public events: Observable<Event[]>;
   /** Photographer profile document */
@@ -63,7 +61,11 @@ export class DashboardPhotographerComponent implements OnInit {
   };
 
   /** Create new event modal */
-  @ViewChild('createEventModal') public createEventModal;
+  @ViewChild('newEventModal') public newEventModal: ModalDirective;
+  /** User not validated Modal */
+  @ViewChild('notValidatedModal') public notValidatedModal: ModalDirective;
+  /** Event limit modal */
+  @ViewChild('eventLimitModal') public eventLimitModal: ModalDirective;
 
   /**
    * Constructor
@@ -79,8 +81,8 @@ export class DashboardPhotographerComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.newEventForm = this.formBuilder.group({
-      name: ['', Validators.required, Validators.minLength(6)],
-      location: ['', Validators.required, Validators.minLength(6)],
+      name: ['', Validators.required],
+      location: ['', Validators.required],
       date: ['', Validators.required]
     });
   }
@@ -96,6 +98,9 @@ export class DashboardPhotographerComponent implements OnInit {
       if (user) {
         this.user = user;
         this.log.d('Loaded user', user);
+        if (!user.isValidated) {
+          this.notValidatedModal.show();
+        }
         if (this.user.eventsLeft > 0) {
           this.canCreateEvent = true;
         } else {
@@ -116,16 +121,21 @@ export class DashboardPhotographerComponent implements OnInit {
         }
       });
 
-      this.eventDocs = this.afs.getPhotographerEvents(
+      this.eventCollection = this.afs.getPhotographerEvents(
         this.auth.getCurrentFirebaseUser().uid
       );
-      this.events = this.eventDocs.snapshotChanges().map((events: any) => {
-        return events.map(event => {
-          const data = event.payload.doc.data() as Event;
-          const id = event.payload.doc.id;
-          return { id, ...data };
+      this.events = this.eventCollection
+        .snapshotChanges()
+        .map((events: any) => {
+          return events.map(event => {
+            const data = event.payload.doc.data() as Event;
+            const id = event.payload.doc.id;
+            return { id, ...data };
+          });
         });
-      });
+        this.events.subscribe(events => {
+          this.log.d('Events', events);
+        });
     }
   }
 
@@ -133,24 +143,48 @@ export class DashboardPhotographerComponent implements OnInit {
    * Create new event
    */
   createNewEvent() {
-    if (this.canCreateEvent) {
-      this.newEvent.photographerUid = this.user.uid;
-      this.newEvent.public = false;
-      this.eventDocs
-        .add(JSON.parse(JSON.stringify(this.newEvent)))
-        .then(() => {
-          this.log.d('Added new event to firestore');
-        })
-        .catch(err => {
-          this.log.er('Could not save event to firestore', err);
-        });
+    if (!this.user.isValidated) {
+      this.notValidatedModal.show();
+    } else if (this.canCreateEvent) {
+      this.newEventModal.show();
     } else {
+      this.eventLimitModal.show();
       this.log.d('User can not create another event without upgrading');
     }
   }
 
   /**
-   * Open event to edit it
+   * Save event
+   */
+  saveEvent() {
+    if (this.newEventForm.valid) {
+      const event = new Event({
+        name: this.newEventForm.value.name,
+        location: this.newEventForm.value.location,
+        date: this.newEventForm.value.date,
+        photographerUid: this.user.uid
+      });
+      this.eventCollection
+        .add(JSON.parse(JSON.stringify(event)))
+        .then(() => {
+          this.log.d('Added new event to firestore');
+          this.newEventModal.hide();
+          this.newEventForm.reset();
+          this.newEventForm.markAsUntouched();
+        })
+        .catch(err => {
+          this.newEventModal.hide();
+          this.newEventForm.reset();
+          this.newEventForm.markAsUntouched();
+          this.log.er('Could not save event to firestore', err);
+        });
+    } else {
+      this.log.er('Form is invalid');
+    }
+  }
+
+  /**
+   * Open event page to edit it
    */
   editEvent(event: Event) {
     this.router.navigate(['event', event.id]);
@@ -168,9 +202,9 @@ export class DashboardPhotographerComponent implements OnInit {
       .catch(err => {
         this.log.er('Could not update user data', err);
       });
-    this.photographerProfile.photoURL = this.user.photoURL;
-    this.photographerProfile.uid = this.user.uid;
-    this.photographerProfile.name = `${this.user.name} ${this.user.lastname}`;
+  }
+
+  updatePhotographerProfile() {
     this.photographerProfileDoc
       .set(this.photographerProfile)
       .then(() => {

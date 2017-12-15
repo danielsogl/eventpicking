@@ -4,11 +4,28 @@
     <div class="row">
       <div class="col-12">
         <br>
+        <div class="card-columns">
+            <div class="card card-cascade" *ngFor="let event of events | async">
+
+                                <!--Card image-->
+        <div class="view gradient-card-header blue-gradient">
+            <h2 class="h2-responsive">{{ event.name }}</h2>
+            <p>{{ event.location }} - {{ event.date }}</p>
+        </div>
+        <!--/Card image-->
+
+                <!--Card content-->
+                <div class="card-body">
+                    <a [routerLink]="['/event', event.id]" class="btn indigo waves-light" mdbRippleRadius>Edit event</a>
+                </div>
+
+            </div>
+        </div>
       </div>
     </div>
 
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a class="btn-floating btn-large indigo waves-light" mdbRippleRadius (click)="newEventModal.show()">
+      <a class="btn-floating btn-large indigo waves-light" mdbRippleRadius (click)="createNewEvent()">
         <i class="fa fa-plus"></i>
       </a>
     </div>
@@ -31,13 +48,21 @@
     </div>
   </mdb-tab>
 
-  <mdb-tab heading="{{ 'TABS.PROFILE' | translate }}">
-    <div class="row">
-      <div class="col-12">
-        <br>
+  <mdb-tab heading="{{ 'TABS.PRINTING_HOUSES' | translate }}">
+      <div class="row">
+        <div class="col-12">
+          <br>
+        </div>
       </div>
-    </div>
-  </mdb-tab>
+    </mdb-tab>
+
+  <mdb-tab heading="{{ 'TABS.PROFILE' | translate }}">
+      <div class="row">
+        <div class="col-12">
+          <br>
+        </div>
+      </div>
+    </mdb-tab>
 </mdb-tabset>
 
 <div mdbModal #newEventModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
@@ -56,7 +81,7 @@
       <div class="modal-body mb-0">
 
 
-        <form [formGroup]="newEventForm" (ngSubmit)="createNewEvent(); newEventModal.hide()">
+        <form [formGroup]="newEventForm" (ngSubmit)="saveEvent()">
 
           <div class="md-form">
             <input mdbActive type="text" class="form-control" id="input_newevent_name" formControlName="name">
@@ -85,5 +110,50 @@
       </div>
     </div>
 
+  </div>
+</div>
+
+
+<div mdbModal #notValidatedModal="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Your profile is not validated!</p>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-exclamation-triangle fa-4x mb-3 animated rotateIn"></i>
+          <p>Please validate your account by sending your trade translucent to
+            <a href="mailto:validate@eventpicking.de">validate@eventpicking.de</a>.
+            <br> After we validated your account you are able to create and sell events.</p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary-modal waves-light" mdbRippleRadius (click)="notValidatedModal.hide()">Got it!
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #eventLimitModal="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">You reached your events maximum!</p>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-exclamation-triangle fa-4x mb-3 animated rotateIn"></i>
+          <p>To create and sell more events you hav to upgrade to one of our subscription plans.</p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary-modal waves-light" mdbRippleRadius (click)="eventLimitModal.hide()">Got it!
+        </a>
+      </div>
+    </div>
   </div>
 </div>

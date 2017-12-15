@@ -103,9 +103,15 @@ export class DashboardAdminComponent implements OnInit {
 
     if (this.auth.getCurrentFirebaseUser()) {
       // Load users from Firestore
-      this.users = this.afs.getAllUser().valueChanges();
+      this.users = this.afs.getAllUser().valueChanges()
+      // this.user.subscribe(users => {
+      //   this.log.d('Users', users);
+      // });
       // Load events from Firestore
       this.events = this.afs.getAllEvents().valueChanges();
+      // this.events.subscribe(events => {
+      //   this.log.d('Events', events);
+      // });
     }
   }
 
@@ -137,5 +143,12 @@ export class DashboardAdminComponent implements OnInit {
    */
   updateUser() {
     this.editUserModal.hide();
+  }
+
+  /**
+   * Update printing house
+   */
+  updatePrintingHouse() {
+
   }
 }

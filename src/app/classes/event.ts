@@ -12,12 +12,12 @@ export class Event {
 
   constructor(eventData: any) {
     this.date = eventData.date;
-    this.description = eventData.description;
+    this.description = '';
     this.id = eventData.id;
     this.location = eventData.location;
     this.name = eventData.name;
     this.photographerUid = eventData.photographerUid;
-    this.pictures = eventData.pictures;
-    this.public = eventData.public;
+    this.pictures = [];
+    this.public = false;
   }
 }

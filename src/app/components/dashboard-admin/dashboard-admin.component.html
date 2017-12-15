@@ -22,6 +22,19 @@
               <th>{{ 'DASHBOARD.EDIT' | translate }}</th>
             </tr>
           </thead>
+          <tbody>
+            <tr *ngFor="let event of (events | async); let i = index">
+              <td>{{ i + 1}}</td>
+              <td>{{ event.name }}</td>
+              <td>{{ event.date }}</td>
+              <td>{{ event.location }}</td>
+              <td>{{ event.pictures.length }}</td>
+              <td><a>{{ event.photographerUid }}</a></td>
+              <td><a (click)="editEvent(user)">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a></td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
@@ -65,6 +78,9 @@
     <div class="row">
       <div class="col-12">
         <br>
+        <form [formGroup]="printingHouseForm" (ngSubmit)="updatePrintingHouse()">
+
+        </form>
       </div>
     </div>
   </mdb-tab>
@@ -138,7 +154,7 @@
 
       <div class="modal-header indigo white-text">
         <h4 class="title">
-          <i class="fa fa-pencil"></i> Edit user</h4>
+          <i class="fa fa-pencil"></i> Edit event</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="editEventModal.hide()">
           <span class="white-text" aria-hidden="true">×</span>
         </button>

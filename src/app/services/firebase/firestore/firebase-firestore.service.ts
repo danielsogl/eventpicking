@@ -114,7 +114,7 @@ export class FirebaseFirestoreService {
    * @param  {string} uid UID
    * @returns {AngularFirestoreCollection<Event[]>}
    */
-  getPhotographerEvents(uid: string): AngularFirestoreCollection<Event[]> {
+  getPhotographerEvents(uid: string): AngularFirestoreCollection<Event> {
     return this.afs.collection('events', ref =>
       ref.where('photographerUid', '==', uid)
     );
