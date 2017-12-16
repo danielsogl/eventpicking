@@ -23,15 +23,32 @@
     "SEARCH": "Photographer near you"
   },
   "INPUTS": {
-    "USER_EMAIL": "Your email",
+    "USER_EMAIL": "Your E-Mail",
     "USER_PASSWORD": "Your password",
     "CONFIRM_PASSWORD": "Confirm your password",
-    "PROFILE_URL": "Profile URL"
+    "PROFILE_URL": "Profile URL",
+    "NAME": "Name",
+    "LASTNAME": "Lastname",
+    "CONTACT_EMAIL": "Contact E-Mail",
+    "COMPANY": "Company",
+    "PHONE": "Phone",
+    "STREET": "Street",
+    "STREET_NUMBER": "Streetnumber",
+    "CITY": "City",
+    "ZIP": "ZIP",
+    "DISPLAY_NAME": "Displayed name",
+    "ABOUT_YOU": "About you",
+    "FACEBOOK_PROFILE": "Facebook profile",
+    "INSTAGRAM_PROFILE": "Instagram profile",
+    "TUMBLER_PROFILE": "Tumbler profile",
+    "TWITTER_PROFILE": "Twitter profile",
+    "WBESITE": "Website"
   },
   "BUTTONS": {
     "LOGIN": "Sign in",
     "CANCEL": "Cancel",
-    "RESET_PASSWORD": "Reset Password"
+    "RESET_PASSWORD": "Reset Password",
+    "UPDATE_PROFILE": "Update Profile"
   },
   "LABELS": {
     "CREATE_NEW_EVENT": "Create new event",
@@ -47,7 +64,10 @@
     "SIGN_UP_WITH": "Or Signup with:",
     "SIGN_UP": "Sign Up",
     "SIGNUP_AS_PHOTOGRAPHER": "Signup as new photographer",
-    "SIGNUP_AS_USER": "Signup as new user"
+    "SIGNUP_AS_USER": "Signup as new user",
+    "ACCOUNT_DATA": "Account Data",
+    "BILLING_INFORMATION": "Billing Information",
+    "PUBLIC_PROFILE": "Public Profile"
   },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":
