@@ -181,7 +181,7 @@ export class SignupPageComponent implements OnInit {
           twitter: '',
           uid: user.uid,
           website: '',
-          photoURL: user.photoURL
+          photoUrl: user.photoURL
         });
         this.afs.updateUserData(user).then(() => {
           this.router.navigate(['dashboard']);

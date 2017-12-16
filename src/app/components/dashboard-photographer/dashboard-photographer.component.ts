@@ -98,13 +98,13 @@ export class DashboardPhotographerComponent implements OnInit {
     this.accountDataForm = this.formBuilder.group({
       name: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: ['', Validators.required, Validators.email]
+      email: ['', Validators.email]
     });
 
     this.billingAddressForm = this.formBuilder.group({
       city: ['', Validators.required],
       company: [''],
-      email: ['', Validators.required, Validators.email],
+      email: ['', Validators.email],
       name: [''],
       lastname: [''],
       phone: ['', Validators.required],
@@ -114,17 +114,16 @@ export class DashboardPhotographerComponent implements OnInit {
     });
 
     this.publicProfileForm = this.formBuilder.group({
-      about: ['', Validators.required],
+      about: [''],
       email: ['', Validators.required],
-      facebook: ['', Validators.required],
-      instagram: ['', Validators.required],
+      facebook: [''],
+      instagram: [''],
       name: ['', Validators.required],
-      phone: ['', Validators.required],
-      tumbler: ['', Validators.required],
-      twitter: ['', Validators.required],
-      uid: ['', Validators.required],
-      website: ['', Validators.required],
-      photoUrl: ['', Validators.required]
+      phone: [''],
+      tumbler: [''],
+      twitter: [''],
+      uid: [''],
+      website: ['']
     });
   }
 
@@ -139,6 +138,14 @@ export class DashboardPhotographerComponent implements OnInit {
       if (user) {
         this.user = user;
         this.log.d('Loaded user', user);
+
+        this.accountDataForm.setValue({
+          name: this.user.name,
+          lastname: this.user.lastname,
+          email: this.user.email
+        });
+
+        this.billingAddressForm.setValue(this.user.billingAdress);
 
         if (!user.isValidated) {
           this.notValidatedModal.show();
@@ -160,6 +167,8 @@ export class DashboardPhotographerComponent implements OnInit {
         if (profile) {
           this.photographerProfile = profile;
           this.log.d('Photographer Profile', profile);
+
+          this.publicProfileForm.setValue(this.photographerProfile);
         }
       });
 
@@ -229,26 +238,48 @@ export class DashboardPhotographerComponent implements OnInit {
    * Update user data
    */
   updateProfile() {
-    if (this.accountDataForm.valid) {
+    if (
+      (this.billingAddressForm.valid && !this.billingAddressForm.untouched) ||
+      (this.accountDataForm.valid && !this.accountDataForm.untouched)
+    ) {
+      if (this.billingAddressForm.valid && !this.billingAddressForm.untouched) {
+        this.user.billingAdress = this.billingAddressForm.getRawValue();
+      }
+      if (this.accountDataForm.valid && !this.accountDataForm.untouched) {
+        this.user.name = this.accountDataForm.value.name;
+        this.user.lastname = this.accountDataForm.value.lastname;
+        this.user.email = this.accountDataForm.value.email;
+      }
+
+      this.log.d('Update user data', this.user);
       this.afs
         .updateUserData(this.user)
         .then(() => {
           this.log.d('Updated user');
+          this.accountDataForm.markAsUntouched();
+          this.billingAddressForm.markAsUntouched();
         })
         .catch(err => {
           this.log.er('Could not update user data', err);
         });
+    } else {
+      this.log.er('Account data and public profile data form untouched');
     }
-  }
-
-  updatePhotographerProfile() {
-    this.photographerProfileDoc
-      .set(this.photographerProfile)
-      .then(() => {
-        this.log.d('Updated photographer page data');
-      })
-      .catch(err => {
-        this.log.er('Could not update photographer page data', err);
-      });
+    if (this.publicProfileForm.valid && !this.publicProfileForm.untouched) {
+      this.photographerProfile = this.publicProfileForm.getRawValue();
+      this.photographerProfile.uid = this.user.uid;
+      this.log.d('Update public profile data', this.photographerProfile);
+      this.photographerProfileDoc
+        .set(this.photographerProfile)
+        .then(() => {
+          this.log.d('Updated photographer page data');
+          this.publicProfileForm.markAsUntouched();
+        })
+        .catch(err => {
+          this.log.er('Could not update photographer page data', err);
+        });
+    } else {
+      this.log.er('No public profile data changed');
+    }
   }
 }
