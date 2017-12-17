@@ -11,6 +11,12 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor() {}
 
+  increaseQuantity() {}
+
+  decreaseQuantity(oldQuantity: number): void {
+    const newQuantity: number = oldQuantity--;
+  }
+
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');

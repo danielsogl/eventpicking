@@ -17,7 +17,9 @@
   "BUTTONS": {
     "LOGIN": "Sign in",
     "CANCEL": "Cancel",
-    "RESET_PASSWORD": "Reset Password"
+    "RESET_PASSWORD": "Reset Password",
+    "PROCEED_TO_CHECKOUT": "Proceed to Checkout",
+    "CONTINUE_SHOPPING": "Continue Shopping"
   },
   "LABELS": {
     "FORGOT_PASSWORD": "Forgot Password?",
@@ -33,7 +35,13 @@
     "CREATE": "Create",
     "EVENT_NAME": "Event name",
     "EVENT_LOCATION": "Event location",
-    "EVENT_DATE": "Event date"
+    "EVENT_DATE": "Event date",
+    "CART_QUANTITY": "Quantity",
+    "CART_PICTURE": "Picture",
+    "CART_SIZE": "Size",
+    "CART_PRICE": "Price",
+    "TOTAL": "Total",
+    "SHOPPING_CART": "Shopping cart"
   },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":
