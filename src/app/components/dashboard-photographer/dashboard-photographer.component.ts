@@ -46,6 +46,9 @@ export class DashboardPhotographerComponent implements OnInit {
   /** Public profile data form */
   public publicProfileForm: FormGroup;
 
+  /** Printing house contact data form */
+  public printingHouseContactForm: FormGroup;
+
   /** Edited event */
   public eventEdit: Event;
 
@@ -282,4 +285,9 @@ export class DashboardPhotographerComponent implements OnInit {
       this.log.er('No public profile data changed');
     }
   }
+
+  /**
+   * Update printing house data
+   */
+  updatePrintingHouse() {}
 }

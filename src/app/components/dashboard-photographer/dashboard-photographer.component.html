@@ -176,8 +176,52 @@
 
   <mdb-tab heading="{{ 'TABS.PRINTING_HOUSES' | translate }}">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 text-left">
         <br>
+        <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
+          <mdb-item>
+            <mdb-item-head>Standard Printing house</mdb-item-head>
+            <mdb-item-body>
+              <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
+                <mdb-item>
+                  <mdb-item-head>Contact Information</mdb-item-head>
+                  <mdb-item-body>
+                  </mdb-item-body>
+                </mdb-item>
+                <mdb-item>
+                  <mdb-item-head>Prices</mdb-item-head>
+                  <mdb-item-body>
+                  </mdb-item-body>
+                </mdb-item>
+              </mdb-squeezebox>
+            </mdb-item-body>
+          </mdb-item>
+          <mdb-item>
+            <mdb-item-head>Own Printing House</mdb-item-head>
+            <mdb-item-body>
+              <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
+                <mdb-item>
+                  <mdb-item-head>Contact Information</mdb-item-head>
+                  <mdb-item-body>
+                    <form [formGroup]="printingHouseContactForm" (ngSubmit)="updatePrintingHouse()">
+
+                    </form>
+                  </mdb-item-body>
+                </mdb-item>
+                <mdb-item>
+                  <mdb-item-head>Payment Data</mdb-item-head>
+                  <mdb-item-body>
+                  </mdb-item-body>
+                </mdb-item>
+                <mdb-item>
+                  <mdb-item-head>Prices</mdb-item-head>
+                  <mdb-item-body>
+                  </mdb-item-body>
+                </mdb-item>
+              </mdb-squeezebox>
+            </mdb-item-body>
+          </mdb-item>
+        </mdb-squeezebox>
       </div>
     </div>
   </mdb-tab>
@@ -247,16 +291,16 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-9">
-                    <div class="md-form">
-                      <input type="text" class="form-control" formControlName="city">
-                      <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
-                    </div>
-                  </div>
                   <div class="col-md-3">
                     <div class="md-form">
                       <input type="text" class="form-control" formControlName="zip">
                       <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="city">
+                      <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
                     </div>
                   </div>
                 </div>

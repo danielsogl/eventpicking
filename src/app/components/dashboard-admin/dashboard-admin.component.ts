@@ -6,8 +6,10 @@ import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
+import { SalesType } from '../../interfaces/sales-type';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { PrintingHouse } from '../../classes/printing-house';
 
 /**
  * Admin dashboard component
@@ -24,6 +26,9 @@ export class DashboardAdminComponent implements OnInit {
 
   /** Firebase user */
   public user: User;
+
+  /** Printing House */
+  public printingHouse: PrintingHouse;
 
   /** User modal form */
   public userForm: FormGroup;
@@ -55,7 +60,7 @@ export class DashboardAdminComponent implements OnInit {
   ) {
     this.userForm = this.formBuilder.group({
       city: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', Validators.email],
       eventCounter: ['', Validators.required],
       eventsLeft: ['', Validators.required],
       isValidated: ['', Validators.required],
@@ -79,11 +84,17 @@ export class DashboardAdminComponent implements OnInit {
     });
     this.printingHouseForm = this.formBuilder.group({
       city: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', Validators.email],
       name: ['', Validators.required],
       phone: ['', Validators.required],
       street: ['', Validators.required],
-      zip: ['', Validators.required]
+      streetNumber: ['', Validators.required],
+      zip: ['', Validators.required],
+      paymentInformation: this.formBuilder.group({
+        iban: ['', Validators.required],
+        bic: ['', Validators.required],
+        accountOwner: ['', Validators.required]
+      })
     });
   }
 
@@ -103,16 +114,13 @@ export class DashboardAdminComponent implements OnInit {
 
     if (this.auth.getCurrentFirebaseUser()) {
       // Load users from Firestore
-      this.users = this.afs.getAllUser().valueChanges()
-      // this.user.subscribe(users => {
-      //   this.log.d('Users', users);
-      // });
+      this.users = this.afs.getAllUser().valueChanges();
       // Load events from Firestore
       this.events = this.afs.getAllEvents().valueChanges();
-      // this.events.subscribe(events => {
-      //   this.log.d('Events', events);
-      // });
     }
+
+    this.printingHouse = new PrintingHouse();
+    console.log(this.printingHouse);
   }
 
   /**
@@ -149,6 +157,6 @@ export class DashboardAdminComponent implements OnInit {
    * Update printing house
    */
   updatePrintingHouse() {
-
+    this.log.d(this.printingHouseForm.getRawValue());
   }
 }
