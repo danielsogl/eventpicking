@@ -93,31 +93,31 @@
 
                 <div class="md-form">
                   <input type="text" class="form-control" formControlName="name">
-                  <label>{{ 'INPUTS.NAME' | translate }}</label>
+                  <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
                 </div>
 
                 <div class="md-form">
                   <input type="text" class="form-control" formControlName="email">
-                  <label>{{ 'INPUTS.EMAIL' | translate }}</label>
+                  <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
                 </div>
 
                 <div class="md-form">
                   <input type="text" class="form-control" formControlName="phone">
-                  <label>{{ 'INPUTS.PHONE' | translate }}</label>
+                  <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
                 </div>
 
                 <div class="row">
                   <div class="col-md-9">
                     <div class="md-form">
                       <input type="text" class="form-control" formControlName="street">
-                      <label>{{ 'INPUTS.STREET' | translate }}</label>
+                      <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
                     </div>
                   </div>
 
                   <div class="col-md-3">
                     <div class="md-form">
                       <input type="text" class="form-control" formControlName="streetNumber">
-                      <label>{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                      <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
                     </div>
                   </div>
                 </div>
@@ -126,14 +126,14 @@
                   <div class="col-md-3">
                     <div class="md-form">
                       <input type="text" class="form-control" formControlName="zip">
-                      <label>{{ 'INPUTS.ZIP' | translate }}</label>
+                      <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
                     </div>
                   </div>
 
                   <div class="col-md-9">
                     <div class="md-form">
                       <input type="text" class="form-control" formControlName="city">
-                      <label>{{ 'INPUTS.CITY' | translate }}</label>
+                      <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
                     </div>
                   </div>
                 </div>
@@ -147,17 +147,17 @@
                 <div formArrayName="paymentInformation">
                   <div class="md-form">
                     <input type="text" class="form-control" formControlName="accountOwner">
-                    <label>{{ 'INPUTS.ACCOUNT_OWNER' | translate }}</label>
+                    <label class="active">{{ 'INPUTS.ACCOUNT_OWNER' | translate }}</label>
                   </div>
 
                   <div class="md-form">
                     <input type="text" class="form-control" formControlName="iban">
-                    <label>{{ 'INPUTS.IBAN' | translate }}</label>
+                    <label class="active">{{ 'INPUTS.IBAN' | translate }}</label>
                   </div>
 
                   <div class="md-form">
                     <input type="text" class="form-control" formControlName="bic">
-                    <label>{{ 'INPUTS.BIC' | translate }}</label>
+                    <label class="active">{{ 'INPUTS.BIC' | translate }}</label>
                   </div>
                 </div>
               </mdb-item-body>
@@ -193,8 +193,7 @@
             </mdb-item>
           </form>
         </mdb-squeezebox>
-        <button type="submit" [disabled]="!printingHouseForm.valid" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius
-          (click)="updatePrintingHouse()">{{ 'BUTTONS.SAVE' | translate }}</button>
+        <button type="submit" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updatePrintingHouse()">{{ 'BUTTONS.SAVE' | translate }}</button>
       </div>
     </div>
   </mdb-tab>

@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
-} from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
-import { User } from '../../../classes/user';
 import { Upload } from '../../../classes/upload';
+import { User } from '../../../classes/user';
 import { PhotographerProfile } from '../../../interfaces/photographer-page';
 
 /**
@@ -87,6 +83,12 @@ export class FirebaseFirestoreService {
   /************************************
    * Firestore: Printing houses
    ************************************/
+
+  getDefautlPrintingHouse(): AngularFirestoreCollection<any> {
+    return this.afs.collection('printingHouses', ref =>
+      ref.where('isDefault', '==', true)
+    );
+  }
 
   /************************************
    * Firestore: Events

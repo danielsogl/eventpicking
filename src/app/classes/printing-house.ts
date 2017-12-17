@@ -1,5 +1,3 @@
-import { SalesType } from '../interfaces/sales-type';
-
 export class PrintingHouse {
   /** City */
   city: string;
@@ -18,7 +16,8 @@ export class PrintingHouse {
   /** ZIP */
   zip: string;
 
-  constructor(data: any) {
+  constructor(data?: any) {
+    console.log(a);
     this.city = '';
     this.email = '';
     this.name = '';

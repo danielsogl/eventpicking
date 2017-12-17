@@ -5,11 +5,10 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
+import { PrintingHouse } from '../../classes/printing-house';
 import { User } from '../../classes/user';
-import { SalesType } from '../../interfaces/sales-type';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { PrintingHouse } from '../../classes/printing-house';
 
 /**
  * Admin dashboard component
@@ -157,6 +156,7 @@ export class DashboardAdminComponent implements OnInit {
    * Update printing house
    */
   updatePrintingHouse() {
-    this.log.d(this.printingHouseForm.getRawValue());
+    this.printingHouse = this.printingHouseForm.getRawValue();
+    this.log.d('Update printing house', this.printingHouse);
   }
 }
