@@ -1,3 +1,38 @@
-<p>
-  event-user works!
-</p>
+<div class="card">
+  <h3 class="card-header primary-color white-text">Eventnummer</h3>
+  <div class="card-body">
+    <h4 class="card title">Datum und Ort</h4>
+    <p class="card-text">Beschreibung des Events</p>
+  </div>
+</div>
+<nav id = "main_menu">
+  <mdb-tabset #staticTabs [buttonClass]="'nav-tabs tabs-3'" [contentClass]="'card'">
+    <mdb-tab heading="Alle Bilder">
+      <div class="row">
+        <div class="col-12">
+          <br>
+          <p>Hallo i bims</p>
+        </div>
+      </div>
+    </mdb-tab>
+    <mdb-tab heading="Markierte Bilder">
+      <div class="row">
+        <div class="col-12">
+          <br>
+          <p>Hallo i bims 2.0</p>
+        </div>
+      </div>
+    </mdb-tab>
+  </mdb-tabset>   
+</nav>
+<section id = "main_section">
+  <button type="button" class="btn btn-outline-primary btn rounded" mdbRippleRadius>Gesamtes Element auswählen</button>
+  <table>
+    <td><div class= "card">
+      <img class = "img-fluid" src = "https://www.spiritjourneysworldwide.com/wp-content/uploads/2016/12/scotland-1761292_1280.jpg" width ="400" height = "500" alt = "Card image cap"></div></td>
+    <td><div class= "card">
+      <img class = "img-fluid" src = "https://www.spiritjourneysworldwide.com/wp-content/uploads/2016/12/scotland-1761292_1280.jpg" width ="400" height = "500" alt = "Card image cap"></div></td>
+    <td><div class= "card">
+      <img class = "img-fluid" src = "https://www.spiritjourneysworldwide.com/wp-content/uploads/2016/12/scotland-1761292_1280.jpg" width ="400" height = "500" alt = "Card image cap"></div></td>
+  </table>
+</section>
