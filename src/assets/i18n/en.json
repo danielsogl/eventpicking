@@ -55,7 +55,10 @@
     "UPDATE_PROFILE": "Update Profile",
     "SAVE": "Save",
     "UPDATE_EVENT": "Update Event",
-    "UPDATE_USER": "Update User"
+    "UPDATE_USER": "Update User",
+    "CANCEL": "Cancel",
+    "RESET_PASSWORD": "Reset Password",
+    "ABO": "Buy now"
   },
   "LABELS": {
     "ACCOUNT_DATA": "Account Data",
@@ -83,7 +86,17 @@
       "To which email address should the password reset email be sent?",
     "PROVIDE_VALID_EMAIL": "Please provide a valid email",
     "PROVIDE_VALID_PASSWORD": "Please provide a valid password",
-    "PROVIDE_VALID_URL": "Please provide a valid URL"
+    "PROVIDE_VALID_URL": "Please provide a valid URL",
+    "PAGE_NOT_FOUND": "Well, that's not what we expected!",
+    "PAGE_NOT_FOUND_DESCRIPTION": "Looks like someone left the lens cap on...",
+    "PRICING_TITLE": "Pricing Guide",
+    "PRICING_GET_STARTED": "Get started",
+    "PRICING_DESCRIPTION":
+      "with your first free album or upgrade to one of our plans.",
+    "PRICING_MONTH": "events per month",
+    "PRICING_MONTHLY": "month",
+    "PRICING_PICTURE_AMOUNT": "pictures per album",
+    "PRICING_CANCEL": "Monthly cancellable"
   },
   "TABS": {
     "EVENTS": "Events",
