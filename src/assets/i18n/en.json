@@ -17,7 +17,8 @@
   "BUTTONS": {
     "LOGIN": "Sign in",
     "CANCEL": "Cancel",
-    "RESET_PASSWORD": "Reset Password"
+    "RESET_PASSWORD": "Reset Password",
+    "ABO": "Buy now"
   },
   "LABELS": {
     "FORGOT_PASSWORD": "Forgot Password?",
@@ -42,7 +43,15 @@
     "PROVIDE_VALID_PASSWORD": "Please provide a valid password",
     "PROVIDE_VALID_URL": "Please provide a valid URL",
     "PAGE_NOT_FOUND": "Well, that's not what we expected!",
-    "PAGE_NOT_FOUND_DESCRIPTION": "Looks like someone left the lens cap on..."
+    "PAGE_NOT_FOUND_DESCRIPTION": "Looks like someone left the lens cap on...",
+    "PRICING_TITLE": "Pricing Guide",
+    "PRICING_GET_STARTED": "Get started",
+    "PRICING_DESCRIPTION":
+      "with your first free album or upgrade to one of our plans.",
+    "PRICING_MONTH": "events per month",
+    "PRICING_MONTHLY": "month",
+    "PRICING_PICTURE_AMOUNT": "pictures per album",
+    "PRICING_CANCEL": "Monthly cancellable"
   },
   "TABS": {
     "EVENTS": "Events",
