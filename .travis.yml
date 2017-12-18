@@ -40,11 +40,13 @@ jobs:
         - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
 
     - stage: deploy to staging
+      if: type IN (push)
       before_script: npm install -g firebase-tools
       script: ng build --prod --env=dev
       after_success: firebase deploy --only hosting -P staging --token $FIREBASE_TOKEN
 
     - stage: deploy to production
+      if: type IN (push)
       if: branch = master
       before_script: npm install -g firebase-tools
       script: npm run pwa

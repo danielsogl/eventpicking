@@ -1,4 +1,4 @@
-<mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
+<mdb-tabset [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
   <mdb-tab heading="{{ 'TABS.REVENUE' | translate }}">
     <div class="row">
       <div class="col-12">
@@ -10,6 +10,19 @@
     <div class="row">
       <div class="col-12">
         <br>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>{{ 'DASHBOARD.NAME' | translate }}</th>
+              <th>{{ 'DASHBOARD.DATE' | translate }}</th>
+              <th>{{ 'DASHBOARD.LOCATION' | translate }}</th>
+              <th>{{ 'DASHBOARD.PICTURES' | translate }}</th>
+              <th>{{ 'DASHBOARD.PHOTOGRAPHER' | translate }}</th>
+              <th>{{ 'DASHBOARD.EDIT' | translate }}</th>
+            </tr>
+          </thead>
+        </table>
       </div>
     </div>
   </mdb-tab>
@@ -17,6 +30,34 @@
     <div class="row">
       <div class="col-12">
         <br>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>{{ 'DASHBOARD.EMAIL' | translate }}</th>
+              <th>{{ 'DASHBOARD.ROLE' | translate }}</th>
+              <th>{{ 'DASHBOARD.SUBSCRIPTION' | translate }}</th>
+              <th>{{ 'DASHBOARD.EDIT' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of (users | async); let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ user.email }}</td>
+              <td>
+                <span *ngIf="user.roles.admin">{{ 'DASHBOARD.ADMIN' | translate }}</span>
+                <span *ngIf="user.roles.photographer">{{ 'DASHBOARD.PHOTOGRAPHER' | translate }}</span>
+                <span *ngIf="user.roles.user">{{ 'DASHBOARD.USER' | translate }}</span>
+              </td>
+              <td>{{ user.subscription.membership }}</td>
+              <td>
+                <a (click)="editUser(user)">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </mdb-tab>
@@ -28,3 +69,83 @@
     </div>
   </mdb-tab>
 </mdb-tabset>
+
+<div mdbModal #editUserModal="mdb-modal" class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header indigo white-text">
+        <h4 class="title">
+          <i class="fa fa-pencil"></i> Edit user</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="editUserModal.hide()">
+          <span class="white-text" aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body mb-0">
+        <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+          <mdb-tabset [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
+
+            <mdb-tab heading="Account data">
+              <div class="row">
+                <div class="col-12">
+                  <br>
+                </div>
+              </div>
+            </mdb-tab>
+
+            <mdb-tab heading="Contact">
+              <div class="row">
+                <div class="col-12">
+                  <br>
+                </div>
+              </div>
+            </mdb-tab>
+
+            <mdb-tab heading="Payment">
+              <div class="row">
+                <div class="col-12">
+                  <br>
+                </div>
+              </div>
+            </mdb-tab>
+
+            <mdb-tab heading="Subscription">
+              <div class="row">
+                <div class="col-12">
+                  <br>
+                </div>
+              </div>
+            </mdb-tab>
+
+          </mdb-tabset>
+          <br>
+          <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>
+            <i class="fa fa-refresh mr-1"></i>Update user</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #editEventModal="mdb-modal" class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header indigo white-text">
+        <h4 class="title">
+          <i class="fa fa-pencil"></i> Edit user</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="editEventModal.hide()">
+          <span class="white-text" aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body mb-0">
+      </div>
+    </div>
+  </div>
+</div>
