@@ -126,7 +126,19 @@ export class DashboardPhotographerComponent implements OnInit {
       tumbler: [''],
       twitter: [''],
       uid: [''],
-      website: ['']
+      website: [''],
+      photoUrl: [''],
+      address: this.formBuilder.group({
+        city: ['', Validators.required],
+        company: [''],
+        email: ['', Validators.email],
+        name: [''],
+        lastname: [''],
+        phone: ['', Validators.required],
+        street: ['', Validators.required],
+        streetnumber: ['', Validators.required],
+        zip: ['', Validators.required]
+      })
     });
   }
 
@@ -171,7 +183,12 @@ export class DashboardPhotographerComponent implements OnInit {
           this.photographerProfile = profile;
           this.log.d('Photographer Profile', profile);
 
-          this.publicProfileForm.setValue(this.photographerProfile);
+          if (!this.photographerProfile.address) {
+            this.photographerProfile.address = this.user.billingAdress;
+          }
+          this.photographerProfile.photoUrl = this.user.photoURL;
+          this.photographerProfile.uid = this.user.uid;
+          this.publicProfileForm.patchValue(this.photographerProfile);
         }
       });
 
@@ -270,7 +287,6 @@ export class DashboardPhotographerComponent implements OnInit {
     }
     if (this.publicProfileForm.valid && !this.publicProfileForm.untouched) {
       this.photographerProfile = this.publicProfileForm.getRawValue();
-      this.photographerProfile.uid = this.user.uid;
       this.log.d('Update public profile data', this.photographerProfile);
       this.photographerProfileDoc
         .set(this.photographerProfile)

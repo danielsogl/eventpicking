@@ -17,7 +17,6 @@ export class PrintingHouse {
   zip: string;
 
   constructor(data?: any) {
-    console.log(a);
     this.city = '';
     this.email = '';
     this.name = '';

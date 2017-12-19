@@ -1,3 +1,5 @@
+import { Address } from './address';
+
 export interface PhotographerProfile {
   about?: string;
   email?: string;
@@ -10,4 +12,5 @@ export interface PhotographerProfile {
   uid?: string;
   website?: string;
   photoUrl?: string;
+  address?: Address;
 }
