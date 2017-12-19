@@ -1,5 +1,5 @@
 /**
- * Adress ionterface
+ * Address interface
  * @author Daniel Sogl
  */
 export interface Address {

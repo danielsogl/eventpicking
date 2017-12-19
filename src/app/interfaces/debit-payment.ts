@@ -1,5 +1,6 @@
 /**
  * Debit payment interface
+ * @author Daniel Sogl
  */
 export interface DebitPayment {
   /** Account holder */

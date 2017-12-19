@@ -4,7 +4,8 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { Log } from 'ng2-logger';
 
 /**
- * NAvigation component
+ * Navigation bar component
+ * @author Daniel Sogl
  */
 @Component({
   selector: 'app-navigation-bar',

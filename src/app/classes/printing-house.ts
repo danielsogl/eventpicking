@@ -1,3 +1,7 @@
+/**
+ * Printing house class
+ * @author Daniel Sogl
+ */
 export class PrintingHouse {
   /** City */
   city: string;
@@ -16,7 +20,10 @@ export class PrintingHouse {
   /** ZIP */
   zip: string;
 
-  constructor(data?: any) {
+  /**
+   * Constructor
+   */
+  constructor() {
     this.city = '';
     this.email = '';
     this.name = '';

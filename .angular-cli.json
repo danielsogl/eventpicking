@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "public",
+      "outDir": "dist",
       "assets": ["assets", "favicon.ico", "manifest.json"],
       "index": "index.html",
       "main": "main.ts",
@@ -43,7 +43,8 @@
   },
   "lint": [
     {
-      "project": "src/tsconfig.app.json"
+      "project": "src/tsconfig.app.json",
+      "exclude": ["node_modules/ng-mdb-pro/**/*.ts", "src/jest.conf.ts"]
     },
     {
       "project": "src/tsconfig.spec.json"

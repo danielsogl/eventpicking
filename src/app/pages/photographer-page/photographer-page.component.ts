@@ -7,6 +7,10 @@ import { FirebaseFirestoreService } from '../../services/firebase/firestore/fire
 import { PhotographerProfile } from '../../interfaces/photographer-page';
 import { Observable } from 'rxjs/Observable';
 
+/**
+ * Photographer page component
+ * @author Daniel Sogl, Tim Kriesler
+ */
 @Component({
   selector: 'app-photographer-page',
   templateUrl: './photographer-page.component.html',

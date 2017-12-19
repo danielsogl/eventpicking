@@ -129,15 +129,15 @@ export class DashboardPhotographerComponent implements OnInit {
       website: [''],
       photoUrl: [''],
       address: this.formBuilder.group({
-        city: ['', Validators.required],
+        city: [''],
         company: [''],
-        email: ['', Validators.email],
+        email: [''],
         name: [''],
         lastname: [''],
-        phone: ['', Validators.required],
-        street: ['', Validators.required],
-        streetnumber: ['', Validators.required],
-        zip: ['', Validators.required]
+        phone: [''],
+        street: [''],
+        streetnumber: [''],
+        zip: ['']
       })
     });
   }

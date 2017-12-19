@@ -4,6 +4,7 @@ import { Event } from '../../classes/event';
 
 /**
  * Dashboard event card component
+ * @author Daniel Sogl
  */
 @Component({
   selector: 'app-dashboard-event-card',

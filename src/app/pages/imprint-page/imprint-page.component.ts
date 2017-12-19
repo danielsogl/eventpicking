@@ -3,7 +3,7 @@ import { Log } from 'ng2-logger';
 
 /**
  * Imprint page component
- * @author Jascha Renner
+ * @author Daniel Sogl, Jascha Renner
  */
 @Component({
   selector: 'app-imprint-page',
