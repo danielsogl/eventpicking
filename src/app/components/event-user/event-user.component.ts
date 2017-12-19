@@ -3,6 +3,10 @@ import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
 import { Log } from 'ng2-logger';
 
+/**
+ * Event user view component
+ * @author Daniel Sogl, Daniel Kroll
+ */
 @Component({
   selector: 'app-event-user',
   templateUrl: './event-user.component.html',

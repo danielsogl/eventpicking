@@ -14,6 +14,10 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 
+/**
+ * Event page component
+ * @author Daniel Sogl
+ */
 @Component({
   selector: 'app-event-page',
   templateUrl: './event-page.component.html',

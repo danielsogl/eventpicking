@@ -3,6 +3,7 @@ import { Log } from 'ng2-logger';
 
 /**
  * Photographer search page component
+ * @author Daniel Sogl
  */
 @Component({
   selector: 'app-photographer-search-page',

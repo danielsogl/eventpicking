@@ -49,9 +49,7 @@
     "ZIP": "ZIP"
   },
   "BUTTONS": {
-    "CANCEL": "Cancel",
     "LOGIN": "Sign in",
-    "RESET_PASSWORD": "Reset Password",
     "UPDATE_PROFILE": "Update Profile",
     "SAVE": "Save",
     "UPDATE_EVENT": "Update Event",
@@ -61,6 +59,7 @@
     "ABO": "Buy now"
   },
   "LABELS": {
+    "ADDRESS": "Address",
     "ACCOUNT_DATA": "Account Data",
     "BILLING_INFORMATION": "Billing Information",
     "CREATE_NEW_EVENT": "Create new event",

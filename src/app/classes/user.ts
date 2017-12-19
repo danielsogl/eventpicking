@@ -43,7 +43,10 @@ export class User {
   constructor(authData: any) {
     this.billingAdress = {
       city: '',
+      company: '',
       email: '',
+      lastname: '',
+      name: '',
       phone: '',
       street: '',
       streetnumber: '',
@@ -51,7 +54,10 @@ export class User {
     };
     this.deliveryAdress = {
       city: '',
+      company: '',
       email: '',
+      lastname: '',
+      name: '',
       phone: '',
       street: '',
       streetnumber: '',

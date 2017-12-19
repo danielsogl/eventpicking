@@ -5,6 +5,7 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
+import { PrintingHouse } from '../../classes/printing-house';
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
@@ -24,6 +25,9 @@ export class DashboardAdminComponent implements OnInit {
 
   /** Firebase user */
   public user: User;
+
+  /** Printing House */
+  public printingHouse: PrintingHouse;
 
   /** User modal form */
   public userForm: FormGroup;
@@ -55,7 +59,7 @@ export class DashboardAdminComponent implements OnInit {
   ) {
     this.userForm = this.formBuilder.group({
       city: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', Validators.email],
       eventCounter: ['', Validators.required],
       eventsLeft: ['', Validators.required],
       isValidated: ['', Validators.required],
@@ -79,11 +83,17 @@ export class DashboardAdminComponent implements OnInit {
     });
     this.printingHouseForm = this.formBuilder.group({
       city: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', Validators.email],
       name: ['', Validators.required],
       phone: ['', Validators.required],
       street: ['', Validators.required],
-      zip: ['', Validators.required]
+      streetNumber: ['', Validators.required],
+      zip: ['', Validators.required],
+      paymentInformation: this.formBuilder.group({
+        iban: ['', Validators.required],
+        bic: ['', Validators.required],
+        accountOwner: ['', Validators.required]
+      })
     });
   }
 
@@ -107,6 +117,9 @@ export class DashboardAdminComponent implements OnInit {
       // Load events from Firestore
       this.events = this.afs.getAllEvents().valueChanges();
     }
+
+    this.printingHouse = new PrintingHouse();
+    console.log(this.printingHouse);
   }
 
   /**
@@ -137,5 +150,13 @@ export class DashboardAdminComponent implements OnInit {
    */
   updateUser() {
     this.editUserModal.hide();
+  }
+
+  /**
+   * Update printing house
+   */
+  updatePrintingHouse() {
+    this.printingHouse = this.printingHouseForm.getRawValue();
+    this.log.d('Update printing house', this.printingHouse);
   }
 }

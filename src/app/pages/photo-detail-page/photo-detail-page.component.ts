@@ -2,6 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
 
+/**
+ * Photo detail page component
+ * @author Daniel Sogl
+ */
 @Component({
   selector: 'app-photo-detail-page',
   templateUrl: './photo-detail-page.component.html',
