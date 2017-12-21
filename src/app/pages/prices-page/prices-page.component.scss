@@ -1,0 +1,21 @@
+.pricing-card .price h1:before,
+.pricing-card .price h2:before {
+  content: '€';
+}
+
+.pricing-card .price h1:after,
+.pricing-card .price h2:after {
+  content: '/mtl';
+}
+
+.price-color {
+  color: #ffffff;
+}
+
+.indigo-gradient {
+  background: linear-gradient(80deg, #9dafff, rgb(104, 129, 253));
+}
+
+.indigo-gradient-2{
+  background: linear-gradient(50deg, rgb(104, 129, 253), #9dafff);
+}
