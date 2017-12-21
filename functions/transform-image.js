@@ -8,6 +8,8 @@ const spawn = require('child-process-promise').spawn;
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
+const readFile = require('fs-readfile-promise');
+const imageinfo = require('imageinfo');
 
 // Max height and width of the thumbnail in pixels.
 const THUMB_MAX_HEIGHT = 250;
@@ -43,6 +45,8 @@ exports.transformImageHandler = event => {
   const tempLocalDir = path.dirname(tempLocalFile);
   const tempLocalThumbFile = path.join(os.tmpdir(), thumbFilePath);
   const tempLocalPreFile = path.join(os.tmpdir(), preFilePath);
+
+  let fileInfo;
 
   // Exit if this is triggered on a file that is not an image.
   if (!contentType.startsWith('image/')) {
@@ -86,7 +90,19 @@ exports.transformImageHandler = event => {
     })
     .then(() => {
       console.log('The file has been downloaded to', tempLocalFile);
+      console.log('Save image metadata');
 
+      return readFile(tempLocalFile).then(file => {
+        info = imageinfo(file);
+        fileInfo = {
+          type: info.mimeType,
+          size: file.length,
+          width: info.width,
+          height: info.height
+        };
+      });
+    })
+    .then(() => {
       // Generate a thumbnail using ImageMagick.
       console.log('Generate thumbnail');
       return spawn(
@@ -165,8 +181,10 @@ exports.transformImageHandler = event => {
         .doc(eventId)
         .collection('images')
         .add({
+          name: file.name,
           thumbnail: thumbFileUrl,
-          preview: preFileUrl
+          preview: preFileUrl,
+          info: fileInfo
         });
     })
     .then(() => console.log('Thumbnail URLs saved to database.'));
