@@ -5,6 +5,7 @@ import { Log } from 'ng2-logger';
 import { Event } from '../../../classes/event';
 import { Upload } from '../../../classes/upload';
 import { User } from '../../../classes/user';
+import { EventPicture } from '../../../interfaces/event-picture';
 import { PhotographerProfile } from '../../../interfaces/photographer-page';
 
 /**
@@ -144,13 +145,13 @@ export class FirebaseFirestoreService {
   /**
    * Get event pictures
    * @param  {string} id ID
-   * @returns {AngularFirestoreCollection<Event>}
+   * @returns {AngularFirestoreCollection<EventPicture>}
    */
-  getEventPictures(id: string): AngularFirestoreCollection<Event> {
+  getEventPictures(id: string): AngularFirestoreCollection<EventPicture> {
     return this.afs
       .collection('events')
       .doc(id)
-      .collection('public');
+      .collection('images');
   }
 
   /************************************
@@ -201,5 +202,9 @@ export class FirebaseFirestoreService {
         },
         { merge: true }
       );
+  }
+
+  createId(): string {
+    return this.afs.createId();
   }
 }

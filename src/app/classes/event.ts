@@ -1,5 +1,3 @@
-import { Picture } from '../interfaces/picture';
-
 /**
  * Event class
  * @author Daniel Sogl
@@ -11,7 +9,6 @@ export class Event {
   location: string;
   name: string;
   photographerUid: string;
-  pictures: Picture[];
   public: boolean;
   ratings: number;
 
@@ -22,7 +19,6 @@ export class Event {
     this.location = eventData.location;
     this.name = eventData.name;
     this.photographerUid = eventData.photographerUid;
-    this.pictures = [];
     this.public = false;
     this.ratings = 0;
   }

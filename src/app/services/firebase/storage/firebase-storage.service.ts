@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Log } from 'ng2-logger';
 import * as firebase from 'firebase';
+import { Log } from 'ng2-logger';
 
 import { Upload } from '../../../classes/upload';
 import { FirebaseFirestoreService } from '../firestore/firebase-firestore.service';
@@ -21,15 +21,10 @@ export class FirebaseStorageService {
     this.log.d('Service injected');
   }
 
-  getEventPictures(uid: string, event: string) {
-    const storageRef = firebase.storage().ref();
-    return storageRef.child(`events/${uid}/${event}/public/`);
-  }
-
   pushUpload(uid: string, upload: Upload) {
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef
-      .child(`events/${uid}/${upload.event}/originals/${upload.file.name}`)
+      .child(`events/${uid}/${upload.event}/${upload.file.name}`)
       .put(upload.file);
     uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,

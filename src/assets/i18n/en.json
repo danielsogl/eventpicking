@@ -98,12 +98,16 @@
     "PRICING_CANCEL": "Monthly cancellable"
   },
   "TABS": {
+    "EDIT_IMAGES": "Edit Images",
+    "EVENT_SETTINGS": "Event Settings",
     "EVENTS": "Events",
+    "GALLERY": "Gallery",
     "PRINTING_HOUSES": "Printing house",
     "PROFILE": "Profile",
     "REVENUE": "Revenue",
     "SALES": "Sales",
     "SUBSCRIPTION": "Subscription",
+    "UPLOAD": "Upload",
     "USER": "User"
   },
   "FIREBASE_ERRORS": {
