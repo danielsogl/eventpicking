@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
-import { PhotographerProfile } from '../../interfaces/photographer-page';
+import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 
@@ -66,7 +66,8 @@ export class DashboardPhotographerComponent implements OnInit {
     tumbler: '',
     twitter: '',
     uid: '',
-    website: ''
+    website: '',
+    premium: false
   };
 
   /** Create new event modal */
@@ -149,6 +150,7 @@ export class DashboardPhotographerComponent implements OnInit {
     this.auth.user.subscribe(user => {
       if (user) {
         this.user = user;
+        this.photographerProfile.premium = user.subscription.premium;
         this.log.d('Loaded user', user);
 
         this.accountDataForm.setValue({
@@ -183,7 +185,7 @@ export class DashboardPhotographerComponent implements OnInit {
           if (!this.photographerProfile.address) {
             this.photographerProfile.address = this.user.billingAdress;
           }
-          this.photographerProfile.photoUrl = this.user.photoURL;
+          this.photographerProfile.photoUrl = this.user.photoUrl;
           this.photographerProfile.uid = this.user.uid;
           this.publicProfileForm.patchValue(this.photographerProfile);
         }

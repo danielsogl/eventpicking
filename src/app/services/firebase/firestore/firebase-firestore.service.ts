@@ -6,7 +6,7 @@ import { Event } from '../../../classes/event';
 import { Upload } from '../../../classes/upload';
 import { User } from '../../../classes/user';
 import { EventPicture } from '../../../interfaces/event-picture';
-import { PhotographerProfile } from '../../../interfaces/photographer-page';
+import { PhotographerProfile } from '../../../interfaces/photographer-profile';
 
 /**
  * Service to comunicate with the Firestore database
@@ -43,8 +43,8 @@ export class FirebaseFirestoreService {
     if (!user.roles) {
       user = new User(user);
     }
-    if (!user.photoURL) {
-      user.photoURL =
+    if (!user.photoUrl) {
+      user.photoUrl =
         'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
     }
     if (user.photographerUrl) {

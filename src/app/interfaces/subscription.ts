@@ -1,6 +1,7 @@
 export interface EventpickingSub {
   membership: string;
+  premium: boolean;
   status: string;
-  token?: string;
   subId?: string;
+  token?: string;
 }

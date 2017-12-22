@@ -21,6 +21,8 @@ export interface PhotographerProfile {
   phone?: string;
   /** Photo URL */
   photoUrl?: string;
+  /** Premium user */
+  premium: boolean;
   /** Tumbler */
   tumbler?: string;
   /** Twitter */
