@@ -33,6 +33,8 @@ export class EventPhotographerComponent implements OnInit {
     this.log.d('User', this.user);
 
     // Load images
-    this.images = this.afs.getEventPictures(this.event.id).valueChanges();
+    if (this.event) {
+      this.images = this.afs.getEventPictures(this.event.id).valueChanges();
+    }
   }
 }

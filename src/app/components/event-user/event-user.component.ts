@@ -33,14 +33,16 @@ export class EventUserComponent implements OnInit {
     this.log.d('User', this.user);
 
     // Load images
-    this.afs
-      .getEventPictures(this.event.id)
-      .valueChanges()
-      .subscribe(images => {
-        if (images) {
-          this.images = images;
-          this.log.d('Images', this.images);
-        }
-      });
+    if (this.event) {
+      this.afs
+        .getEventPictures(this.event.id)
+        .valueChanges()
+        .subscribe(images => {
+          if (images) {
+            this.images = images;
+            this.log.d('Images', this.images);
+          }
+        });
+    }
   }
 }
