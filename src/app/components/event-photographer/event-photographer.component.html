@@ -12,8 +12,24 @@
         <br>
         <div class="table-responsive">
           <table class="table">
-            <thead></thead>
-            <tbody></tbody>
+            <thead>
+              <tr>
+                <td>#</td>
+                <td>Name</td>
+                <td>Type</td>
+                <td>Format</td>
+                <td>Size</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let image of (images | async); let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ image.name }}</td>
+                <td>{{ image.info.type }}</td>
+                <td>{{ image.info.width }}x{{ image.info.height }}</td>
+                <td>{{ (image.info.size) }} KB</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>

@@ -204,7 +204,11 @@ export class FirebaseFirestoreService {
       );
   }
 
-  createId(): string {
+  /**
+   * Create a firestore UID
+   * @returns {string}
+   */
+  getId(): string {
     return this.afs.createId();
   }
 }

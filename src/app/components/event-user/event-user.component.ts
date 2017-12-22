@@ -19,9 +19,9 @@ export class EventUserComponent implements OnInit {
   /** Logger */
   private log = Log.create('EventUserComponent');
 
-  @Input() event: Event;
+  @Input() public event: Event;
   public images: EventPicture[];
-  @Input() user: User;
+  @Input() public user: User;
 
   constructor(private afs: FirebaseFirestoreService) {}
 

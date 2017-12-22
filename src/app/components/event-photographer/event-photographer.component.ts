@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Log } from 'ng2-logger';
+import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
@@ -19,7 +20,7 @@ export class EventPhotographerComponent implements OnInit {
   /** Logger */
   private log = Log.create('EventPhotographerComponent');
   @Input() event: Event;
-  @Input() images: EventPicture[];
+  @Input() images: Observable<EventPicture[]>;
   @Input() user: User;
 
   constructor(private afs: FirebaseFirestoreService) {}
@@ -32,14 +33,6 @@ export class EventPhotographerComponent implements OnInit {
     this.log.d('User', this.user);
 
     // Load images
-    this.afs
-      .getEventPictures(this.event.id)
-      .valueChanges()
-      .subscribe(images => {
-        if (images) {
-          this.images = images;
-          this.log.d('Images', this.images);
-        }
-      });
+    this.images = this.afs.getEventPictures(this.event.id).valueChanges();
   }
 }
