@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Log } from 'ng2-logger';
 
+/**
+ * Checkout page component
+ * @author Daniel Sogl
+ */
 @Component({
   selector: 'app-checkout-page',
   templateUrl: './checkout-page.component.html',

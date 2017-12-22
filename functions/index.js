@@ -1,3 +1,4 @@
+'use strict';
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
@@ -10,7 +11,7 @@ const eventModule = require('./events.js');
  * Transform Image
  */
 exports.transformImage = functions.storage
-  .object('events/{photographer}/{id}/originals')
+  .object('events/{photographer}/{eventID}')
   .onChange(imageModule.transformImageHandler);
 
 /**

@@ -3,6 +3,10 @@ import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
 import { Log } from 'ng2-logger';
 
+/**
+ * Event photographer view component
+ * @author Daniel Sogl
+ */
 @Component({
   selector: 'app-event-photographer',
   templateUrl: './event-photographer.component.html',

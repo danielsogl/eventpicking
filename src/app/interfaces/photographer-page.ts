@@ -1,14 +1,32 @@
+import { Address } from './address';
+
+/**
+ * Photographer profile interface
+ * @author Daniel Sogl
+ */
 export interface PhotographerProfile {
+  /** About */
   about?: string;
+  /** Address */
+  address?: Address;
+  /** Email */
   email?: string;
+  /** Facebook */
   facebook?: string;
+  /** Instagram */
   instagram?: string;
+  /** Name */
   name?: string;
+  /** Phone */
   phone?: string;
-  tumbler?: string;
-  twitter?: string;
-  uid?: string;
-  website?: string;
+  /** Photo URL */
   photoUrl?: string;
-  photoURL?: string;
+  /** Tumbler */
+  tumbler?: string;
+  /** Twitter */
+  twitter?: string;
+  /** UID */
+  uid?: string;
+  /** Website */
+  website?: string;
 }

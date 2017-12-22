@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Log } from 'ng2-logger';
 
 /**
- * Home page component
- * @author Daniel Sogl, Anna Riesch
+ * GTC page component
+ * @author Daniel Sogl, Daniel Kroll
  */
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  selector: 'app-gtcpage',
+  templateUrl: './gtcpage.component.html',
+  styleUrls: ['./gtcpage.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class GtcpageComponent implements OnInit {
   /** Logger */
-  private log = Log.create('HomePageComponent');
+  private log = Log.create('GtcpageComponent');
 
   /**
    * Constructor

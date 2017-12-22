@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Log } from 'ng2-logger';
 
+/**
+ * Picture detail modal component
+ * @author Daniel Sogl
+ */
 @Component({
   selector: 'app-picture-detail',
   templateUrl: './picture-detail.component.html',

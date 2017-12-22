@@ -1,5 +1,9 @@
 import { Picture } from '../interfaces/picture';
 
+/**
+ * Event class
+ * @author Daniel Sogl
+ */
 export class Event {
   date: string;
   description: string;
@@ -9,15 +13,17 @@ export class Event {
   photographerUid: string;
   pictures: Picture[];
   public: boolean;
+  ratings: number;
 
   constructor(eventData: any) {
     this.date = eventData.date;
-    this.description = eventData.description;
+    this.description = '';
     this.id = eventData.id;
     this.location = eventData.location;
     this.name = eventData.name;
     this.photographerUid = eventData.photographerUid;
-    this.pictures = eventData.pictures;
-    this.public = eventData.public;
+    this.pictures = [];
+    this.public = false;
+    this.ratings = 0;
   }
 }

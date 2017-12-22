@@ -53,7 +53,7 @@ export class SignupPageComponent implements OnInit {
     // Signup form
     this.signupForm = this.formBuilder.group({
       email: ['', Validators.email],
-      photographerUrl: ['', Validators.required],
+      photographerUrl: [''],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
     });
@@ -163,22 +163,16 @@ export class SignupPageComponent implements OnInit {
   updateUser() {
     if (this.template === this.formPhotographer) {
       this.auth.user.subscribe(user => {
-        user.roles.photographer = true;
-        user.roles.user = false;
+        user.roles = {
+          photographer: true,
+          user: false,
+          admin: false
+        };
         user.photographerUrl = this.signupForm.value.photographerUrl;
-        user.eventCounter = 0;
         user.subscription = { membership: 'free', status: 'valid' };
-        user.eventsLeft = 1;
-        this.afs.updateUserData(user).then(() => {
-          this.router.navigate(['dashboard']);
-        });
-      });
-    } else {
-      this.auth.user.subscribe(user => {
-        user.subscription = { membership: 'user', status: 'valid' };
         this.afs.getPhotographerProfile(user.uid).set({
           about: '',
-          email: '',
+          email: user.email,
           facebook: '',
           instagram: '',
           name: '',
@@ -187,8 +181,15 @@ export class SignupPageComponent implements OnInit {
           twitter: '',
           uid: user.uid,
           website: '',
-          photoURL: user.photoURL
+          photoUrl: user.photoURL
         });
+        this.afs.updateUserData(user).then(() => {
+          this.router.navigate(['dashboard']);
+        });
+      });
+    } else {
+      this.auth.user.subscribe(user => {
+        user.subscription = { membership: 'user', status: 'valid' };
         this.afs.updateUserData(user).then(() => {
           this.router.navigate(['dashboard']);
         });
