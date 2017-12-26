@@ -9,6 +9,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { MDBBootstrapModules, MDBSpinningPreloader } from 'ng-mdb-pro';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -43,6 +44,7 @@ import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
+import { FileDropModule } from 'ngx-file-drop';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -85,9 +87,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FileDropModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
     MDBBootstrapModules.forRoot(),
     TranslateModule.forRoot({
       loader: {

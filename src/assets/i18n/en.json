@@ -78,7 +78,9 @@
     "SIGNUP_AS_PHOTOGRAPHER": "Signup as new photographer",
     "SIGNUP_AS_USER": "Signup as new user",
     "EDIT_EVENT": "Edit Event",
-    "EDIT_USER": "Edit User"
+    "EDIT_USER": "Edit User",
+    "EVENT_DESCRIPTION": "Description",
+    "EVENT_PASSWORD": "Password"
   },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":

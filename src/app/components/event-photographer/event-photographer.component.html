@@ -39,6 +39,27 @@
     <div class="row">
       <div class="col-12">
         <br>
+        <div class="center">
+          <file-drop headertext="Drop your images here" (onFileDrop)="dropped($event)">
+          </file-drop>
+          <button type="button" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>Upload Images</button>
+          <div class="upload-table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody class="upload-name-style">
+                <tr *ngFor="let file of files; let i=index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ file.fileEntry.name }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </mdb-tab>
@@ -46,6 +67,33 @@
     <div class="row">
       <div class="col-12">
         <br>
+        <form [formGroup]="eventForm">
+
+          <div class="md-form">
+            <input type="text" class="form-control" id="input_event_name" formControlName="name">
+            <label class="active">{{ 'LABELS.EVENT_NAME' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="text" class="form-control" id="input_event_location" formControlName="location">
+            <label class="active">{{ 'LABELS.EVENT_LOCATION' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <mdb-date-picker name="mydate" id="input_event_date" [placeholder]="'Selected date'" formControlName="date"></mdb-date-picker>
+          </div>
+
+          <div class="md-form">
+            <textarea class="md-textarea" id="input_event_description" type="text" length="120" mdbCharCounter formControlName="description"></textarea>
+            <label class="active">{{ 'LABELS.EVENT_DESCRIPTION' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="password" class="form-control" id="input_event_password" formControlName="password">
+            <label class="active">{{ 'LABELS.EVENT_PASSWORD' | translate }}</label>
+          </div>
+
+        </form>
       </div>
     </div>
   </mdb-tab>
