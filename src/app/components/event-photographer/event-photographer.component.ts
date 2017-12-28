@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Log } from 'ng2-logger';
-import { UploadEvent, UploadFile } from 'ngx-file-drop';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
@@ -26,7 +25,7 @@ export class EventPhotographerComponent implements OnInit {
   public eventForm: FormGroup;
 
   /** Images to upload */
-  public files: UploadFile[] = [];
+  public files: any[] = [];
 
   /** Event */
   @Input() public event: Event;
@@ -65,9 +64,5 @@ export class EventPhotographerComponent implements OnInit {
       // Load images
       this.images = this.afs.getEventPictures(this.event.id).valueChanges();
     }
-  }
-
-  dropped(event: UploadEvent) {
-    this.files = event.files;
   }
 }
