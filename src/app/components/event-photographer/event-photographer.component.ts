@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as _ from 'lodash';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
@@ -7,6 +8,7 @@ import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 
 /**
  * Event photographer view component
@@ -25,7 +27,10 @@ export class EventPhotographerComponent implements OnInit {
   public eventForm: FormGroup;
 
   /** Images to upload */
-  public files: any[] = [];
+  public selectedFiles: FileList;
+
+  /** Upload prgress */
+  public uploadProgress: number;
 
   /** Event */
   @Input() public event: Event;
@@ -36,6 +41,7 @@ export class EventPhotographerComponent implements OnInit {
 
   constructor(
     private afs: FirebaseFirestoreService,
+    private storage: FirebaseStorageService,
     private formBuilder: FormBuilder
   ) {
     this.eventForm = this.formBuilder.group({
@@ -64,5 +70,17 @@ export class EventPhotographerComponent implements OnInit {
       // Load images
       this.images = this.afs.getEventPictures(this.event.id).valueChanges();
     }
+  }
+
+  startUpload() {
+    const files = this.selectedFiles;
+    const filesIndex = _.range(files.length);
+    _.each(filesIndex, idx => {
+      this.storage.pushUpload(this.user.uid, this.event.id, files[idx]);
+    });
+  }
+
+  detectFiles(event) {
+    this.selectedFiles = event.target.files;
   }
 }

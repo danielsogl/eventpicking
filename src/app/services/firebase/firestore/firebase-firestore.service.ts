@@ -3,7 +3,6 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
-import { Upload } from '../../../classes/upload';
 import { User } from '../../../classes/user';
 import { EventPicture } from '../../../interfaces/event-picture';
 import { PhotographerProfile } from '../../../interfaces/photographer-profile';
@@ -127,7 +126,7 @@ export class FirebaseFirestoreService {
    * Save upload url and name
    * @param  {Upload} upload Upload
    */
-  setPictureData(upload: Upload) {
+  setPictureData(upload: any) {
     this.afs
       .collection('events')
       .doc(upload.event)

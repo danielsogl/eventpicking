@@ -38,6 +38,7 @@
     "lodash": "^4.17.4",
     "ng-mdb-pro": "git+https://fdbab677d1494b5590791d1b5de3e14c775010db:x-oauth-basic@github.com/danielsogl/ng-mdb-pro.git",
     "ng2-logger": "1.0.3",
+    "ngx-file-drop": "^2.0.2",
     "rxjs": "^5.5.6",
     "screenfull": "^3.3.2",
     "web-animations-js": "^2.3.1",

@@ -39,25 +39,10 @@
     <div class="row">
       <div class="col-12">
         <br>
-        <div class="center">
-          <button type="button" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>Upload Images</button>
-          <div class="upload-table">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                </tr>
-              </thead>
-              <tbody class="upload-name-style">
-                <tr *ngFor="let file of files; let i=index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ file.fileEntry.name }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <label>
+          <input type="file" (change)="detectFiles($event)" multiple>
+        </label>
+        <button (click)="startUpload()">Upload</button>
       </div>
     </div>
   </mdb-tab>
