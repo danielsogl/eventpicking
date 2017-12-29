@@ -37,7 +37,7 @@
     "intl": "^1.2.5",
     "lodash": "^4.17.4",
     "ng-mdb-pro": "git+https://fdbab677d1494b5590791d1b5de3e14c775010db:x-oauth-basic@github.com/danielsogl/ng-mdb-pro.git",
-    "ng2-logger": "^1.0.3",
+    "ng2-logger": "1.0.3",
     "rxjs": "^5.5.6",
     "screenfull": "^3.3.2",
     "web-animations-js": "^2.3.1",
@@ -51,7 +51,7 @@
     "@compodoc/compodoc": "^1.0.5",
     "@types/jasmine": "^2.8.3",
     "@types/jasminewd2": "~2.0.2",
-    "@types/jest": "^21.1.10",
+    "@types/jest": "^22.0.0",
     "@types/node": "^8.5.2",
     "codelyzer": "^4.0.2",
     "jasmine-core": "~2.8.0",
@@ -67,7 +67,7 @@
     "protractor": "~5.2.2",
     "ts-node": "^4.1.0",
     "tslint": "~5.8.0",
-    "typescript": "^2.7.0-dev.20171226"
+    "typescript": "2.7.0-dev.20171226"
   },
   "jest": {
     "preset": "jest-preset-angular",
