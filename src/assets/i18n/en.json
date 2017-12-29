@@ -6,7 +6,10 @@
     "SIGNIN": "Sign in",
     "SIGNUP": "Sign up",
     "LOGOUT": "Log out",
-    "DASHBOARD": "Dashboard"
+    "DASHBOARD": "Dashboard",
+    "CONTACT_DETAILS": "Contact details",
+    "PAYMENT_DELIVERY": "Payment/Delivery",
+    "CHECK_ORDER": "Check order"
   },
   "INPUTS": {
     "USER_EMAIL": "Your email",
@@ -41,7 +44,8 @@
     "CART_SIZE": "Size",
     "CART_PRICE": "Price",
     "TOTAL": "Total",
-    "SHOPPING_CART": "Shopping cart"
+    "SHOPPING_CART": "Shopping cart",
+    "CONTACT_DETAILS": "Contact details"
   },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":
