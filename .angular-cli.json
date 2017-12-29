@@ -43,13 +43,15 @@
   "lint": [
     {
       "project": "src/tsconfig.app.json",
-      "exclude": ["node_modules/ng-mdb-pro/**/*.ts", "src/jest.conf.ts"]
+      "exclude": ["**/node_modules/**/*", "./**/*.conf.ts"]
     },
     {
-      "project": "src/tsconfig.spec.json"
+      "project": "src/tsconfig.spec.json",
+      "exclude": ["**/node_modules/**/*", "./**/*.conf.ts"]
     },
     {
-      "project": "e2e/tsconfig.e2e.json"
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": ["**/node_modules/**/*", "./**/*.conf.ts"]
     }
   ],
   "test": {
