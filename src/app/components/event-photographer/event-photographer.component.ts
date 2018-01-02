@@ -72,11 +72,25 @@ export class EventPhotographerComponent implements OnInit {
     }
   }
 
+  /**
+   * https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
+   */
   startUpload() {
     const files = this.selectedFiles;
     const filesIndex = _.range(files.length);
     _.each(filesIndex, idx => {
-      this.storage.pushUpload(this.user.uid, this.event.id, files[idx]);
+      const upload = this.storage.pushUpload(
+        this.user.uid,
+        this.event.id,
+        files[idx]
+      );
+      upload.snapshotChanges().subscribe(snapshot => {
+        console.log(snapshot);
+      });
+      upload.percentageChanges().subscribe(value => {
+        this.uploadProgress = 100 / files.length / value * 100;
+        console.log(this.uploadProgress);
+      });
     });
   }
 
