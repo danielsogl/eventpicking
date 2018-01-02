@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
+import { Log } from 'ng2-logger';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -8,6 +9,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
   styleUrls: ['./navigation-bar.component.scss']
 })
 export class NavigationBarComponent implements OnInit {
+  private log = Log.create('NavigationBarComponent');
 
   public fbUser: any;
 
@@ -17,11 +19,9 @@ export class NavigationBarComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   logout() {
     this.auth.signOut();
   }
-
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Log } from 'ng2-logger';
 
 @Component({
   selector: 'app-footer',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+  private log = Log.create('FooterComponent');
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    this.log.color = 'orange';
+    this.log.d('Component initialized');
   }
-
 }

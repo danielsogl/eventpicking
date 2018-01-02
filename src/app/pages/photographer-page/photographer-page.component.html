@@ -1,5 +1,63 @@
 <div class="row mt-5 pt-5">
-    <div class="col text-center">
-      <h1>Photographer Page</h1>
+  <div *ngIf="photographer">
+    <div class="author-box">
+      <h3 class="h3-responsive text-center">About {{photographer?.name}}</h3>
+      <hr>
+      <div class="row">
+        <div class="col-12 col-sm-3">
+          <img src="{{photographer?.photoURL}}" alt="Bild nicht verfügbar" class="img-fluid rounded-circle z-depth-2">
+        </div>
+        <div id="authorData" class=" col-12 col-sm-9">
+          <p>
+            <strong>{{photographer?.email}}</strong>
+          </p>
+          <div class="personal-sm">
+            <a *ngIf="photographer.website" class="email-ic" href="{{photographer?.website}}">
+              <i class="fa fa-home"> </i>
+            </a>
+            <a *ngIf="photographer.facebook" class="fb-ic" href="{{photographer?.facebook}}">
+              <i class="fa fa-facebook"> </i>
+            </a>
+            <a *ngIf="photographer.twitter" class="tw-ic" href="{{photographer?.twitter}}">
+              <i class="fa fa-twitter"> </i>
+            </a>
+            <a *ngIf="photographer.instagram" class="ins-ic" href="{{photographer?.instagram}}">
+              <i class="fa fa-instagram"> </i>
+            </a>
+            <a *ngIf="photographer.tumbler" class="email-ic" href="{{photographer?.tumbler}}">
+              <i class="fa fa-tumblr"> </i>
+            </a>
+            <a *ngIf="photographer.email" class="email-ic" href="mailto:{{photographer?.email}}">
+              <i class="fa fa-envelope"> </i>
+            </a>
+          </div>
+          <p>{{photographer?.about}}</p>
+        </div>
+      </div>
+    </div>
+    <br/>
+  </div>
+</div>
+<div id="rowdesign" class="row">
+  <div *ngFor="let event of events | async" id="rowdesign" class="col-12 col-sm-4">
+
+    <div class="card card-cascade wider">
+
+      <div class="view gradient-card-header peach-gradient">
+        <h2 class="h2-responsive mb-2">{{event.name}}</h2>
+        <p class="">
+          <i class="fa fa-calendar"></i>&nbsp;{{event.date}}</p>
+
+      </div>
+      <div class="card-body text-center">
+
+        <p class="card-text mr-2 ml-2">{{event.description}}</p>
+
+        <a [routerLink]="['/event', event.id]" class="orange-text mt-1 d-flex flex-row-reverse">
+          <h5 class="waves-effect p-2" mdbRippleRadius>View Pictures
+            <i class="fa fa-chevron-right"></i>
+          </h5>
+        </a>
+      </div>
     </div>
   </div>

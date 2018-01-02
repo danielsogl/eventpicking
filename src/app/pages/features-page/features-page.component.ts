@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Log } from 'ng2-logger';
 
 @Component({
   selector: 'app-features-page',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./features-page.component.scss']
 })
 export class FeaturesPageComponent implements OnInit {
+  private log = Log.create('FeaturesPageComponent');
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    this.log.color = 'orange';
+    this.log.d('Component initialized');
   }
-
 }
