@@ -17,7 +17,9 @@
   "BUTTONS": {
     "LOGIN": "Sign in",
     "CANCEL": "Cancel",
-    "RESET_PASSWORD": "Reset Password"
+    "RESET_PASSWORD": "Reset Password",
+    "LOGINNOW": "Sign up Now",
+    "EVENT": "Find your Event"
   },
   "LABELS": {
     "FORGOT_PASSWORD": "Forgot Password?",
@@ -40,7 +42,9 @@
       "To which email address should the password reset email be sent?",
     "PROVIDE_VALID_EMAIL": "Please provide a valid email",
     "PROVIDE_VALID_PASSWORD": "Please provide a valid password",
-    "PROVIDE_VALID_URL": "Please provide a valid URL"
+    "PROVIDE_VALID_URL": "Please provide a valid URL",
+    "GTC_HEADING": "Our GTCs",
+    "LANDING_BESTPICTURES": "Our best Pictures"
   },
   "TABS": {
     "EVENTS": "Events",
