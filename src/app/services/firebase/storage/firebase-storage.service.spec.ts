@@ -7,16 +7,18 @@ import {
 
 import { FirebaseFirestoreService } from '../firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './firebase-storage.service';
-import { AngularFireStorage } from 'angularfire2/storage';
+import {
+  AngularFireStorage,
+  AngularFireStorageModule
+} from 'angularfire2/storage';
 
 describe('FirebaseStorageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         FirebaseStorageService,
-        FirebaseApp,
         FirebaseFirestoreService,
-        AngularFireStorage,
+        { provide: AngularFireStorage, depends: AngularFireStorageModule },
         { provide: AngularFirestore, depends: AngularFirestoreModule }
       ]
     });
