@@ -43,6 +43,8 @@
           <input type="file" (change)="detectFiles($event)" multiple>
         </label>
         <button (click)="startUpload()">Upload</button>
+        <mdb-progressbar *ngIf="currentUpload" [value]="currentUpload.progress" min="0" max="100" aria-valuenow="0" aria-valuemin="0"
+          aria-valuemax="100"></mdb-progressbar>
       </div>
     </div>
   </mdb-tab>

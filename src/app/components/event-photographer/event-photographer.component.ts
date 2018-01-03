@@ -5,6 +5,7 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
+import { Upload } from '../../classes/upload-file';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
@@ -28,6 +29,9 @@ export class EventPhotographerComponent implements OnInit {
 
   /** Images to upload */
   public selectedFiles: FileList;
+
+  /** */
+  public currentUpload: Upload;
 
   /** Upload prgress */
   public uploadProgress: number;
@@ -79,18 +83,12 @@ export class EventPhotographerComponent implements OnInit {
     const files = this.selectedFiles;
     const filesIndex = _.range(files.length);
     _.each(filesIndex, idx => {
+      this.currentUpload = new Upload(files[idx]);
       const upload = this.storage.pushUpload(
         this.user.uid,
         this.event.id,
-        files[idx]
+        this.currentUpload
       );
-      upload.snapshotChanges().subscribe(snapshot => {
-        console.log(snapshot);
-      });
-      upload.percentageChanges().subscribe(value => {
-        this.uploadProgress = 100 / files.length / value * 100;
-        console.log(this.uploadProgress);
-      });
     });
   }
 
