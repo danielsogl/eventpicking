@@ -169,7 +169,11 @@ export class SignupPageComponent implements OnInit {
           admin: false
         };
         user.photographerUrl = this.signupForm.value.photographerUrl;
-        user.subscription = { membership: 'free', status: 'valid' };
+        user.subscription = {
+          membership: 'free',
+          status: 'valid',
+          premium: false
+        };
         this.afs.getPhotographerProfile(user.uid).set({
           about: '',
           email: user.email,
@@ -181,7 +185,8 @@ export class SignupPageComponent implements OnInit {
           twitter: '',
           uid: user.uid,
           website: '',
-          photoUrl: user.photoURL
+          photoUrl: user.photoUrl,
+          premium: false
         });
         this.afs.updateUserData(user).then(() => {
           this.router.navigate(['dashboard']);
@@ -189,7 +194,11 @@ export class SignupPageComponent implements OnInit {
       });
     } else {
       this.auth.user.subscribe(user => {
-        user.subscription = { membership: 'user', status: 'valid' };
+        user.subscription = {
+          membership: 'user',
+          status: 'valid',
+          premium: false
+        };
         this.afs.updateUserData(user).then(() => {
           this.router.navigate(['dashboard']);
         });

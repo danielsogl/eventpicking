@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
+import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
+import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { PhotographerProfile } from '../../interfaces/photographer-page';
-import { Observable } from 'rxjs/Observable';
 
 /**
  * Photographer page component
@@ -48,14 +48,9 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
                 this.photographer = photographer;
                 this.log.d('Photographer Profile', this.photographer);
               });
-            const eventDocs = this.afs.getPhotographerEvents(data.uid);
-            this.events = eventDocs.snapshotChanges().map((events: any) => {
-              return events.map(event => {
-                const tmp = event.payload.doc.data() as Event;
-                const id = event.payload.doc.id;
-                return { id, ...tmp };
-              });
-            });
+            this.events = this.afs
+              .getPhotographerEvents(data.uid)
+              .valueChanges();
           });
       }
     });

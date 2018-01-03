@@ -1,19 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  inject,
-  TestBed
-} from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreModule
-} from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
@@ -101,4 +93,12 @@ describe('LoginPageComponent', () => {
     component.resetPasswordForm.setValue({ email: 'invalid email' });
     expect(component.resetPasswordForm.valid).toBeFalsy();
   });
+
+  // it(
+  //   'should send reset password mail',
+  //   inject([FirebaseAuthService], (service: FirebaseAuthService) => {
+  //     component.resetPasswordForm.setValue({ email: 'user@test.de' });
+  //     expect(service.sendResetPasswordMail(component.resetPasswordForm.getRawValue().email)).tobe
+  //   })
+  // );
 });

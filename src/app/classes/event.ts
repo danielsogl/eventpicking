@@ -1,28 +1,39 @@
-import { Picture } from '../interfaces/picture';
-
 /**
  * Event class
  * @author Daniel Sogl
  */
 export class Event {
+  /** Date */
   date: string;
-  description: string;
+  /** Description */
+  description?: string;
+  /** ID */
   id: string;
+  /** Location */
   location: string;
+  /** Name */
   name: string;
+  /** Password */
+  password?: string;
+  /** Photographer UID */
   photographerUid: string;
-  pictures: Picture[];
+  /** Public */
   public: boolean;
+  /** Ratings */
   ratings: number;
 
+  /**
+   * Constructor
+   * @param  {any} eventData
+   */
   constructor(eventData: any) {
     this.date = eventData.date;
     this.description = '';
     this.id = eventData.id;
     this.location = eventData.location;
     this.name = eventData.name;
+    this.password = null;
     this.photographerUid = eventData.photographerUid;
-    this.pictures = [];
     this.public = false;
     this.ratings = 0;
   }
