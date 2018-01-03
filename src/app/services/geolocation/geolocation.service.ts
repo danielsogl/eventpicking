@@ -1,5 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+import { environment } from '../../../environments/environment';
+import { Address } from '../../interfaces/address';
 
 /**
  * A service to work with geolocation stuff
@@ -9,9 +12,13 @@ import { HttpClient } from '@angular/common/http';
 export class GeolocationService {
   constructor(private http: HttpClient) {}
 
-  getCoordinatesFromZip(zip: string): Promise<any> {
+  getCoordinatesFromAdress(adress: Address): Promise<any> {
     return this.http
-      .get(`http://maps.googleapis.com/maps/api/geocode/json?address=${zip}`)
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${
+          adress.zip
+        }+${adress.street}+${adress.streetnumber}&key=${environment.agmKey}`
+      )
       .toPromise();
   }
 

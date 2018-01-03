@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
-} from 'angularfire2/firestore';
+import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
@@ -199,7 +196,7 @@ export class DashboardPhotographerComponent implements OnInit {
           if (!this.photographerProfile.address) {
             this.photographerProfile.address = this.user.billingAdress;
           }
-          this.photographerProfile.photoUrl = this.user.photoUrl;
+          this.photographerProfile.photoUrl = this.auth.getCurrentFirebaseUser().photoURL;
           this.photographerProfile.uid = this.user.uid;
           this.publicProfileForm.patchValue(this.photographerProfile);
         }
@@ -295,7 +292,7 @@ export class DashboardPhotographerComponent implements OnInit {
       this.log.d('Update public profile data', this.photographerProfile);
 
       this.geolocation
-        .getCoordinatesFromZip(this.photographerProfile.address.zip)
+        .getCoordinatesFromAdress(this.photographerProfile.address)
         .then((result: any) => {
           if (result.results[0].geometry.location) {
             this.photographerProfile.location =
@@ -310,6 +307,9 @@ export class DashboardPhotographerComponent implements OnInit {
             .catch(err => {
               this.log.er('Could not update photographer page data', err);
             });
+        })
+        .catch(err => {
+          this.log.er('Error loading adress', err);
         });
     } else {
       this.log.er('No public profile data changed');
