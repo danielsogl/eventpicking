@@ -1,6 +1,6 @@
+import { Address } from '../interfaces/address';
 import { EventpickingSub } from '../interfaces/subscription';
 import { UserRoles } from '../interfaces/user-roles';
-import { Address } from '../interfaces/address';
 
 /**
  * Firebase User
@@ -26,7 +26,7 @@ export class User {
   /** Photographer URL */
   photographerUrl?: string;
   /** Photo URL */
-  photoURL?: string;
+  photoUrl?: string;
   /** Roles */
   roles: UserRoles;
   /** Salutation */
@@ -70,10 +70,10 @@ export class User {
     this.lastname = '';
     this.name = '';
     this.photographerUrl = authData.photographerUrl;
-    this.photoURL = authData.photoURL;
+    this.photoUrl = authData.photoUrl;
     this.roles = { user: true, admin: false, photographer: false };
     this.salutation = '';
-    this.subscription = { membership: 'user', status: 'valid' };
+    this.subscription = { membership: 'user', premium: false, status: 'valid' };
     this.uid = authData.uid;
   }
 }

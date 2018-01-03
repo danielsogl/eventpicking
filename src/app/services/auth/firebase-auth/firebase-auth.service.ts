@@ -1,7 +1,3 @@
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/take';
-
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -9,6 +5,7 @@ import * as firebase from 'firebase/app';
 import * as _ from 'lodash';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
+import { switchMap } from 'rxjs/operators';
 
 import { User } from '../../../classes/user';
 import { FirebaseFirestoreService } from '../../firebase/firestore/firebase-firestore.service';
@@ -76,14 +73,23 @@ export class FirebaseAuthService {
   }
 
   /**
+   * Signs User in with OAuth
+   * @param  {any} provider Auth provider
+   * @returns {Promise<any>}
+   */
+  public signInWithOAuth(provider: any): Promise<any> {
+    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
+      this.afs.updateUserData(credential.user);
+    });
+  }
+
+  /**
    * Signs user in with his Google account
    * @returns {Promise<any>}
    */
   public signInWithGoogle(): Promise<any> {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
-      this.afs.updateUserData(credential.user);
-    });
+    return this.signInWithOAuth(provider);
   }
 
   /**
@@ -92,9 +98,7 @@ export class FirebaseAuthService {
    */
   public signInWithFacebook(): Promise<any> {
     const provider = new firebase.auth.FacebookAuthProvider();
-    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
-      this.afs.updateUserData(credential.user);
-    });
+    return this.signInWithOAuth(provider);
   }
 
   /**
@@ -103,16 +107,14 @@ export class FirebaseAuthService {
    */
   public signInWithTwitter(): Promise<any> {
     const provider = new firebase.auth.TwitterAuthProvider();
-    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
-      this.afs.updateUserData(credential.user);
-    });
+    return this.signInWithOAuth(provider);
   }
 
   /**
    * Register user with credentials
    * @param  {string} email
    * @param  {string} password
-   * @returns {Promise}
+   * @returns {Promise<any>}
    */
   public register(email: string, password: string): Promise<any> {
     return this.afAuth.auth

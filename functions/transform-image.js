@@ -12,8 +12,8 @@ const readFile = require('fs-readfile-promise');
 const imageinfo = require('imageinfo');
 
 // Max height and width of the thumbnail in pixels.
-const THUMB_MAX_HEIGHT = 250;
-const THUMB_MAX_WIDTH = 250;
+const THUMB_MAX_HEIGHT = 400;
+const THUMB_MAX_WIDTH = 300;
 // Thumbnail prefix added to file names.
 const THUMB_PREFIX = 'thumb_';
 
@@ -95,10 +95,10 @@ exports.transformImageHandler = event => {
       return readFile(tempLocalFile).then(file => {
         info = imageinfo(file);
         fileInfo = {
-          type: info.mimeType,
+          height: info.height,
           size: file.length,
-          width: info.width,
-          height: info.height
+          type: info.mimeType,
+          width: info.width
         };
       });
     })
@@ -181,10 +181,11 @@ exports.transformImageHandler = event => {
         .doc(eventId)
         .collection('images')
         .add({
+          info: fileInfo,
           name: file.name,
-          thumbnail: thumbFileUrl,
           preview: preFileUrl,
-          info: fileInfo
+          thumbnail: thumbFileUrl,
+          ratings: 0
         });
     })
     .then(() => console.log('Thumbnail URLs saved to database.'));

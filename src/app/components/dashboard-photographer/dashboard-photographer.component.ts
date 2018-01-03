@@ -1,19 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
-} from 'angularfire2/firestore';
+import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
-import { PhotographerProfile } from '../../interfaces/photographer-page';
+import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 
 /**
  * Photographer dashboard component
@@ -69,7 +66,8 @@ export class DashboardPhotographerComponent implements OnInit {
     tumbler: '',
     twitter: '',
     uid: '',
-    website: ''
+    website: '',
+    premium: false
   };
 
   /** Create new event modal */
@@ -152,6 +150,7 @@ export class DashboardPhotographerComponent implements OnInit {
     this.auth.user.subscribe(user => {
       if (user) {
         this.user = user;
+        this.photographerProfile.premium = user.subscription.premium;
         this.log.d('Loaded user', user);
 
         this.accountDataForm.setValue({
@@ -186,7 +185,7 @@ export class DashboardPhotographerComponent implements OnInit {
           if (!this.photographerProfile.address) {
             this.photographerProfile.address = this.user.billingAdress;
           }
-          this.photographerProfile.photoUrl = this.user.photoURL;
+          this.photographerProfile.photoUrl = this.user.photoUrl;
           this.photographerProfile.uid = this.user.uid;
           this.publicProfileForm.patchValue(this.photographerProfile);
         }
@@ -195,18 +194,7 @@ export class DashboardPhotographerComponent implements OnInit {
       this.eventCollection = this.afs.getPhotographerEvents(
         this.auth.getCurrentFirebaseUser().uid
       );
-      this.events = this.eventCollection
-        .snapshotChanges()
-        .map((events: any) => {
-          return events.map(event => {
-            const data = event.payload.doc.data() as Event;
-            const id = event.payload.doc.id;
-            return { id, ...data };
-          });
-        });
-      this.events.subscribe(events => {
-        this.log.d('Events', events);
-      });
+      this.events = this.eventCollection.valueChanges();
     }
   }
 
@@ -229,14 +217,17 @@ export class DashboardPhotographerComponent implements OnInit {
    */
   saveEvent() {
     if (this.newEventForm.valid) {
+      const uid = this.afs.getId();
       const event = new Event({
-        name: this.newEventForm.value.name,
-        location: this.newEventForm.value.location,
         date: this.newEventForm.value.date,
+        id: uid,
+        location: this.newEventForm.value.location,
+        name: this.newEventForm.value.name,
         photographerUid: this.user.uid
       });
       this.eventCollection
-        .add(JSON.parse(JSON.stringify(event)))
+        .doc(uid)
+        .set(JSON.parse(JSON.stringify(event)))
         .then(() => {
           this.log.d('Added new event to firestore');
           this.newEventModal.hide();
