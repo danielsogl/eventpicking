@@ -42,9 +42,34 @@
         <label>
           <input type="file" (change)="detectFiles($event)" multiple>
         </label>
-        <button (click)="startUpload()">Upload</button>
-        <mdb-progressbar *ngIf="currentUpload" [value]="currentUpload.progress" min="0" max="100" aria-valuenow="0" aria-valuemin="0"
-          aria-valuemax="100"></mdb-progressbar>
+        <button type="button" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius (click)="startUpload()">Start Upload</button>
+
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <td>#</td>
+                <td>Name</td>
+                <td>Type</td>
+                <td>Size</td>
+                <td>Progress</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let file of uploadFiles; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ file.name }}</td>
+                <td>{{ file.file.type }}</td>
+                <td>{{ file.file.size }}</td>
+                <td>
+                  <mdb-progressbar [value]="file.progress" min="0" max="100" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></mdb-progressbar>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
   </mdb-tab>

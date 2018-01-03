@@ -27,14 +27,8 @@ export class EventPhotographerComponent implements OnInit {
   /** Event form */
   public eventForm: FormGroup;
 
-  /** Images to upload */
-  public selectedFiles: FileList;
-
-  /** */
-  public currentUpload: Upload;
-
-  /** Upload prgress */
-  public uploadProgress: number;
+  /** Files for the upload */
+  public uploadFiles: Upload[] = [];
 
   /** Event */
   @Input() public event: Event;
@@ -43,6 +37,11 @@ export class EventPhotographerComponent implements OnInit {
   /** Firebase user */
   @Input() public user: User;
 
+  /**
+   * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
+   * @param  {FirebaseStorageService} storage Firebase Storage Service
+   * @param  {FormBuilder} formBuilder Angular Form Builder
+   */
   constructor(
     private afs: FirebaseFirestoreService,
     private storage: FirebaseStorageService,
@@ -61,6 +60,9 @@ export class EventPhotographerComponent implements OnInit {
     });
   }
 
+  /**
+   * Initialize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
@@ -77,22 +79,41 @@ export class EventPhotographerComponent implements OnInit {
   }
 
   /**
-   * https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
+   * Add files to fileslist
+   * @param  {any} event
    */
-  startUpload() {
-    const files = this.selectedFiles;
+  detectFiles(event: any) {
+    const files = event.target.files;
     const filesIndex = _.range(files.length);
     _.each(filesIndex, idx => {
-      this.currentUpload = new Upload(files[idx]);
-      const upload = this.storage.pushUpload(
-        this.user.uid,
-        this.event.id,
-        this.currentUpload
-      );
+      this.uploadFiles.push(new Upload(files[idx]));
     });
   }
 
-  detectFiles(event) {
-    this.selectedFiles = event.target.files;
+  /**
+   * Start upload
+   */
+  startUpload() {
+    for (let i = 0; i < this.uploadFiles.length; i++) {
+      const uploadTask = this.storage.pushUpload(
+        this.user.uid,
+        this.event.id,
+        this.uploadFiles[i]
+      );
+
+      uploadTask.snapshotChanges().subscribe(snapshot => {
+        this.uploadFiles[i].progress =
+          snapshot.bytesTransferred / snapshot.totalBytes * 100;
+        if (snapshot.bytesTransferred === snapshot.totalBytes) {
+          this.uploadFiles.splice(i, 1);
+        }
+      });
+
+      // https://github.com/angular/angularfire2/pull/1369#issuecomment-353218199
+      uploadTask.then().then(a => {
+        this.uploadFiles[i].url = a.metadata.downloadURLs[0];
+        this.afs.setPictureData(this.uploadFiles[i]);
+      });
+    }
   }
 }

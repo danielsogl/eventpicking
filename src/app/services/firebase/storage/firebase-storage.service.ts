@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireStorage, AngularFireStorageReference } from 'angularfire2/storage';
+import {
+  AngularFireStorage,
+  AngularFireStorageReference,
+  AngularFireUploadTask
+} from 'angularfire2/storage';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
@@ -28,16 +32,17 @@ export class FirebaseStorageService {
    * @param  {string} uid UID
    * @param  {string} event Event ID
    * @param  {Upload} upload Uploadfile
+   * @returns {AngularFireUploadTask}
    */
-  pushUpload(uid: string, event: string, upload: Upload) {
+  pushUpload(
+    uid: string,
+    event: string,
+    upload: Upload
+  ): AngularFireUploadTask {
     const storageRef: AngularFireStorageReference = this.afStorage.ref(
       `events/${uid}/${event}/${upload.file.name}`
     );
-    const uploadTask = storageRef.put(upload.file);
 
-    uploadTask.snapshotChanges().subscribe(snapshot => {
-      upload.progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-      console.log(upload.progress);
-    });
+    return storageRef.put(upload.file);
   }
 }
