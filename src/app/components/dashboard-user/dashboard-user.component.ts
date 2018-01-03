@@ -5,14 +5,19 @@ import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 
+/**
+ * User dashboard component
+ * @author Daniel Sogl
+ */
 @Component({
   selector: 'app-dashboard-user',
   templateUrl: './dashboard-user.component.html',
   styleUrls: ['./dashboard-user.component.scss']
 })
 export class DashboardUserComponent implements OnInit {
+  /** Logger */
   private log = Log.create('DashboardUserComponent');
-
+  /** Firebase user */
   public user: User;
 
   constructor(
@@ -20,6 +25,9 @@ export class DashboardUserComponent implements OnInit {
     private afs: FirebaseFirestoreService
   ) {}
 
+  /**
+   * Initialize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');

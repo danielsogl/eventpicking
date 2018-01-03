@@ -1,0 +1,110 @@
+<mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
+  <mdb-tab heading="{{ 'TABS.GALLERY' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+      </div>
+    </div>
+  </mdb-tab>
+  <mdb-tab heading="{{ 'TABS.EDIT_IMAGES' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <td>#</td>
+                <td>Name</td>
+                <td>Type</td>
+                <td>Format</td>
+                <td>Size</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let image of (images | async); let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ image.name }}</td>
+                <td>{{ image.info.type }}</td>
+                <td>{{ image.info.width }}x{{ image.info.height }}</td>
+                <td>{{ (image.info.size) }} KB</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </mdb-tab>
+  <mdb-tab heading="{{ 'TABS.UPLOAD' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+        <label>
+          <input type="file" (change)="detectFiles($event)" multiple>
+        </label>
+        <button type="button" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius (click)="startUpload()">Start Upload</button>
+
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <td>#</td>
+                <td>Name</td>
+                <td>Type</td>
+                <td>Size</td>
+                <td>Progress</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let file of uploadFiles; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ file.name }}</td>
+                <td>{{ file.file.type }}</td>
+                <td>{{ file.file.size }}</td>
+                <td>
+                  <mdb-progressbar [value]="file.progress" min="0" max="100" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></mdb-progressbar>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </mdb-tab>
+  <mdb-tab heading="{{ 'TABS.EVENT_SETTINGS' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+        <form [formGroup]="eventForm">
+
+          <div class="md-form">
+            <input type="text" class="form-control" id="input_event_name" formControlName="name">
+            <label class="active">{{ 'LABELS.EVENT_NAME' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="text" class="form-control" id="input_event_location" formControlName="location">
+            <label class="active">{{ 'LABELS.EVENT_LOCATION' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <mdb-date-picker name="mydate" id="input_event_date" [placeholder]="'Selected date'" formControlName="date"></mdb-date-picker>
+          </div>
+
+          <div class="md-form">
+            <textarea class="md-textarea" id="input_event_description" type="text" length="120" mdbCharCounter formControlName="description"></textarea>
+            <label class="active">{{ 'LABELS.EVENT_DESCRIPTION' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="password" class="form-control" id="input_event_password" formControlName="password">
+            <label class="active">{{ 'LABELS.EVENT_PASSWORD' | translate }}</label>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </mdb-tab>
+</mdb-tabset>

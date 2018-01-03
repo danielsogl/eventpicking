@@ -6,8 +6,8 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "public",
-      "assets": ["assets", "favicon.ico", "manifest.json"],
+      "outDir": "dist",
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -22,6 +22,7 @@
         "./styles.scss"
       ],
       "scripts": [
+        "../node_modules/wowjs/dist/wow.js",
         "../node_modules/chart.js/dist/Chart.js",
         "../node_modules/easy-pie-chart/dist/easypiechart.js",
         "../node_modules/screenfull/dist/screenfull.js",
@@ -41,13 +42,16 @@
   },
   "lint": [
     {
-      "project": "src/tsconfig.app.json"
+      "project": "src/tsconfig.app.json",
+      "exclude": ["**/node_modules/**/*", "./**/*.conf.ts"]
     },
     {
-      "project": "src/tsconfig.spec.json"
+      "project": "src/tsconfig.spec.json",
+      "exclude": ["**/node_modules/**/*", "./**/*.conf.ts"]
     },
     {
-      "project": "e2e/tsconfig.e2e.json"
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": ["**/node_modules/**/*", "./**/*.conf.ts"]
     }
   ],
   "test": {
@@ -58,5 +62,8 @@
   "defaults": {
     "styleExt": "scss",
     "component": {}
+  },
+  "warnings": {
+    "typescriptMismatch": false
   }
 }

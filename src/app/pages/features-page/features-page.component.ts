@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Log } from 'ng2-logger';
 
+/**
+ * Features page component
+ * @author Daniel Sogl, Jascha Renner
+ */
 @Component({
   selector: 'app-features-page',
   templateUrl: './features-page.component.html',

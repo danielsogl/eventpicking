@@ -3,29 +3,44 @@ import { Log } from 'ng2-logger';
 
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
-import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 
+/**
+ * Dashboard page component
+ * @author Daniel Sogl
+ */
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent implements OnInit {
+  /** Logger */
   private log = Log.create('DashboardPageComponent');
 
+  /** Firebase user */
   public user: User;
 
+  /** Template ref  */
   public template: TemplateRef<any>;
+
+  /** TemplateRef loading */
   @ViewChild('loadingTmpl') loadingTmpl: TemplateRef<any>;
+  /** TemplateRef dashboard user */
   @ViewChild('dashboardUser') dashboardUser: TemplateRef<any>;
+  /** TemplateRef dashboard photographer */
   @ViewChild('dashboardPhotographer') dashboardPhotographer: TemplateRef<any>;
+  /** TemplateRef dashboard admin */
   @ViewChild('dashboardAdmin') dashboardAdmin: TemplateRef<any>;
 
-  constructor(
-    private auth: FirebaseAuthService,
-    private afs: FirebaseFirestoreService
-  ) {}
+  /**
+   * Constructor
+   * @param  {FirebaseAuthService} auth Firebase Auth Service
+   */
+  constructor(private auth: FirebaseAuthService) {}
 
+  /**
+   * Initialize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');

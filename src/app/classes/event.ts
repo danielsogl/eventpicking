@@ -1,24 +1,40 @@
-import { Picture } from '../interfaces/picture';
-
+/**
+ * Event class
+ * @author Daniel Sogl
+ */
 export class Event {
-
+  /** Date */
   date: string;
-  description: string;
-  location: string;
-  name: string;
-  photographerUid: string;
-  pictures: Picture[];
+  /** Description */
+  description?: string;
+  /** ID */
   id: string;
+  /** Location */
+  location: string;
+  /** Name */
+  name: string;
+  /** Password */
+  password?: string;
+  /** Photographer UID */
+  photographerUid: string;
+  /** Public */
   public: boolean;
+  /** Ratings */
+  ratings: number;
 
+  /**
+   * Constructor
+   * @param  {any} eventData
+   */
   constructor(eventData: any) {
     this.date = eventData.date;
-    this.description = eventData.description;
+    this.description = '';
+    this.id = eventData.id;
     this.location = eventData.location;
     this.name = eventData.name;
+    this.password = null;
     this.photographerUid = eventData.photographerUid;
-    this.pictures = eventData.pictures;
-    this.id = eventData.id;
-    this.public = eventData.public;
+    this.public = false;
+    this.ratings = 0;
   }
 }

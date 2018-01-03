@@ -1,18 +1,28 @@
 {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
+  "name": "eventpicking-functions",
+  "description": "Cloud Functions for Eventpicking.de",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Daniel Sogl",
+    "email": "daniel@sogls.de"
+  },
   "scripts": {
     "serve": "firebase serve --only functions",
     "shell": "firebase experimental:functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
+    "deploy:dev": "firebase deploy --only functions -P staging",
+    "deploy:prod": "firebase deploy --only functions -P prod",
     "logs": "firebase functions:log"
   },
   "dependencies": {
     "@google-cloud/storage": "^1.5.1",
-    "firebase-admin": "^5.5.1",
-    "firebase-functions": "^0.7.1",
-    "jimp": "^0.2.28",
+    "child-process-promise": "^2.2.1",
+    "firebase-admin": "^5.6.0",
+    "firebase-functions": "^0.7.5",
+    "fs-readfile-promise": "^3.0.1",
+    "imageinfo": "^1.0.4",
+    "mkdirp": "^0.5.1",
+    "mkdirp-promise": "^5.0.1",
     "request-promise": "^4.2.2"
   },
   "private": true
