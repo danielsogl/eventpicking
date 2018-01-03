@@ -45,4 +45,11 @@ export class FirebaseStorageService {
 
     return storageRef.put(upload.file);
   }
+
+  deleteFile(uid: string, event: string, file: string) {
+    const storageRef: AngularFireStorageReference = this.afStorage.ref(
+      `events/${uid}/${event}/${file}`
+    );
+    return storageRef.delete();
+  }
 }

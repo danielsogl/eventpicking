@@ -7,6 +7,7 @@ import {
 
 import { FirebaseFirestoreService } from '../firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './firebase-storage.service';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 describe('FirebaseStorageService', () => {
   beforeEach(() => {
@@ -15,6 +16,7 @@ describe('FirebaseStorageService', () => {
         FirebaseStorageService,
         FirebaseApp,
         FirebaseFirestoreService,
+        AngularFireStorage,
         { provide: AngularFirestore, depends: AngularFirestoreModule }
       ]
     });

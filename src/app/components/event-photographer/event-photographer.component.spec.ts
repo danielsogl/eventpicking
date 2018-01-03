@@ -5,7 +5,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreModule
+} from 'angularfire2/firestore';
 import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
@@ -14,6 +17,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { EventPhotographerComponent } from './event-photographer.component';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 describe('EventPhotographerComponent', () => {
   let component: EventPhotographerComponent;
@@ -36,6 +40,7 @@ describe('EventPhotographerComponent', () => {
           FirebaseFirestoreService,
           AngularFireAuth,
           FormBuilder,
+          AngularFireStorage,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [EventPhotographerComponent],
