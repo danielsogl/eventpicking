@@ -11,6 +11,7 @@ import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { GeolocationService } from '../../services/geolocation/geolocation.service';
 
 /**
  * Photographer dashboard component
@@ -67,7 +68,11 @@ export class DashboardPhotographerComponent implements OnInit {
     twitter: '',
     uid: '',
     website: '',
-    premium: false
+    premium: false,
+    location: {
+      lat: 0,
+      lng: 0
+    }
   };
 
   /** Create new event modal */
@@ -79,16 +84,18 @@ export class DashboardPhotographerComponent implements OnInit {
 
   /**
    * Constructor
-   * @param  {FirebaseAuthService} auth Firebase Auth Service
-   * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
-   * @param  {Router} router Router
-   * @param  {FormBuilder} formBuilder FormBuilder
+   * @param {FirebaseAuthService} auth Firebase Auth Service
+   * @param {FirebaseFirestoreService} afs Firebase Firestore Service
+   * @param {Router} router Router
+   * @param {FormBuilder} formBuilder FormBuilder
+   * @param {GeolocationService} geolocation Geolocation Service
    */
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private geolocation: GeolocationService
   ) {
     this.newEventForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -126,6 +133,10 @@ export class DashboardPhotographerComponent implements OnInit {
       uid: [''],
       website: [''],
       photoUrl: [''],
+      location: this.formBuilder.group({
+        lat: [0],
+        lng: [0]
+      }),
       address: this.formBuilder.group({
         city: [''],
         company: [''],
@@ -185,7 +196,7 @@ export class DashboardPhotographerComponent implements OnInit {
           if (!this.photographerProfile.address) {
             this.photographerProfile.address = this.user.billingAdress;
           }
-          this.photographerProfile.photoUrl = this.user.photoUrl;
+          this.photographerProfile.photoUrl = this.auth.getCurrentFirebaseUser().photoURL;
           this.photographerProfile.uid = this.user.uid;
           this.publicProfileForm.patchValue(this.photographerProfile);
         }
@@ -279,14 +290,26 @@ export class DashboardPhotographerComponent implements OnInit {
     if (this.publicProfileForm.valid && !this.publicProfileForm.untouched) {
       this.photographerProfile = this.publicProfileForm.getRawValue();
       this.log.d('Update public profile data', this.photographerProfile);
-      this.photographerProfileDoc
-        .set(this.photographerProfile)
-        .then(() => {
-          this.log.d('Updated photographer page data');
-          this.publicProfileForm.markAsUntouched();
+
+      this.geolocation
+        .getCoordinatesFromAdress(this.photographerProfile.address)
+        .then((result: any) => {
+          if (result.results[0].geometry.location) {
+            this.photographerProfile.location =
+              result.results[0].geometry.location;
+          }
+          this.photographerProfileDoc
+            .set(this.photographerProfile)
+            .then(() => {
+              this.log.d('Updated photographer page data');
+              this.publicProfileForm.markAsUntouched();
+            })
+            .catch(err => {
+              this.log.er('Could not update photographer page data', err);
+            });
         })
         .catch(err => {
-          this.log.er('Could not update photographer page data', err);
+          this.log.er('Error loading adress', err);
         });
     } else {
       this.log.er('No public profile data changed');

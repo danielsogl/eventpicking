@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
@@ -175,6 +179,14 @@ export class FirebaseFirestoreService {
    */
   getPhotographerByUrl(url: string): AngularFirestoreDocument<any> {
     return this.afs.doc(`/photographerUrls/${url}`);
+  }
+
+  /**
+   * Get all photographer profiles
+   * @returns {AngularFirestoreCollection<PhotographerProfile>}
+   */
+  getAllPhotographer(): AngularFirestoreCollection<PhotographerProfile> {
+    return this.afs.collection('photographer');
   }
 
   /**
