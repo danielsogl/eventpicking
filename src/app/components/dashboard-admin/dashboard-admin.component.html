@@ -19,7 +19,6 @@
                 <th>{{ 'DASHBOARD.DATE' | translate }}</th>
                 <th>{{ 'DASHBOARD.LOCATION' | translate }}</th>
                 <th>{{ 'DASHBOARD.RATINGS' | translate }}</th>
-                <th>{{ 'DASHBOARD.PICTURES' | translate }}</th>
                 <th>{{ 'DASHBOARD.EDIT' | translate }}</th>
               </tr>
             </thead>
@@ -30,7 +29,6 @@
                 <td>{{ event.date }}</td>
                 <td>{{ event.location }}</td>
                 <td>{{ event.ratings }}</td>
-                <td>{{ event.pictures.length }}</td>
                 <td>
                   <a (click)="editEvent(user)">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -45,7 +43,7 @@
   </mdb-tab>
   <mdb-tab heading="{{ 'TABS.USER' | translate }}">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 text-left">
         <br>
         <div class="table-responsive">
           <table class="table">
@@ -81,7 +79,7 @@
     </div>
   </mdb-tab>
   <mdb-tab heading="{{ 'TABS.PRINTING_HOUSES' | translate }}">
-    <div class="row">
+    <div class="row" *ngIf="printingHouse">
       <div class="col-12 text-left">
         <br>
         <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
@@ -176,12 +174,45 @@
                             <tr>
                               <th scope="row">Article</th>
                               <th>Production Costs</th>
+                              <th>Edit</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let article of printingHouse.salesTypes.photo">
-                              <th>9x13cm</th>
-                              <th>0,15</th>
+                            <tr *ngFor="let article of printingHouse.salesTypes.photo.articles">
+                              <td>{{ article.name }}</td>
+                              <td>{{ article.minPrice }}€</td>
+                              <td>
+                                <a>
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </mdb-tab>
+                  <mdb-tab heading="Downloads">
+                    <div class="row">
+                      <div class="col-12">
+                        <br>
+                        <table class="table">
+                          <thead class="thead-default">
+                            <tr>
+                              <th scope="row">Article</th>
+                              <th>Minimal price</th>
+                              <th>Edit</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let article of printingHouse.salesTypes.download.articles">
+                              <td>{{ article.name }}</td>
+                              <td>{{ article.minPrice }}€</td>
+                              <td>
+                                <a>
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -275,6 +306,19 @@
         <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>
           <i class="fa fa-refresh mr-1"></i>{{ 'BUTTONS.UPDATE_EVENT' | translate }}</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #editPriceModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-header indigo white-text">
+      <h4 class="title">
+        <i class="fa fa-pencil"></i>Edit Price
+      </h4>
+    </div>
+
+    <div class="modal-body mb-0">
     </div>
   </div>
 </div>

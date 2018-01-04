@@ -10,6 +10,7 @@ import { Event } from '../../../classes/event';
 import { User } from '../../../classes/user';
 import { EventPicture } from '../../../interfaces/event-picture';
 import { PhotographerProfile } from '../../../interfaces/photographer-profile';
+import { PrintingHouse } from '../../../classes/printing-house';
 
 /**
  * Service to comunicate with the Firestore database
@@ -88,7 +89,7 @@ export class FirebaseFirestoreService {
    * Firestore: Printing houses
    ************************************/
 
-  getDefautlPrintingHouse(): AngularFirestoreCollection<any> {
+  getDefautlPrintingHouse(): AngularFirestoreCollection<PrintingHouse> {
     return this.afs.collection('printingHouses', ref =>
       ref.where('isDefault', '==', true)
     );

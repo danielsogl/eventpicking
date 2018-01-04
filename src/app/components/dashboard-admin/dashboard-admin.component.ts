@@ -79,7 +79,8 @@ export class DashboardAdminComponent implements OnInit {
       location: ['', Validators.required],
       name: ['', Validators.required],
       photographerUid: ['', Validators.required],
-      public: [false, Validators.required]
+      public: [false, Validators.required],
+      ratings: [0, Validators.required]
     });
     this.printingHouseForm = this.formBuilder.group({
       city: ['', Validators.required],
@@ -118,8 +119,26 @@ export class DashboardAdminComponent implements OnInit {
       this.events = this.afs.getAllEvents().valueChanges();
     }
 
-    this.printingHouse = new PrintingHouse();
-    console.log(this.printingHouse);
+    this.users.subscribe(user => {
+      this.log.d('User', user);
+    });
+    this.events.subscribe(events => {
+      this.log.d('Events', events);
+    });
+
+    this.afs
+      .getDefautlPrintingHouse()
+      .valueChanges()
+      .subscribe(house => {
+        if (house[0]) {
+          this.printingHouse = house[0];
+        } else {
+          this.printingHouse = new PrintingHouse();
+          this.printingHouse.isDefault = true;
+          this.printingHouse.uid = this.auth.getCurrentFirebaseUser().uid;
+        }
+        this.log.d('Printing house', this.printingHouse);
+      });
   }
 
   /**
