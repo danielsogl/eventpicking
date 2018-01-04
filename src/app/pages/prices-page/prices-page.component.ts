@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Log } from 'ng2-logger';
 
+/**
+ * Price page component
+ * @author Daniel Sogl, Markus Kirschner
+ */
 @Component({
   selector: 'app-prices-page',
   templateUrl: './prices-page.component.html',

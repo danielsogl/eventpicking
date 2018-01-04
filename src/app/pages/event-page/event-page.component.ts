@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
 
@@ -14,6 +8,10 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 
+/**
+ * Event page component
+ * @author Daniel Sogl
+ */
 @Component({
   selector: 'app-event-page',
   templateUrl: './event-page.component.html',
@@ -55,12 +53,14 @@ export class EventPageComponent implements OnInit, OnDestroy {
       this.id = params['id'];
       this.log.d('Event ID', this.id);
       if (this.id) {
+        // Load event
         this.afs
           .getEvent(this.id)
           .valueChanges()
           .subscribe(event => {
             if (event) {
               this.event = event;
+              this.event.id = this.id;
               this.log.d('Loaded event', this.event);
               if (this.auth.getCurrentFirebaseUser()) {
                 this.auth.user.subscribe(user => {

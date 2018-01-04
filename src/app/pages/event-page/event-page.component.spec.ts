@@ -16,6 +16,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { EventPageComponent } from './event-page.component';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 describe('EventPageComponent', () => {
   let component: EventPageComponent;
@@ -37,6 +38,7 @@ describe('EventPageComponent', () => {
           FirebaseAuthService,
           FirebaseFirestoreService,
           FirebaseStorageService,
+          AngularFireStorage,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [EventPageComponent],

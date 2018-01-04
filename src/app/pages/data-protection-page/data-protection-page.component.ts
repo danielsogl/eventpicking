@@ -3,7 +3,7 @@ import { Log } from 'ng2-logger';
 
 /**
  * Data protection page component
- * @author Daniel Kroll
+ * @author Daniel Sogl, Daniel Kroll
  */
 @Component({
   selector: 'app-data-protection-page',

@@ -10,19 +10,36 @@
     <div class="row">
       <div class="col-12">
         <br>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>{{ 'DASHBOARD.NAME' | translate }}</th>
-              <th>{{ 'DASHBOARD.DATE' | translate }}</th>
-              <th>{{ 'DASHBOARD.LOCATION' | translate }}</th>
-              <th>{{ 'DASHBOARD.PICTURES' | translate }}</th>
-              <th>{{ 'DASHBOARD.PHOTOGRAPHER' | translate }}</th>
-              <th>{{ 'DASHBOARD.EDIT' | translate }}</th>
-            </tr>
-          </thead>
-        </table>
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-default">
+              <tr>
+                <th>#</th>
+                <th>{{ 'DASHBOARD.NAME' | translate }}</th>
+                <th>{{ 'DASHBOARD.DATE' | translate }}</th>
+                <th>{{ 'DASHBOARD.LOCATION' | translate }}</th>
+                <th>{{ 'DASHBOARD.RATINGS' | translate }}</th>
+                <th>{{ 'DASHBOARD.PICTURES' | translate }}</th>
+                <th>{{ 'DASHBOARD.EDIT' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let event of (events | async); let i = index">
+                <td>{{ i + 1}}</td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.date }}</td>
+                <td>{{ event.location }}</td>
+                <td>{{ event.ratings }}</td>
+                <td>{{ event.pictures.length }}</td>
+                <td>
+                  <a (click)="editEvent(user)">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </mdb-tab>
@@ -30,55 +47,166 @@
     <div class="row">
       <div class="col-12">
         <br>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>{{ 'DASHBOARD.EMAIL' | translate }}</th>
-              <th>{{ 'DASHBOARD.ROLE' | translate }}</th>
-              <th>{{ 'DASHBOARD.SUBSCRIPTION' | translate }}</th>
-              <th>{{ 'DASHBOARD.EDIT' | translate }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of (users | async); let i = index">
-              <th scope="row">{{ i + 1 }}</th>
-              <td>{{ user.email }}</td>
-              <td>
-                <span *ngIf="user.roles.admin">{{ 'DASHBOARD.ADMIN' | translate }}</span>
-                <span *ngIf="user.roles.photographer">{{ 'DASHBOARD.PHOTOGRAPHER' | translate }}</span>
-                <span *ngIf="user.roles.user">{{ 'DASHBOARD.USER' | translate }}</span>
-              </td>
-              <td>{{ user.subscription.membership }}</td>
-              <td>
-                <a (click)="editUser(user)">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-default">
+              <tr>
+                <th>#</th>
+                <th>{{ 'DASHBOARD.EMAIL' | translate }}</th>
+                <th>{{ 'DASHBOARD.ROLE' | translate }}</th>
+                <th>{{ 'DASHBOARD.SUBSCRIPTION' | translate }}</th>
+                <th>{{ 'DASHBOARD.EDIT' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of (users | async); let i = index" [class.table-warning]="!user.isValidated && user.roles.photographer">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ user.email }}</td>
+                <td>
+                  <span *ngIf="user.roles.admin">{{ 'DASHBOARD.ADMIN' | translate }}</span>
+                  <span *ngIf="user.roles.photographer">{{ 'DASHBOARD.PHOTOGRAPHER' | translate }}</span>
+                  <span *ngIf="user.roles.user">{{ 'DASHBOARD.USER' | translate }}</span>
+                </td>
+                <td>{{ user.subscription.membership }}</td>
+                <td>
+                  <a (click)="editUser(user)">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </mdb-tab>
   <mdb-tab heading="{{ 'TABS.PRINTING_HOUSES' | translate }}">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 text-left">
         <br>
+        <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
+          <form [formGroup]="printingHouseForm" (ngSubmit)="updatePrintingHouse()">
+            <mdb-item>
+              <mdb-item-head>Contact Information</mdb-item-head>
+              <mdb-item-body>
+                <br>
+
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="name">
+                  <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                </div>
+
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="email">
+                  <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
+                </div>
+
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="phone">
+                  <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="street">
+                      <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="streetNumber">
+                      <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="zip">
+                      <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="city">
+                      <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+
+              </mdb-item-body>
+            </mdb-item>
+            <mdb-item>
+              <mdb-item-head>Payment Information</mdb-item-head>
+              <mdb-item-body>
+                <br>
+                <div formArrayName="paymentInformation">
+                  <div class="md-form">
+                    <input type="text" class="form-control" formControlName="accountOwner">
+                    <label class="active">{{ 'INPUTS.ACCOUNT_OWNER' | translate }}</label>
+                  </div>
+
+                  <div class="md-form">
+                    <input type="text" class="form-control" formControlName="iban">
+                    <label class="active">{{ 'INPUTS.IBAN' | translate }}</label>
+                  </div>
+
+                  <div class="md-form">
+                    <input type="text" class="form-control" formControlName="bic">
+                    <label class="active">{{ 'INPUTS.BIC' | translate }}</label>
+                  </div>
+                </div>
+              </mdb-item-body>
+            </mdb-item>
+            <mdb-item>
+              <mdb-item-head>Product Prices</mdb-item-head>
+              <mdb-item-body>
+                <br>
+                <mdb-tabset [buttonClass]="'nav-tabs  indigo'">
+                  <mdb-tab heading="Photo">
+                    <div class="row">
+                      <div class="col-12">
+                        <br>
+                        <table class="table">
+                          <thead class="thead-default">
+                            <tr>
+                              <th scope="row">Article</th>
+                              <th>Production Costs</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let article of printingHouse.salesTypes.photo">
+                              <th>9x13cm</th>
+                              <th>0,15</th>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </mdb-tab>
+                </mdb-tabset>
+              </mdb-item-body>
+            </mdb-item>
+          </form>
+        </mdb-squeezebox>
+        <button type="submit" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updatePrintingHouse()">{{ 'BUTTONS.SAVE' | translate }}</button>
       </div>
     </div>
   </mdb-tab>
 </mdb-tabset>
 
-<div mdbModal #editUserModal="mdb-modal" class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+<div mdbModal #editUserModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
 
     <div class="modal-content">
 
       <div class="modal-header indigo white-text">
         <h4 class="title">
-          <i class="fa fa-pencil"></i> Edit user</h4>
+          <i class="fa fa-pencil"></i> {{ 'LABELS.EDIT_USER' | translate }}</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="editUserModal.hide()">
           <span class="white-text" aria-hidden="true">×</span>
         </button>
@@ -123,28 +251,29 @@
           </mdb-tabset>
           <br>
           <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>
-            <i class="fa fa-refresh mr-1"></i>Update user</button>
+            <i class="fa fa-refresh mr-1"></i>{{ 'BUTTONS.UPDATE_USER' | translate }}</button>
         </form>
       </div>
     </div>
   </div>
 </div>
 
-<div mdbModal #editEventModal="mdb-modal" class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+<div mdbModal #editEventModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
 
     <div class="modal-content">
 
       <div class="modal-header indigo white-text">
         <h4 class="title">
-          <i class="fa fa-pencil"></i> Edit user</h4>
+          <i class="fa fa-pencil"></i> {{ 'LABELS.EDIT_EVENT' | translate }}</h4>
         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="editEventModal.hide()">
           <span class="white-text" aria-hidden="true">×</span>
         </button>
       </div>
 
       <div class="modal-body mb-0">
+        <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>
+          <i class="fa fa-refresh mr-1"></i>{{ 'BUTTONS.UPDATE_EVENT' | translate }}</button>
       </div>
     </div>
   </div>

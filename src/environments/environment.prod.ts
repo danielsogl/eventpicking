@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  stripeKey: 'pk_test_HAX2HpQ1LizdcxCoTOopfGVZ',
+  agmKey: 'AIzaSyDtenbK28NI4AqBRsnO4NcjyQ7rBPv41sY',
   firebase: {
     apiKey: 'AIzaSyCdwMeRUCrTWok90nQsT28-JhiaVQUsoyY',
     authDomain: 'mercy-5ae35.firebaseapp.com',

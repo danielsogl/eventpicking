@@ -1,50 +1,55 @@
 import { Injectable } from '@angular/core';
+import {
+  AngularFireStorage,
+  AngularFireStorageReference,
+  AngularFireUploadTask
+} from 'angularfire2/storage';
 import { Log } from 'ng2-logger';
-import * as firebase from 'firebase';
+import { Observable } from 'rxjs/Observable';
 
-import { Upload } from '../../../classes/upload';
-import { FirebaseFirestoreService } from '../firestore/firebase-firestore.service';
+import { Upload } from '../../../classes/upload-file';
 
 /**
- * Ein Service für die Kommunikation mit dem Firebase Storage Service
+ * A service to up and download files from Firebase storage
  * @author Daniel Sogl
  */
 @Injectable()
 export class FirebaseStorageService {
   private log = Log.create('FirebaseStorageService');
 
+  public uploads: Observable<Upload[]>;
+
   /**
-   * @param  {FirebaseFirestoreService} afs AngularFire Firebase App
+   * @param  {AngularFireStorage} afStorage AngularFire Storage
    */
-  constructor(private afs: FirebaseFirestoreService) {
+  constructor(private afStorage: AngularFireStorage) {
     this.log.color = 'green';
     this.log.d('Service injected');
   }
 
-  getEventPictures(uid: string, event: string) {
-    const storageRef = firebase.storage().ref();
-    return storageRef.child(`events/${uid}/${event}/public/`);
+  /**
+   * Upload images to Firebase storage
+   * @param  {string} uid UID
+   * @param  {string} event Event ID
+   * @param  {Upload} upload Uploadfile
+   * @returns {AngularFireUploadTask}
+   */
+  pushUpload(
+    uid: string,
+    event: string,
+    upload: Upload
+  ): AngularFireUploadTask {
+    const storageRef: AngularFireStorageReference = this.afStorage.ref(
+      `events/${uid}/${event}/${upload.file.name}`
+    );
+
+    return storageRef.put(upload.file);
   }
 
-  pushUpload(uid: string, upload: Upload) {
-    const storageRef = firebase.storage().ref();
-    const uploadTask = storageRef
-      .child(`events/${uid}/${upload.event}/originals/${upload.file.name}`)
-      .put(upload.file);
-    uploadTask.on(
-      firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot: any) => {
-        upload.progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-      },
-      err => {
-        this.log.er('Image upload error', err);
-      },
-      () => {
-        this.log.d('Image uploaded successful');
-        upload.url = uploadTask.snapshot.downloadURL;
-        upload.name = upload.file.name;
-        this.afs.setPictureData(upload);
-      }
+  deleteFile(uid: string, event: string, file: string) {
+    const storageRef: AngularFireStorageReference = this.afStorage.ref(
+      `events/${uid}/${event}/${file}`
     );
+    return storageRef.delete();
   }
 }
