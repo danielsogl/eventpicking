@@ -175,7 +175,7 @@ export class DashboardAdminComponent implements OnInit {
    * Update printing house
    */
   updatePrintingHouse() {
-    this.printingHouse = this.printingHouseForm.getRawValue();
-    this.log.d('Update printing house', this.printingHouse);
+    // this.printingHouse = this.printingHouseForm.getRawValue() as PrintingHouse;
+    // this.log.d('Update printing house', this.printingHouse);
   }
 }
