@@ -15,6 +15,13 @@ export interface PhotographerProfile {
   facebook?: string;
   /** Instagram */
   instagram?: string;
+  /** Location */
+  location: {
+    /** Latitute */
+    lat: number;
+    /** Longitude */
+    lng: number;
+  };
   /** Name */
   name?: string;
   /** Phone */
