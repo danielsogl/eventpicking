@@ -186,7 +186,11 @@ export class SignupPageComponent implements OnInit {
           uid: user.uid,
           website: '',
           photoUrl: user.photoUrl,
-          premium: false
+          premium: false,
+          location: {
+            lat: 0,
+            lng: 0
+          }
         });
         this.afs.updateUserData(user).then(() => {
           this.router.navigate(['dashboard']);
