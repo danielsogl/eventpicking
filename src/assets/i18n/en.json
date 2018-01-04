@@ -45,7 +45,9 @@
     "CART_PRICE": "Price",
     "TOTAL": "Total",
     "SHOPPING_CART": "Shopping cart",
-    "CONTACT_DETAILS": "Contact details"
+    "CONTACT_DETAILS": "Contact details",
+    "DELIVERY_ADDRESS": "Delivery address",
+    "BILLING_ADDRESS": "Billing address"
   },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":
