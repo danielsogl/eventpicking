@@ -105,40 +105,44 @@ export class DashboardAdminComponent implements OnInit {
     this.log.color = 'orange';
     this.log.d('Component initialized');
 
-    this.auth.user.subscribe(user => {
-      if (user) {
-        this.user = user;
-        this.log.d('Loaded user', user);
-      }
-    });
-
     if (this.auth.getCurrentFirebaseUser()) {
+      this.auth.user.subscribe(user => {
+        if (user) {
+          this.user = user;
+          this.log.d('Loaded user', user);
+        }
+      });
+
       // Load users from Firestore
       this.users = this.afs.getAllUser().valueChanges();
       // Load events from Firestore
       this.events = this.afs.getAllEvents().valueChanges();
-    }
 
-    this.users.subscribe(user => {
-      this.log.d('User', user);
-    });
-    this.events.subscribe(events => {
-      this.log.d('Events', events);
-    });
-
-    this.afs
-      .getDefautlPrintingHouse()
-      .valueChanges()
-      .subscribe(house => {
-        if (house[0]) {
-          this.printingHouse = house[0];
-        } else {
-          this.printingHouse = new PrintingHouse();
-          this.printingHouse.isDefault = true;
-          this.printingHouse.uid = this.auth.getCurrentFirebaseUser().uid;
-        }
-        this.log.d('Printing house', this.printingHouse);
+      this.users.subscribe(user => {
+        this.log.d('User', user);
       });
+      this.events.subscribe(events => {
+        this.log.d('Events', events);
+      });
+      this.afs
+        .getDefautlPrintingHouse()
+        .valueChanges()
+        .subscribe(house => {
+          if (house[0]) {
+            this.printingHouse = house[0];
+            this.log.d(
+              'Loaded printinghouse from firestore',
+              this.printingHouse
+            );
+          } else {
+            this.printingHouse = new PrintingHouse();
+            this.printingHouse.isDefault = true;
+            this.printingHouse.uid = this.auth.getCurrentFirebaseUser().uid;
+            this.printingHouse.id = this.afs.getId();
+          }
+          this.log.d('Created new printing house', this.printingHouse);
+        });
+    }
   }
 
   /**
@@ -175,7 +179,15 @@ export class DashboardAdminComponent implements OnInit {
    * Update printing house
    */
   updatePrintingHouse() {
-    // this.printingHouse = this.printingHouseForm.getRawValue() as PrintingHouse;
-    // this.log.d('Update printing house', this.printingHouse);
+    this.afs
+      .getDefautlPrintingHouse()
+      .doc(this.printingHouse.id)
+      .set(JSON.parse(JSON.stringify(this.printingHouse)))
+      .then(() => {
+        this.log.d('Updated printing house');
+      })
+      .catch(err => {
+        this.log.er('Error saving printing house', err);
+      });
   }
 }

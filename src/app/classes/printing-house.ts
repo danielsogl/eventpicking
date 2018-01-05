@@ -23,18 +23,20 @@ export class PrintingHouse {
   uid: string;
   /** Default printinghouse */
   isDefault: boolean;
+  /** Id */
+  id: string;
 
   /**
    * Constructor
    */
   constructor() {
-    this.city = '';
-    this.email = '';
-    this.name = '';
-    this.phone = '';
-    this.street = '';
-    this.streetnumber = '';
-    this.zip = '';
+    this.city = 'Ludwigsburg';
+    this.email = 'info@druckhaus-goetz.de';
+    this.name = 'Druckhaus Götz GmbH';
+    this.phone = '07141451450';
+    this.street = 'Schwieberdinger Str.';
+    this.streetnumber = '111-115';
+    this.zip = '71636';
     this.isDefault = false;
     this.uid = '';
     this.salesTypes = {
