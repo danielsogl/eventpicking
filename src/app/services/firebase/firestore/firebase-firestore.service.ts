@@ -89,9 +89,35 @@ export class FirebaseFirestoreService {
    * Firestore: Printing houses
    ************************************/
 
+  /**
+   * Returns default printing house
+   * @returns AngularFirestoreCollection
+   */
   getDefautlPrintingHouse(): AngularFirestoreCollection<PrintingHouse> {
     return this.afs.collection('printingHouses', ref =>
       ref.where('isDefault', '==', true)
+    );
+  }
+
+  /**
+   * Returns a printing house
+   * @param  {string} id Printing house id
+   * @returns {AngularFirestoreDocument<PrintingHouse>}
+   */
+  getPrintingHouseById(id: string): AngularFirestoreDocument<PrintingHouse> {
+    return this.afs.collection('printingHouses').doc(id);
+  }
+
+  /**
+   * Retruns a printing house
+   * @param  {string} uid User Id
+   * @returns {AngularFirestoreCollection<PrintingHouse>}
+   */
+  getPrintingHouseByUser(
+    uid: string
+  ): AngularFirestoreCollection<PrintingHouse> {
+    return this.afs.collection('printingHouses', ref =>
+      ref.where('uid', '==', uid)
     );
   }
 
