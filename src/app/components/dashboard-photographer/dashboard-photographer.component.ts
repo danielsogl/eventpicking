@@ -197,7 +197,6 @@ export class DashboardPhotographerComponent implements OnInit {
             this.photographerProfile.address = this.user.billingAdress;
           }
           this.photographerProfile.photoUrl = this.auth.getCurrentFirebaseUser().photoURL;
-          this.photographerProfile.uid = this.user.uid;
           this.publicProfileForm.patchValue(this.photographerProfile);
         }
       });
@@ -234,7 +233,8 @@ export class DashboardPhotographerComponent implements OnInit {
         id: uid,
         location: this.newEventForm.value.location,
         name: this.newEventForm.value.name,
-        photographerUid: this.user.uid
+        photographerUid: this.user.uid,
+        printinghouse: '4qd7Em6sEa6AzZaqNEQV'
       });
       this.eventCollection
         .doc(uid)
@@ -289,6 +289,7 @@ export class DashboardPhotographerComponent implements OnInit {
     }
     if (this.publicProfileForm.valid && !this.publicProfileForm.untouched) {
       this.photographerProfile = this.publicProfileForm.getRawValue();
+      this.photographerProfile.uid = this.user.uid;
       this.log.d('Update public profile data', this.photographerProfile);
 
       this.geolocation
