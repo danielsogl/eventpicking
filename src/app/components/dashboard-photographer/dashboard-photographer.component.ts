@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
@@ -12,6 +15,7 @@ import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
+import { PrintingHouse } from '../../classes/printing-house';
 
 /**
  * Photographer dashboard component
@@ -46,6 +50,12 @@ export class DashboardPhotographerComponent implements OnInit {
 
   /** Printing house contact data form */
   public printingHouseContactForm: FormGroup;
+
+  /** Default printing house */
+  public defaultPrintingHouse: PrintingHouse;
+
+  /** Own printing house */
+  public ownPrintingHouse: PrintingHouse;
 
   /** Edited event */
   public eventEdit: Event;
@@ -197,7 +207,6 @@ export class DashboardPhotographerComponent implements OnInit {
             this.photographerProfile.address = this.user.billingAdress;
           }
           this.photographerProfile.photoUrl = this.auth.getCurrentFirebaseUser().photoURL;
-          this.photographerProfile.uid = this.user.uid;
           this.publicProfileForm.patchValue(this.photographerProfile);
         }
       });
@@ -206,6 +215,32 @@ export class DashboardPhotographerComponent implements OnInit {
         this.auth.getCurrentFirebaseUser().uid
       );
       this.events = this.eventCollection.valueChanges();
+
+      this.afs
+        .getDefautlPrintingHouse()
+        .valueChanges()
+        .subscribe(printingHouse => {
+          if (printingHouse[0]) {
+            this.defaultPrintingHouse = printingHouse[0];
+            this.log.d(
+              'Loaded default printing house',
+              this.defaultPrintingHouse
+            );
+          }
+        });
+
+      this.afs
+        .getPrintingHouseByUser(this.auth.getCurrentFirebaseUser().uid)
+        .valueChanges()
+        .subscribe(printingHouse => {
+          if (printingHouse[0]) {
+            this.ownPrintingHouse = printingHouse[0];
+            this.log.d('Loaded own printing house', this.ownPrintingHouse);
+          } else {
+            this.ownPrintingHouse = new PrintingHouse();
+            this.ownPrintingHouse.uid = this.auth.getCurrentFirebaseUser().uid;
+          }
+        });
     }
   }
 
@@ -234,7 +269,8 @@ export class DashboardPhotographerComponent implements OnInit {
         id: uid,
         location: this.newEventForm.value.location,
         name: this.newEventForm.value.name,
-        photographerUid: this.user.uid
+        photographerUid: this.user.uid,
+        printinghouse: '4qd7Em6sEa6AzZaqNEQV'
       });
       this.eventCollection
         .doc(uid)
@@ -289,6 +325,7 @@ export class DashboardPhotographerComponent implements OnInit {
     }
     if (this.publicProfileForm.valid && !this.publicProfileForm.untouched) {
       this.photographerProfile = this.publicProfileForm.getRawValue();
+      this.photographerProfile.uid = this.user.uid;
       this.log.d('Update public profile data', this.photographerProfile);
 
       this.geolocation
