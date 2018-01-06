@@ -5,6 +5,8 @@ import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { PrintingHouse } from '../../classes/printing-house';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Event user view component
@@ -20,8 +22,10 @@ export class EventUserComponent implements OnInit {
   private log = Log.create('EventUserComponent');
 
   @Input() public event: Event;
-  public images: EventPicture[];
   @Input() public user: User;
+  public printingHouse: PrintingHouse;
+
+  public images: Observable<EventPicture[]>;
 
   constructor(private afs: FirebaseFirestoreService) {}
 
@@ -34,14 +38,17 @@ export class EventUserComponent implements OnInit {
 
     // Load images
     if (this.event) {
+      this.images = this.afs.getEventPictures(this.event.id).valueChanges();
+      this.images.subscribe(images => {
+        this.log.d('Event Images', this.images);
+      });
+
       this.afs
-        .getEventPictures(this.event.id)
+        .getPrintingHouseById(this.event.printinghouse)
         .valueChanges()
-        .subscribe(images => {
-          if (images) {
-            this.images = images;
-            this.log.d('Images', this.images);
-          }
+        .subscribe(printingHouse => {
+          this.printingHouse = printingHouse;
+          this.log.d('Loaded printing house', this.printingHouse);
         });
     }
   }
