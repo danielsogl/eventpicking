@@ -21,6 +21,8 @@ export class Event {
   public: boolean;
   /** Ratings */
   ratings: number;
+  /** Printing house */
+  printinghouse: string;
 
   /**
    * Constructor
@@ -36,5 +38,6 @@ export class Event {
     this.photographerUid = eventData.photographerUid;
     this.public = false;
     this.ratings = 0;
+    this.printinghouse = eventData.printinghouse;
   }
 }

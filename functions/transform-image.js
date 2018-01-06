@@ -182,7 +182,7 @@ exports.transformImageHandler = event => {
         .collection('images')
         .add({
           info: fileInfo,
-          name: file.name,
+          name: file.name.split('/')[3],
           preview: preFileUrl,
           thumbnail: thumbFileUrl,
           ratings: 0
