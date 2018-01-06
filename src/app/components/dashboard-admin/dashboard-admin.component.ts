@@ -90,6 +90,9 @@ export class DashboardAdminComponent implements OnInit {
       street: ['', Validators.required],
       streetNumber: ['', Validators.required],
       zip: ['', Validators.required],
+      id: ['', Validators.required],
+      uid: ['', Validators.required],
+      isDefault: [true, Validators.required],
       paymentInformation: this.formBuilder.group({
         iban: ['', Validators.required],
         bic: ['', Validators.required],
@@ -135,14 +138,25 @@ export class DashboardAdminComponent implements OnInit {
               this.printingHouse
             );
           } else {
+            this.log.d('Created new printing house', this.printingHouse);
             this.printingHouse = new PrintingHouse();
             this.printingHouse.isDefault = true;
             this.printingHouse.uid = this.auth.getCurrentFirebaseUser().uid;
             this.printingHouse.id = this.afs.getId();
           }
-          this.log.d('Created new printing house', this.printingHouse);
+          this.printingHouseForm.patchValue(this.printingHouse);
         });
     }
+  }
+
+  /**
+   * Track ngFor loop
+   * @param  {number} index Index
+   * @param  {any} obj Object
+   * @returns any
+   */
+  trackByIndex(index: number, obj: any): any {
+    return index;
   }
 
   /**
@@ -179,15 +193,20 @@ export class DashboardAdminComponent implements OnInit {
    * Update printing house
    */
   updatePrintingHouse() {
-    this.afs
-      .getDefautlPrintingHouse()
-      .doc(this.printingHouse.id)
-      .set(JSON.parse(JSON.stringify(this.printingHouse)))
-      .then(() => {
-        this.log.d('Updated printing house');
-      })
-      .catch(err => {
-        this.log.er('Error saving printing house', err);
-      });
+    if (this.printingHouseForm.valid) {
+      const products = this.printingHouse.salesTypes;
+      this.printingHouse = this.printingHouseForm.getRawValue();
+      this.printingHouse.salesTypes = products;
+      this.afs
+        .getDefautlPrintingHouse()
+        .doc(this.printingHouse.id)
+        .set(JSON.parse(JSON.stringify(this.printingHouse)))
+        .then(() => {
+          this.log.d('Updated printing house');
+        })
+        .catch(err => {
+          this.log.er('Error saving printing house', err);
+        });
+    }
   }
 }

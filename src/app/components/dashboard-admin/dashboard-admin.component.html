@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-12">
         <br>
-        <div class="table-responsive">
+        <div class="table-responsive text-left">
           <table class="table">
             <thead class="thead-default">
               <tr>
@@ -43,9 +43,9 @@
   </mdb-tab>
   <mdb-tab heading="{{ 'TABS.USER' | translate }}">
     <div class="row">
-      <div class="col-12 text-left">
+      <div class="col-12">
         <br>
-        <div class="table-responsive">
+        <div class="table-responsive text-left">
           <table class="table">
             <thead class="thead-default">
               <tr>
@@ -96,7 +96,7 @@
 
                 <div class="md-form">
                   <input type="text" class="form-control" formControlName="email">
-                  <label class="active">{{ 'INPUTS.MAIL' | translate }}</label>
+                  <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
                 </div>
 
                 <div class="md-form">
@@ -160,69 +160,62 @@
                 </div>
               </mdb-item-body>
             </mdb-item>
-            <mdb-item>
-              <mdb-item-head>Product Prices</mdb-item-head>
-              <mdb-item-body>
-                <br>
-                <mdb-tabset [buttonClass]="'nav-tabs  indigo'">
-                  <mdb-tab heading="Photo">
-                    <div class="row">
-                      <div class="col-12">
-                        <br>
-                        <table class="table">
-                          <thead class="thead-default">
-                            <tr>
-                              <th scope="row">Article</th>
-                              <th>Production Costs</th>
-                              <th>Edit</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let article of printingHouse.salesTypes.photo.articles">
-                              <td>{{ article.name }}</td>
-                              <td>{{ article.minPrice | number:'1.2-2' }} €</td>
-                              <td>
-                                <a>
-                                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </mdb-tab>
-                  <mdb-tab heading="Downloads">
-                    <div class="row">
-                      <div class="col-12">
-                        <br>
-                        <table class="table">
-                          <thead class="thead-default">
-                            <tr>
-                              <th scope="row">Article</th>
-                              <th>Minimal price</th>
-                              <th>Edit</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let article of printingHouse.salesTypes.download.articles">
-                              <td>{{ article.name }}</td>
-                              <td>{{ article.minPrice | number:'1.2-2' }} €</td>
-                              <td>
-                                <a>
-                                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </mdb-tab>
-                </mdb-tabset>
-              </mdb-item-body>
-            </mdb-item>
           </form>
+          <mdb-item>
+            <mdb-item-head>Product Prices</mdb-item-head>
+            <mdb-item-body>
+              <br>
+              <mdb-tabset [buttonClass]="'nav-tabs  indigo'">
+                <mdb-tab heading="Photo">
+                  <div class="row">
+                    <div class="col-12">
+                      <br>
+                      <table class="table">
+                        <thead class="thead-default">
+                          <tr>
+                            <th scope="row">Article</th>
+                            <th>Production Costs</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let article of printingHouse.salesTypes.photo.articles; let i = index; trackBy:trackByIndex">
+                            <td>{{ article.name }}</td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="printingHouse.salesTypes.photo.articles[i].minPrice">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </mdb-tab>
+                <mdb-tab heading="Downloads">
+                  <div class="row">
+                    <div class="col-12">
+                      <br>
+                      <table class="table">
+                        <thead class="thead-default">
+                          <tr>
+                            <th scope="row">Article</th>
+                            <th>Minimal price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let article of printingHouse.salesTypes.download.articles; let i = index; trackBy:trackByIndex">
+                            <td>{{ article.name }}</td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="printingHouse.salesTypes.download.articles[i].minPrice">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </mdb-tab>
+              </mdb-tabset>
+            </mdb-item-body>
+          </mdb-item>
+
         </mdb-squeezebox>
         <button type="submit" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updatePrintingHouse()">{{ 'BUTTONS.SAVE' | translate }}</button>
       </div>

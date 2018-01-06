@@ -16,7 +16,7 @@ export class PrintingHouse {
   /** Street */
   street: string;
   /** Street number */
-  streetnumber: string;
+  streetNumber: string;
   /** ZIP */
   zip: string;
   /** User UID */
@@ -35,7 +35,7 @@ export class PrintingHouse {
     this.name = 'Druckhaus Götz GmbH';
     this.phone = '07141451450';
     this.street = 'Schwieberdinger Str.';
-    this.streetnumber = '111-115';
+    this.streetNumber = '111-115';
     this.zip = '71636';
     this.isDefault = false;
     this.uid = '';
