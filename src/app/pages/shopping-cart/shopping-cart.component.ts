@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AsyncLocalStorage } from 'angular-async-local-storage';
 import { Log } from 'ng2-logger';
+
+import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 
 /**
  * Shopping cart page component
@@ -11,9 +14,12 @@ import { Log } from 'ng2-logger';
   styleUrls: ['./shopping-cart.component.scss']
 })
 export class ShoppingCartComponent implements OnInit {
+  /** Logger */
   private log = Log.create('ShoppingCartComponent');
+  /** Shpping cart imtems */
+  public cartItems: ShoppingCartItem[] = [];
 
-  constructor() {}
+  constructor(private localStorage: AsyncLocalStorage) {}
 
   increaseQuantity() {}
 
@@ -24,5 +30,12 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
+
+    // Load items from local storage
+    this.localStorage
+      .getItem<ShoppingCartItem>('_cart-items')
+      .subscribe(items => {
+        this.cartItems = items;
+      });
   }
 }
