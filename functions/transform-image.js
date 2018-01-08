@@ -28,6 +28,7 @@ const PRE_PREFIX = 'pre_';
  * ImageMagick.
  * After the thumbnail has been generated and uploaded to Cloud Storage,
  * we write the public URL to the Firebase Realtime Database.
+ * @author Daniel Sogl, Dennis Maurer
  */
 exports.transformImageHandler = event => {
   // File and directory paths.
