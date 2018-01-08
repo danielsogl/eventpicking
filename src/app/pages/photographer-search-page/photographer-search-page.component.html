@@ -1,19 +1,14 @@
 <div class="container-fluid">
   <div class="row mt-5 pt-5">
     <div class="col col-3 text-center">
-      <div class="md-form">
-        <input mdbActive type="text" class="form-control">
-        <label class="active">Search photographer by ZIP</label>
-      </div>
+
       <table>
         <tbody>
           <tr *ngFor="let p of (photographer | async)">
             <td class="card">
               <div class="card-body">
                 <p class="card-text text-left">
-                  {{ p.name }}
-                  <br> {{ p.address.street }}
-                  <br> {{ p.address.zip }} - {{ p.address.city }} {{ p.address.street }}
+                  <img class="profile-img" [src]="p.photoUrl"> {{ p.name }}
                 </p>
               </div>
             </td>
@@ -31,6 +26,9 @@
                 {{ p.name }}
                 <br> {{ p.address.street }}
                 <br> {{ p.address.zip }} - {{ p.address.city }} {{ p.address.street }}
+                <br> Tel: {{ p.phone }}
+                <br>
+                <a>Profile</a>
               </div>
             </ng-template>
           </agm-snazzy-info-window>

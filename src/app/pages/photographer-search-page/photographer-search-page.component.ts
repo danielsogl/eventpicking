@@ -20,7 +20,7 @@ export class PhotographerSearchPageComponent implements OnInit {
   /** Logger */
   private log = Log.create('PhotographerSearchPageComponent');
 
-  /** Photographer profiles */
+  /** Photographer profiles collection */
   public photographer: Observable<PhotographerProfile[]>;
 
   /** Google maps ref */
@@ -45,8 +45,8 @@ export class PhotographerSearchPageComponent implements OnInit {
 
     // Load all photographer profiles
     this.photographer = this.afs.getAllPhotographer().valueChanges();
-    this.photographer.subscribe(photographers => {
-      this.log.d('Photographerprofiles', photographers);
+    this.photographer.subscribe(photographer => {
+      this.log.d('Photographerprofiles', photographer);
     });
 
     // Get browser geolocation
@@ -75,4 +75,6 @@ export class PhotographerSearchPageComponent implements OnInit {
     this.agmMap.zoom = 10;
     this.agmMap.triggerResize();
   }
+
+  searchPhotographer() {}
 }
