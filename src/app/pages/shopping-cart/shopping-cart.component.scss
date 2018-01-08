@@ -12,3 +12,11 @@
 .btn-secondary:active {
   background-color: grey !important; //important needed to override color
 }
+
+.img-thumbnail {
+  width: 100px;
+}
+
+.clickable {
+  cursor: pointer;
+}

@@ -4,11 +4,17 @@
  */
 export interface ShoppingCartItem {
   /** Name */
-  name: string;
-  /** Key */
+  eventname: string;
+  /** Key ->photoname */
   key: string;
   /** Format */
   format: ShoppingCartItemFormat;
+  /** Image-Url Thumbnail */
+  url: string;
+  /** Amount */
+  amount?: number;
+  /** Total price */
+  totalPrice?: number;
 }
 
 /**
@@ -20,8 +26,8 @@ export interface ShoppingCartItemFormat {
   type: string;
   /** Price */
   price: number;
-  /** Heigh */
-  heigh?: number;
+  /** Height */
+  height?: number;
   /** Width */
   width?: number;
 }
