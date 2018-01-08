@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  stripeKey: 'pk_test_HAX2HpQ1LizdcxCoTOopfGVZ',
+  agmKey: 'AIzaSyARLUCxW543JYIU-BfJOTiI2mAlQHLj6vQ',
   firebase: {
     apiKey: 'AIzaSyBnB8M0rd5R87WvE57NzQVPuEQ6JiRbq_I',
     authDomain: 'eventpicking-development.firebaseapp.com',

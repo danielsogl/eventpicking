@@ -1,5 +1,13 @@
 const admin = require('firebase-admin');
 
+exports.increaseEventVotes = event => {
+  var eventData = event.data.data();
+};
+
+exports.decreaseEventVotes = event => {
+  var eventData = event.data.data();
+};
+
 exports.decreaseEventsLeftHandler = event => {
   var eventData = event.data.data();
   var photographerUid = eventData.photographerUid;

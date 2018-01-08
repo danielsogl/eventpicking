@@ -1,74 +1,79 @@
+import { Address } from '../interfaces/address';
 import { EventpickingSub } from '../interfaces/subscription';
 import { UserRoles } from '../interfaces/user-roles';
 
 /**
- * Application User
+ * Firebase User
+ * @author Daniel Sogl
  */
 export class User {
-  /**
-   * uid
-   */
-  uid: string;
-  /**
-   * email
-   */
+  /** Billing adress */
+  billingAdress: Address;
+  /** delivery Adress */
+  deliveryAdress: Address;
+  /** Email */
   email: string;
-  /**
-   * avatar url
-   */
-  photoURL?: string;
-
-  /**
-   * display name
-   */
-  photographerUrl?: string;
-
-  /**
-   * user roles
-   */
-  roles: UserRoles;
-
-  events: string[];
-
-  salutation: string;
-
-  name: string;
-  lastname: string;
-
-  street: string;
-  city: string;
-  zip: string;
-  phone: string;
-  stripeId: string;
-
-  subscription: EventpickingSub;
-
-  isValidated: boolean;
-
-  eventsLeft: number;
+  /** Event counter */
   eventCounter: number;
+  /** Events left */
+  eventsLeft: number;
+  /** is validated */
+  isValidated: boolean;
+  /** Lastname */
+  lastname: string;
+  /** Name */
+  name: string;
+  /** Photographer URL */
+  photographerUrl?: string;
+  /** Photo URL */
+  photoUrl?: string;
+  /** Roles */
+  roles: UserRoles;
+  /** Salutation */
+  salutation: string;
+  /** Subscription */
+  subscription: EventpickingSub;
+  /** UID */
+  uid: string;
 
   /**
+   * Constructor
    * @param  {any} authData firebase user
    */
   constructor(authData: any) {
+    this.billingAdress = {
+      city: '',
+      company: '',
+      email: '',
+      lastname: '',
+      name: '',
+      phone: '',
+      street: '',
+      streetnumber: '',
+      zip: ''
+    };
+    this.deliveryAdress = {
+      city: '',
+      company: '',
+      email: '',
+      lastname: '',
+      name: '',
+      phone: '',
+      street: '',
+      streetnumber: '',
+      zip: ''
+    };
     this.email = authData.email;
-    this.events = authData.events;
-    this.photographerUrl = authData.photographerUrl;
-    this.photoURL = authData.photoURL;
-    this.roles = { user: true, admin: false, photographer: false };
-    this.uid = authData.uid;
-    this.salutation = authData.salutation;
-    this.name = authData.name;
-    this.lastname = authData.lastname;
-    this.phone = authData.phone;
-    this.street = authData.street;
-    this.city = authData.city;
-    this.zip = authData.zip;
-    this.subscription = { membership: 'free', status: '', token: '' };
-    this.stripeId = authData.stripeId;
-    this.eventsLeft = authData.eventsLeft;
-    this.eventCounter = authData.eventCounter;
+    this.eventCounter = 0;
+    this.eventsLeft = 1;
     this.isValidated = false;
+    this.lastname = '';
+    this.name = '';
+    this.photographerUrl = authData.photographerUrl;
+    this.photoUrl = authData.photoUrl;
+    this.roles = { user: true, admin: false, photographer: false };
+    this.salutation = '';
+    this.subscription = { membership: 'user', premium: false, status: 'valid' };
+    this.uid = authData.uid;
   }
 }

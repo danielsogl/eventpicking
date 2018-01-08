@@ -23,7 +23,9 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link waves-light" mdbRippleRadius routerLink="/prices" id="a_prices">{{ 'NAV.PRICES' | translate }} </a>
         </li>
-
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link waves-light" mdbRippleRadius routerLink="/search" id="a_prices">{{ 'NAV.SEARCH' | translate }} </a>
+        </li>
       </ul>
 
       <ul class="nav navbar-nav nav-flex-icons ml-auto">
@@ -53,7 +55,7 @@
           </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!user?.roles.admin && !user?.roles.photographer">
           <a class="nav-link waves-effect waves-light" routerLink="/cart">
             <i class="fa fa-shopping-cart"></i>
           </a>

@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row mt-5 pt-5">
+    <div class="col col-3 text-center">
+      <div class="md-form">
+        <input mdbActive type="text" class="form-control">
+        <label class="active">Search photographer by ZIP</label>
+      </div>
+      <table>
+        <tbody>
+          <tr *ngFor="let p of (photographer | async)">
+            <td class="card">
+              <div class="card-body">
+                <p class="card-text text-left">
+                  {{ p.name }}
+                  <br> {{ p.address.street }}
+                  <br> {{ p.address.zip }} - {{ p.address.city }} {{ p.address.street }}
+                </p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col col-9 text-center">
+      <agm-map #map style="height: 500px; width: 100%" class="card">
+        <agm-marker *ngFor="let p of (photographer | async); let i = index" [latitude]="p.location.lat" [longitude]="p.location.lng"
+          [title]="p.name" [zIndex]="i">
+          <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+            <ng-template>
+              <div class="text-left">
+                {{ p.name }}
+                <br> {{ p.address.street }}
+                <br> {{ p.address.zip }} - {{ p.address.city }} {{ p.address.street }}
+              </div>
+            </ng-template>
+          </agm-snazzy-info-window>
+        </agm-marker>
+      </agm-map>
+    </div>
+  </div>
+</div>
