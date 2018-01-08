@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
-import { Upload } from '../../../classes/upload';
 import { User } from '../../../classes/user';
-import { PhotographerProfile } from '../../../interfaces/photographer-page';
+import { EventPicture } from '../../../interfaces/event-picture';
+import { PhotographerProfile } from '../../../interfaces/photographer-profile';
+import { PrintingHouse } from '../../../classes/printing-house';
 
 /**
  * Service to comunicate with the Firestore database
@@ -42,8 +47,8 @@ export class FirebaseFirestoreService {
     if (!user.roles) {
       user = new User(user);
     }
-    if (!user.photoURL) {
-      user.photoURL =
+    if (!user.photoUrl) {
+      user.photoUrl =
         'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
     }
     if (user.photographerUrl) {
@@ -84,9 +89,35 @@ export class FirebaseFirestoreService {
    * Firestore: Printing houses
    ************************************/
 
-  getDefautlPrintingHouse(): AngularFirestoreCollection<any> {
+  /**
+   * Returns default printing house
+   * @returns AngularFirestoreCollection
+   */
+  getDefautlPrintingHouse(): AngularFirestoreCollection<PrintingHouse> {
     return this.afs.collection('printingHouses', ref =>
       ref.where('isDefault', '==', true)
+    );
+  }
+
+  /**
+   * Returns a printing house
+   * @param  {string} id Printing house id
+   * @returns {AngularFirestoreDocument<PrintingHouse>}
+   */
+  getPrintingHouseById(id: string): AngularFirestoreDocument<PrintingHouse> {
+    return this.afs.collection('printingHouses').doc(id);
+  }
+
+  /**
+   * Retruns a printing house
+   * @param  {string} uid User Id
+   * @returns {AngularFirestoreCollection<PrintingHouse>}
+   */
+  getPrintingHouseByUser(
+    uid: string
+  ): AngularFirestoreCollection<PrintingHouse> {
+    return this.afs.collection('printingHouses', ref =>
+      ref.where('uid', '==', uid)
     );
   }
 
@@ -126,7 +157,7 @@ export class FirebaseFirestoreService {
    * Save upload url and name
    * @param  {Upload} upload Upload
    */
-  setPictureData(upload: Upload) {
+  setPictureData(upload: any) {
     this.afs
       .collection('events')
       .doc(upload.event)
@@ -144,13 +175,13 @@ export class FirebaseFirestoreService {
   /**
    * Get event pictures
    * @param  {string} id ID
-   * @returns {AngularFirestoreCollection<Event>}
+   * @returns {AngularFirestoreCollection<EventPicture>}
    */
-  getEventPictures(id: string): AngularFirestoreCollection<Event> {
+  getEventPictures(id: string): AngularFirestoreCollection<EventPicture> {
     return this.afs
       .collection('events')
       .doc(id)
-      .collection('public');
+      .collection('images');
   }
 
   /************************************
@@ -178,6 +209,14 @@ export class FirebaseFirestoreService {
   }
 
   /**
+   * Get all photographer profiles
+   * @returns {AngularFirestoreCollection<PhotographerProfile>}
+   */
+  getAllPhotographer(): AngularFirestoreCollection<PhotographerProfile> {
+    return this.afs.collection('photographer');
+  }
+
+  /**
    * Process payment
    * @param  {any} token Token
    * @param  {any} product Product
@@ -201,5 +240,13 @@ export class FirebaseFirestoreService {
         },
         { merge: true }
       );
+  }
+
+  /**
+   * Create a firestore UID
+   * @returns {string}
+   */
+  getId(): string {
+    return this.afs.createId();
   }
 }

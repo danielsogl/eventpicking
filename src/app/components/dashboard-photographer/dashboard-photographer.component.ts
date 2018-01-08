@@ -5,15 +5,17 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from 'angularfire2/firestore';
+import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
-import { PhotographerProfile } from '../../interfaces/photographer-page';
+import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
+import { GeolocationService } from '../../services/geolocation/geolocation.service';
+import { PrintingHouse } from '../../classes/printing-house';
 
 /**
  * Photographer dashboard component
@@ -49,6 +51,12 @@ export class DashboardPhotographerComponent implements OnInit {
   /** Printing house contact data form */
   public printingHouseContactForm: FormGroup;
 
+  /** Default printing house */
+  public defaultPrintingHouse: PrintingHouse;
+
+  /** Own printing house */
+  public ownPrintingHouse: PrintingHouse;
+
   /** Edited event */
   public eventEdit: Event;
 
@@ -69,7 +77,12 @@ export class DashboardPhotographerComponent implements OnInit {
     tumbler: '',
     twitter: '',
     uid: '',
-    website: ''
+    website: '',
+    premium: false,
+    location: {
+      lat: 0,
+      lng: 0
+    }
   };
 
   /** Create new event modal */
@@ -81,16 +94,18 @@ export class DashboardPhotographerComponent implements OnInit {
 
   /**
    * Constructor
-   * @param  {FirebaseAuthService} auth Firebase Auth Service
-   * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
-   * @param  {Router} router Router
-   * @param  {FormBuilder} formBuilder FormBuilder
+   * @param {FirebaseAuthService} auth Firebase Auth Service
+   * @param {FirebaseFirestoreService} afs Firebase Firestore Service
+   * @param {Router} router Router
+   * @param {FormBuilder} formBuilder FormBuilder
+   * @param {GeolocationService} geolocation Geolocation Service
    */
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private geolocation: GeolocationService
   ) {
     this.newEventForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -128,6 +143,10 @@ export class DashboardPhotographerComponent implements OnInit {
       uid: [''],
       website: [''],
       photoUrl: [''],
+      location: this.formBuilder.group({
+        lat: [0],
+        lng: [0]
+      }),
       address: this.formBuilder.group({
         city: [''],
         company: [''],
@@ -152,6 +171,7 @@ export class DashboardPhotographerComponent implements OnInit {
     this.auth.user.subscribe(user => {
       if (user) {
         this.user = user;
+        this.photographerProfile.premium = user.subscription.premium;
         this.log.d('Loaded user', user);
 
         this.accountDataForm.setValue({
@@ -186,8 +206,7 @@ export class DashboardPhotographerComponent implements OnInit {
           if (!this.photographerProfile.address) {
             this.photographerProfile.address = this.user.billingAdress;
           }
-          this.photographerProfile.photoUrl = this.user.photoURL;
-          this.photographerProfile.uid = this.user.uid;
+          this.photographerProfile.photoUrl = this.auth.getCurrentFirebaseUser().photoURL;
           this.publicProfileForm.patchValue(this.photographerProfile);
         }
       });
@@ -195,18 +214,33 @@ export class DashboardPhotographerComponent implements OnInit {
       this.eventCollection = this.afs.getPhotographerEvents(
         this.auth.getCurrentFirebaseUser().uid
       );
-      this.events = this.eventCollection
-        .snapshotChanges()
-        .map((events: any) => {
-          return events.map(event => {
-            const data = event.payload.doc.data() as Event;
-            const id = event.payload.doc.id;
-            return { id, ...data };
-          });
+      this.events = this.eventCollection.valueChanges();
+
+      this.afs
+        .getDefautlPrintingHouse()
+        .valueChanges()
+        .subscribe(printingHouse => {
+          if (printingHouse[0]) {
+            this.defaultPrintingHouse = printingHouse[0];
+            this.log.d(
+              'Loaded default printing house',
+              this.defaultPrintingHouse
+            );
+          }
         });
-      this.events.subscribe(events => {
-        this.log.d('Events', events);
-      });
+
+      this.afs
+        .getPrintingHouseByUser(this.auth.getCurrentFirebaseUser().uid)
+        .valueChanges()
+        .subscribe(printingHouse => {
+          if (printingHouse[0]) {
+            this.ownPrintingHouse = printingHouse[0];
+            this.log.d('Loaded own printing house', this.ownPrintingHouse);
+          } else {
+            this.ownPrintingHouse = new PrintingHouse();
+            this.ownPrintingHouse.uid = this.auth.getCurrentFirebaseUser().uid;
+          }
+        });
     }
   }
 
@@ -229,14 +263,18 @@ export class DashboardPhotographerComponent implements OnInit {
    */
   saveEvent() {
     if (this.newEventForm.valid) {
+      const uid = this.afs.getId();
       const event = new Event({
-        name: this.newEventForm.value.name,
-        location: this.newEventForm.value.location,
         date: this.newEventForm.value.date,
-        photographerUid: this.user.uid
+        id: uid,
+        location: this.newEventForm.value.location,
+        name: this.newEventForm.value.name,
+        photographerUid: this.user.uid,
+        printinghouse: '4qd7Em6sEa6AzZaqNEQV'
       });
       this.eventCollection
-        .add(JSON.parse(JSON.stringify(event)))
+        .doc(uid)
+        .set(JSON.parse(JSON.stringify(event)))
         .then(() => {
           this.log.d('Added new event to firestore');
           this.newEventModal.hide();
@@ -287,15 +325,28 @@ export class DashboardPhotographerComponent implements OnInit {
     }
     if (this.publicProfileForm.valid && !this.publicProfileForm.untouched) {
       this.photographerProfile = this.publicProfileForm.getRawValue();
+      this.photographerProfile.uid = this.user.uid;
       this.log.d('Update public profile data', this.photographerProfile);
-      this.photographerProfileDoc
-        .set(this.photographerProfile)
-        .then(() => {
-          this.log.d('Updated photographer page data');
-          this.publicProfileForm.markAsUntouched();
+
+      this.geolocation
+        .getCoordinatesFromAdress(this.photographerProfile.address)
+        .then((result: any) => {
+          if (result.results[0].geometry.location) {
+            this.photographerProfile.location =
+              result.results[0].geometry.location;
+          }
+          this.photographerProfileDoc
+            .set(this.photographerProfile)
+            .then(() => {
+              this.log.d('Updated photographer page data');
+              this.publicProfileForm.markAsUntouched();
+            })
+            .catch(err => {
+              this.log.er('Could not update photographer page data', err);
+            });
         })
         .catch(err => {
-          this.log.er('Could not update photographer page data', err);
+          this.log.er('Error loading adress', err);
         });
     } else {
       this.log.er('No public profile data changed');

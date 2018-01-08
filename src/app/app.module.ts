@@ -1,3 +1,5 @@
+import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -8,6 +10,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 import { MDBBootstrapModules, MDBSpinningPreloader } from 'ng-mdb-pro';
 
 import { environment } from '../environments/environment';
@@ -43,6 +46,7 @@ import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
+import { GeolocationService } from './services/geolocation/geolocation.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -88,7 +92,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
     MDBBootstrapModules.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: environment.agmKey
+    }),
+    AgmSnazzyInfoWindowModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -103,7 +112,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FirebaseFirestoreService,
     FirebaseStorageService,
     MDBSpinningPreloader,
-    RoleGuard
+    RoleGuard,
+    GeolocationService
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]

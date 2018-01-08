@@ -32,6 +32,7 @@
     "CONFIRM_PASSWORD": "Confirm your password",
     "CONTACT_EMAIL": "Contact E-Mail",
     "DISPLAY_NAME": "Displayed name",
+    "EMAIL": "Email",
     "FACEBOOK_PROFILE": "Facebook profile",
     "IBAN": "IBAN",
     "INSTAGRAM_PROFILE": "Instagram profile",
@@ -78,7 +79,9 @@
     "SIGNUP_AS_PHOTOGRAPHER": "Signup as new photographer",
     "SIGNUP_AS_USER": "Signup as new user",
     "EDIT_EVENT": "Edit Event",
-    "EDIT_USER": "Edit User"
+    "EDIT_USER": "Edit User",
+    "EVENT_DESCRIPTION": "Description",
+    "EVENT_PASSWORD": "Password"
   },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":
@@ -98,12 +101,16 @@
     "PRICING_CANCEL": "Monthly cancellable"
   },
   "TABS": {
+    "EDIT_IMAGES": "Edit Images",
+    "EVENT_SETTINGS": "Event Settings",
     "EVENTS": "Events",
+    "GALLERY": "Gallery",
     "PRINTING_HOUSES": "Printing house",
     "PROFILE": "Profile",
     "REVENUE": "Revenue",
     "SALES": "Sales",
     "SUBSCRIPTION": "Subscription",
+    "UPLOAD": "Upload",
     "USER": "User"
   },
   "FIREBASE_ERRORS": {

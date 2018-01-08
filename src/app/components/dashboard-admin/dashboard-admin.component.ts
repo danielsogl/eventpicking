@@ -79,7 +79,8 @@ export class DashboardAdminComponent implements OnInit {
       location: ['', Validators.required],
       name: ['', Validators.required],
       photographerUid: ['', Validators.required],
-      public: [false, Validators.required]
+      public: [false, Validators.required],
+      ratings: [0, Validators.required]
     });
     this.printingHouseForm = this.formBuilder.group({
       city: ['', Validators.required],
@@ -89,6 +90,9 @@ export class DashboardAdminComponent implements OnInit {
       street: ['', Validators.required],
       streetNumber: ['', Validators.required],
       zip: ['', Validators.required],
+      id: ['', Validators.required],
+      uid: ['', Validators.required],
+      isDefault: [true, Validators.required],
       paymentInformation: this.formBuilder.group({
         iban: ['', Validators.required],
         bic: ['', Validators.required],
@@ -104,22 +108,55 @@ export class DashboardAdminComponent implements OnInit {
     this.log.color = 'orange';
     this.log.d('Component initialized');
 
-    this.auth.user.subscribe(user => {
-      if (user) {
-        this.user = user;
-        this.log.d('Loaded user', user);
-      }
-    });
-
     if (this.auth.getCurrentFirebaseUser()) {
+      this.auth.user.subscribe(user => {
+        if (user) {
+          this.user = user;
+          this.log.d('Loaded user', user);
+        }
+      });
+
       // Load users from Firestore
       this.users = this.afs.getAllUser().valueChanges();
       // Load events from Firestore
       this.events = this.afs.getAllEvents().valueChanges();
-    }
 
-    this.printingHouse = new PrintingHouse();
-    console.log(this.printingHouse);
+      this.users.subscribe(user => {
+        this.log.d('User', user);
+      });
+      this.events.subscribe(events => {
+        this.log.d('Events', events);
+      });
+      this.afs
+        .getDefautlPrintingHouse()
+        .valueChanges()
+        .subscribe(house => {
+          if (house[0]) {
+            this.printingHouse = house[0];
+            this.log.d(
+              'Loaded printinghouse from firestore',
+              this.printingHouse
+            );
+          } else {
+            this.log.d('Created new printing house', this.printingHouse);
+            this.printingHouse = new PrintingHouse();
+            this.printingHouse.isDefault = true;
+            this.printingHouse.uid = this.auth.getCurrentFirebaseUser().uid;
+            this.printingHouse.id = this.afs.getId();
+          }
+          this.printingHouseForm.patchValue(this.printingHouse);
+        });
+    }
+  }
+
+  /**
+   * Track ngFor loop
+   * @param  {number} index Index
+   * @param  {any} obj Object
+   * @returns any
+   */
+  trackByIndex(index: number, obj: any): any {
+    return index;
   }
 
   /**
@@ -156,7 +193,20 @@ export class DashboardAdminComponent implements OnInit {
    * Update printing house
    */
   updatePrintingHouse() {
-    this.printingHouse = this.printingHouseForm.getRawValue();
-    this.log.d('Update printing house', this.printingHouse);
+    if (this.printingHouseForm.valid) {
+      const products = this.printingHouse.salesTypes;
+      this.printingHouse = this.printingHouseForm.getRawValue();
+      this.printingHouse.salesTypes = products;
+      this.afs
+        .getDefautlPrintingHouse()
+        .doc(this.printingHouse.id)
+        .set(JSON.parse(JSON.stringify(this.printingHouse)))
+        .then(() => {
+          this.log.d('Updated printing house');
+        })
+        .catch(err => {
+          this.log.er('Error saving printing house', err);
+        });
+    }
   }
 }
