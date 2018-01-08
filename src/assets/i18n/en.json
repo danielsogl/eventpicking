@@ -57,7 +57,9 @@
     "UPDATE_USER": "Update User",
     "CANCEL": "Cancel",
     "RESET_PASSWORD": "Reset Password",
-    "ABO": "Buy now"
+    "ABO": "Buy now",
+    "LOGINNOW": "Login Now",
+    "FIND_EVENT": "Find your event"
   },
   "LABELS": {
     "ADDRESS": "Address",
@@ -88,7 +90,8 @@
       "To which email address should the password reset email be sent?",
     "PROVIDE_VALID_EMAIL": "Please provide a valid email",
     "PROVIDE_VALID_PASSWORD": "Please provide a valid password",
-    "PROVIDE_VALID_URL": "Please provide a valid URL"
+    "PROVIDE_VALID_URL": "Please provide a valid URL",
+    "LANDING_BESTPICTURES": "Our best pictures"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",
