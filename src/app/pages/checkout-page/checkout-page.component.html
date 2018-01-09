@@ -55,7 +55,95 @@
   </ng-template>
 
   <ng-template #checkoutCheckOrder>
-    <div>CheckOrder</div>
+      <table class="table table-bordered table-striped table-responsive-sm">
+          <thead>
+            <tr>
+              <th scope="col">{{ 'NAV.CART_QUANTITY' | translate }}</th>
+              <th>Item</th>
+              <th><i class="fa fa-print fa-lg" aria-hidden="true"></i></th>
+              <th><i class="fa fa-download fa-lg" aria-hidden="true"></i></th>
+              <th scope="col">{{ 'NAV.CART_SIZE' | translate }}</th>
+              <th scope="col">{{ 'NAV.CART_PRICE' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <!-- <th scope="row">1</th> -->
+              <td>2</td>
+              <td>
+                  <img src="http://www.bild.de/politik/ausland/wladimir-putin/interview-mit-dem-russischen-praesidenten-44096422.bild.html" class="img-thumbnail mr-2" > 
+                </td>
+                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                <td></td>
+                <td>1230x1230</td>
+                <td>90€</td>
+                <td>
+                  <i class="fa fa-lg fa-trash clickable" aria-hidden="true" ></i>
+                </td>
+              </tr>
+            <tr>
+              <!-- <th scope="row">2</th> -->
+              <td>2</td>
+              <td>
+                  <img src="http://www.bild.de/politik/ausland/wladimir-putin/interview-mit-dem-russischen-praesidenten-44096422.bild.html" class="img-thumbnail mr-2" > 
+                </td>
+                <td></td>
+                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                <td>1230x1230</td>
+                <td>90€</td>
+                <td>
+                  <i class="fa fa-lg fa-trash clickable" aria-hidden="true" ></i>
+                </td>
+              </tr>           
+            <tr>
+              <!-- <th scope="row">3</th> -->
+              <td>2</td>
+              <td>
+                  <img src="http://www.bild.de/politik/ausland/wladimir-putin/interview-mit-dem-russischen-praesidenten-44096422.bild.html" class="img-thumbnail mr-2" > 
+                </td>
+                <td><i class="fa fa-check" aria-hidden="true"></i> </td>
+                <td></td>
+                <td>1230x1230</td>
+                <td>90€</td>
+                <td>
+                  <i class="fa fa-lg fa-trash clickable" aria-hidden="true" ></i>
+                </td>
+            </tr>
+            <tr class="table-bordered">
+                <td>Zwischensumme</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>20€</td>
+                <td></td>
+            </tr> 
+            <tr class="table-bordered">
+                <td>+ Versandkosten</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>20€</td>
+                <td></td>
+            </tr>      
+            <tr class="table-bordered">
+                <td>{{'LABELS.TOTAL'|translate}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>20€</td>
+                <td></td>
+            </tr>        
+          </tbody>
+        </table>
+         <!-- Buttons to previous or next step -->
+         <div class="text-centre">
+           Indem du deine Bestellung aufgibst, akzeptierst du unsere Allgemeinen Geschäftsbedingungen und unsere Datenschutzrichtlinie.
+         </div>
+    <div class="row justify-content-end">
+        <button id="checkout3_back" type="button" class="btn btn-primary waves-light" mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
+        <button id="checkout3_send_order" type="button" class="btn btn-primary waves-light"  mdbRippleRadius>{{ 'BUTTONS.SEND_ORDER' | translate }}</button>
+      </div>
+      <!-- END buttons -->
   </ng-template>
   <!--END checkout-templates-->
 </div>

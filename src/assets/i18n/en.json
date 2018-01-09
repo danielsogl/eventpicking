@@ -66,7 +66,11 @@
     "CANCEL": "Cancel",
     "RESET_PASSWORD": "Reset Password",
     "CONTINUE_SHOPPING": "Continue shopping",
-    "PROCEED_TO_CHECKOUT": "Proceed to checkout"
+    "PROCEED_TO_CHECKOUT": "Proceed to checkout",
+    "BACK": "Back",
+    "SEND_ORDER": "Buy Now"
+
+
   },
   "LABELS": {
     "ADDRESS": "Address",
