@@ -61,7 +61,10 @@
     "RESET_PASSWORD": "Reset Password",
     "ABO": "Buy now",
     "PROCEED_TO_CHECKOUT": "Proceed to Checkout",
-    "CONTINUE_SHOPPING": "Continue Shopping"
+    "CONTINUE_SHOPPING": "Continue Shopping",
+    "SELECT_PICTURES": "Select all pictures",
+    "ADD_PICTURES_TO_CARD": "Add selected pictures to cart"
+
   },
   "LABELS": {
     "ADDRESS": "Address",
@@ -107,7 +110,10 @@
     "PRICING_MONTH": "events per month",
     "PRICING_MONTHLY": "month",
     "PRICING_PICTURE_AMOUNT": "pictures per album",
-    "PRICING_CANCEL": "Monthly cancellable"
+    "PRICING_CANCEL": "Monthly cancellable",
+    "EVENT_ALL_PICTURES": "All pictures",
+    "EVENT_SELECTED_PICTURES": "Selected pictures",
+    "SEARCH_PICTURES": "Search for pictures by name"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",

@@ -1,13 +1,15 @@
-.lessVertical-1 {
-    vertical-align: -20%;
+.lessVertical {
+    vertical-align: -1px;
 }
 
-.lessVertical-2 {
-    vertical-align: -25%;
-}
-
-.lessVertical-3 {
-    vertical-align: -30%;
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+    >.col,
+    >[class*="col-"] {
+        padding-right: 0;
+        padding-left: 0;
+    }
 }
 
 .icon-button {
