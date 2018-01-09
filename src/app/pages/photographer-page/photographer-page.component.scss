@@ -1,4 +1,4 @@
-#authorData {
+.authorData {
   text-align: left;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -7,4 +7,26 @@
 #rowdesign {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.grey-gradient {
+  // background: linear-gradient(40deg, #e8eaf6, #fafafa);
+  // background: linear-gradient(40deg, #b2dfdb, #00796b); // chiara türkis
+  // background: linear-gradient(40deg, #fff176, #ffa726); // yellow-orange
+}
+
+#centered {
+  text-align: center;
+}
+
+#navbar {
+  text-align: center;
+  font-size: 18px;
+  color: #3f51b5;
+}
+
+#address {
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

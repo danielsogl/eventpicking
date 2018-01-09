@@ -8,6 +8,11 @@ exports.decreaseEventVotes = event => {
   var eventData = event.data.data();
 };
 
+/**
+ *
+ * @param {*} event
+ * @author Daniel Sogl, Dennis Maurer
+ */
 exports.decreaseEventsLeftHandler = event => {
   var eventData = event.data.data();
   var photographerUid = eventData.photographerUid;
