@@ -1,0 +1,35 @@
+#sum_row {
+  background-color: rgb(68, 68, 68);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: darkgrey;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+  background-color: grey !important; //important needed to override color
+}
+
+.img-thumbnail {
+  height: 70px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickeffect {
+  position: relative;
+}
+
+.clickeffect:active {
+  color: grey;
+  top: 2px;
+}
+
+.vertical-mid {
+  vertical-align: middle;
+}
