@@ -29,8 +29,7 @@
     "CART_PICTURE": "Picture",
     "CART_SIZE": "Size",
     "CART_PRICE": "Price",
-    "CART_TYPE": "Type",
-    "CART_EVENT": "Event"
+    "CART_TYPE": "Type"
   },
   "INPUTS": {
     "ABOUT_YOU": "About you",

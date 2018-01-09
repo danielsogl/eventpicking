@@ -13,7 +13,6 @@
       <!-- Table headings -->
       <thead id="sum_row">
         <tr>
-          <th scope="col">{{ 'NAV.CART_EVENT' | translate }}</th>
           <th scope="col">{{ 'NAV.CART_PICTURE' | translate }}</th>
           <th scope="col">{{ 'NAV.CART_TYPE' | translate }}</th>
           <th scope="col">{{ 'NAV.CART_SIZE' | translate }}</th>
@@ -26,9 +25,6 @@
       <tbody>
         <!-- dynamic table row that iterates through shoppingCartItems array -->
         <tr *ngFor="let cartItem of cartItems">
-          <td>
-            {{cartItem.eventname}}
-          </td>
           <td>
             <img src="{{cartItem.url}}" class="img-thumbnail mr-2" /> {{cartItem.key}}
           </td>
@@ -50,7 +46,6 @@
         <!-- END dynamic table row -->
         <!-- Sum row -->
         <tr class="table-primary">
-          <td></td>
           <td></td>
           <td></td>
           <td></td>
