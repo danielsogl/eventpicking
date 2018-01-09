@@ -16,9 +16,11 @@
   "NAV": {
     "DASHBOARD": "Dashboard",
     "FEATURES": "Features",
+    "PRICES": "Prices",
+    "DESCRIPTION": "Description",
     "HOME": "Home",
     "LOGOUT": "Log out",
-    "PRICES": "Prices",
+    "EVENTS": "Events",
     "SEARCH": "Photographer near you",
     "SIGNIN": "Sign in",
     "SIGNUP": "Sign up"
@@ -57,7 +59,9 @@
     "UPDATE_USER": "Update User",
     "CANCEL": "Cancel",
     "RESET_PASSWORD": "Reset Password",
-    "ABO": "Buy now"
+    "ABO": "Buy now",
+    "PROCEED_TO_CHECKOUT": "Proceed to Checkout",
+    "CONTINUE_SHOPPING": "Continue Shopping"
   },
   "LABELS": {
     "ADDRESS": "Address",
@@ -80,12 +84,18 @@
     "SIGNUP_AS_USER": "Signup as new user",
     "EDIT_EVENT": "Edit Event",
     "EDIT_USER": "Edit User",
+    "CART_QUANTITY": "Quantity",
+    "CART_PICTURE": "Picture",
+    "CART_SIZE": "Size",
+    "CART_PRICE": "Price",
+    "TOTAL": "Total",
+    "SHOPPING_CART": "Shopping cart",
+    "ABOUT": "About",
     "EVENT_DESCRIPTION": "Description",
     "EVENT_PASSWORD": "Password"
   },
   "TEXTS": {
-    "PASSWORT_RESET_MODAL":
-      "To which email address should the password reset email be sent?",
+    "PASSWORT_RESET_MODAL": "To which email address should the password reset email be sent?",
     "PROVIDE_VALID_EMAIL": "Please provide a valid email",
     "PROVIDE_VALID_PASSWORD": "Please provide a valid password",
     "PROVIDE_VALID_URL": "Please provide a valid URL",
@@ -93,8 +103,7 @@
     "PAGE_NOT_FOUND_DESCRIPTION": "Looks like someone left the lens cap on...",
     "PRICING_TITLE": "Pricing Guide",
     "PRICING_GET_STARTED": "Get started",
-    "PRICING_DESCRIPTION":
-      "with your first free album or upgrade to one of our plans.",
+    "PRICING_DESCRIPTION": "with your first free album or upgrade to one of our plans.",
     "PRICING_MONTH": "events per month",
     "PRICING_MONTHLY": "month",
     "PRICING_PICTURE_AMOUNT": "pictures per album",
