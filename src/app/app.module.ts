@@ -42,13 +42,13 @@ import { PhotographerSearchPageComponent } from './pages/photographer-search-pag
 import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { ReplacePipe } from './pipes/replacePipe';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
 import { GeolocationService } from './services/geolocation/geolocation.service';
-import { ReplacePipe } from './pipes/replacePipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
