@@ -23,7 +23,15 @@
     "EVENTS": "Events",
     "SEARCH": "Photographer near you",
     "SIGNIN": "Sign in",
-    "SIGNUP": "Sign up"
+    "SIGNUP": "Sign up",
+    "CONTACT_DETAILS": "Contact details",
+    "PAYMENT_DELIVERY": "Payment/Delivery",
+    "CHECK_ORDER": "Check order",
+    "CART_QUANTITY": "Quantity",
+    "CART_PICTURE": "Picture",
+    "CART_SIZE": "Size",
+    "CART_PRICE": "Price",
+    "CART_TYPE": "Type"
   },
   "INPUTS": {
     "ABOUT_YOU": "About you",
@@ -59,9 +67,9 @@
     "UPDATE_USER": "Update User",
     "CANCEL": "Cancel",
     "RESET_PASSWORD": "Reset Password",
+    "CONTINUE_SHOPPING": "Continue shopping",
+    "PROCEED_TO_CHECKOUT": "Proceed to checkout"
     "ABO": "Buy now",
-    "PROCEED_TO_CHECKOUT": "Proceed to Checkout",
-    "CONTINUE_SHOPPING": "Continue Shopping"
   },
   "LABELS": {
     "ADDRESS": "Address",
