@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
 
@@ -69,9 +75,15 @@ export class EventPageComponent implements OnInit, OnDestroy {
                     this.log.d('Loaded user', this.user);
                     if (this.event.photographerUid === this.user.uid) {
                       this.template = this.eventPhotographer;
+                    } else {
+                      this.template = this.eventUser;
                     }
+                  } else {
+                    this.template = this.eventUser;
                   }
                 });
+              } else {
+                this.template = this.eventUser;
               }
             } else {
               this.template = this.eventNotFound;
