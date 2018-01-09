@@ -14,9 +14,22 @@
 }
 
 .img-thumbnail {
-  width: 70px;
+  height: 70px;
 }
 
 .clickable {
   cursor: pointer;
+}
+
+.clickeffect {
+  position: relative;
+}
+
+.clickeffect:active {
+  color: grey;
+  top: 2px;
+}
+
+.vertical-mid {
+  vertical-align: middle;
 }

@@ -25,22 +25,23 @@
       <tbody>
         <!-- dynamic table row that iterates through shoppingCartItems array -->
         <tr *ngFor="let cartItem of cartItems">
-          <td>
-            <img src="{{cartItem.url}}" class="img-thumbnail mr-2" /> {{cartItem.key}}
+          <td class="vertical-mid">
+            <img src="{{cartItem.url}}" class="img-thumbnail mr-2" />
+            <span data-toggle="tooltip" data-placement="right" title="{{cartItem.eventname}}">{{cartItem.key}}</span>
           </td>
-          <td>
-            <i *ngIf="cartItem.format.type == 'print'" class="fa fa-print fa-lg" aria-hidden="true"></i>
-            <i *ngIf="cartItem.format.type == 'download'" class="fa fa-download fa-lg" aria-hidden="true"></i>
+          <td class="vertical-mid">
+            <i *ngIf="cartItem.format.type == 'print'" class="fa fa-print fa-2x" aria-hidden="true"></i>
+            <i *ngIf="cartItem.format.type == 'download'" class="fa fa-download fa-2x" aria-hidden="true"></i>
           </td>
-          <td>{{cartItem.format.width}}x{{cartItem.format.height}}</td>
-          <td>
+          <td class="vertical-mid">{{cartItem.format.width}}x{{cartItem.format.height}}</td>
+          <td class="vertical-mid">
             <i *ngIf="cartItem.format.type == 'print'" class="fa fa-chevron-left fa-lg clickable pl-2 pr-2" aria-hidden="true" (click)="decreaseQuantity(cartItem)"></i>
             <span>{{cartItem.amount}}</span>
             <i *ngIf="cartItem.format.type == 'print'" class="fa fa-chevron-right fa-lg clickable pl-2 pr-2" aria-hidden="true" (click)="increaseQuantity(cartItem)"></i>
           </td>
-          <td>{{cartItem.totalPrice | number:'0.2-2' | replace:'.':','}}€</td>
-          <td>
-            <i class="fa fa-lg fa-trash clickable" aria-hidden="true" (click)="deleteCartItem(cartItem)"></i>
+          <td class="vertical-mid">{{cartItem.totalPrice | number:'0.2-2' | replace:'.':','}}€</td>
+          <td class="vertical-mid">
+            <i class="fa fa-2x fa-trash clickable clickeffect" aria-hidden="true" (click)="deleteCartItem(cartItem)"></i>
           </td>
         </tr>
         <!-- END dynamic table row -->

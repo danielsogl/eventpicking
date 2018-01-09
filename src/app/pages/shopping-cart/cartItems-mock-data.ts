@@ -2,6 +2,13 @@ import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 
 export const ITEMS: ShoppingCartItem[] = [
   {
+    eventname: 'Geburtstag Inge 40',
+    key: 'IMG_9000',
+    format: { type: 'download', price: 3.99, height: 300, width: 300 },
+    url: 'http://www.partytipps.info/wp-content/uploads/geburtstag.jpg',
+    amount: 1
+  },
+  {
     eventname: 'Hochzeit Mario&Gomez',
     key: 'IMG_352',
     format: { type: 'download', price: 0.99, height: 100, width: 100 },
