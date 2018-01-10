@@ -39,10 +39,6 @@ jobs:
         - npm run test:coverage
         - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
 
-    - stage: documentation
-      script:
-        - npm run docs
-
     - stage: deploy to staging
       if: type IN (push)
       before_script:

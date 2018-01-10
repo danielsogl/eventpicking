@@ -1,21 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
-} from 'angularfire2/firestore';
+import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
+import { PrintingHouse } from '../../classes/printing-house';
 import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
-import { PrintingHouse } from '../../classes/printing-house';
 
 /**
  * Photographer dashboard component
@@ -143,6 +140,7 @@ export class DashboardPhotographerComponent implements OnInit {
       uid: [''],
       website: [''],
       photoUrl: [''],
+      premium: [false],
       location: this.formBuilder.group({
         lat: [0],
         lng: [0]
