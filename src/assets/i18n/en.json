@@ -68,8 +68,9 @@
     "CANCEL": "Cancel",
     "RESET_PASSWORD": "Reset Password",
     "CONTINUE_SHOPPING": "Continue shopping",
-    "PROCEED_TO_CHECKOUT": "Proceed to checkout"
+    "PROCEED_TO_CHECKOUT": "Proceed to checkout",
     "ABO": "Buy now",
+    "START_UPLOAD": "Start Upload"
   },
   "LABELS": {
     "ADDRESS": "Address",
@@ -102,8 +103,17 @@
     "EVENT_DESCRIPTION": "Description",
     "EVENT_PASSWORD": "Password"
   },
+  "TABLE": {
+    "NAME": "Name",
+    "TYPE": "Type",
+    "FORMAT": "Format",
+    "SIZE": "Size",
+    "PROGRESS": "Progress",
+    "DELETE": "Delete"
+  },
   "TEXTS": {
-    "PASSWORT_RESET_MODAL": "To which email address should the password reset email be sent?",
+    "PASSWORT_RESET_MODAL":
+      "To which email address should the password reset email be sent?",
     "PROVIDE_VALID_EMAIL": "Please provide a valid email",
     "PROVIDE_VALID_PASSWORD": "Please provide a valid password",
     "PROVIDE_VALID_URL": "Please provide a valid URL",
@@ -111,7 +121,8 @@
     "PAGE_NOT_FOUND_DESCRIPTION": "Looks like someone left the lens cap on...",
     "PRICING_TITLE": "Pricing Guide",
     "PRICING_GET_STARTED": "Get started",
-    "PRICING_DESCRIPTION": "with your first free album or upgrade to one of our plans.",
+    "PRICING_DESCRIPTION":
+      "with your first free album or upgrade to one of our plans.",
     "PRICING_MONTH": "events per month",
     "PRICING_MONTHLY": "month",
     "PRICING_PICTURE_AMOUNT": "pictures per album",

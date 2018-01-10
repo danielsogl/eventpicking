@@ -1,24 +1,18 @@
 <mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
-  <mdb-tab heading="{{ 'TABS.GALLERY' | translate }}">
-    <div class="row">
-      <div class="col-12">
-        <br>
-      </div>
-    </div>
-  </mdb-tab>
   <mdb-tab heading="{{ 'TABS.EDIT_IMAGES' | translate }}">
     <div class="row">
       <div class="col-12">
         <br>
-        <div class="table-responsive">
+        <div class="table-responsive text-left">
           <table class="table">
             <thead>
               <tr>
                 <td>#</td>
-                <td>Name</td>
-                <td>Type</td>
-                <td>Format</td>
-                <td>Size</td>
+                <td>{{ 'TABLE.NAME' | translate }}</td>
+                <td>{{ 'TABLE.TYPE' | translate }}</td>
+                <td>{{ 'TABLE.FORMAT' | translate }}</td>
+                <td>{{ 'TABLE.SIZE' | translate }}</td>
+                <td>{{ 'TABLE.DELETE' | translate }}</td>
               </tr>
             </thead>
             <tbody>
@@ -28,6 +22,9 @@
                 <td>{{ image.info.type }}</td>
                 <td>{{ image.info.width }}x{{ image.info.height }}</td>
                 <td>{{ (image.info.size) }} KB</td>
+                <td>
+                  <a class="fa fa-trash-o" aria-hidden="true"></a>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -42,18 +39,18 @@
         <label>
           <input type="file" (change)="detectFiles($event)" multiple>
         </label>
-        <button type="button" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius (click)="startUpload()">Start Upload</button>
+        <button type="button" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius (click)="startUpload()">{{ 'BUTTONS.START_UPLOAD' | translate }}</button>
 
 
-        <div class="table-responsive">
+        <div class="table-responsive text-left">
           <table class="table">
             <thead>
               <tr>
                 <td>#</td>
-                <td>Name</td>
-                <td>Type</td>
-                <td>Size</td>
-                <td>Progress</td>
+                <td>{{ 'TABLE.NAME' | translate }}</td>
+                <td>{{ 'TABLE.TYPE' | translate }}</td>
+                <td>{{ 'TABLE.SIZE' | translate }}</td>
+                <td>{{ 'TABLE.PROGRESS' | translate }}</td>
               </tr>
             </thead>
             <tbody>

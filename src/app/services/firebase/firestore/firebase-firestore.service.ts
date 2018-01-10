@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
-} from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
+import { PrintingHouse } from '../../../classes/printing-house';
 import { User } from '../../../classes/user';
 import { EventPicture } from '../../../interfaces/event-picture';
 import { PhotographerProfile } from '../../../interfaces/photographer-profile';
-import { PrintingHouse } from '../../../classes/printing-house';
 
 /**
  * Service to comunicate with the Firestore database
@@ -151,25 +147,6 @@ export class FirebaseFirestoreService {
     return this.afs.collection('events', ref =>
       ref.where('photographerUid', '==', uid)
     );
-  }
-
-  /**
-   * Save upload url and name
-   * @param  {Upload} upload Upload
-   */
-  setPictureData(upload: any) {
-    this.afs
-      .collection('events')
-      .doc(upload.event)
-      .collection('originals')
-      .add(
-        JSON.parse(
-          JSON.stringify({
-            name: upload.name,
-            img: upload.url
-          })
-        )
-      );
   }
 
   /**

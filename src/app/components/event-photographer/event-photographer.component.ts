@@ -5,12 +5,12 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
+import { PrintingHouse } from '../../classes/printing-house';
 import { Upload } from '../../classes/upload-file';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
-import { PrintingHouse } from '../../classes/printing-house';
 
 /**
  * Event photographer view component
@@ -80,6 +80,10 @@ export class EventPhotographerComponent implements OnInit {
       // Load images
       this.images = this.afs.getEventPictures(this.event.id).valueChanges();
 
+      this.images.subscribe(images => {
+        this.log.d('Images', images);
+      });
+
       this.afs
         .getPrintingHouseById(this.event.printinghouse)
         .valueChanges()
@@ -102,6 +106,8 @@ export class EventPhotographerComponent implements OnInit {
     });
   }
 
+  deleteImage(image: EventPicture) {}
+
   /**
    * Start upload
    */
@@ -117,13 +123,6 @@ export class EventPhotographerComponent implements OnInit {
         this.uploadFiles[i].progress =
           snapshot.bytesTransferred / snapshot.totalBytes * 100;
       });
-
-      // https://github.com/angular/angularfire2/pull/1369#issuecomment-353218199
-      uploadTask.then().then(a => {
-        this.uploadFiles[i].url = a.metadata.downloadURLs[0];
-        this.afs.setPictureData(this.uploadFiles[i]);
-      });
     }
-    this.uploadFiles = [];
   }
 }
