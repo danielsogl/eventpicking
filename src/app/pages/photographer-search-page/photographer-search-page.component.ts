@@ -55,7 +55,7 @@ export class PhotographerSearchPageComponent implements OnInit {
       this.geolocation
         .getBrowserLocation()
         .then(position => {
-          this.log.d('Current possition', position.coords);
+          this.log.d('Current position', position.coords);
           this.setPosition(position.coords.latitude, position.coords.longitude);
         })
         .catch((err: any) => {

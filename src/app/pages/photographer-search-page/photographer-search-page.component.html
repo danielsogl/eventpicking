@@ -4,15 +4,17 @@
 
       <table>
         <tbody>
-          <tr *ngFor="let p of (photographer | async)">
-            <td class="card">
-              <div class="card-body">
-                <p class="card-text text-left">
-                  <img class="profile-img" [src]="p.photoUrl"> {{ p.name }}
-                </p>
-              </div>
-            </td>
-          </tr>
+          <div *ngFor="let p of (photographer | async)">
+            <tr *ngIf="p.premium == true">
+              <td class="card">
+                <div class="card-body">
+                  <p class="card-text text-left">
+                    <img class="profile-img" src="{{p.photoUrl}}"> {{ p.name }}
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </div>
         </tbody>
       </table>
     </div>
