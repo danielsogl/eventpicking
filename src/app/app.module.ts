@@ -50,6 +50,10 @@ import { FirebaseFirestoreService } from './services/firebase/firestore/firebase
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
 import { GeolocationService } from './services/geolocation/geolocation.service';
 
+/**
+ * Configures ngx-translate HttpLoader
+ * @param  {HttpClient} http Http CLient
+ */
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
