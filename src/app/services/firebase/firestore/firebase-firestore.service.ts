@@ -149,6 +149,10 @@ export class FirebaseFirestoreService {
     );
   }
 
+  /************************************
+   * Firestore: Images
+   ************************************/
+
   /**
    * Get event pictures
    * @param  {string} id ID
@@ -159,6 +163,35 @@ export class FirebaseFirestoreService {
       .collection('events')
       .doc(id)
       .collection('images');
+  }
+
+  /**
+   * Get event pictures
+   * @param  {string} id ID
+   * @returns {AngularFirestoreCollection<EventPicture>}
+   */
+  getEventOriginalPictures(
+    id: string
+  ): AngularFirestoreCollection<EventPicture> {
+    return this.afs
+      .collection('events')
+      .doc(id)
+      .collection('originals');
+  }
+
+  /**
+   * Delete image firestore document
+   * @param  {string} event Event ID
+   * @param  {string} image Image ID
+   * @returns {Promise<void>}
+   */
+  deleteEventImage(event: string, image: string): Promise<void> {
+    return this.afs
+      .collection('events')
+      .doc(event)
+      .collection('images')
+      .doc(image)
+      .delete();
   }
 
   /************************************

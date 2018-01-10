@@ -1,5 +1,5 @@
 <mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
-  <mdb-tab heading="{{ 'TABS.EDIT_IMAGES' | translate }}">
+  <mdb-tab heading="{{ 'TABS.IMAGES' | translate }}">
     <div class="row">
       <div class="col-12">
         <br>
@@ -23,7 +23,7 @@
                 <td>{{ image.info.width }}x{{ image.info.height }}</td>
                 <td>{{ (image.info.size) }} KB</td>
                 <td>
-                  <a class="fa fa-trash-o" aria-hidden="true"></a>
+                  <a class="fa fa-trash-o" aria-hidden="true" (click)="deleteImage(image)"></a>
                 </td>
               </tr>
             </tbody>

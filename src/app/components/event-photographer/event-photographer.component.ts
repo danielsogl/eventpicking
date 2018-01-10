@@ -106,7 +106,20 @@ export class EventPhotographerComponent implements OnInit {
     });
   }
 
-  deleteImage(image: EventPicture) {}
+  /**
+   * Delete an image
+   * @param  {EventPicture} image
+   */
+  deleteImage(image: EventPicture) {
+    this.afs
+      .deleteEventImage(this.event.id, image.id)
+      .then(() => {
+        this.log.d('Deleted image', image);
+      })
+      .catch(err => {
+        this.log.er('Error deleting image', err);
+      });
+  }
 
   /**
    * Start upload
