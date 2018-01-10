@@ -1,25 +1,40 @@
 <div class="container-fluid">
   <div class="row mt-5 pt-5">
-    <div class="col col-3 text-center">
-
-      <table>
-        <tbody>
-          <div *ngFor="let p of (photographer | async)">
-            <tr *ngIf="p.premium == true">
-              <td class="card">
-                <div class="card-body">
-                  <p class="card-text text-left">
-                    <img class="profile-img" src="{{p.photoUrl}}"> {{ p.name }}
-                  </p>
-                </div>
-              </td>
-            </tr>
+    <div class="col col-lg-4 text-center">
+      <div class="md-form">
+        <input mdbActive type="text" class="form-control">
+        <label class="active">Search photographer by ZIP</label>
+      </div>
+      <div class="scrollable">
+        <div *ngFor="let p of (photographer | async)">
+          <div *ngIf="p.premium == true">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-text">
+                  <img class="profile-img" src="{{p.photoUrl}}"> {{ p.name }}</p>
+                <p>{{p.address.street}} {{p.address.streetnumber}}
+                  <br/> {{p.address.zip}} {{p.address.city}}
+                  <br/> {{p.email}}
+                </p>
+              </div>
+            </div>
           </div>
-        </tbody>
-      </table>
+        </div>
+        <div *ngFor="let p of (photographer | async)">
+          <div *ngIf="p.premium == false">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-text text-left">
+                  {{ p.name }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col col-9 text-center">
-      <agm-map #map style="height: 500px; width: 100%" class="card">
+    <div class="col col-lg-8 text-center">
+      <agm-map #map class="card mapformat">
         <agm-marker *ngFor="let p of (photographer | async); let i = index" [latitude]="p.location.lat" [longitude]="p.location.lng"
           [title]="p.name" [zIndex]="i">
           <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
