@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AsyncLocalStorageModule } from 'angular-async-local-storage';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -41,6 +42,7 @@ import { PhotographerSearchPageComponent } from './pages/photographer-search-pag
 import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { ReplacePipe } from './pipes/replacePipe';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
@@ -54,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
+    ReplacePipe,
     AppComponent,
     EventPageComponent,
     FooterComponent,
@@ -98,6 +101,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       apiKey: environment.agmKey
     }),
     AgmSnazzyInfoWindowModule,
+    AsyncLocalStorageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

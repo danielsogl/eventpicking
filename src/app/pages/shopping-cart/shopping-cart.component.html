@@ -1,5 +1,66 @@
-<div class="row mt-5 pt-5">
+<div class="row m-5 p-5">
   <div class="col text-center">
-    <h1>Cart Page</h1>
+    <h1>{{ 'LABELS.SHOPPING_CART' | translate }}</h1>
+    <!--
+      Symbole:
+      Papierkorb: <i class="fa fa-trash" aria-hidden="true"></i>
+      Drucker: <i class="fa fa-print" aria-hidden="true"></i>
+      Download: <i class="fa fa-download" aria-hidden="true"></i>
+      Plus: <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    -->
+    <br/>
+    <table class="table table-striped table-responsive-sm">
+      <!-- Table headings -->
+      <thead id="sum_row">
+        <tr>
+          <th scope="col">{{ 'NAV.CART_PICTURE' | translate }}</th>
+          <th scope="col">{{ 'NAV.CART_TYPE' | translate }}</th>
+          <th scope="col">{{ 'NAV.CART_SIZE' | translate }}</th>
+          <th scope="col">{{ 'NAV.CART_QUANTITY' | translate }}</th>
+          <th scope="col">{{ 'NAV.CART_PRICE' | translate }}</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <!-- END table headings-->
+      <tbody>
+        <!-- dynamic table row that iterates through shoppingCartItems array -->
+        <tr *ngFor="let cartItem of cartItems">
+          <td class="vertical-mid">
+            <img src="{{cartItem.url}}" class="img-thumbnail mr-2" />
+            <span data-toggle="tooltip" data-placement="right" title="{{cartItem.eventname}}">{{cartItem.key}}</span>
+          </td>
+          <td class="vertical-mid">
+            <i *ngIf="cartItem.format.type == 'print'" class="fa fa-print fa-2x" aria-hidden="true"></i>
+            <i *ngIf="cartItem.format.type == 'download'" class="fa fa-download fa-2x" aria-hidden="true"></i>
+          </td>
+          <td class="vertical-mid">{{cartItem.format.width}}x{{cartItem.format.height}}</td>
+          <td class="vertical-mid">
+            <i *ngIf="cartItem.format.type == 'print'" class="fa fa-chevron-left fa-lg clickable pl-2 pr-2" aria-hidden="true" (click)="decreaseQuantity(cartItem)"></i>
+            <span>{{cartItem.amount}}</span>
+            <i *ngIf="cartItem.format.type == 'print'" class="fa fa-chevron-right fa-lg clickable pl-2 pr-2" aria-hidden="true" (click)="increaseQuantity(cartItem)"></i>
+          </td>
+          <td class="vertical-mid">{{cartItem.totalPrice | number:'0.2-2' | replace:'.':','}}€</td>
+          <td class="vertical-mid">
+            <i class="fa fa-2x fa-trash clickable clickeffect" aria-hidden="true" (click)="deleteCartItem(cartItem)"></i>
+          </td>
+        </tr>
+        <!-- END dynamic table row -->
+        <!-- Sum row -->
+        <tr class="table-primary">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{ 'LABELS.TOTAL' | translate }}</td>
+          <td>{{sum | number:'0.2-2' | replace:'.':','}}€</td>
+          <td></td>
+        </tr>
+        <!-- END sum row -->
+      </tbody>
+    </table>
+    <!-- Buttons to previous or next step -->
+    <div class="row justify-content-end">
+      <button type="button" class="btn btn-primary waves-light col-sm-3" mdbRippleRadius>{{ 'BUTTONS.CONTINUE_SHOPPING' | translate }}</button>
+      <button type="button" class="btn btn-primary waves-light col-sm-3" routerLink="/check-out" mdbRippleRadius>{{ 'BUTTONS.PROCEED_TO_CHECKOUT' | translate }}</button>
+    </div>
+    <!-- END buttons -->
   </div>
-</div>
