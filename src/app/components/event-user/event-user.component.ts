@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 
 /**
  * Event user view component
- * @author Daniel Sogl, Daniel Kroll
+ * @author Daniel Sogl, Markus Kirschner
  */
 @Component({
   selector: 'app-event-user',

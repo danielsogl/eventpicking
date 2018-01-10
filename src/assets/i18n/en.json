@@ -67,9 +67,11 @@
     "UPDATE_USER": "Update User",
     "CANCEL": "Cancel",
     "RESET_PASSWORD": "Reset Password",
-    "CONTINUE_SHOPPING": "Continue shopping",
-    "PROCEED_TO_CHECKOUT": "Proceed to checkout",
     "ABO": "Buy now",
+    "PROCEED_TO_CHECKOUT": "Proceed to Checkout",
+    "CONTINUE_SHOPPING": "Continue Shopping",
+    "SELECT_PICTURES": "Select all pictures",
+    "ADD_PICTURES_TO_CARD": "Add selected pictures to cart",
     "START_UPLOAD": "Start Upload"
   },
   "LABELS": {
@@ -126,10 +128,13 @@
     "PRICING_MONTH": "events per month",
     "PRICING_MONTHLY": "month",
     "PRICING_PICTURE_AMOUNT": "pictures per album",
-    "PRICING_CANCEL": "Monthly cancellable"
+    "PRICING_CANCEL": "Monthly cancellable",
+    "EVENT_ALL_PICTURES": "All pictures",
+    "EVENT_SELECTED_PICTURES": "Selected pictures",
+    "SEARCH_PICTURES": "Search for pictures by name"
   },
   "TABS": {
-    "IMAGES": "Images",
+    "EDIT_IMAGES": "Edit Images",
     "EVENT_SETTINGS": "Event Settings",
     "EVENTS": "Events",
     "GALLERY": "Gallery",
