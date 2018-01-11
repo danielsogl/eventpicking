@@ -36,6 +36,9 @@ export class DashboardAdminComponent implements OnInit {
   /** Printing house modal form */
   public printingHouseForm: FormGroup;
 
+  /** Event to Edit */
+  public eventEdit: Event;
+
   /** All users from Firestore */
   public users: Observable<User[]>;
   /** All events from Firestore */
@@ -208,5 +211,20 @@ export class DashboardAdminComponent implements OnInit {
           this.log.er('Error saving printing house', err);
         });
     }
+  }
+
+  /**
+   * Sete deleted value
+   * @param  {Event} event Event
+   */
+  deleteEvent(event: Event) {
+    this.afs
+      .deletePhotographerEvent(event.id)
+      .then(() => {
+        this.log.d('Event deleted');
+      })
+      .catch(err => {
+        this.log.er('Error deliting event', err);
+      });
   }
 }
