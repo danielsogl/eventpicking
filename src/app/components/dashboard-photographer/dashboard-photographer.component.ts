@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
@@ -75,6 +78,7 @@ export class DashboardPhotographerComponent implements OnInit {
     twitter: '',
     uid: '',
     website: '',
+    profileUrl: '',
     premium: false,
     location: {
       lat: 0,
@@ -140,6 +144,7 @@ export class DashboardPhotographerComponent implements OnInit {
       uid: [''],
       website: [''],
       photoUrl: [''],
+      photographerUrl: [''],
       premium: [false],
       location: this.formBuilder.group({
         lat: [0],
@@ -170,6 +175,7 @@ export class DashboardPhotographerComponent implements OnInit {
       if (user) {
         this.user = user;
         this.photographerProfile.premium = user.subscription.premium;
+        this.photographerProfile.profileUrl = user.photographerUrl;
         this.log.d('Loaded user', user);
 
         this.accountDataForm.setValue({

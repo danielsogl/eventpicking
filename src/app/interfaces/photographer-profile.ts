@@ -38,4 +38,6 @@ export interface PhotographerProfile {
   uid?: string;
   /** Website */
   website?: string;
+  /** ProfileUrl */
+  profileUrl: string;
 }
