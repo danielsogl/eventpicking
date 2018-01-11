@@ -100,6 +100,9 @@
             <label class="active">{{ 'LABELS.EVENT_PASSWORD' | translate }}</label>
           </div>
 
+          <button type="button" class="btn btn-danger btn-lg btn-block waves-light" mdbRippleRadius (click)="deleteEvent()">{{ 'BUTTONS.DELETE_EVENT' | translate }}</button>
+          <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius (click)="updateEvent()">{{ 'BUTTONS.UPDATE_EVENT' | translate }}</button>
+
         </form>
       </div>
     </div>

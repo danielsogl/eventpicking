@@ -11,6 +11,7 @@ import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 /**
  * Event photographer view component
@@ -48,7 +49,8 @@ export class EventPhotographerComponent implements OnInit {
   constructor(
     private afs: FirebaseFirestoreService,
     private storage: FirebaseStorageService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private navigation: NavigationService
   ) {
     this.eventForm = this.formBuilder.group({
       date: ['', Validators.required],
@@ -118,6 +120,20 @@ export class EventPhotographerComponent implements OnInit {
       })
       .catch(err => {
         this.log.er('Error deleting image', err);
+      });
+  }
+
+  updateEvent() {}
+
+  deleteEvent() {
+    this.afs
+      .deletePhotographerEvent(this.event.id)
+      .then(() => {
+        this.log.d('Deleted Event');
+        this.navigation.navigateTo('/dashboard');
+      })
+      .catch(err => {
+        this.log.er('Error deliting Event');
       });
   }
 

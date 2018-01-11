@@ -72,7 +72,8 @@
     "CONTINUE_SHOPPING": "Continue Shopping",
     "SELECT_PICTURES": "Select all pictures",
     "ADD_PICTURES_TO_CARD": "Add selected pictures to cart",
-    "START_UPLOAD": "Start Upload"
+    "START_UPLOAD": "Start Upload",
+    "DELETE_EVENT": "Delete Event"
   },
   "LABELS": {
     "ADDRESS": "Address",
@@ -144,7 +145,8 @@
     "SALES": "Sales",
     "SUBSCRIPTION": "Subscription",
     "UPLOAD": "Upload",
-    "USER": "User"
+    "USER": "User",
+    "IMAGES": "Images"
   },
   "FIREBASE_ERRORS": {
     "auth/app-deleted": "Firebase project deleted",

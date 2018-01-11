@@ -11,10 +11,8 @@
     "test": "jest --browser",
     "test:ci": "jest --browser --runInBand",
     "test:coverage": "jest --browser --runInBand --coverage",
-    "docs":
-      "./node_modules/.bin/compodoc -d ./docs/ -p ./tsconfig.json -n \"Eventpicking - Dokumentation\"",
-    "translate":
-      "i18n-translate-json AIzaSyAQslKY6YsIOA-o1C5n227fc3pddcV3yes ./src/assets/i18n en de"
+    "docs": "./node_modules/.bin/compodoc -d ./docs/ -p ./tsconfig.json -n \"Eventpicking - Dokumentation\"",
+    "translate": "i18n-translate-json AIzaSyAQslKY6YsIOA-o1C5n227fc3pddcV3yes ./src/assets/i18n en de"
   },
   "private": true,
   "dependencies": {
@@ -41,8 +39,7 @@
     "hammerjs": "^2.0.8",
     "intl": "^1.2.5",
     "lodash": "^4.17.4",
-    "ng-mdb-pro":
-      "git+https://fdbab677d1494b5590791d1b5de3e14c775010db:x-oauth-basic@github.com/danielsogl/ng-mdb-pro.git",
+    "ng-mdb-pro": "git+https://fdbab677d1494b5590791d1b5de3e14c775010db:x-oauth-basic@github.com/danielsogl/ng-mdb-pro.git",
     "ng2-logger": "^1.0.12",
     "ngx-file-drop": "^2.0.2",
     "rxjs": "^5.5.6",
@@ -81,9 +78,15 @@
     "preset": "jest-preset-angular",
     "setupTestFrameworkScriptFile": "<rootDir>/src/jest.conf.ts",
     "coverageDirectory": "./coverage/",
-    "setupFiles": ["<rootDir>/jest-mocks/shimSetup.ts"],
-    "transformIgnorePatterns": ["node_modules/(?!(@ngrx|ng-mdb-pro))"],
-    "coveragePathIgnorePatterns": ["<rootDir>/e2e/"],
+    "setupFiles": [
+      "<rootDir>/jest-mocks/shimSetup.ts"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@ngrx|ng-mdb-pro))"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/e2e/"
+    ],
     "collectCoverageFrom": [
       "**/*.{ts}",
       "!**/environments/*{ts}",
@@ -95,7 +98,13 @@
       "!**/*main.{ts}",
       "!**/node_modules/**"
     ],
-    "moduleFileExtensions": ["ts", "js", "json"],
-    "coverageReporters": ["lcov"]
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "coverageReporters": [
+      "lcov"
+    ]
   }
 }

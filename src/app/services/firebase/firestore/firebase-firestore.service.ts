@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
@@ -147,6 +151,18 @@ export class FirebaseFirestoreService {
     return this.afs.collection('events', ref =>
       ref.where('photographerUid', '==', uid)
     );
+  }
+
+  /**
+   * Set Event "deleted" value to true
+   * @param  {string} id Event Id
+   * @returns {Promise<void>}
+   */
+  deletePhotographerEvent(id: string): Promise<void> {
+    return this.afs
+      .collection('events')
+      .doc(id)
+      .update({ deleted: true });
   }
 
   /************************************

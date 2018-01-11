@@ -43,6 +43,8 @@ export class EventPageComponent implements OnInit, OnDestroy {
   @ViewChild('eventPhotographer') eventPhotographer: TemplateRef<any>;
   /** TemplateRef event not found */
   @ViewChild('eventNotFound') eventNotFound: TemplateRef<any>;
+  /** TemplateRef event deleted */
+  @ViewChild('eventDeleted') eventDeleted: TemplateRef<any>;
 
   constructor(
     private router: ActivatedRoute,
@@ -59,7 +61,6 @@ export class EventPageComponent implements OnInit, OnDestroy {
       this.id = params['id'];
       this.log.d('Event ID', this.id);
       if (this.id) {
-        // Load event
         this.afs
           .getEvent(this.id)
           .valueChanges()
@@ -68,7 +69,9 @@ export class EventPageComponent implements OnInit, OnDestroy {
               this.event = event;
               this.event.id = this.id;
               this.log.d('Loaded event', this.event);
-              if (this.auth.getCurrentFirebaseUser()) {
+              if (event.deleted) {
+                this.template = this.eventDeleted;
+              } else if (this.auth.getCurrentFirebaseUser()) {
                 this.auth.user.subscribe(user => {
                   if (user) {
                     this.user = user;
