@@ -1,148 +1,117 @@
 <div class="row mt-5 pt-5">
-  <div class="col text-center">
-   <!--Section: Pricing v.2-->
-<section class="section pb-3">
-  
-      <!--Section heading-->
-      <h1 class="section-heading pt-4">Our pricing plans</h1>
-      <!--Section description-->
-      <p class="section-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur accusamus veniam.</p>
-  
-      <!--Grid row-->
-      <div class="row">
-          <!--Grid column-->
-          <div class="col-lg-4 col-md-12 mb-r">
-  
-              <!-- Card -->
-              <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(6).jpg');">
-  
-                  <!--Pricing card-->
-                  <div class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3">
-  
-                      <!--Content-->
-                      <div class="card-body">
-                          <h5>Basic</h5>
-                          <!--Price-->
-                          <div class="price pt-0">
-                              <h1>10</h1>
-                          </div>
-                          <!--Price-->
-                          <ul class="striped">
-                              <li>
-                                  <p><strong>1</strong> project</p>
-                              </li>
-                              <li>
-                                  <p><strong>100</strong> components</p>
-                              </li>
-                              <li>
-                                  <p><strong>150</strong> features</p>
-                              </li>
-                              <li>
-                                  <p><strong>200</strong> members</p>
-                              </li>
-                              <li>
-                                  <p><strong>250</strong> messages</p>
-                              </li>
-                          </ul>
-                          <a class="btn btn-outline-white waves-light" mdbRippleRadius> Buy now</a>
-                      </div>
-  
-                  </div>
-                  <!--Pricing card-->
-              </div>
-          </div>
-          <!--Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-lg-4 col-md-12 mb-r">
-  
-              <!-- Card -->
-              <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(4).jpg');">
-  
-                  <!--Pricing card-->
-                  <div class="text-white text-center pricing-card d-flex align-items-center rgba-indigo-strong py-3 px-3">
-  
-                      <!--Content-->
-                      <div class="card-body">
-                          <h5>Pro</h5>
-                          <!--Price-->
-                          <div class="price pt-0">
-                              <h1>20</h1>
-                          </div>
-                          <!--Price-->
-                          <ul class="striped">
-                              <li>
-                                  <p><strong>3</strong> project</p>
-                              </li>
-                              <li>
-                                  <p><strong>200</strong> components</p>
-                              </li>
-                              <li>
-                                  <p><strong>250</strong> features</p>
-                              </li>
-                              <li>
-                                  <p><strong>300</strong> members</p>
-                              </li>
-                              <li>
-                                  <p><strong>350</strong> messages</p>
-                              </li>
-                          </ul>
-                          <a class="btn btn-outline-white waves-light" mdbRippleRadius> Buy now</a>
-                      </div>
-  
-                  </div>
-                  <!--Pricing card-->
-              </div>
-          </div>
-          <!--Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-lg-4 col-md-12 mb-r">
-  
-              <!-- Card -->
-              <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(6).jpg');">
-  
-                  <!--Pricing card-->
-                  <div class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3">
-  
-                      <!--Content-->
-                      <div class="card-body">
-                          <h5>Enterprise</h5>
-                          <!--Price-->
-                          <div class="price pt-0">
-                              <h1>30</h1>
-                          </div>
-                          <!--Price-->
-                          <ul class="striped">
-                              <li>
-                                  <p><strong>5</strong> project</p>
-                              </li>
-                              <li>
-                                  <p><strong>300</strong> components</p>
-                              </li>
-                              <li>
-                                  <p><strong>350</strong> features</p>
-                              </li>
-                              <li>
-                                  <p><strong>400</strong> members</p>
-                              </li>
-                              <li>
-                                  <p><strong>450</strong> messages</p>
-                              </li>
-                          </ul>
-                          <a class="btn btn-outline-white waves-light" mdbRippleRadius> Buy now</a>
-                      </div>
-  
-                  </div>
-                  <!--Pricing card-->
-              </div>
-          </div>
-          <!--Grid column-->
-  
-      </div>
-      <!--Grid row-->
-  
-  </section>
-  <!--Section: Pricing v.2-->
-  </div>
+    <div class="col text-center">
+        <!--Section: Pricing v.2-->
+        <section class="section pb-3">
+
+            <!--Section heading-->
+            <h1 class="section-heading pt-4">{{ 'TEXTS.PRICING_TITLE' | translate }}</h1>
+            <!--Section description-->
+            <p class="section-description">
+                <a routerLink="/signup">{{ 'TEXTS.PRICING_GET_STARTED' | translate }}</a>
+                {{ 'TEXTS.PRICING_DESCRIPTION' | translate }}
+            </p>
+
+            <!--Grid row-->
+            <div class="row">
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-r">
+                    <!--Panel-->
+                    <div class="price-color card text-center pricing-card align-items-center py-3 px-3 grey lighten-4 wow fadeInUp indigo-gradient">
+                        <h5 class="card-title">
+                            <strong>Basic</strong>
+                        </h5>
+                        <div class="price pt-0">
+                            <h2>25</h2>
+                        </div>
+                        <ul class="striped ">
+                            <li>
+                                <p>
+                                    <strong>15</strong>&nbsp;{{ 'TEXTS.PRICING_MONTH' | translate }}</p>
+                            </li>
+                            <li>
+                                <p>
+                                    1.000&nbsp;{{ 'TEXTS.PRICING_PICTURE_AMOUNT' | translate }}</p>
+                            </li>
+                            <li>
+                                <p>{{ 'TEXTS.PRICING_CANCEL' | translate }}</p>
+                            </li>
+                        </ul>
+                        <div class="flex-row ">
+                            <a class="btn btn-indigo darken-2 waves-light " id="button_abo_basic " mdbRippleRadius>{{ 'BUTTONS.ABO' | translate }}</a>
+                        </div>
+                    </div>
+                    <!--/.Panel-->
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-r ">
+                    <!--Panel-->
+                    <div class="price-color card text-center pricing-card align-items-center py-3 px-3 grey lighten-4 wow fadeInUp indigo-gradient-2"
+                        data-wow-delay="0.05s">
+                        <h5 class="card-title ">
+                            <strong>Smart</strong>
+                        </h5>
+                        <div class="price pt-0 ">
+                            <h2 class="price-color">35</h2>
+                        </div>
+                        <ul class="striped ">
+                            <li>
+                                <p>
+                                    <strong>25</strong>&nbsp;{{ 'TEXTS.PRICING_MONTH' | translate }}</p>
+                            </li>
+                            <li>
+                                <p>
+                                    1.000&nbsp;{{ 'TEXTS.PRICING_PICTURE_AMOUNT' | translate }}</p>
+                            </li>
+                            <li>
+                                <p>{{ 'TEXTS.PRICING_CANCEL' | translate }}</p>
+                            </li>
+                        </ul>
+                        <div class="flex-row ">
+                            <a class="btn btn-indigo darken-2 waves-light " id="button_abo_smart " mdbRippleRadius>{{ 'BUTTONS.ABO' | translate }}</a>
+                        </div>
+                    </div>
+                    <!--/.Panel-->
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-r ">
+                    <!--Panel-->
+                    <div class="price-color card text-center pricing-card align-items-center py-3 px-3 grey lighten-4 wow fadeInUp indigo-gradient"
+                        data-wow-delay="0.1s">
+                        <h5 class="card-title ">
+                            <strong>Professional</strong>
+                        </h5>
+                        <div class="price pt-0 ">
+                            <h2 class="price-color ">50</h2>
+                        </div>
+                        <ul class="striped">
+                            <li>
+                                <p>
+                                    <strong>50</strong>&nbsp;{{ 'TEXTS.PRICING_MONTH' | translate }}</p>
+                            </li>
+                            <li>
+                                <p>
+                                    1.000&nbsp;{{ 'TEXTS.PRICING_PICTURE_AMOUNT' | translate }}</p>
+                            </li>
+                            <li>
+                                <p>{{ 'TEXTS.PRICING_CANCEL' | translate }}</p>
+                            </li>
+                        </ul>
+                        <div class="flex-row ">
+                            <a class="btn btn-indigo darken-2 waves-light " id="button_abo_professional " mdbRippleRadius>{{ 'BUTTONS.ABO' | translate }}</a>
+                        </div>
+                    </div>
+                    <!--/.Panel-->
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+        </section>
+        <!--Section: Pricing v.2-->
+    </div>
 </div>

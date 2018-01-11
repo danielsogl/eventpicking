@@ -1,5 +1,221 @@
 <div class="row mt-5 pt-5">
-    <div class="col text-center">
-      <h1>Checkout Page</h1>
+  <!--site-stepper / template-navigation-->
+  <div class="col-sm-12">
+    <ul class="stepper stepper-horizontal">
+      <li class="{{contactDetailsStatus}}">
+        <a (click)="setTemplate('contactDetails')">
+          <span class="circle">1</span>
+          <span class="label">{{ 'NAV.CONTACT_DETAILS' | translate }}</span>
+        </a>
+      </li>
+      <li class="{{paymentDeliveryStatus}}">
+        <a (click)="setTemplate('paymentDelivery')">
+          <span class="circle">2</span>
+          <span class="label">{{ 'NAV.PAYMENT_DELIVERY' | translate }}</span>
+        </a>
+      </li>
+      <li class="{{checkOrderStatus}}">
+        <a (click)="setTemplate('checkOrder')">
+          <span class="circle">
+            3
+          </span>
+          <span class="label">{{ 'NAV.CHECK_ORDER' | translate }}</span>
+        </a>
+      </li>
+    </ul>
+    <div class="row m-5">
+      <ng-container *ngTemplateOutlet="template"></ng-container>
     </div>
   </div>
+  <!--END site-stepper / template-navigation-->
+
+  <!--checkout-templates-->
+  <ng-template #loadingTmpl>
+    <mdb-spinner spinnerType="big" spinnerColor="blue"></mdb-spinner>
+  </ng-template>
+
+  <ng-template #checkoutContactDetails>
+    <div class="container">
+        <h2>{{ 'LABELS.CONTACT_DETAILS' | translate }}</h2>
+        <p>-KUNDENEMAIL-</p>
+        <br>
+      <div class="row">
+        <div class="col-6">
+                    <h2>{{ 'LABELS.DELIVERY_ADDRESS' | translate }}</h2> 
+                    <p>--VORNAME-- --NACHNAME--</p>
+                    <p>--STRASSE-- --HAUSNR--</p>
+                    <p>--STADT--</p>
+                    <p>--PLZ--</p>
+                    <p>--LAND--</p>
+        </div><!--col1-->
+        <div class="col-6">
+            <!-- <label class="custom-control custom-radio">
+                <input id="radio2" name="radio" type="radio" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description faded"> -->
+            <label class="custom-control custom-checkbox">
+              <input id="check" type="checkbox" class="custom-control-input">
+                <span  class="custom-control-indicator"></span>
+                <label for="check">
+                <span  class="custom-control-description faded">
+                  <h2>{{ 'LABELS.BILLING_ADDRESS' | translate }}</h2> 
+                  <p>--VORNAME-- --NACHNAME--</p>
+                  <p>--STRASSE-- --HAUSNR--</p>
+                  <p>--STADT--</p>
+                  <p>--PLZ--</p>
+                  <p>--LAND--</p>
+               </span>
+              </label>
+           </label>
+         </div> <!--col1-->
+      </div><!--row-->
+      <div class="row justify-content-end">
+           <p>
+              <button id="checkout3_back" type="button" class="btn btn-outline-primary waves-effect" mdbRippleRadiusr>{{ 'BUTTONS.BACK' | translate }}</button>
+              <button id="checkout3_send_order" type="button" class="btn btn-outline-primary waves-effect"  mdbRippleRadius>{{ 'BUTTONS.NEXT' | translate }}</button>
+           </p>
+      </div>
+      </div><!--container-->
+  </ng-template>
+
+  <ng-template #checkoutPaymentDelivery>
+    <div class="container">
+        <h2>{{ 'LABELS.PAYMENT_SHIPPING_DETAILS' | translate }}</h2>
+        <br>
+      <div class="row justify-content-left">
+        <div class="col-12">
+            <h3>{{ 'LABELS.PAYMENT_METHOD' | translate }}</h3>
+          <!-- PayPal Logo -->        
+             <a href="https://www.paypal.com/de/webapps/mpp/paypal-popup" title="So funktioniert PayPal" >
+              <img src="https://www.paypalobjects.com/webstatic/de_DE/i/de-pp-logo-150px.png" border="0" alt="PayPal Logo" />
+            </a> <!-- PayPal Logo -->
+        </div><!--col1-->
+      </div><!--row-->
+      <div class="row justify-content-left">
+        <div class="col-8">
+          <p class="padded">Nach dem Abschicken des Auftrags werden Sie auf die offizielle PayPal-Seite geleitet, um dort komfortabel
+            und sicher zu bezahlen.
+          </p>
+        </div><!--col1-->
+      </div><!--row-->
+      <div class="row justify-content-left">
+        <div class="col-12">
+        <h3>{{ 'LABELS.PAYMENT_METHOD' | translate }}</h3>
+        </div><!--col1-->
+      </div><!--row-->
+      <div class="row">
+        <div class="col-9">
+          <p>Standard: Lieferung in 7-10 Tagen</p>
+        </div><!--col1-->
+       <div class="col-3">
+         <p class="price">4,95€</p>
+       </div><!--col2-->
+      </div><!--row-->
+       <!-- Buttons to previous or next step -->
+       <div class="row justify-content-end">
+          <button id="checkout3_back" type="button" class="btn btn-outline-primary waves-effect" mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
+          <button id="checkout3_send_order" type="button" class="btn btn-outline-primary waves-effect"  mdbRippleRadius>{{ 'BUTTONS.NEXT' | translate }}</button>
+        <!-- END buttons -->
+      </div><!--row-->
+    </div><!--container--> 
+  </ng-template>
+
+  <ng-template #checkoutCheckOrder>
+    <div class="container">
+        <h2>{{ 'LABELS.ORDER_DETAILS' | translate }}</h2>
+        <br>
+      <div class="row">
+        <div class="col-12">
+        <table class="table table-striped table-responsive-sm">
+            <thead id="sum_row">
+              <tr>
+                <th scope="col">{{ 'NAV.CART_QUANTITY' | translate }}</th>
+                <th>Item</th>
+                <th><i class="fa fa-print fa-lg" aria-hidden="true"></i></th>
+                <th><i class="fa fa-download fa-lg" aria-hidden="true"></i></th>
+                <th scope="col">{{ 'NAV.CART_SIZE' | translate }}</th>
+                <th scope="col">{{ 'NAV.CART_PRICE' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-bordered">
+                <!-- <th scope="row">1</th> -->
+                <td>2</td>
+                <td>img 20150226_061339</td>
+                  <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                  <td></td>
+                  <td>1230x1230</td>
+                  <td>90€</td>
+                  <td class="background-white">
+                    <i class="fa fa-lg fa-trash clickable" aria-hidden="true" ></i>
+                  </td>
+                </tr>
+              <tr class="table-bordered">
+                <!-- <th scope="row">2</th> -->
+                <td>10</td>
+                <td>img 20150226_0613456</td>
+                  <td></td>
+                  <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                  <td>1230x1230</td>
+                  <td>90€</td>
+                  <td class="background-white">
+                    <i class="fa fa-lg fa-trash clickable" aria-hidden="true" ></i>
+                  </td>
+                </tr>           
+              <tr class="table-bordered">
+                <!-- <th scope="row">3</th> -->
+                <td>1</td>
+                <td>img 20150226_0613457</td>                
+                  <td><i class="fa fa-check" aria-hidden="true"></i> </td>
+                  <td></td>
+                  <td>1230x1230</td>
+                  <td>90€</td>
+                  <td class="background-white">
+                    <i class="fa fa-lg fa-trash clickable" aria-hidden="true" ></i>
+                  </td>
+              </tr>
+              <tr class="table background-white">
+                  <td>Zwischensumme</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>20€</td>
+              </tr> 
+              <tr class="table  background-white">
+                  <td>+ Versandkosten</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>20€</td>
+              </tr>      
+              <tr class="table  background-white">
+                  <td>{{'LABELS.TOTAL'|translate}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>20€</td>
+              </tr>        
+            </tbody>
+          </table>
+      </div><!--col1-->
+    </div><!--row-->
+    <div class="row">
+      <div class="col-12">       
+         <br>
+           Indem du deine Bestellung aufgibst, akzeptierst du unsere Allgemeinen Geschäftsbedingungen und unsere Datenschutzrichtlinie.
+         <br>
+          </div><!--col-->
+    </div><!--row-->
+         <!-- Buttons to previous or next step -->
+      <div class="row justify-content-end">
+        <button id="checkout3_back" type="button" class="btn btn-outline-primary waves-effect" mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
+        <button id="checkout3_send_order" type="button" class="btn btn-outline-primary waves-effect"  mdbRippleRadius>{{ 'BUTTONS.SEND_ORDER' | translate }}</button>
+      <!-- END buttons -->
+    </div><!--row-->
+  </div><!--container-->
+  </ng-template>
+  <!--END checkout-templates-->
+</div>
