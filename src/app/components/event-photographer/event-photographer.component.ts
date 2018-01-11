@@ -62,7 +62,8 @@ export class EventPhotographerComponent implements OnInit {
       photographerUid: ['', Validators.required],
       public: [false, Validators.required],
       ratings: [0, Validators.required],
-      printinghouse: ['', Validators.required]
+      printinghouse: ['', Validators.required],
+      deleted: [false, Validators.required]
     });
   }
 
@@ -123,8 +124,24 @@ export class EventPhotographerComponent implements OnInit {
       });
   }
 
-  updateEvent() {}
+  /**
+   * Upadte event data in firestore
+   */
+  updateEvent() {
+    this.event = this.eventForm.getRawValue();
+    this.afs
+      .updatePhotographerEvent(this.event)
+      .then(() => {
+        this.log.d('Updated event');
+      })
+      .catch(err => {
+        this.log.er('Error updating event', err);
+      });
+  }
 
+  /**
+   * Delete the event
+   */
   deleteEvent() {
     this.afs
       .deletePhotographerEvent(this.event.id)
@@ -135,6 +152,14 @@ export class EventPhotographerComponent implements OnInit {
       .catch(err => {
         this.log.er('Error deliting Event');
       });
+  }
+
+  /**
+   * Delete file from the upload array
+   * @param  {number} index File array index
+   */
+  deleteFile(index: number) {
+    this.uploadFiles.splice(index, 1);
   }
 
   /**

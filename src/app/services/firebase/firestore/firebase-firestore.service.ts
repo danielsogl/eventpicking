@@ -165,6 +165,18 @@ export class FirebaseFirestoreService {
       .update({ deleted: true });
   }
 
+  /**
+   * Update an event
+   * @param  {Event} event Event to update
+   * @returns {Promise<void>}
+   */
+  updatePhotographerEvent(event: Event): Promise<void> {
+    return this.afs
+      .collection('events')
+      .doc(event.id)
+      .update(JSON.parse(JSON.stringify(event)));
+  }
+
   /************************************
    * Firestore: Images
    ************************************/

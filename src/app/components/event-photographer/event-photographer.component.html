@@ -51,6 +51,7 @@
                 <td>{{ 'TABLE.TYPE' | translate }}</td>
                 <td>{{ 'TABLE.SIZE' | translate }}</td>
                 <td>{{ 'TABLE.PROGRESS' | translate }}</td>
+                <td>{{ 'TABLE.DELETE' | translate }}</td>
               </tr>
             </thead>
             <tbody>
@@ -61,6 +62,9 @@
                 <td>{{ file.file.size }}</td>
                 <td>
                   <mdb-progressbar [value]="file.progress" min="0" max="100" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></mdb-progressbar>
+                </td>
+                <td>
+                  <a class="fa fa-trash-o" aria-hidden="true" (click)="deleteFile(i)"></a>
                 </td>
               </tr>
             </tbody>
