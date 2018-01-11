@@ -80,10 +80,14 @@
     "SIGN_UP": "Sign Up",
     "SIGNUP_AS_PHOTOGRAPHER": "Signup as new photographer",
     "SIGNUP_AS_USER": "Signup as new user",
+    "TESTIMONIALS": "Customer Voices",
     "EDIT_EVENT": "Edit Event",
     "EDIT_USER": "Edit User",
     "EVENT_DESCRIPTION": "Description",
-    "EVENT_PASSWORD": "Password"
+    "EVENT_PASSWORD": "Password",
+    "PHOTOGRAPHER": "Photographer",
+    "EVENT_GUEST": "Guest",
+    "EVENT_ORGANISATOR":"Event Organisator"
   },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":
