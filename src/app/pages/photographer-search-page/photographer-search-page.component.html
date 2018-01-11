@@ -2,8 +2,8 @@
   <div class="row mt-5 pt-5">
     <div class="col col-lg-4 text-center">
       <div class="md-form">
-        <input mdbActive type="text" class="form-control">
-        <label class="active">Search photographer by ZIP</label>
+        <input mdbActive type="text" class="form-control" (keyup)="onKey($event)">
+        <label class="active">{{ 'TEXTS.SEARCH_PHOTOGRAPHER' | translate }}</label>
       </div>
       <div class="scrollable">
         <div *ngFor="let p of (photographer | async)">
@@ -70,7 +70,6 @@
                   <br>
                 </div>
                 <a routerLink="">Profile</a>
-
               </div>
             </ng-template>
           </agm-snazzy-info-window>

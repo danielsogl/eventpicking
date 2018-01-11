@@ -117,7 +117,8 @@
     "PRICING_MONTH": "events per month",
     "PRICING_MONTHLY": "month",
     "PRICING_PICTURE_AMOUNT": "pictures per album",
-    "PRICING_CANCEL": "Monthly cancellable"
+    "PRICING_CANCEL": "Monthly cancellable",
+    "SEARCH_PHOTOGRAPHER": "Search photographer by ZIP"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",

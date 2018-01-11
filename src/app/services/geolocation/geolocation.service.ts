@@ -6,7 +6,7 @@ import { Address } from '../../interfaces/address';
 
 /**
  * A service to work with geolocation stuff
- * @author Daniel Sogl
+ * @author Daniel Sogl, Tim Krießler
  */
 @Injectable()
 export class GeolocationService {
@@ -22,6 +22,16 @@ export class GeolocationService {
       .toPromise();
   }
 
+  getCoordinatesFromZip(zip: string) {
+    return this.http
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${zip},+Germany&key=${
+          environment.agmKey
+        }`
+      )
+      .toPromise();
+  }
+
   getBrowserLocation(): Promise<any> {
     return new Promise(function(resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -29,12 +39,7 @@ export class GeolocationService {
   }
 
   /**
-   * Berechnet die Entfernung zwischen zwei Koordinaten in Kilometern
-   * @param  {number} latA Breite A
-   * @param  {number} lonA Länge A
-   * @param  {number} latB Breite B
-   * @param  {number} lonB Länge B
-   * @returns {number} Distanz in Kilometern
+   * calculates distance between two locations
    */
   public calculateGpsDistance(
     latA: number,

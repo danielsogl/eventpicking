@@ -22,6 +22,27 @@ export class PhotographerSearchPageComponent implements OnInit {
 
   /** Photographer profiles collection */
   public photographer: Observable<PhotographerProfile[]>;
+
+  /** Photographer profile */
+  public photograph: PhotographerProfile = {
+    about: '',
+    email: '',
+    facebook: '',
+    instagram: '',
+    name: '',
+    phone: '',
+    tumbler: '',
+    twitter: '',
+    uid: '',
+    website: '',
+    premium: false,
+    location: {
+      lat: 0,
+      lng: 0
+    }
+  };
+
+  /** save browserposition */
   private positionlat: number;
   private positionlng: number;
 
@@ -85,9 +106,30 @@ export class PhotographerSearchPageComponent implements OnInit {
   setPosition(latitude: number, longitude: number) {
     this.agmMap.latitude = latitude;
     this.agmMap.longitude = longitude;
-    this.agmMap.zoom = 10;
+    this.agmMap.zoom = 15;
     this.agmMap.triggerResize();
   }
 
-  searchPhotographer() {}
+  /** return input value */
+  onKey(event: any) {
+    if (event.target.value.length === 5) {
+      this.handleZip(event.target.value);
+    }
+  }
+
+  /** get entered zip, convert zip to coordinates, refresh map */
+  handleZip(zip: string) {
+    this.log.info('valid zip-length entered');
+    this.geolocation.getCoordinatesFromZip(zip).then((result: any) => {
+      if (result.results[0].geometry.location) {
+        this.photograph.location = result.results[0].geometry.location;
+        this.setPosition(
+          this.photograph.location.lat,
+          this.photograph.location.lng
+        );
+      } else {
+        this.log.error('Cannot get location from Service');
+      }
+    });
+  }
 }
