@@ -113,12 +113,12 @@ export class PhotographerSearchPageComponent implements OnInit {
   /** return input value */
   onKey(event: any) {
     if (event.target.value.length === 5) {
-      this.handleZip(event.target.value);
+      this.handleEnteredZip(event.target.value);
     }
   }
 
   /** get entered zip, convert zip to coordinates, refresh map */
-  handleZip(zip: string) {
+  handleEnteredZip(zip: string) {
     this.log.info('valid zip-length entered');
     this.geolocation.getCoordinatesFromZip(zip).then((result: any) => {
       if (result.results[0].geometry.location) {
@@ -127,6 +127,7 @@ export class PhotographerSearchPageComponent implements OnInit {
           this.photograph.location.lat,
           this.photograph.location.lng
         );
+        // TODO: Fotografenliste aktualisieren (Radius 10-20km)
       } else {
         this.log.error('Cannot get location from Service');
       }

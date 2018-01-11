@@ -8,43 +8,46 @@
       <div class="scrollable">
         <div *ngFor="let p of (photographer | async)">
           <div *ngIf="p.premium == true">
-            <div class="card">
-              <div class="card-body">
-                <p class="name">{{ p.name }}</p>
-                <div class="content">
-                  <img class="profile-img" src="{{p.photoUrl}}">
-                  <div *ngIf="p.address" class="address">{{p.address.street}} {{p.address.streetnumber}}
-                    <br/> {{p.address.zip}} {{p.address.city}}
-                    <br/>
+            <a routerLink="/photographer/test">
+              <div class="card">
+                <div class="card-body">
+                  <p class="name">{{ p.name }}</p>
+                  <div class="content">
+                    <img class="profile-img" src="{{p.photoUrl}}">
+                    <div *ngIf="p.address" class="address">{{p.address.street}} {{p.address.streetnumber}}
+                      <br/> {{p.address.zip}} {{p.address.city}}
+                      <br/>
+                    </div>
+                  </div>
+                  <br/>
+                  <div class="distance">
+                    {{getPhotographerDistance(p) | number:'0.2-2' | replace:'.':','}} km
                   </div>
                 </div>
-                <br/>
-
-                <div class="distance">
-                  {{getPhotographerDistance(p) | number:'0.2-2' | replace:'.':','}} km
-                </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
         <hr class="mt-4 mb-4 border">
         <div *ngFor="let p of (photographer | async)">
           <div *ngIf="p.premium == false">
-            <div class="card">
-              <div class="card-body">
-                <p class="name">{{ p.name }}</p>
-                <div>
-                  <div *ngIf="p.address" class="address">{{p.address.street}} {{p.address.streetnumber}}
-                    <br/> {{p.address.zip}} {{p.address.city}}
-                    <br/>
+            <a routerLink="/photographer/test">
+              <div class="card">
+                <div class="card-body">
+                  <p class="name">{{ p.name }}</p>
+                  <div>
+                    <div *ngIf="p.address" class="address">{{p.address.street}} {{p.address.streetnumber}}
+                      <br/> {{p.address.zip}} {{p.address.city}}
+                      <br/>
+                    </div>
+                  </div>
+                  <br/>
+                  <div class="distance">
+                    {{getPhotographerDistance(p) | number:'0.2-2' | replace:'.':','}} km
                   </div>
                 </div>
-                <br/>
-                <div class="distance">
-                  {{getPhotographerDistance(p) | number:'0.2-2' | replace:'.':','}} km
-                </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
