@@ -22,6 +22,8 @@ export class PhotographerSearchPageComponent implements OnInit {
 
   /** Photographer profiles collection */
   public photographer: Observable<PhotographerProfile[]>;
+  private positionlat: number;
+  private positionlng: number;
 
   /** Google maps ref */
   @ViewChild('map') public agmMap: AgmMap;
@@ -57,11 +59,22 @@ export class PhotographerSearchPageComponent implements OnInit {
         .then(position => {
           this.log.d('Current position', position.coords);
           this.setPosition(position.coords.latitude, position.coords.longitude);
+          this.positionlat = position.coords.latitude;
+          this.positionlng = position.coords.longitude;
         })
         .catch((err: any) => {
           this.log.er('Error getting location', err);
         });
     }
+  }
+
+  getPhotographerDistance(photographer: PhotographerProfile) {
+    return this.geolocation.calculateGpsDistance(
+      photographer.location.lat,
+      photographer.location.lng,
+      this.positionlat,
+      this.positionlng
+    );
   }
 
   /**

@@ -27,4 +27,43 @@ export class GeolocationService {
       navigator.geolocation.getCurrentPosition(resolve, reject);
     });
   }
+
+  /**
+   * Berechnet die Entfernung zwischen zwei Koordinaten in Kilometern
+   * @param  {number} latA Breite A
+   * @param  {number} lonA Länge A
+   * @param  {number} latB Breite B
+   * @param  {number} lonB Länge B
+   * @returns {number} Distanz in Kilometern
+   */
+  public calculateGpsDistance(
+    latA: number,
+    lonA: number,
+    latB: number,
+    lonB: number
+  ): number {
+    const earthRadiusKm = 6371;
+
+    const dLat = this.degreesToRadians(latB - latA);
+    const dLon = this.degreesToRadians(lonB - lonA);
+
+    latA = this.degreesToRadians(latA);
+    latB = this.degreesToRadians(latB);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(latA) * Math.cos(latB);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return earthRadiusKm * c;
+  }
+
+  /**
+   * Umrechnung von Grad zu Radiant
+   * @param  {number} degrees Grad
+   * @returns {number} Radiant Wert
+   */
+  public degreesToRadians(degrees: number): number {
+    return degrees * Math.PI / 180;
+  }
 }
