@@ -115,8 +115,7 @@
     "DELETE": "Delete"
   },
   "TEXTS": {
-    "PASSWORT_RESET_MODAL":
-      "To which email address should the password reset email be sent?",
+    "PASSWORT_RESET_MODAL": "To which email address should the password reset email be sent?",
     "PROVIDE_VALID_EMAIL": "Please provide a valid email",
     "PROVIDE_VALID_PASSWORD": "Please provide a valid password",
     "PROVIDE_VALID_URL": "Please provide a valid URL",
@@ -124,15 +123,18 @@
     "PAGE_NOT_FOUND_DESCRIPTION": "Looks like someone left the lens cap on...",
     "PRICING_TITLE": "Pricing Guide",
     "PRICING_GET_STARTED": "Get started",
-    "PRICING_DESCRIPTION":
-      "with your first free album or upgrade to one of our plans.",
+    "PRICING_DESCRIPTION": "with your first free album or upgrade to one of our plans.",
     "PRICING_MONTH": "events per month",
     "PRICING_MONTHLY": "month",
     "PRICING_PICTURE_AMOUNT": "pictures per album",
     "PRICING_CANCEL": "Monthly cancellable",
     "EVENT_ALL_PICTURES": "All pictures",
     "EVENT_SELECTED_PICTURES": "Selected pictures",
-    "SEARCH_PICTURES": "Search for pictures by name"
+    "SEARCH_PICTURES": "Search for pictures by name",
+    "PRICING_ADDITIONAL": "Become a premium member",
+    "PRICING_LIST_POSITION": "With upgrading to a premium account the photographer will always be listed on the first position of nearby photographers.",
+    "PRICING_MORE_ATTENTION": "Receive more attention from customers",
+    "PRICING_FIRST_POSITION": "Be always on the first position"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",
