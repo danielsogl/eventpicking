@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Log } from 'ng2-logger';
+import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
+import { PrintingHouse } from '../../classes/printing-house';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { PrintingHouse } from '../../classes/printing-house';
-import { Observable } from 'rxjs/Observable';
 
 /**
  * Event user view component
@@ -23,12 +23,18 @@ export class EventUserComponent implements OnInit {
 
   @Input() public event: Event;
   @Input() public user: User;
-  public printingHouse: PrintingHouse;
 
+  /** TemplateRef loading */
+  @ViewChild('pictureModal') pictureModal: any;
+
+  public printingHouse: PrintingHouse;
   public images: Observable<EventPicture[]>;
 
   constructor(private afs: FirebaseFirestoreService) {}
 
+  /**
+   * Initialize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
@@ -51,5 +57,13 @@ export class EventUserComponent implements OnInit {
           this.log.d('Loaded printing house', this.printingHouse);
         });
     }
+  }
+
+  /**
+   * Open image detail modal
+   * @param  {EventPicture} image Image to open
+   */
+  openImageModal(image: EventPicture) {
+    this.pictureModal.showModal(image, this.printingHouse);
   }
 }

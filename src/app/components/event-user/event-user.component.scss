@@ -1,22 +1,33 @@
+@import '../../../../node_modules/ng-mdb-pro/assets/scss/bootstrap/bootstrap-grid.scss';
+
 .lessVertical {
-    vertical-align: -1px;
+  vertical-align: -1px;
 }
 
 .no-gutters {
-    margin-right: 0;
-    margin-left: 0;
-    >.col,
-    >[class*="col-"] {
-        padding-right: 0;
-        padding-left: 0;
-    }
+  margin-right: 0;
+  margin-left: 0;
+  > .col,
+  > [class*='col-'] {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 
 .icon-button {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    outline: none;
-    border: 0;
-    background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  border: 0;
+  background: transparent;
+}
+
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 2;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 3;
+  }
 }
