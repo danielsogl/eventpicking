@@ -7,6 +7,7 @@ import {
   AngularFirestore,
   AngularFirestoreModule
 } from 'angularfire2/firestore';
+import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
@@ -24,6 +25,7 @@ describe('PhotographerPageComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           RouterTestingModule,
+          MDBBootstrapModules.forRoot(),
           AngularFireModule.initializeApp(environment.firebase),
           TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useClass: FakeLoader }

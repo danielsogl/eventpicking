@@ -92,7 +92,8 @@
     "REVENUE": "Einnahmen",
     "SALES": "Der Umsatz",
     "SUBSCRIPTION": "Abonnement",
-    "USER": "Benutzer"
+    "USER": "Benutzer",
+    "IMAGES": "Images"
   },
   "FIREBASE_ERRORS": {
     "auth/app-deleted": "Firebase-Projekt wurde gelöscht",

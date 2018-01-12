@@ -20,10 +20,11 @@
                 <th>{{ 'DASHBOARD.LOCATION' | translate }}</th>
                 <th>{{ 'DASHBOARD.RATINGS' | translate }}</th>
                 <th>{{ 'DASHBOARD.EDIT' | translate }}</th>
+                <th>{{ 'TABLE.DELETE' | translate }}</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let event of (events | async); let i = index">
+              <tr *ngFor="let event of (events | async); let i = index" [class.table-danger]="event.deleted">
                 <td>{{ i + 1}}</td>
                 <td>{{ event.name }}</td>
                 <td>{{ event.date }}</td>
@@ -32,6 +33,11 @@
                 <td>
                   <a (click)="editEvent(user)">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </a>
+                </td>
+                <td>
+                  <a (click)="deleteEvent(event)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
                   </a>
                 </td>
               </tr>
@@ -54,6 +60,7 @@
                 <th>{{ 'DASHBOARD.ROLE' | translate }}</th>
                 <th>{{ 'DASHBOARD.SUBSCRIPTION' | translate }}</th>
                 <th>{{ 'DASHBOARD.EDIT' | translate }}</th>
+                <th>{{ 'TABLE.DELETE' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -69,6 +76,11 @@
                 <td>
                   <a (click)="editUser(user)">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </a>
+                </td>
+                <td>
+                  <a>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
                   </a>
                 </td>
               </tr>
@@ -298,6 +310,8 @@
       <div class="modal-body mb-0">
         <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>
           <i class="fa fa-refresh mr-1"></i>{{ 'BUTTONS.UPDATE_EVENT' | translate }}</button>
+        <button type="button" class="btn btn-danger btn-lg btn-block waves-light" mdbRippleRadius>
+          <i class="fa fa-trash mr-1"></i>{{ 'BUTTONS.DELETE_EVENT' | translate }}</button>
       </div>
     </div>
   </div>

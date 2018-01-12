@@ -10,6 +10,7 @@ const os = require('os');
 const fs = require('fs');
 const readFile = require('fs-readfile-promise');
 const imageinfo = require('imageinfo');
+const uuidv1 = require('uuid/v1');
 
 // Max height and width of the thumbnail in pixels.
 const THUMB_MAX_HEIGHT = 400;
@@ -28,6 +29,7 @@ const PRE_PREFIX = 'pre_';
  * ImageMagick.
  * After the thumbnail has been generated and uploaded to Cloud Storage,
  * we write the public URL to the Firebase Realtime Database.
+ * @author Daniel Sogl, Dennis Maurer
  */
 exports.transformImageHandler = event => {
   // File and directory paths.
@@ -41,12 +43,23 @@ exports.transformImageHandler = event => {
   const preFilePath = path.normalize(
     path.join(fileDir, `${PRE_PREFIX}${fileName}`)
   );
+  const watermarkFilePath = path.normalize(path.join('watermark.png'));
   const tempLocalFile = path.join(os.tmpdir(), filePath);
   const tempLocalDir = path.dirname(tempLocalFile);
   const tempLocalThumbFile = path.join(os.tmpdir(), thumbFilePath);
   const tempLocalPreFile = path.join(os.tmpdir(), preFilePath);
+  const tempLocalWatermark = path.join(os.tmpdir(), watermarkFilePath);
 
   let fileInfo;
+
+  // Cloud Storage files.
+  const bucket = gcs.bucket(event.data.bucket);
+  const file = bucket.file(filePath);
+  const thumbFile = bucket.file(thumbFilePath);
+  const preFile = bucket.file(preFilePath);
+  const metadata = {
+    contentType: contentType
+  };
 
   // Exit if this is triggered on a file that is not an image.
   if (!contentType.startsWith('image/')) {
@@ -67,18 +80,9 @@ exports.transformImageHandler = event => {
 
   // Exit if this is a move or deletion event.
   if (event.data.resourceState === 'not_exists') {
-    console.log('This is a deletion event.');
+    console.log('Delete event');
     return null;
   }
-
-  // Cloud Storage files.
-  const bucket = gcs.bucket(event.data.bucket);
-  const file = bucket.file(filePath);
-  const thumbFile = bucket.file(thumbFilePath);
-  const preFile = bucket.file(preFilePath);
-  const metadata = {
-    contentType: contentType
-  };
 
   // Create the temp directory where the storage file will be downloaded.
   return mkdirp(tempLocalDir)
@@ -116,11 +120,24 @@ exports.transformImageHandler = event => {
         {
           capture: ['stdout', 'stderr']
         }
-      );
+      ).then(() => {
+        console.log('Thumbnail created at', tempLocalThumbFile);
+      });
     })
     .then(() => {
-      // Generate a preview using ImageMagick.
-      console.log('Generate preview');
+      return bucket
+        .file('wasserzeichen.png')
+        .download({
+          destination: tempLocalWatermark
+        })
+        .then(() => {
+          console.log(
+            'The watermark image has been downloaded to',
+            tempLocalWatermark
+          );
+        });
+    })
+    .then(() => {
       return spawn(
         'convert',
         [
@@ -132,10 +149,32 @@ exports.transformImageHandler = event => {
         {
           capture: ['stdout', 'stderr']
         }
-      );
+      ).then(() => {
+        console.log('Resized preview created at', tempLocalPreFile);
+      });
     })
     .then(() => {
-      console.log('Thumbnail created at', tempLocalThumbFile);
+      // Generate a preview using ImageMagick.
+      console.log('Generate preview');
+      return spawn(
+        'composite',
+        [
+          '-watermark',
+          '75',
+          '-gravity',
+          'South',
+          tempLocalWatermark,
+          tempLocalPreFile,
+          tempLocalPreFile
+        ],
+        {
+          capture: ['stdout', 'stderr']
+        }
+      ).then(() => {
+        console.log('Preview created at', tempLocalPreFile);
+      });
+    })
+    .then(() => {
       // Uploading the Thumbnail.
       return bucket.upload(tempLocalThumbFile, {
         destination: thumbFilePath,
@@ -143,7 +182,6 @@ exports.transformImageHandler = event => {
       });
     })
     .then(() => {
-      console.log('Preview created at', tempLocalPreFile);
       return bucket.upload(tempLocalPreFile, {
         destination: preFilePath,
         metadata: metadata
@@ -163,30 +201,54 @@ exports.transformImageHandler = event => {
       };
       return Promise.all([
         thumbFile.getSignedUrl(config),
-        preFile.getSignedUrl(config)
+        preFile.getSignedUrl(config),
+        file.getSignedUrl(config)
       ]);
     })
     .then(results => {
       console.log('Got Signed URLs.');
-      const thumbResult = results[0];
-      const preResult = results[1];
-      const thumbFileUrl = thumbResult[0];
-      const preFileUrl = preResult[0];
+      const thumbFileUrl = results[0][0];
+      const preFileUrl = results[1][0];
+      const fileUrl = results[2][0];
 
+      // Event Id
       const eventId = preFilePath.split('/')[2];
+
+      // Image ID
+      const uuid = uuidv1();
+
       // Add the URLs to Firestore
       return admin
         .firestore()
         .collection('events')
         .doc(eventId)
         .collection('images')
-        .add({
+        .doc(uuid)
+        .set({
           info: fileInfo,
           name: file.name.split('/')[3],
           preview: preFileUrl,
           thumbnail: thumbFileUrl,
-          ratings: 0
+          ratings: 0,
+          id: uuid
+        })
+        .then(() => {
+          console.log('Saved thumb and pre urls');
+          return admin
+            .firestore()
+            .collection('events')
+            .doc(eventId)
+            .collection('originals')
+            .doc(uuid)
+            .set({
+              info: fileInfo,
+              name: file.name.split('/')[3],
+              url: fileUrl,
+              id: uuid
+            })
+            .then(() => {
+              console.log('Saved original url');
+            });
         });
-    })
-    .then(() => console.log('Thumbnail URLs saved to database.'));
+    });
 };

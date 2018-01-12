@@ -18,6 +18,7 @@ import { FirebaseFirestoreService } from '../../services/firebase/firestore/fire
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { EventPhotographerComponent } from './event-photographer.component';
 import { AngularFireStorage } from 'angularfire2/storage';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 describe('EventPhotographerComponent', () => {
   let component: EventPhotographerComponent;
@@ -41,6 +42,7 @@ describe('EventPhotographerComponent', () => {
           AngularFireAuth,
           FormBuilder,
           AngularFireStorage,
+          NavigationService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [EventPhotographerComponent],

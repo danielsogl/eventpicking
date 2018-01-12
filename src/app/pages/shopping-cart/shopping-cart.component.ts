@@ -83,6 +83,15 @@ export class ShoppingCartComponent implements OnInit {
           this.cartItems = items;
         } else {
           this.cartItems = ITEMS;
+          this.cartItems.sort(function(a, b) {
+            if (a.eventname < b.eventname) {
+              return -1;
+            }
+            if (a.eventname > b.eventname) {
+              return 1;
+            }
+            return 0;
+          });
         }
         this.calculateSum();
       });

@@ -1,3 +1,18 @@
-<p>
-  picture-detail works!
-</p>
+<div mdbModal #pictureModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Lorem Ipsum</p>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <p>Lorem ipsum</p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary-modal waves-light" mdbRippleRadius (click)="pictureModal.hide()">Got it!
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

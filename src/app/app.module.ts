@@ -42,14 +42,19 @@ import { PhotographerSearchPageComponent } from './pages/photographer-search-pag
 import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { ReplacePipe } from './pipes/replacePipe';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
 import { GeolocationService } from './services/geolocation/geolocation.service';
-import { ReplacePipe } from './pipes/replacePipe';
+import { NavigationService } from './services/navigation/navigation.service';
 
+/**
+ * Configures ngx-translate HttpLoader
+ * @param  {HttpClient} http Http CLient
+ */
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -117,7 +122,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FirebaseStorageService,
     MDBSpinningPreloader,
     RoleGuard,
-    GeolocationService
+    GeolocationService,
+    NavigationService
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]

@@ -16,9 +16,11 @@
   "NAV": {
     "DASHBOARD": "Dashboard",
     "FEATURES": "Features",
+    "PRICES": "Prices",
+    "DESCRIPTION": "Description",
     "HOME": "Home",
     "LOGOUT": "Log out",
-    "PRICES": "Prices",
+    "EVENTS": "Events",
     "SEARCH": "Photographer near you",
     "SIGNIN": "Sign in",
     "SIGNUP": "Sign up",
@@ -68,10 +70,13 @@
     "CONTINUE_SHOPPING": "Continue shopping",
     "PROCEED_TO_CHECKOUT": "Proceed to checkout",
     "BACK": "Back",
-    "NEXT":"Next",
-    "SEND_ORDER": "Pay Pal Button"
-
-
+    "NEXT": "Next",
+    "SEND_ORDER": "Pay Pal Button",
+    "ABO": "Buy now",
+    "SELECT_PICTURES": "Select all pictures",
+    "ADD_PICTURES_TO_CARD": "Add selected pictures to cart",
+    "START_UPLOAD": "Start Upload",
+    "DELETE_EVENT": "Delete Event"
   },
   "LABELS": {
     "ADDRESS": "Address",
@@ -80,8 +85,8 @@
     "BILLING_INFORMATION": "Billing Information",
     "CREATE_NEW_EVENT": "Create new event",
     "CREATE": "Create",
-    "CONTACT_DETAILS":"Contact-Details",
-    "DELIVERY_ADDRESS":"Delivery Adress",
+    "CONTACT_DETAILS": "Contact-Details",
+    "DELIVERY_ADDRESS": "Delivery Adress",
     "EVENT_DATE": "Event date",
     "EVENT_LOCATION": "Event location",
     "EVENT_NAME": "Event name",
@@ -89,7 +94,7 @@
     "LOGIN": "Sign in",
     "NO_MEMBER": "Not a member?",
     "ORDER_DETAILS": "Order Overview",
-    "PAYMENT_METHOD":"Payment Method",
+    "PAYMENT_METHOD": "Payment Method",
     "PAYMENT_SHIPPING_DETAILS": "Payment and Shipping Method",
     "PUBLIC_PROFILE": "Public Profile",
     "RESET_PASSWORD": "Reset Password",
@@ -98,8 +103,25 @@
     "SIGN_UP": "Sign Up",
     "SIGNUP_AS_PHOTOGRAPHER": "Signup as new photographer",
     "SIGNUP_AS_USER": "Signup as new user",
+    "EDIT_EVENT": "Edit Event",
+    "EDIT_USER": "Edit User",
+    "CART_QUANTITY": "Quantity",
+    "CART_PICTURE": "Picture",
+    "CART_SIZE": "Size",
+    "CART_PRICE": "Price",
     "TOTAL": "Total",
-    "SHOPPING_CART": "Shopping cart"
+    "SHOPPING_CART": "Shopping cart",
+    "ABOUT": "About",
+    "EVENT_DESCRIPTION": "Description",
+    "EVENT_PASSWORD": "Password"
+  },
+  "TABLE": {
+    "NAME": "Name",
+    "TYPE": "Type",
+    "FORMAT": "Format",
+    "SIZE": "Size",
+    "PROGRESS": "Progress",
+    "DELETE": "Delete"
   },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":
@@ -116,7 +138,15 @@
     "PRICING_MONTH": "events per month",
     "PRICING_MONTHLY": "month",
     "PRICING_PICTURE_AMOUNT": "pictures per album",
-    "PRICING_CANCEL": "Monthly cancellable"
+    "PRICING_CANCEL": "Monthly cancellable",
+    "EVENT_ALL_PICTURES": "All pictures",
+    "EVENT_SELECTED_PICTURES": "Selected pictures",
+    "SEARCH_PICTURES": "Search for pictures by name",
+    "PRICING_ADDITIONAL": "Become a premium member",
+    "PRICING_LIST_POSITION":
+      "With upgrading to a premium account the photographer will always be listed on the first position of nearby photographers.",
+    "PRICING_MORE_ATTENTION": "Receive more attention from customers",
+    "PRICING_FIRST_POSITION": "Be always on the first position"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",
@@ -129,7 +159,8 @@
     "SALES": "Sales",
     "SUBSCRIPTION": "Subscription",
     "UPLOAD": "Upload",
-    "USER": "User"
+    "USER": "User",
+    "IMAGES": "Images"
   },
   "FIREBASE_ERRORS": {
     "auth/app-deleted": "Firebase project deleted",

@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
 
@@ -37,6 +43,8 @@ export class EventPageComponent implements OnInit, OnDestroy {
   @ViewChild('eventPhotographer') eventPhotographer: TemplateRef<any>;
   /** TemplateRef event not found */
   @ViewChild('eventNotFound') eventNotFound: TemplateRef<any>;
+  /** TemplateRef event deleted */
+  @ViewChild('eventDeleted') eventDeleted: TemplateRef<any>;
 
   constructor(
     private router: ActivatedRoute,
@@ -53,7 +61,6 @@ export class EventPageComponent implements OnInit, OnDestroy {
       this.id = params['id'];
       this.log.d('Event ID', this.id);
       if (this.id) {
-        // Load event
         this.afs
           .getEvent(this.id)
           .valueChanges()
@@ -62,16 +69,24 @@ export class EventPageComponent implements OnInit, OnDestroy {
               this.event = event;
               this.event.id = this.id;
               this.log.d('Loaded event', this.event);
-              if (this.auth.getCurrentFirebaseUser()) {
+              if (event.deleted) {
+                this.template = this.eventDeleted;
+              } else if (this.auth.getCurrentFirebaseUser()) {
                 this.auth.user.subscribe(user => {
                   if (user) {
                     this.user = user;
                     this.log.d('Loaded user', this.user);
                     if (this.event.photographerUid === this.user.uid) {
                       this.template = this.eventPhotographer;
+                    } else {
+                      this.template = this.eventUser;
                     }
+                  } else {
+                    this.template = this.eventUser;
                   }
                 });
+              } else {
+                this.template = this.eventUser;
               }
             } else {
               this.template = this.eventNotFound;

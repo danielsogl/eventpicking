@@ -7,10 +7,10 @@ import {
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
+import { PrintingHouse } from '../../../classes/printing-house';
 import { User } from '../../../classes/user';
 import { EventPicture } from '../../../interfaces/event-picture';
 import { PhotographerProfile } from '../../../interfaces/photographer-profile';
-import { PrintingHouse } from '../../../classes/printing-house';
 
 /**
  * Service to comunicate with the Firestore database
@@ -154,23 +154,32 @@ export class FirebaseFirestoreService {
   }
 
   /**
-   * Save upload url and name
-   * @param  {Upload} upload Upload
+   * Set Event "deleted" value to true
+   * @param  {string} id Event Id
+   * @returns {Promise<void>}
    */
-  setPictureData(upload: any) {
-    this.afs
+  deletePhotographerEvent(id: string): Promise<void> {
+    return this.afs
       .collection('events')
-      .doc(upload.event)
-      .collection('originals')
-      .add(
-        JSON.parse(
-          JSON.stringify({
-            name: upload.name,
-            img: upload.url
-          })
-        )
-      );
+      .doc(id)
+      .update({ deleted: true });
   }
+
+  /**
+   * Update an event
+   * @param  {Event} event Event to update
+   * @returns {Promise<void>}
+   */
+  updatePhotographerEvent(event: Event): Promise<void> {
+    return this.afs
+      .collection('events')
+      .doc(event.id)
+      .update(JSON.parse(JSON.stringify(event)));
+  }
+
+  /************************************
+   * Firestore: Images
+   ************************************/
 
   /**
    * Get event pictures
@@ -182,6 +191,35 @@ export class FirebaseFirestoreService {
       .collection('events')
       .doc(id)
       .collection('images');
+  }
+
+  /**
+   * Get event pictures
+   * @param  {string} id ID
+   * @returns {AngularFirestoreCollection<EventPicture>}
+   */
+  getEventOriginalPictures(
+    id: string
+  ): AngularFirestoreCollection<EventPicture> {
+    return this.afs
+      .collection('events')
+      .doc(id)
+      .collection('originals');
+  }
+
+  /**
+   * Delete image firestore document
+   * @param  {string} event Event ID
+   * @param  {string} image Image ID
+   * @returns {Promise<void>}
+   */
+  deleteEventImage(event: string, image: string): Promise<void> {
+    return this.afs
+      .collection('events')
+      .doc(event)
+      .collection('images')
+      .doc(image)
+      .delete();
   }
 
   /************************************

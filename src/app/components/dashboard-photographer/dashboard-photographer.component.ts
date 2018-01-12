@@ -10,12 +10,12 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
+import { PrintingHouse } from '../../classes/printing-house';
 import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
-import { PrintingHouse } from '../../classes/printing-house';
 
 /**
  * Photographer dashboard component
@@ -78,6 +78,7 @@ export class DashboardPhotographerComponent implements OnInit {
     twitter: '',
     uid: '',
     website: '',
+    profileUrl: '',
     premium: false,
     location: {
       lat: 0,
@@ -143,6 +144,8 @@ export class DashboardPhotographerComponent implements OnInit {
       uid: [''],
       website: [''],
       photoUrl: [''],
+      photographerUrl: [''],
+      premium: [false],
       location: this.formBuilder.group({
         lat: [0],
         lng: [0]
@@ -172,6 +175,7 @@ export class DashboardPhotographerComponent implements OnInit {
       if (user) {
         this.user = user;
         this.photographerProfile.premium = user.subscription.premium;
+        this.photographerProfile.profileUrl = user.photographerUrl;
         this.log.d('Loaded user', user);
 
         this.accountDataForm.setValue({
