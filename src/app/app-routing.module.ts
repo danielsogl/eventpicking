@@ -24,8 +24,7 @@ export const routes: Routes = [
   { path: '404', component: PageNotFoundComponent },
   {
     path: 'check-out',
-    component: CheckoutPageComponent,
-    canActivate: [AuthGuard]
+    component: CheckoutPageComponent
   },
   { path: 'cart', component: ShoppingCartComponent },
   { path: 'data-protection', component: DataProtectionPageComponent },
