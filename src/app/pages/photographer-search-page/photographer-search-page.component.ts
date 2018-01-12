@@ -112,7 +112,7 @@ export class PhotographerSearchPageComponent implements OnInit {
 
   /** return input value */
   onKey(event: any) {
-    if (event.target.value.length === 5) {
+    if (+event.target.value && event.target.value.length === 5) {
       this.handleEnteredZip(event.target.value);
     }
   }
