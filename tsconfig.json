@@ -16,5 +16,12 @@
       "dom"
     ]
   },
-  "include": ["node_modules/ng-mdb-pro/**/*.ts",  "src/**/*.ts"]
+  "include": [
+    "node_modules/ng-mdb-pro/**/*.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/test.ts",
+    "src/environments/*.ts"
+  ]
 }

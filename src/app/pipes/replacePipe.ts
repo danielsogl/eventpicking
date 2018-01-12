@@ -1,9 +1,15 @@
-import { PipeTransform, Injectable, Pipe } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+
+/**
+ * Replace string pipe
+ * @author Daniel Sogl, Tim Kriessler
+ */
 @Pipe({
-  name: 'replace'
+  name: 'replace',
+  pure: true
 })
 export class ReplacePipe implements PipeTransform {
-  transform(item: any, replace, replacement): any {
+  transform(item: any, replace: any, replacement: any): any {
     if (item == null) {
       return '';
     }

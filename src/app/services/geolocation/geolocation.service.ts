@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Log } from 'ng2-logger';
 
 import { environment } from '../../../environments/environment';
 import { Address } from '../../interfaces/address';
@@ -10,8 +11,20 @@ import { Address } from '../../interfaces/address';
  */
 @Injectable()
 export class GeolocationService {
+  /** Logger */
+  private log = Log.create('GeolocationService');
+
+  /**
+   * Constructor
+   * @param  {HttpClient} http Http Client
+   */
   constructor(private http: HttpClient) {}
 
+  /**
+   * Get location by address from the Google Maps Api
+   * @param  {Address} adress Adress
+   * @returns {Promise<any>}
+   */
   getCoordinatesFromAdress(adress: Address): Promise<any> {
     return this.http
       .get(

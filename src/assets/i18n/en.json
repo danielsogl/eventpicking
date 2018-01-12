@@ -70,6 +70,13 @@
     "CONTINUE_SHOPPING": "Continue shopping",
     "PROCEED_TO_CHECKOUT": "Proceed to checkout",
     "ABO": "Buy now"
+    "ABO": "Buy now",
+    "PROCEED_TO_CHECKOUT": "Proceed to Checkout",
+    "CONTINUE_SHOPPING": "Continue Shopping",
+    "SELECT_PICTURES": "Select all pictures",
+    "ADD_PICTURES_TO_CARD": "Add selected pictures to cart",
+    "START_UPLOAD": "Start Upload",
+    "DELETE_EVENT": "Delete Event"
   },
   "LABELS": {
     "ADDRESS": "Address",
@@ -102,6 +109,14 @@
     "EVENT_DESCRIPTION": "Description",
     "EVENT_PASSWORD": "Password"
   },
+  "TABLE": {
+    "NAME": "Name",
+    "TYPE": "Type",
+    "FORMAT": "Format",
+    "SIZE": "Size",
+    "PROGRESS": "Progress",
+    "DELETE": "Delete"
+  },
   "TEXTS": {
     "PASSWORT_RESET_MODAL":
       "To which email address should the password reset email be sent?",
@@ -119,6 +134,14 @@
     "PRICING_PICTURE_AMOUNT": "pictures per album",
     "PRICING_CANCEL": "Monthly cancellable",
     "SEARCH_PHOTOGRAPHER": "Search photographer by ZIP"
+    "PRICING_CANCEL": "Monthly cancellable",
+    "EVENT_ALL_PICTURES": "All pictures",
+    "EVENT_SELECTED_PICTURES": "Selected pictures",
+    "SEARCH_PICTURES": "Search for pictures by name",
+    "PRICING_ADDITIONAL": "Become a premium member",
+    "PRICING_LIST_POSITION": "With upgrading to a premium account the photographer will always be listed on the first position of nearby photographers.",
+    "PRICING_MORE_ATTENTION": "Receive more attention from customers",
+    "PRICING_FIRST_POSITION": "Be always on the first position"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",
@@ -131,7 +154,8 @@
     "SALES": "Sales",
     "SUBSCRIPTION": "Subscription",
     "UPLOAD": "Upload",
-    "USER": "User"
+    "USER": "User",
+    "IMAGES": "Images"
   },
   "FIREBASE_ERRORS": {
     "auth/app-deleted": "Firebase project deleted",

@@ -49,7 +49,12 @@ import { RoleGuard } from './services/auth/role-guard/role-guard.service';
 import { FirebaseFirestoreService } from './services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
 import { GeolocationService } from './services/geolocation/geolocation.service';
+import { NavigationService } from './services/navigation/navigation.service';
 
+/**
+ * Configures ngx-translate HttpLoader
+ * @param  {HttpClient} http Http CLient
+ */
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -117,7 +122,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FirebaseStorageService,
     MDBSpinningPreloader,
     RoleGuard,
-    GeolocationService
+    GeolocationService,
+    NavigationService
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]

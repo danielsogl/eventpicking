@@ -23,6 +23,8 @@ export class Event {
   ratings: number;
   /** Printing house */
   printinghouse: string;
+  /** I sdeleted */
+  deleted: boolean;
 
   /**
    * Constructor
@@ -39,5 +41,6 @@ export class Event {
     this.public = false;
     this.ratings = 0;
     this.printinghouse = eventData.printinghouse;
+    this.deleted = false;
   }
 }

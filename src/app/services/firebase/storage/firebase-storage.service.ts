@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFireStorage,
-  AngularFireStorageReference,
-  AngularFireUploadTask
-} from 'angularfire2/storage';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
@@ -44,12 +40,5 @@ export class FirebaseStorageService {
     );
 
     return storageRef.put(upload.file);
-  }
-
-  deleteFile(uid: string, event: string, file: string) {
-    const storageRef: AngularFireStorageReference = this.afStorage.ref(
-      `events/${uid}/${event}/${file}`
-    );
-    return storageRef.delete();
   }
 }

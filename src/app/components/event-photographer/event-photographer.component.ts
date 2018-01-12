@@ -5,12 +5,13 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
+import { PrintingHouse } from '../../classes/printing-house';
 import { Upload } from '../../classes/upload-file';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
-import { PrintingHouse } from '../../classes/printing-house';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 /**
  * Event photographer view component
@@ -48,7 +49,8 @@ export class EventPhotographerComponent implements OnInit {
   constructor(
     private afs: FirebaseFirestoreService,
     private storage: FirebaseStorageService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private navigation: NavigationService
   ) {
     this.eventForm = this.formBuilder.group({
       date: ['', Validators.required],
@@ -60,7 +62,8 @@ export class EventPhotographerComponent implements OnInit {
       photographerUid: ['', Validators.required],
       public: [false, Validators.required],
       ratings: [0, Validators.required],
-      printinghouse: ['', Validators.required]
+      printinghouse: ['', Validators.required],
+      deleted: [false, Validators.required]
     });
   }
 
@@ -79,6 +82,10 @@ export class EventPhotographerComponent implements OnInit {
       this.eventForm.setValue(this.event);
       // Load images
       this.images = this.afs.getEventPictures(this.event.id).valueChanges();
+
+      this.images.subscribe(images => {
+        this.log.d('Images', images);
+      });
 
       this.afs
         .getPrintingHouseById(this.event.printinghouse)
@@ -103,6 +110,59 @@ export class EventPhotographerComponent implements OnInit {
   }
 
   /**
+   * Delete an image
+   * @param  {EventPicture} image
+   */
+  deleteImage(image: EventPicture) {
+    this.afs
+      .deleteEventImage(this.event.id, image.id)
+      .then(() => {
+        this.log.d('Deleted image', image);
+      })
+      .catch(err => {
+        this.log.er('Error deleting image', err);
+      });
+  }
+
+  /**
+   * Upadte event data in firestore
+   */
+  updateEvent() {
+    this.event = this.eventForm.getRawValue();
+    this.afs
+      .updatePhotographerEvent(this.event)
+      .then(() => {
+        this.log.d('Updated event');
+      })
+      .catch(err => {
+        this.log.er('Error updating event', err);
+      });
+  }
+
+  /**
+   * Delete the event
+   */
+  deleteEvent() {
+    this.afs
+      .deletePhotographerEvent(this.event.id)
+      .then(() => {
+        this.log.d('Deleted Event');
+        this.navigation.navigateTo('/dashboard');
+      })
+      .catch(err => {
+        this.log.er('Error deliting Event');
+      });
+  }
+
+  /**
+   * Delete file from the upload array
+   * @param  {number} index File array index
+   */
+  deleteFile(index: number) {
+    this.uploadFiles.splice(index, 1);
+  }
+
+  /**
    * Start upload
    */
   startUpload() {
@@ -117,13 +177,6 @@ export class EventPhotographerComponent implements OnInit {
         this.uploadFiles[i].progress =
           snapshot.bytesTransferred / snapshot.totalBytes * 100;
       });
-
-      // https://github.com/angular/angularfire2/pull/1369#issuecomment-353218199
-      uploadTask.then().then(a => {
-        this.uploadFiles[i].url = a.metadata.downloadURLs[0];
-        this.afs.setPictureData(this.uploadFiles[i]);
-      });
     }
-    this.uploadFiles = [];
   }
 }
