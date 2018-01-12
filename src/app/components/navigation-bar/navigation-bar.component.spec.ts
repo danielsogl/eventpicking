@@ -2,6 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { AsyncLocalStorageModule } from 'angular-async-local-storage';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {
@@ -24,6 +25,7 @@ describe('NavigationBarComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           RouterTestingModule,
+          AsyncLocalStorageModule,
           AngularFireModule.initializeApp(environment.firebase),
           TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useClass: FakeLoader }

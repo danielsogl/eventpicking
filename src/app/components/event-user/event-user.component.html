@@ -53,7 +53,7 @@
             <div class="card-body">
               <table>
                 <td>
-                  <a class="icon-button" id="button_picture{{i}}_mark" style="color: #3f51b5">
+                  <a class="icon-button" id="button_picture{{i}}_mark" [ngStyle]="image.slected && { 'color': '#3f51b5' }">
                     <i class="fa fa-star fa-3x" aria-hidden="true">&nbsp;</i>
                   </a>
                 </td>
@@ -93,7 +93,6 @@
         <div class="col-3">
           <div class="md-form form-sm" style="margin-right: 30px; margin-left: 20px">
             <input placeholder="{{ 'TEXTS.SEARCH_PICTURES' | translate }}" type="text" id="search_photo" class="form-control">
-            <label for="search_photo"></label>
           </div>
         </div>
 

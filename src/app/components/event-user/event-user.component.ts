@@ -66,4 +66,6 @@ export class EventUserComponent implements OnInit {
   openImageModal(image: EventPicture) {
     this.pictureModal.showModal(image, this.printingHouse);
   }
+
+  reportImage(image: EventPicture) {}
 }
