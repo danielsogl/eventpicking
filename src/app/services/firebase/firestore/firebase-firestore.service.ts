@@ -242,8 +242,12 @@ export class FirebaseFirestoreService {
    * @param  {string} url URL
    * @returns {AngularFirestoreDocument<any>}
    */
-  getPhotographerByUrl(url: string): AngularFirestoreDocument<any> {
-    return this.afs.doc(`/photographerUrls/${url}`);
+  getPhotographerByUrl(
+    url: string
+  ): AngularFirestoreCollection<PhotographerProfile> {
+    return this.afs.collection('photographer', ref =>
+      ref.where('profileUrl', '==', url)
+    );
   }
 
   /**

@@ -39,17 +39,11 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
         this.afs
           .getPhotographerByUrl(this.photographerUrl)
           .valueChanges()
-          .subscribe(data => {
-            this.log.d('Photographer UID', data.uid);
-            this.afs
-              .getPhotographerProfile(data.uid)
-              .valueChanges()
-              .subscribe(photographer => {
-                this.photographer = photographer;
-                this.log.d('Photographer Profile', this.photographer);
-              });
+          .subscribe(photographer => {
+            this.log.d('Photographer UID');
+            this.photographer = photographer[0];
             this.events = this.afs
-              .getPhotographerEvents(data.uid)
+              .getPhotographerEvents(this.photographer.uid)
               .valueChanges();
           });
       }
