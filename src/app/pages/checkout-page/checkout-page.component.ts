@@ -3,7 +3,7 @@ import { Log } from 'ng2-logger';
 
 /**
  * Checkout page component
- * @author Daniel Sogl
+ * @author Daniel Sogl, Anna Riesch
  */
 @Component({
   selector: 'app-checkout-page',
