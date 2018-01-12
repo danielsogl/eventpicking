@@ -51,3 +51,7 @@ exports.deleteImageHandler = event => {
         });
     });
 };
+
+exports.deleateUserFromDBHandler = event => {};
+
+exports.deleteuserFromFirebaseHandler = event => {};
