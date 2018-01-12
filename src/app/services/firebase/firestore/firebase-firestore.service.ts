@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
-} from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
@@ -49,7 +45,7 @@ export class FirebaseFirestoreService {
     }
     if (!user.photoUrl) {
       user.photoUrl =
-        'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
+        'https://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
     }
     if (user.photographerUrl) {
       this.afs
@@ -256,32 +252,6 @@ export class FirebaseFirestoreService {
    */
   getAllPhotographer(): AngularFirestoreCollection<PhotographerProfile> {
     return this.afs.collection('photographer');
-  }
-
-  /**
-   * Process payment
-   * @param  {any} token Token
-   * @param  {any} product Product
-   * @param  {string} uid UID
-   * @returns {Promise<any>}
-   */
-  processPayment(token: any, product: any, uid: string): Promise<any> {
-    this.log.d('Token', token);
-    this.log.d('product', product);
-    product.token = token;
-    return this.afs
-      .collection('users')
-      .doc(uid)
-      .set(
-        {
-          subscription: {
-            membership: product.name.toLowerCase(),
-            token: token.id,
-            status: 'processing'
-          }
-        },
-        { merge: true }
-      );
   }
 
   /**

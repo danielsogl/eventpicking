@@ -11,9 +11,9 @@
             <td class="card">
               <div class="card-body">
                 <p class="card-text text-left">
-                  {{ p.name }}
-                  <br> {{ p.address.street }}
-                  <br> {{ p.address.zip }} - {{ p.address.city }} {{ p.address.street }}
+                  {{ p?.name }}
+                  <br> {{ p?.address?.street }}
+                  <br> {{ p?.address?.zip }} - {{ p?.address?.city }} {{ p?.address?.street }}
                 </p>
               </div>
             </td>
@@ -28,9 +28,9 @@
           <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
             <ng-template>
               <div class="text-left">
-                {{ p.name }}
-                <br> {{ p.address.street }}
-                <br> {{ p.address.zip }} - {{ p.address.city }} {{ p.address.street }}
+                {{ p?.name }}
+                <br> {{ p?.address?.street }}
+                <br> {{ p?.address?.zip }} - {{ p?.address?.city }} {{ p?.address?.street }}
               </div>
             </ng-template>
           </agm-snazzy-info-window>
