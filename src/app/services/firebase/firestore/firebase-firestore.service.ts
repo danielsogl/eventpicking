@@ -240,7 +240,7 @@ export class FirebaseFirestoreService {
   /**
    * Get photogreapher by url
    * @param  {string} url URL
-   * @returns {AngularFirestoreDocument<any>}
+   * @returns {AngularFirestoreCollection<PhotographerProfile>}
    */
   getPhotographerByUrl(
     url: string
