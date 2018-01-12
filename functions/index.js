@@ -9,16 +9,27 @@ admin.initializeApp(functions.config().firebase);
 // Function modules
 const imageModule = require('./transform-image.js');
 const eventModule = require('./events.js');
+const cleanUpModule = require('./clean-up.js');
 
 /**
  * Transform Image
+ * @author Daniel Sogl, Dennis Maurer
  */
 exports.transformImage = functions.storage
   .object('events/{photographer}/{eventID}')
   .onChange(imageModule.transformImageHandler);
 
 /**
+ * Delete Image
+ * @author Daniel Sogl, Dennis Maurer
+ */
+exports.deleteImage = functions.firestore
+  .document('events/{eventID}/images/{imageID}')
+  .onDelete(cleanUpModule.deleteImageHandler);
+
+/**
  * Decrease events left counter
+ * @author Daniel Sogl, Dennis Maurer
  */
 exports.decreaseEventsLeft = functions.firestore
   .document('events/{eventID}')
@@ -26,6 +37,7 @@ exports.decreaseEventsLeft = functions.firestore
 
 /**
  * Increase events left counter
+ * @author Daniel Sogl, Dennis Maurer
  */
 exports.increaseEventsLeft = functions.firestore
   .document('events/{eventID}')

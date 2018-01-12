@@ -186,6 +186,7 @@ export class SignupPageComponent implements OnInit {
           uid: user.uid,
           website: '',
           photoUrl: user.photoUrl,
+          profileUrl: user.photographerUrl,
           premium: false,
           location: {
             lat: 0,

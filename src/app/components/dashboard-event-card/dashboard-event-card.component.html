@@ -1,4 +1,4 @@
-<div class="card card-cascade" *ngIf="event">
+<div class="card card-cascade" *ngIf="event && !event.deleted">
 
   <!--Card image-->
   <div class="view gradient-card-header indigo">
@@ -27,4 +27,29 @@
   </div>
   <!-- Card footer -->
 
+</div>
+
+<div class="card card-cascade" *ngIf="event && event.deleted">
+  <!--Card image-->
+  <div class="view gradient-card-header danger-color">
+    <h2 class="h2-responsive">{{ event.name }}</h2>
+    <p>{{ event.location }}</p>
+  </div>
+  <!--/Card image-->
+
+  <!--Card content-->
+  <div class="card-body">
+    <h3 class="text-danger">Event deleted
+    </h3>
+  </div>
+  <!-- /Card content-->
+
+  <!-- Card footer -->
+  <div class="card-data text-left">
+    <ul>
+      <li>
+        <i class="fa fa-clock-o"></i>{{ event.date }}</li>
+    </ul>
+  </div>
+  <!-- Card footer -->
 </div>

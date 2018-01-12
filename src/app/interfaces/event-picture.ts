@@ -13,6 +13,8 @@ export interface EventPicture {
   ratings: number;
   /** Thumbnail url */
   thumbnail: string;
+  /** Image Id */
+  id: string;
 }
 /**
  * Image info interface
