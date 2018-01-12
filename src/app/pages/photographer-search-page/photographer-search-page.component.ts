@@ -36,6 +36,7 @@ export class PhotographerSearchPageComponent implements OnInit {
     uid: '',
     website: '',
     premium: false,
+    profileUrl: '',
     location: {
       lat: 0,
       lng: 0
