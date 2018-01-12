@@ -29,7 +29,7 @@ exports.deleteImage = functions.firestore
 
 /**
  * Decrease events left counter
- * @author Daniel Sogl
+ * @author Daniel Sogl, Dennis Maurer
  */
 exports.decreaseEventsLeft = functions.firestore
   .document('events/{eventID}')
@@ -37,7 +37,7 @@ exports.decreaseEventsLeft = functions.firestore
 
 /**
  * Increase events left counter
- * @author Daniel Sogl
+ * @author Daniel Sogl, Dennis Maurer
  */
 exports.increaseEventsLeft = functions.firestore
   .document('events/{eventID}')
