@@ -48,12 +48,12 @@
     <table>
       <td>
         <div class="card-columns">
-          <div class="card align-items-center" *ngFor="let image of (images  | async ); let i = index">
+          <div class="card align-items-center" *ngFor="let image of images; let i = index">
             <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
             <div class="card-body">
               <table>
                 <td>
-                  <a class="icon-button" id="button_picture{{i}}_mark" [ngStyle]="image.slected && { 'color': '#3f51b5' }">
+                  <a class="icon-button" id="button_picture{{i}}_mark" [ngStyle]="image.selected && { 'color': '#3f51b5' }" (click)="images[i].selected = !images[i].selected">
                     <i class="fa fa-star fa-3x" aria-hidden="true">&nbsp;</i>
                   </a>
                 </td>
@@ -66,7 +66,7 @@
                 </td>
 
                 <td>
-                  <a class="icon-button" id="button_picture{{i}}_report" style="color: #3f51b5">
+                  <a class="icon-button" id="button_picture{{i}}_report" style="color: #3f51b5" (click)="reportImage(image)">
                     &nbsp;
                     <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true">&nbsp;</i>
                   </a>
@@ -108,6 +108,19 @@
       </div>
     </div>
     <br>
+    <!-- BILD -->
+    <table>
+      <td>
+        <div class="card-columns">
+          <div *ngFor="let image of images; let i = index">
+            <div class="card align-items-center" *ngIf="image.selected">
+              <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
+            </div>
+          </div>
+        </div>
+      </td>
+    </table>
+    <!-- BILD -->
   </mdb-tab>
 </mdb-tabset>
 

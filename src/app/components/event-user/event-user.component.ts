@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Log } from 'ng2-logger';
-import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
 import { PrintingHouse } from '../../classes/printing-house';
@@ -28,7 +27,7 @@ export class EventUserComponent implements OnInit {
   @ViewChild('pictureModal') pictureModal: any;
 
   public printingHouse: PrintingHouse;
-  public images: Observable<EventPicture[]>;
+  public images: EventPicture[];
 
   constructor(private afs: FirebaseFirestoreService) {}
 
@@ -44,10 +43,19 @@ export class EventUserComponent implements OnInit {
 
     // Load images
     if (this.event) {
-      this.images = this.afs.getEventPictures(this.event.id).valueChanges();
-      this.images.subscribe(images => {
-        this.log.d('Event Images', this.images);
-      });
+      this.afs
+        .getEventPictures(this.event.id)
+        .valueChanges()
+        .map((images: EventPicture[]) => {
+          for (let i = 0; i < images.length; i++) {
+            images[i].selected = false;
+          }
+          return images;
+        })
+        .subscribe(images => {
+          this.images = images;
+          this.log.d('Event images', this.images);
+        });
 
       this.afs
         .getPrintingHouseById(this.event.printinghouse)
