@@ -36,7 +36,7 @@ export class ShoppingCartComponent implements OnInit {
 
     // Load items from local storage
     this.localStorage
-      .getItem<ShoppingCartItem>('_cart-items')
+      .getItem<ShoppingCartItem>('cart-items')
       .subscribe(items => {
         if (items) {
           this.cartItems = items;
@@ -105,17 +105,8 @@ export class ShoppingCartComponent implements OnInit {
    * Delete shopping cart item
    * @param  {ShoppingCartItem} cartItem Item
    */
-  deleteCartItem(cartItem: ShoppingCartItem) {
-    for (let i = 0; i < this.cartItems.length; i++) {
-      this.log.info('iterate: ' + this.cartItems[i].key);
-      if (
-        this.cartItems[i].eventname === cartItem.eventname &&
-        this.cartItems[i].key === cartItem.key
-      ) {
-        this.log.info('delete: ' + this.cartItems[i].key);
-        this.cartItems.splice(i, 1);
-        this.calculateSum();
-      }
-    }
+  deleteCartItem(index: number) {
+    this.cartItems.splice(index, 1);
+    this.localStorage.setItem('cart-items', this.cartItems);
   }
 }

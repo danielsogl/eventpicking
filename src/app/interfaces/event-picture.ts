@@ -17,6 +17,8 @@ export interface EventPicture {
   id: string;
   /** Selected */
   selected?: boolean;
+  /** Amount */
+  amount?: number;
 }
 /**
  * Image info interface

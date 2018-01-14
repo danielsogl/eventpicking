@@ -37,7 +37,14 @@ export class NavigationBarComponent implements OnInit {
         this.user = user;
       }
     });
-    this.cartItems = 0;
+    this.localStorage
+      .getItem<ShoppingCartItem[]>('cart-items')
+      .subscribe(items => {
+        if (items) {
+          this.cartItems = items.length;
+        }
+        this.log.d('Shopping cart items', this.cartItems);
+      });
   }
 
   /**
@@ -46,14 +53,6 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
-    this.localStorage
-      .getItem<ShoppingCartItem[]>('_cart-items')
-      .subscribe(items => {
-        if (items) {
-          this.cartItems = items.length;
-        }
-        this.log.d('Shopping cart items', this.cartItems);
-      });
   }
 
   /**
