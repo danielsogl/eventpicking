@@ -154,7 +154,8 @@
     "PRICING_LIST_POSITION":
       "With upgrading to a premium account the photographer will always be listed on the first position of nearby photographers.",
     "PRICING_MORE_ATTENTION": "Receive more attention from customers",
-    "PRICING_FIRST_POSITION": "Be always on the first position"
+    "PRICING_FIRST_POSITION": "Be always on the first position",
+    "NO_PHOTOGRAPHERS_FOUND": "There are no photographers in your area"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",

@@ -63,6 +63,10 @@
   margin-bottom: 5px;
 }
 
-.fa-map-marker {
-  vertical-align: middle;
+.card:hover {
+  background-color: #f5f5f5;
+}
+
+.card:active {
+  background-color: #e0e0e0;
 }

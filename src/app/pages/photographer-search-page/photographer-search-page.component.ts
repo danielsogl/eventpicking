@@ -21,7 +21,13 @@ export class PhotographerSearchPageComponent implements OnInit {
   private log = Log.create('PhotographerSearchPageComponent');
 
   /** Photographer profiles collection */
-  public photographer: Observable<PhotographerProfile[]>;
+  public photographer: PhotographerProfile[] = [];
+
+  /** Edited photographer profiles collection */
+  public editedPhotographer: PhotographerProfile[] = [];
+
+  /** indicator for parting line */
+  public hasBothProfiles: boolean;
 
   /** Photographer profile */
   public photograph: PhotographerProfile = {
@@ -43,9 +49,9 @@ export class PhotographerSearchPageComponent implements OnInit {
     }
   };
 
-  /** save browserposition */
-  private positionlat: number;
-  private positionlng: number;
+  /** position of user */
+  private userLat: number;
+  private userLng: number;
 
   /** Google maps ref */
   @ViewChild('map') public agmMap: AgmMap;
@@ -65,13 +71,15 @@ export class PhotographerSearchPageComponent implements OnInit {
     // Init map
     this.agmMap.latitude = 51.165691;
     this.agmMap.longitude = 10.451526000000058;
-    this.agmMap.zoom = 10;
+    this.agmMap.zoom = 11;
 
     // Load all photographer profiles
-    this.photographer = this.afs.getAllPhotographer().valueChanges();
-    this.photographer.subscribe(photographer => {
-      this.log.d('Photographerprofiles', photographer);
-    });
+    this.afs
+      .getAllPhotographer()
+      .valueChanges()
+      .subscribe(photographer => {
+        this.photographer = photographer;
+      });
 
     // Get browser geolocation
     if (!!navigator.geolocation) {
@@ -81,33 +89,36 @@ export class PhotographerSearchPageComponent implements OnInit {
         .then(position => {
           this.log.d('Current position', position.coords);
           this.setPosition(position.coords.latitude, position.coords.longitude);
-          this.positionlat = position.coords.latitude;
-          this.positionlng = position.coords.longitude;
+          this.userLat = position.coords.latitude;
+          this.userLng = position.coords.longitude;
         })
         .catch((err: any) => {
           this.log.er('Error getting location', err);
         });
     }
+    // Show photographer profiles of users area
+    this.refreshPhotographerList();
   }
 
+  /** return number of kilometres between a certain photographer and the user position */
   getPhotographerDistance(photographer: PhotographerProfile) {
     return this.geolocation.calculateGpsDistance(
       photographer.location.lat,
       photographer.location.lng,
-      this.positionlat,
-      this.positionlng
+      this.userLat,
+      this.userLng
     );
   }
 
   /**
-   * Set the possition on the map
+   * Set the position on the map
    * @param  {number} latitude Latitude
    * @param  {number} longitude Longitude
    */
   setPosition(latitude: number, longitude: number) {
     this.agmMap.latitude = latitude;
     this.agmMap.longitude = longitude;
-    this.agmMap.zoom = 15;
+    this.agmMap.zoom = 11;
     this.agmMap.triggerResize();
   }
 
@@ -116,6 +127,7 @@ export class PhotographerSearchPageComponent implements OnInit {
     if (+event.target.value && event.target.value.length === 5) {
       this.handleEnteredZip(event.target.value);
     }
+    // TODO: Alert for valid and invalid zip
   }
 
   /** get entered zip, convert zip to coordinates, refresh map */
@@ -128,10 +140,46 @@ export class PhotographerSearchPageComponent implements OnInit {
           this.photograph.location.lat,
           this.photograph.location.lng
         );
-        // TODO: Fotografenliste aktualisieren (Radius 10-20km)
+        this.userLat = this.photograph.location.lat;
+        this.userLng = this.photograph.location.lng;
+        this.refreshPhotographerList();
       } else {
         this.log.error('Cannot get location from Service');
       }
     });
+  }
+
+  /** add photographers to displayed list when they are in the users area */
+  refreshPhotographerList() {
+    // clean displayed list
+    if (this.editedPhotographer) {
+      this.editedPhotographer.splice(0);
+    }
+
+    let hasPremium: boolean;
+    let hasStandard: boolean;
+    hasPremium = false;
+    hasStandard = false;
+    this.hasBothProfiles = false;
+
+    for (let i = 0; i < this.photographer.length; i++) {
+      let distance: number;
+      distance = this.getPhotographerDistance(this.photographer[i]);
+
+      // add all photographers in the circle of 10 kilometres
+      if (distance < 10) {
+        this.editedPhotographer.push(this.photographer[i]);
+
+        /** check whether parting line is required */
+        if (this.photographer[i].premium) {
+          hasPremium = true;
+        } else if (!this.photographer[i].premium) {
+          hasStandard = true;
+        }
+      }
+    }
+    if (hasPremium && hasStandard) {
+      this.hasBothProfiles = true;
+    }
   }
 }
