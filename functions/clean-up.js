@@ -1,3 +1,5 @@
+import { userInfo } from 'os';
+
 /**
  * Clean-Up function handler
  * @author Daniel Sogl, Dennis Maurer
@@ -54,4 +56,14 @@ exports.deleteImageHandler = event => {
 
 exports.deleateUserFromDBHandler = event => {};
 
-exports.deleteuserFromFirebaseHandler = event => {};
+exports.deleteuserFromFirebaseHandler = event => {
+  return admin
+    .auth()
+    .deleteUser(uid)
+    .then(function() {
+      console.log("Successfully deleted user");
+    })
+    .catch(function(error) {
+      console.log("Error deleting user:", error);
+    });
+};
