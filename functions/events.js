@@ -22,7 +22,7 @@ exports.decreaseEventsLeftHandler = event => {
     .collection('users')
     .doc(photographerUid)
     .get()
-    .then(function(profile) {
+    .then(profile => {
       return admin
         .firestore()
         .collection('users')
@@ -40,7 +40,6 @@ exports.decreaseEventsLeftHandler = event => {
 };
 
 exports.increaseEventsLeftHandler = event => {
-  ``;
   var eventData = event.data.data();
   var photographerUid = eventData.photographerUid;
 
@@ -49,7 +48,7 @@ exports.increaseEventsLeftHandler = event => {
     .collection('users')
     .doc(photographerUid)
     .get()
-    .then(function(profile) {
+    .then(profile => {
       return admin
         .firestore()
         .collection('users')

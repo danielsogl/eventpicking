@@ -51,3 +51,33 @@ exports.deleteImageHandler = event => {
         });
     });
 };
+
+exports.deleteUserFromDBHandler = event => {
+  const user = event.data;
+  return admin
+    .firestore()
+    .collection('users')
+    .doc(user.uid)
+    .delete()
+    .then(() => {
+      console.log('Successfully deleted user from firestore');
+    })
+    .catch(err => {
+      console.log('Error deleting user from firestore:', err);
+    });
+};
+
+exports.deleteuserFromFirebaseHandler = event => {
+  const userID = event.params.userID;
+
+  // Delete user from firebase
+  return admin
+    .auth()
+    .deleteUser(userID)
+    .then(() => {
+      console.log('Successfully deleted user');
+    })
+    .catch(error => {
+      console.log('Error deleting user:', error);
+    });
+};

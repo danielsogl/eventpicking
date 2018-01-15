@@ -37,8 +37,6 @@ describe('EventPageComponent', () => {
           AngularFireAuth,
           FirebaseAuthService,
           FirebaseFirestoreService,
-          FirebaseStorageService,
-          AngularFireStorage,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [EventPageComponent],

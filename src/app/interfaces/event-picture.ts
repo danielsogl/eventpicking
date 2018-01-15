@@ -15,6 +15,10 @@ export interface EventPicture {
   thumbnail: string;
   /** Image Id */
   id: string;
+  /** Selected */
+  selected?: boolean;
+  /** Amount */
+  amount?: number;
 }
 /**
  * Image info interface

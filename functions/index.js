@@ -42,3 +42,19 @@ exports.decreaseEventsLeft = functions.firestore
 exports.increaseEventsLeft = functions.firestore
   .document('events/{eventID}')
   .onDelete(eventModule.increaseEventsLeftHandler);
+
+/**
+ * Delete user from DB including events
+ * @author Daniel Sogl, Dennis Maurer
+ */
+exports.deleteUserFromDB = functions.auth
+  .user()
+  .onDelete(cleanUpModule.deleteUserFromDBHandler);
+
+/**
+ * Delete user from firebase
+ * @author Daniel Sogl, Dennis Maurer
+ */
+exports.deleteUserFromFirebase = functions.firestore
+  .document('users/{userID}')
+  .onDelete(cleanUpModule.deleteuserFromFirebaseHandler);

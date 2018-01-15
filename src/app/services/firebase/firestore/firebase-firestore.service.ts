@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
@@ -216,6 +220,21 @@ export class FirebaseFirestoreService {
       .collection('images')
       .doc(image)
       .delete();
+  }
+
+  /**
+   * Update event picture information
+   * @param  {EventPicture} image Image object
+   * @param  {string} event Event id
+   * @returns {Promise<void>}
+   */
+  updateImage(image: EventPicture, event: string): Promise<void> {
+    return this.afs
+      .collection('events')
+      .doc(event)
+      .collection('images')
+      .doc(image.id)
+      .update(JSON.parse(JSON.stringify(image)));
   }
 
   /************************************
