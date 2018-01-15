@@ -55,65 +55,31 @@ exports.deleteImageHandler = event => {
 };
 
 exports.deleateUserFromDBHandler = event => {
-  const userID = event.params.userID;
-
-  // Delete events
-
-  // Delete user from firebase
+  const user = event.data;
   return admin
-    .auth()
-    .deleteUser(userID)
-    .then(function() {
-      console.log('Successfully deleted user');
+    .firestore()
+    .collection('users')
+    .doc(user.uid)
+    .delete()
+    .then(() => {
+      console.log('Successfully deleted user from firestore');
     })
-    .catch(function(error) {
-      console.log('Error deleting user:', error);
+    .catch(err => {
+      console.log('Error deleting user from firestore:', err);
     });
 };
 
 exports.deleteuserFromFirebaseHandler = event => {
   const userID = event.params.userID;
+
+  // Delete user from firebase
+  return admin
+    .auth()
+    .deleteUser(userID)
+    .then(() => {
+      console.log('Successfully deleted user');
+    })
+    .catch(error => {
+      console.log('Error deleting user:', error);
+    });
 };
-
-function deleteCollection(db, collectionPath, batchSize) {
-  var collectionRef = db.collection(collectionPath);
-  var query = collectionRef.orderBy('__name__').limit(batchSize);
-
-  return new Promise((resolve, reject) => {
-    deleteQueryBatch(db, query, batchSize, resolve, reject);
-  });
-}
-
-function deleteQueryBatch(db, query, batchSize, resolve, reject) {
-  query
-    .get()
-    .then(snapshot => {
-      // When there are no documents left, we are done
-      if (snapshot.size == 0) {
-        return 0;
-      }
-
-      // Delete documents in a batch
-      var batch = db.batch();
-      snapshot.docs.forEach(doc => {
-        batch.delete(doc.ref);
-      });
-
-      return batch.commit().then(() => {
-        return snapshot.size;
-      });
-    })
-    .then(numDeleted => {
-      if (numDeleted === 0) {
-        resolve();
-        return;
-      }
-
-      // Recurse on the next process tick, to avoid
-      // exploding the stack.
-      process.nextTick(() => {
-        deleteQueryBatch(db, query, batchSize, resolve, reject);
-      });
-    })
-    .catch(reject);
-}
