@@ -58,43 +58,40 @@
   </mdb-tab>
 </mdb-tabset>
 
+<!-- Detail picture modal -->
 <app-picture-detail #pictureModal></app-picture-detail>
 
 <ng-template #imgBigOverview>
-  <table>
-    <td>
-      <div class="card-columns">
-        <div class="card card-outline-primary z-depth-1" *ngFor="let image of images; let i = index">
-          <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
-          <div class="card-body">
-            <table>
-              <tr>
-                <td>
-                  <a class="icon-button" id="button_picture{{i}}_mark" [ngStyle]="image.selected && { 'color': '#3f51b5' }" (click)="images[i].selected = !images[i].selected">
-                    <i class="fa fa-check fa-2x" aria-hidden="true">&nbsp;</i>
-                  </a>
-                </td>
+  <div class="card-columns">
+    <div class="card card-outline-primary z-depth-1" *ngFor="let image of images; let i = index">
+      <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
+      <div class="card-body">
+        <table>
+          <tr>
+            <td>
+              <a class="icon-button" id="button_picture{{i}}_mark" [ngStyle]="image.selected && { 'color': '#3f51b5' }" (click)="images[i].selected = !images[i].selected">
+                <i class="fa fa-check fa-2x" aria-hidden="true">&nbsp;</i>
+              </a>
+            </td>
 
-                <td>
-                  <a class="icon-button" id="button_picture{{i}}_like" style="color: #3f51b5">
-                    &nbsp;
-                    <i class="fa fa-heart fa-2x" aria-hidden="true">&nbsp;</i>
-                  </a>
-                </td>
+            <td>
+              <a class="icon-button" id="button_picture{{i}}_like" style="color: #3f51b5" (click)="rateImage(image)">
+                &nbsp;
+                <i class="fa fa-heart fa-2x" aria-hidden="true">&nbsp;{{ image.ratings }}</i>
+              </a>
+            </td>
 
-                <td>
-                  <a class="icon-button" id="button_picture{{i}}_report" style="color: #3f51b5" (click)="reportImage(image)">
-                    &nbsp;
-                    <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true">&nbsp;</i>
-                  </a>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
+            <td>
+              <a class="icon-button" id="button_picture{{i}}_report" style="color: #ff4848" (click)="reportImage(image)">
+                &nbsp;
+                <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true">&nbsp;</i>
+              </a>
+            </td>
+          </tr>
+        </table>
       </div>
-    </td>
-  </table>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #imgSmalOverview>
@@ -103,17 +100,13 @@
 </ng-template>
 
 <ng-template #imgBigMarked>
-  <table>
-    <td>
-      <div class="card-columns">
-        <div *ngFor="let image of images; let i = index">
-          <div class="card card-outline-primary z-depth-1" *ngIf="image.selected">
-            <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
-          </div>
-        </div>f
+  <div class="card-columns">
+    <div *ngFor="let image of images; let i = index">
+      <div class="card card-outline-primary z-depth-1" *ngIf="image.selected">
+        <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
       </div>
-    </td>
-  </table>
+    </div>
+  </div>
 </ng-template>
 <ng-template #imgSmalMarked>
   <div *ngFor="let image of images; let i = index">
@@ -121,3 +114,31 @@
       (click)="openImageModal(image)">
   </div>
 </ng-template>
+
+
+<div mdbModal #reportImageModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <p class="heading lead">{{ 'LABELS.REPORT_IMAGE' | translate}}</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="reportImageModal.hide()">
+          <span aria-hidden="true" class="white-text">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <p>{{ 'TEXTS.DESCRIBE_REPORT' | translate}}</p>
+          <br>
+          <div class="md-form">
+            <textarea class="md-textarea" type="text" length="250" mdbCharCounter mdbActive></textarea>
+            <label for="input_text">{{ 'LABELS.TYPE_HERE' | translate}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger waves-light" (click)="reportImageModal.hide()" mdbRippleRadius>{{ 'BUTTONS.SEND_REPORT' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,18 +17,31 @@ import { FirebaseFirestoreService } from '../../services/firebase/firestore/fire
   styleUrls: ['./photographer-page.component.scss']
 })
 export class PhotographerPageComponent implements OnInit, OnDestroy {
+  /** Logger */
   private log = Log.create('PhotographerPageComponent');
 
+  /** Router sub */
   private sub: any;
+  /** Photograpehr url */
   private photographerUrl: string;
+  /** Photographer */
   public photographer: PhotographerProfile;
+  /** Events */
   public events: Observable<Event[]>;
 
+  /**
+   * Constructor
+   * @param  {ActivatedRoute} router Activated Route
+   * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
+   */
   constructor(
     private router: ActivatedRoute,
     private afs: FirebaseFirestoreService
   ) {}
 
+  /**
+   * Initialize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
@@ -50,6 +63,9 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Unload component
+   */
   ngOnDestroy() {
     this.sub.unsubscribe();
   }

@@ -2,17 +2,17 @@ import {
   Component,
   Input,
   OnInit,
-  ViewChild,
-  TemplateRef
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
 import { AsyncLocalStorage } from 'angular-async-local-storage';
+import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../classes/event';
 import { PrintingHouse } from '../../classes/printing-house';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
-import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 
 /**
@@ -35,6 +35,8 @@ export class EventUserComponent implements OnInit {
 
   /** TemplateRef pictureModal */
   @ViewChild('pictureModal') pictureModal: any;
+  /** TemplateRef reportImageModal */
+  @ViewChild('reportImageModal') reportImageModal: ModalDirective;
   /** TemplateRef imgBigOverview */
   @ViewChild('imgBigOverview') imgBigOverview: TemplateRef<any>;
   /** TemplateRef imgSmalOverview */
@@ -120,5 +122,31 @@ export class EventUserComponent implements OnInit {
     }
   }
 
-  reportImage(image: EventPicture) {}
+  /**
+   * Upvote image
+   * @param  {EventPicture} image Image object
+   */
+  rateImage(image: EventPicture) {
+    if (this.user) {
+      image.ratings++;
+      this.afs
+        .updateImage(image, this.event.id)
+        .then(() => {
+          this.log.d('Upvoted image');
+        })
+        .catch(err => {
+          this.log.er('Error upvoting image', err);
+        });
+    } else {
+      window.alert('Sign in to rate images');
+    }
+  }
+
+  /**
+   * Report image
+   * @param  {EventPicture} image Image object
+   */
+  reportImage(image: EventPicture) {
+    this.reportImageModal.show();
+  }
 }

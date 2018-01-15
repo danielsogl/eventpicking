@@ -11,10 +11,14 @@ import { Log } from 'ng2-logger';
   styleUrls: ['./checkout-page.component.scss']
 })
 export class CheckoutPageComponent implements OnInit {
+  /** Logger */
   private log = Log.create('CheckoutPageComponent');
 
+  /**  */
   public contactDetailsStatus: string;
+  /**  */
   public paymentDeliveryStatus: string;
+  /**  */
   public checkOrderStatus: string;
 
   public template: TemplateRef<any>;

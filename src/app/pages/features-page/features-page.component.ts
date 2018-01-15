@@ -11,10 +11,17 @@ import { Log } from 'ng2-logger';
   styleUrls: ['./features-page.component.scss']
 })
 export class FeaturesPageComponent implements OnInit {
+  /** Logger */
   private log = Log.create('FeaturesPageComponent');
 
+  /**
+   * Constructor
+   */
   constructor() {}
 
+  /**
+   * Initalize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
