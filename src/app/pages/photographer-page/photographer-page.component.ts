@@ -17,18 +17,31 @@ import { FirebaseFirestoreService } from '../../services/firebase/firestore/fire
   styleUrls: ['./photographer-page.component.scss']
 })
 export class PhotographerPageComponent implements OnInit, OnDestroy {
+  /** Logger */
   private log = Log.create('PhotographerPageComponent');
 
+  /** Router sub */
   private sub: any;
+  /** Photograpehr url */
   private photographerUrl: string;
+  /** Photographer */
   public photographer: PhotographerProfile;
+  /** Events */
   public events: Observable<Event[]>;
 
+  /**
+   * Constructor
+   * @param  {ActivatedRoute} router Activated Route
+   * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
+   */
   constructor(
     private router: ActivatedRoute,
     private afs: FirebaseFirestoreService
   ) {}
 
+  /**
+   * Initialize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
@@ -39,23 +52,20 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
         this.afs
           .getPhotographerByUrl(this.photographerUrl)
           .valueChanges()
-          .subscribe(data => {
-            this.log.d('Photographer UID', data.uid);
-            this.afs
-              .getPhotographerProfile(data.uid)
-              .valueChanges()
-              .subscribe(photographer => {
-                this.photographer = photographer;
-                this.log.d('Photographer Profile', this.photographer);
-              });
+          .subscribe(photographer => {
+            this.log.d('Photographer UID');
+            this.photographer = photographer[0];
             this.events = this.afs
-              .getPhotographerEvents(data.uid)
+              .getPhotographerEvents(this.photographer.uid)
               .valueChanges();
           });
       }
     });
   }
 
+  /**
+   * Unload component
+   */
   ngOnDestroy() {
     this.sub.unsubscribe();
   }

@@ -74,11 +74,12 @@
     "SEND_ORDER": "Pay Pal Button",
     "ABO": "Buy now",
     "SELECT_PICTURES": "Select all pictures",
-    "ADD_PICTURES_TO_CARD": "Add selected pictures to cart",
+    "ADD_PICTURES_TO_CART": "Add selected pictures to cart",
     "START_UPLOAD": "Start Upload",
     "DELETE_EVENT": "Delete Event",
     "LOGINNOW": "Login Now",
-    "FIND_EVENT": "Find your event"
+    "FIND_EVENT": "Find your event",
+    "SEND_REPORT": "Send Report"
   },
   "LABELS": {
     "ADDRESS": "Address",
@@ -119,7 +120,9 @@
     "EVENT_PASSWORD": "Password",
     "PHOTOGRAPHER": "Photographer",
     "EVENT_GUEST": "Guest",
-    "EVENT_ORGANISATOR": "Event Organisator"
+    "EVENT_ORGANISATOR": "Event Organisator",
+    "REPORT_IMAGE": "Report Image",
+    "TYPE_HERE": "Type Here"
   },
   "TABLE": {
     "NAME": "Name",
@@ -146,6 +149,7 @@
     "PRICING_MONTHLY": "month",
     "PRICING_PICTURE_AMOUNT": "pictures per album",
     "PRICING_CANCEL": "Monthly cancellable",
+    "SEARCH_PHOTOGRAPHER": "Search photographer by ZIP",
     "EVENT_ALL_PICTURES": "All pictures",
     "EVENT_SELECTED_PICTURES": "Selected pictures",
     "SEARCH_PICTURES": "Search for pictures by name",
@@ -153,7 +157,9 @@
     "PRICING_LIST_POSITION":
       "With upgrading to a premium account the photographer will always be listed on the first position of nearby photographers.",
     "PRICING_MORE_ATTENTION": "Receive more attention from customers",
-    "PRICING_FIRST_POSITION": "Be always on the first position"
+    "PRICING_FIRST_POSITION": "Be always on the first position",
+    "NO_PHOTOGRAPHERS_FOUND": "There are no photographers in your area",
+    "DESCRIBE_REPORT": "Describe why you want to report this image"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",

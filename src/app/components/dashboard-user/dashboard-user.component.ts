@@ -20,6 +20,11 @@ export class DashboardUserComponent implements OnInit {
   /** Firebase user */
   public user: User;
 
+  /**
+   * Constructor
+   * @param  {FirebaseAuthService} auth Firebase Auth Service
+   * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
+   */
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService

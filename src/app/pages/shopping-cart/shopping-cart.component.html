@@ -24,7 +24,7 @@
       <!-- END table headings-->
       <tbody>
         <!-- dynamic table row that iterates through shoppingCartItems array -->
-        <tr *ngFor="let cartItem of cartItems">
+        <tr *ngFor="let cartItem of cartItems; let i = index">
           <td class="vertical-mid">
             <img src="{{cartItem.url}}" class="img-thumbnail mr-2" />
             <span data-toggle="tooltip" data-placement="right" title="{{cartItem.eventname}}">{{cartItem.key}}</span>
@@ -41,7 +41,7 @@
           </td>
           <td class="vertical-mid">{{cartItem.totalPrice | number:'0.2-2' | replace:'.':','}}€</td>
           <td class="vertical-mid">
-            <i class="fa fa-2x fa-trash clickable clickeffect" aria-hidden="true" (click)="deleteCartItem(cartItem)"></i>
+            <i class="fa fa-2x fa-trash clickable clickeffect" aria-hidden="true" (click)="deleteCartItem(i)"></i>
           </td>
         </tr>
         <!-- END dynamic table row -->

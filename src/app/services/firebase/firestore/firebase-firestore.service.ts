@@ -49,7 +49,7 @@ export class FirebaseFirestoreService {
     }
     if (!user.photoUrl) {
       user.photoUrl =
-        'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
+        'https://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
     }
     if (user.photographerUrl) {
       this.afs
@@ -222,6 +222,21 @@ export class FirebaseFirestoreService {
       .delete();
   }
 
+  /**
+   * Update event picture information
+   * @param  {EventPicture} image Image object
+   * @param  {string} event Event id
+   * @returns {Promise<void>}
+   */
+  updateImage(image: EventPicture, event: string): Promise<void> {
+    return this.afs
+      .collection('events')
+      .doc(event)
+      .collection('images')
+      .doc(image.id)
+      .update(JSON.parse(JSON.stringify(image)));
+  }
+
   /************************************
    * Firestore: Photographer Profile
    ************************************/
@@ -240,10 +255,14 @@ export class FirebaseFirestoreService {
   /**
    * Get photogreapher by url
    * @param  {string} url URL
-   * @returns {AngularFirestoreDocument<any>}
+   * @returns {AngularFirestoreCollection<PhotographerProfile>}
    */
-  getPhotographerByUrl(url: string): AngularFirestoreDocument<any> {
-    return this.afs.doc(`/photographerUrls/${url}`);
+  getPhotographerByUrl(
+    url: string
+  ): AngularFirestoreCollection<PhotographerProfile> {
+    return this.afs.collection('photographer', ref =>
+      ref.where('profileUrl', '==', url)
+    );
   }
 
   /**
@@ -252,32 +271,6 @@ export class FirebaseFirestoreService {
    */
   getAllPhotographer(): AngularFirestoreCollection<PhotographerProfile> {
     return this.afs.collection('photographer');
-  }
-
-  /**
-   * Process payment
-   * @param  {any} token Token
-   * @param  {any} product Product
-   * @param  {string} uid UID
-   * @returns {Promise<any>}
-   */
-  processPayment(token: any, product: any, uid: string): Promise<any> {
-    this.log.d('Token', token);
-    this.log.d('product', product);
-    product.token = token;
-    return this.afs
-      .collection('users')
-      .doc(uid)
-      .set(
-        {
-          subscription: {
-            membership: product.name.toLowerCase(),
-            token: token.id,
-            status: 'processing'
-          }
-        },
-        { merge: true }
-      );
   }
 
   /**

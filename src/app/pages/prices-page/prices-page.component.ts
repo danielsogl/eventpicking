@@ -11,10 +11,17 @@ import { Log } from 'ng2-logger';
   styleUrls: ['./prices-page.component.scss']
 })
 export class PricesPageComponent implements OnInit {
+  /** Logger */
   private log = Log.create('PricesPageComponent');
 
+  /**
+   * Constructor
+   */
   constructor() {}
 
+  /**
+   * Initialize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');

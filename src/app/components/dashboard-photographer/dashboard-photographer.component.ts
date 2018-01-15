@@ -330,6 +330,7 @@ export class DashboardPhotographerComponent implements OnInit {
     if (this.publicProfileForm.valid && !this.publicProfileForm.untouched) {
       this.photographerProfile = this.publicProfileForm.getRawValue();
       this.photographerProfile.uid = this.user.uid;
+      this.photographerProfile.profileUrl = this.user.photographerUrl;
       this.log.d('Update public profile data', this.photographerProfile);
 
       this.geolocation
