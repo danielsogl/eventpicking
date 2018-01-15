@@ -35,7 +35,12 @@ export class GeolocationService {
       .toPromise();
   }
 
-  getCoordinatesFromZip(zip: string) {
+  /**
+   * Get location by zip
+   * @param  {string} zip
+   * @returns {Promise<any}
+   */
+  getCoordinatesFromZip(zip: string): Promise<any> {
     return this.http
       .get(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${zip},+Germany&key=${
@@ -45,6 +50,10 @@ export class GeolocationService {
       .toPromise();
   }
 
+  /**
+   * Returns the browser location
+   * @returns {Promise<any>}
+   */
   getBrowserLocation(): Promise<any> {
     return new Promise(function(resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -53,6 +62,11 @@ export class GeolocationService {
 
   /**
    * calculates distance between two locations
+   * @param  {number} latA latA
+   * @param  {number} lonA lonA
+   * @param  {number} latB latB
+   * @param  {number} lonB lonB
+   * @returns {number}
    */
   public calculateGpsDistance(
     latA: number,
@@ -77,9 +91,9 @@ export class GeolocationService {
   }
 
   /**
-   * Umrechnung von Grad zu Radiant
-   * @param  {number} degrees Grad
-   * @returns {number} Radiant Wert
+   * Calculate degrees to radiant
+   * @param  {number} degrees Degree
+   * @returns {number}
    */
   public degreesToRadians(degrees: number): number {
     return degrees * Math.PI / 180;

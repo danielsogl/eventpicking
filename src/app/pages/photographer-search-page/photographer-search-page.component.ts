@@ -1,7 +1,6 @@
 import { AgmMap } from '@agm/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Log } from 'ng2-logger';
-import { Observable } from 'rxjs/Observable';
 
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
@@ -49,13 +48,19 @@ export class PhotographerSearchPageComponent implements OnInit {
     }
   };
 
-  /** position of user */
+  /** Users Latitutde */
   private userLat: number;
+  /** Users Longitude */
   private userLng: number;
 
   /** Google maps ref */
   @ViewChild('map') public agmMap: AgmMap;
 
+  /**
+   * Constructor
+   * @param  {GeolocationService} geolocation Geolocation Service
+   * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
+   */
   constructor(
     private geolocation: GeolocationService,
     private afs: FirebaseFirestoreService
@@ -100,8 +105,12 @@ export class PhotographerSearchPageComponent implements OnInit {
     this.refreshPhotographerList();
   }
 
-  /** return number of kilometres between a certain photographer and the user position */
-  getPhotographerDistance(photographer: PhotographerProfile) {
+  /**
+   * return number of kilometres between a certain photographer and the user position
+   * @param  {PhotographerProfile} photographer Photographer profile
+   * @returns {number}
+   */
+  getPhotographerDistance(photographer: PhotographerProfile): number {
     return this.geolocation.calculateGpsDistance(
       photographer.location.lat,
       photographer.location.lng,
@@ -122,7 +131,10 @@ export class PhotographerSearchPageComponent implements OnInit {
     this.agmMap.triggerResize();
   }
 
-  /** return input value */
+  /**
+   * return input value
+   * @param  {any} eventm Event
+   */
   onKey(event: any) {
     if (+event.target.value && event.target.value.length === 5) {
       this.handleEnteredZip(event.target.value);
@@ -130,7 +142,10 @@ export class PhotographerSearchPageComponent implements OnInit {
     // TODO: Alert for valid and invalid zip
   }
 
-  /** get entered zip, convert zip to coordinates, refresh map */
+  /**
+   * get entered zip, convert zip to coordinates, refresh map
+   * @param  {string} zip ZIP
+   */
   handleEnteredZip(zip: string) {
     this.log.info('valid zip-length entered');
     this.geolocation.getCoordinatesFromZip(zip).then((result: any) => {
@@ -149,7 +164,9 @@ export class PhotographerSearchPageComponent implements OnInit {
     });
   }
 
-  /** add photographers to displayed list when they are in the users area */
+  /**
+   * add photographers to displayed list when they are in the users area
+   */
   refreshPhotographerList() {
     // clean displayed list
     if (this.editedPhotographer) {
