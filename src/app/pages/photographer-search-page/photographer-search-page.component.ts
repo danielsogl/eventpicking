@@ -8,7 +8,7 @@ import { GeolocationService } from '../../services/geolocation/geolocation.servi
 
 /**
  * Photographer search page component
- * @author Daniel Sogl
+ * @author Daniel Sogl, Tim Krießler
  */
 @Component({
   selector: 'app-photographer-search-page',
@@ -84,25 +84,27 @@ export class PhotographerSearchPageComponent implements OnInit {
       .valueChanges()
       .subscribe(photographer => {
         this.photographer = photographer;
+        // Get browser geolocation
+        if (!!navigator.geolocation) {
+          /* geolocation is available */
+          this.geolocation
+            .getBrowserLocation()
+            .then(position => {
+              this.log.d('Current position', position.coords);
+              this.setPosition(
+                position.coords.latitude,
+                position.coords.longitude
+              );
+              this.userLat = position.coords.latitude;
+              this.userLng = position.coords.longitude;
+              // Show photographer profiles of users area
+              this.refreshPhotographerList();
+            })
+            .catch((err: any) => {
+              this.log.er('Error getting location', err);
+            });
+        }
       });
-
-    // Get browser geolocation
-    if (!!navigator.geolocation) {
-      /* geolocation is available */
-      this.geolocation
-        .getBrowserLocation()
-        .then(position => {
-          this.log.d('Current position', position.coords);
-          this.setPosition(position.coords.latitude, position.coords.longitude);
-          this.userLat = position.coords.latitude;
-          this.userLng = position.coords.longitude;
-        })
-        .catch((err: any) => {
-          this.log.er('Error getting location', err);
-        });
-    }
-    // Show photographer profiles of users area
-    this.refreshPhotographerList();
   }
 
   /**
@@ -175,12 +177,14 @@ export class PhotographerSearchPageComponent implements OnInit {
 
     // add photographers in the circle of 10 kilometres
     this.addPhotographerInCircle(10);
+    this.agmMap.zoom = 11;
     /** if there are no photographers in the circle of 10 kilometres,
      * add photographers in the circle of 25 kilometres
      */
     if (!this.editedPhotographer.length) {
       // TODO: Alert that circle is extended
       this.addPhotographerInCircle(25);
+      this.agmMap.zoom = 10;
     }
   }
 
@@ -194,6 +198,7 @@ export class PhotographerSearchPageComponent implements OnInit {
     for (let i = 0; i < this.photographer.length; i++) {
       let distance: number;
       distance = this.getPhotographerDistance(this.photographer[i]);
+
       // add all photographers in the circle
       if (distance <= circle) {
         this.editedPhotographer.push(this.photographer[i]);
