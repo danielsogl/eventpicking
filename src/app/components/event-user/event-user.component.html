@@ -11,117 +11,113 @@
 
 <mdb-tabset [buttonClass]="'nav-tabs indigo'" [contentClass]="''">
   <mdb-tab heading="{{ 'TEXTS.EVENT_ALL_PICTURES' | translate}}">
-    <div class="col">
-      <div class="row no-gutters justify-content-start" style="align-items: center">
+    <div class="row no-gutters justify-content-start" style="align-items: center">
 
-        <div class="col-3">
-          <a class="btn btn-indigo darken-2 waves-light" id="button_select_all_pictures" (click)="selectAllImages()" mdbRippleRadius>{{ 'BUTTONS.SELECT_PICTURES' | translate }}</a>
-        </div>
+      <div class="col-3">
+        <a class="btn btn-indigo darken-2 waves-light" id="button_select_all_pictures" (click)="selectAllImages()" mdbRippleRadius>{{ 'BUTTONS.SELECT_PICTURES' | translate }}</a>
+      </div>
 
-        <div class="col-4">
-          <a class="btn btn-indigo darken-2 waves-light" id="button_add_choosen_to_card" (click)="addImagesToCart()" mdbRippleRadius>{{ 'BUTTONS.ADD_PICTURES_TO_CART' | translate }}</a>
-        </div>
-
-        <div class="col-1"></div>
-
-        <div class="col-3">
-          <div class="md-form form-sm" style="margin-right: 30px; margin-left: 20px">
-            <input placeholder="{{ 'TEXTS.SEARCH_PICTURES' | translate }}" type="text" id="search_photo" class="form-control">
-            <label for="search_photo"></label>
-          </div>
-        </div>
-
-        <div class="col-1">
-          <a class="icon-button lessVertical" id="button_two_pictures_per_row" style="color: #3f51b5">
-            <i class="fa fa-th-large fa-2x" aria-hidden="true"></i>
-          </a>
-          &nbsp;&nbsp;
-          <a class="icon-button lessVertical" id="button_three_pictures_per_row" style="color: #3f51b5">
-            <i class="fa fa-th fa-2x" aria-hidden="true"></i>
-          </a>
-        </div>
+      <div class="col-1 offset-md-8">
+        <a class="icon-button lessVertical" id="button_two_pictures_per_row" (click)="this.templateOverview = this.imgBigOverview"
+          style="color: #3f51b5">
+          <i class="fa fa-th-large fa-2x" aria-hidden="true"></i>
+        </a>
+        &nbsp;&nbsp;
+        <a class="icon-button lessVertical" id="button_three_pictures_per_row" (click)="this.templateOverview = this.imgSmalOverview"
+          style="color: #3f51b5">
+          <i class="fa fa-th fa-2x" aria-hidden="true"></i>
+        </a>
       </div>
     </div>
     <br>
 
     <!-- BILD -->
-    <table>
-      <td>
-        <div class="card-columns">
-          <div class="card align-items-center" *ngFor="let image of images; let i = index">
-            <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
-            <div class="card-body">
-              <table>
+    <ng-container *ngTemplateOutlet="templateOverview"></ng-container>
+    <!-- BILD -->
+
+  </mdb-tab>
+
+  <mdb-tab heading="{{ 'TEXTS.EVENT_SELECTED_PICTURES' | translate}}">
+    <div class="row no-gutters justify-content-start" style="align-items: center">
+
+      <div class="col-1 offset-md-11">
+        <a class="icon-button lessVertical" id="button_two_pictures_per_row" (click)="this.templateMarked = this.imgBigMarked" style="color: #3f51b5">
+          <i class="fa fa-th-large fa-2x" aria-hidden="true"></i>
+        </a>
+        &nbsp;&nbsp;
+        <a class="icon-button lessVertical" id="button_three_pictures_per_row" (click)="this.templateMarked = this.imgSmalMarked"
+          style="color: #3f51b5">
+          <i class="fa fa-th fa-2x" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+    <br>
+    <!-- BILD -->
+    <ng-container *ngTemplateOutlet="templateMarked"></ng-container>
+    <!-- BILD -->
+  </mdb-tab>
+</mdb-tabset>
+
+<app-picture-detail #pictureModal></app-picture-detail>
+
+<ng-template #imgBigOverview>
+  <table>
+    <td>
+      <div class="card-columns">
+        <div class="card card-outline-primary z-depth-1" *ngFor="let image of images; let i = index">
+          <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
+          <div class="card-body">
+            <table>
+              <tr>
                 <td>
                   <a class="icon-button" id="button_picture{{i}}_mark" [ngStyle]="image.selected && { 'color': '#3f51b5' }" (click)="images[i].selected = !images[i].selected">
-                    <i class="fa fa-star fa-3x" aria-hidden="true">&nbsp;</i>
+                    <i class="fa fa-check fa-2x" aria-hidden="true">&nbsp;</i>
                   </a>
                 </td>
 
                 <td>
                   <a class="icon-button" id="button_picture{{i}}_like" style="color: #3f51b5">
                     &nbsp;
-                    <i class="fa fa-heart fa-3x" aria-hidden="true">&nbsp;</i>
+                    <i class="fa fa-heart fa-2x" aria-hidden="true">&nbsp;</i>
                   </a>
                 </td>
 
                 <td>
                   <a class="icon-button" id="button_picture{{i}}_report" style="color: #3f51b5" (click)="reportImage(image)">
                     &nbsp;
-                    <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true">&nbsp;</i>
+                    <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true">&nbsp;</i>
                   </a>
                 </td>
-              </table>
-            </div>
+              </tr>
+            </table>
           </div>
-        </div>
-      </td>
-    </table>
-    <!-- BILD -->
-  </mdb-tab>
-
-  <mdb-tab heading="{{ 'TEXTS.EVENT_SELECTED_PICTURES' | translate}}">
-    <div class="col">
-      <div class="row no-gutters justify-content-start" style="align-items: center">
-
-        <div class="col-4">
-          <a class="btn btn-indigo darken-2 waves-light" id="button_add_choosen_to_card" (click)="addImagesToCart()" mdbRippleRadius>{{ 'BUTTONS.ADD_PICTURES_TO_CART' | translate }}</a>
-        </div>
-
-        <div class="col-4"></div>
-
-        <div class="col-3">
-          <div class="md-form form-sm" style="margin-right: 30px; margin-left: 20px">
-            <input placeholder="{{ 'TEXTS.SEARCH_PICTURES' | translate }}" type="text" id="search_photo" class="form-control">
-          </div>
-        </div>
-
-        <div class="col-1">
-          <a class="icon-button lessVertical" id="button_two_pictures_per_row" style="color: #3f51b5">
-            <i class="fa fa-th-large fa-2x" aria-hidden="true"></i>
-          </a>
-          &nbsp;&nbsp;
-          <a class="icon-button lessVertical" id="button_three_pictures_per_row" style="color: #3f51b5">
-            <i class="fa fa-th fa-2x" aria-hidden="true"></i>
-          </a>
         </div>
       </div>
-    </div>
-    <br>
-    <!-- BILD -->
-    <table>
-      <td>
-        <div class="card-columns">
-          <div *ngFor="let image of images; let i = index">
-            <div class="card align-items-center" *ngIf="image.selected">
-              <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" class="box1" (click)="openImageModal(image)">
-            </div>
-          </div>
-        </div>
-      </td>
-    </table>
-    <!-- BILD -->
-  </mdb-tab>
-</mdb-tabset>
+    </td>
+  </table>
+</ng-template>
 
-<app-picture-detail #pictureModal></app-picture-detail>
+<ng-template #imgSmalOverview>
+  <img *ngFor="let image of images; let i = index" class="img-fluid" [src]="image.thumbnail" width="250" height="150" [alt]="image.name"
+    div class="box1" (click)="openImageModal(image)">
+</ng-template>
+
+<ng-template #imgBigMarked>
+  <table>
+    <td>
+      <div class="card-columns">
+        <div *ngFor="let image of images; let i = index">
+          <div class="card card-outline-primary z-depth-1" *ngIf="image.selected">
+            <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
+          </div>
+        </div>f
+      </div>
+    </td>
+  </table>
+</ng-template>
+<ng-template #imgSmalMarked>
+  <div *ngFor="let image of images; let i = index">
+    <img class="img-fluid" *ngIf="image.selected" [src]="image.thumbnail" width="250" height="150" [alt]="image.name" div class="box1"
+      (click)="openImageModal(image)">
+  </div>
+</ng-template>

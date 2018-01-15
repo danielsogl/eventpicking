@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  TemplateRef
+} from '@angular/core';
 import { AsyncLocalStorage } from 'angular-async-local-storage';
 import { Log } from 'ng2-logger';
 
@@ -27,8 +33,21 @@ export class EventUserComponent implements OnInit {
   /** User Object */
   @Input() public user: User;
 
-  /** TemplateRef loading */
+  /** TemplateRef pictureModal */
   @ViewChild('pictureModal') pictureModal: any;
+  /** TemplateRef imgBigOverview */
+  @ViewChild('imgBigOverview') imgBigOverview: TemplateRef<any>;
+  /** TemplateRef imgSmalOverview */
+  @ViewChild('imgSmalOverview') imgSmalOverview: TemplateRef<any>;
+  /** TemplateRef imgBigOverview */
+  @ViewChild('imgBigMarked') imgBigMarked: TemplateRef<any>;
+  /** TemplateRef imgSmalOverview */
+  @ViewChild('imgSmalMarked') imgSmalMarked: TemplateRef<any>;
+
+  /** Template ref  */
+  public templateOverview: TemplateRef<any>;
+  /** Template ref */
+  public templateMarked: TemplateRef<any>;
 
   /** Printing house object */
   public printingHouse: PrintingHouse;
@@ -55,6 +74,9 @@ export class EventUserComponent implements OnInit {
     this.log.d('Event', this.event);
     this.log.d('User', this.user);
 
+    this.templateOverview = this.imgBigOverview;
+    this.templateMarked = this.imgBigMarked;
+
     // Load images
     if (this.event) {
       this.afs
@@ -63,7 +85,6 @@ export class EventUserComponent implements OnInit {
         .map((images: EventPicture[]) => {
           for (let i = 0; i < images.length; i++) {
             images[i].selected = false;
-            images[i].amount = 0;
           }
           return images;
         })
@@ -97,30 +118,6 @@ export class EventUserComponent implements OnInit {
     for (let i = 0; i < this.images.length; i++) {
       this.images[i].selected = true;
     }
-  }
-
-  addImagesToCart() {
-    const cartItems: ShoppingCartItem[] = [];
-    for (let i = 0; i < this.images.length; i++) {
-      if (this.images[i].selected) {
-        cartItems.push({
-          amount: this.images[i].amount,
-          eventname: this.event.name,
-          url: this.images[i].thumbnail,
-          key: this.images[i].name,
-          totalPrice: 10,
-          format: {
-            height: this.images[i].info.height,
-            width: this.images[i].info.width,
-            price: 1,
-            type: 'Download'
-          }
-        });
-      }
-    }
-    this.localStorage.setItem('cart-items', cartItems).subscribe(() => {
-      console.log('saved');
-    });
   }
 
   reportImage(image: EventPicture) {}
