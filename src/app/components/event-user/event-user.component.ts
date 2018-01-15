@@ -5,7 +5,6 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import { AsyncLocalStorage } from 'angular-async-local-storage';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 
@@ -59,12 +58,8 @@ export class EventUserComponent implements OnInit {
   /**
    * Constructor
    * @param  {FirebaseFirestoreService} afs Angular Firestore Service
-   * @param  {AsyncLocalStorage} localStorage Local Storage
    */
-  constructor(
-    private afs: FirebaseFirestoreService,
-    private localStorage: AsyncLocalStorage
-  ) {}
+  constructor(private afs: FirebaseFirestoreService) {}
 
   /**
    * Initialize component
