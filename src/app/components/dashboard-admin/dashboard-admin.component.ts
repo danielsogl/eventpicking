@@ -9,6 +9,7 @@ import { PrintingHouse } from '../../classes/printing-house';
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { DownloadPricelist } from '../../classes/download-prices';
 
 /**
  * Admin dashboard component
@@ -130,6 +131,7 @@ export class DashboardAdminComponent implements OnInit {
       this.events.subscribe(events => {
         this.log.d('Events', events);
       });
+
       this.afs
         .getDefautlPrintingHouse()
         .valueChanges()

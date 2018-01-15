@@ -201,29 +201,6 @@
                     </div>
                   </div>
                 </mdb-tab>
-                <mdb-tab heading="Downloads">
-                  <div class="row">
-                    <div class="col-12">
-                      <br>
-                      <table class="table">
-                        <thead class="thead-default">
-                          <tr>
-                            <th scope="row">Article</th>
-                            <th>Minimal price</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let article of printingHouse.salesTypes.download.articles; let i = index; trackBy:trackByIndex">
-                            <td>{{ article.name }}</td>
-                            <td>
-                              <input type="number" class="form-control" [(ngModel)]="printingHouse.salesTypes.download.articles[i].minPrice">
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </mdb-tab>
               </mdb-tabset>
             </mdb-item-body>
           </mdb-item>

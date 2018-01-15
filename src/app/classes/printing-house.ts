@@ -50,9 +50,6 @@ export class PrintingHouse {
           { price: 0, heigh: 50, width: 75, minPrice: 3.5, name: '50x75 cm' },
           { price: 0, heigh: 60, width: 80, minPrice: 4, name: '60x80 cm' }
         ]
-      },
-      download: {
-        articles: [{ price: 0, minPrice: 1.5, name: 'Original file' }]
       }
     };
   }

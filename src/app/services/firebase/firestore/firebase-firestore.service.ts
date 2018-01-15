@@ -11,6 +11,7 @@ import { PrintingHouse } from '../../../classes/printing-house';
 import { User } from '../../../classes/user';
 import { EventPicture } from '../../../interfaces/event-picture';
 import { PhotographerProfile } from '../../../interfaces/photographer-profile';
+import { DownloadPricelist } from '../../../classes/download-prices';
 
 /**
  * Service to comunicate with the Firestore database
@@ -119,6 +120,47 @@ export class FirebaseFirestoreService {
     return this.afs.collection('printingHouses', ref =>
       ref.where('uid', '==', uid)
     );
+  }
+
+  /************************************
+   * Firestore: Download Prices
+   ************************************/
+
+  /**
+   * Get photographer download price list
+   * @param  {string} photographer Photographer UID
+   * @returns {AngularFirestoreDocument<DownloadPricelist>}
+   */
+  getDownloadPriceList(
+    photographer: string
+  ): AngularFirestoreDocument<DownloadPricelist> {
+    return this.afs.collection('download-prices').doc(photographer);
+  }
+
+  createDownloadPriceList(
+    priceList: DownloadPricelist,
+    photographer: string
+  ): Promise<void> {
+    return this.afs
+      .collection('download-prices')
+      .doc(photographer)
+      .set(JSON.parse(JSON.stringify(priceList)));
+  }
+
+  /**
+   * Update download price list
+   * @param  {DownloadPricelist} priceList Price list
+   * @param  {string} photographer Photographer UID
+   * @returns {Promise<void>}
+   */
+  updateDownloadPriceList(
+    priceList: DownloadPricelist,
+    photographer: string
+  ): Promise<void> {
+    return this.afs
+      .collection('download-prices')
+      .doc(photographer)
+      .update(JSON.parse(JSON.stringify(priceList)));
   }
 
   /************************************
@@ -272,6 +314,10 @@ export class FirebaseFirestoreService {
   getAllPhotographer(): AngularFirestoreCollection<PhotographerProfile> {
     return this.afs.collection('photographer');
   }
+
+  /************************************
+   * Firestore: Utility
+   ************************************/
 
   /**
    * Create a firestore UID

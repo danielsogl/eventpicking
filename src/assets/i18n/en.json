@@ -173,7 +173,8 @@
     "SUBSCRIPTION": "Subscription",
     "UPLOAD": "Upload",
     "USER": "User",
-    "IMAGES": "Images"
+    "IMAGES": "Images",
+    "PRICING_MODEL": "Pricing Models"
   },
   "FIREBASE_ERRORS": {
     "auth/app-deleted": "Firebase project deleted",

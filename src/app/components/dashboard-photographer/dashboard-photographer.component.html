@@ -67,12 +67,6 @@
                         <i class="fa fa-check"></i> 10% provision</p>
                     </li>
                   </ul>
-                  <p>Premium listing</p>
-                  <div class="form-group">
-                    <input type="checkbox" class="filled-in">
-                    <label for="checkbox2">Add for 10€ more</label>
-                  </div>
-                  <hr>
 
                   <button class="btn btn-indigo waves-light" mdbRippleRadius>Upgrade</button>
                 </div>
@@ -109,12 +103,6 @@
                         <i class="fa fa-check"></i> 10% provision</p>
                     </li>
                   </ul>
-                  <p>Premium listing</p>
-                  <div class="form-group">
-                    <input type="checkbox" class="filled-in">
-                    <label for="checkbox2">Add for 10€ more</label>
-                  </div>
-                  <hr>
 
                   <button class="btn btn-indigo waves-light" mdbRippleRadius>Upgrade</button>
                 </div>
@@ -150,12 +138,6 @@
                         <i class="fa fa-check"></i> 10% provision</p>
                     </li>
                   </ul>
-                  <p>Premium listing</p>
-                  <div class="form-group">
-                    <input type="checkbox" class="filled-in">
-                    <label for="checkbox2">Add for 10€ more</label>
-                  </div>
-                  <hr>
 
                   <button class="btn btn-indigo waves-light" mdbRippleRadius>Upgrade</button>
                 </div>
@@ -171,51 +153,52 @@
     </div>
   </mdb-tab>
 
-  <mdb-tab heading="{{ 'TABS.PRINTING_HOUSES' | translate }}">
+  <mdb-tab heading="{{ 'TABS.PRICING_MODEL' | translate }}">
     <div class="row">
       <div class="col-12 text-left">
         <br>
-        <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
-          <mdb-item>
-            <mdb-item-head>Standard Printing house</mdb-item-head>
-            <mdb-item-body>
-              <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
-                <mdb-item>
-                  <mdb-item-head>Contact Information</mdb-item-head>
-                  <mdb-item-body>
-                  </mdb-item-body>
-                </mdb-item>
-                <mdb-item>
-                  <mdb-item-head>Prices</mdb-item-head>
-                  <mdb-item-body>
-                  </mdb-item-body>
-                </mdb-item>
-              </mdb-squeezebox>
-            </mdb-item-body>
-          </mdb-item>
-          <mdb-item>
-            <mdb-item-head>Own Printing House</mdb-item-head>
-            <mdb-item-body>
-              <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
-                <mdb-item>
-                  <mdb-item-head>Contact Information</mdb-item-head>
-                  <mdb-item-body>
-                  </mdb-item-body>
-                </mdb-item>
-                <mdb-item>
-                  <mdb-item-head>Payment Data</mdb-item-head>
-                  <mdb-item-body>
-                  </mdb-item-body>
-                </mdb-item>
-                <mdb-item>
-                  <mdb-item-head>Prices</mdb-item-head>
-                  <mdb-item-body>
-                  </mdb-item-body>
-                </mdb-item>
-              </mdb-squeezebox>
-            </mdb-item-body>
-          </mdb-item>
-        </mdb-squeezebox>
+
+        <mdb-tabset [buttonClass]="'nav-tabs indigo'" [contentClass]="''">
+
+          <mdb-tab heading="<i class='fa fa-download'></i> Downloads">
+            <div class="row">
+              <div class="col-12">
+                <br>
+                <table class="table text-left" *ngIf="downloadPriceList">
+                  <thead class="thead-default">
+                    <tr>
+                      <th scope="row">Article</th>
+                      <th>Minimal price</th>
+                      <th>Your price</th>
+                      <th>Your profit ( -10% Provision)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let article of downloadPriceList.items; let i = index; trackBy:trackByIndex">
+                      <td>{{ article.name}}</td>
+                      <td>{{ article.minPrice | number: '0.2-2' }} €</td>
+                      <td>
+                        <input type="number" class="form-control input-sm" [min]="article.minPrice" [(ngModel)]="downloadPriceList.items[i].price">
+                      </td>
+                      <td>{{ article.price * 0.90 | number: '0.2-2' }} €</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button type="button" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updateDownloadPriceList()">Save</button>
+              </div>
+            </div>
+          </mdb-tab>
+
+          <mdb-tab heading="<i class='fa fa-print'></i> Printing House">
+            <div class="row">
+              <div class="col-12">
+                <br>
+              </div>
+            </div>
+          </mdb-tab>
+
+        </mdb-tabset>
+
       </div>
     </div>
   </mdb-tab>
@@ -371,18 +354,18 @@
         <form [formGroup]="newEventForm" (ngSubmit)="saveEvent()">
 
           <div class="md-form">
-            <input type="text" class="form-control" id="input_newevent_name" formControlName="name">
-            <label for="form2">{{ 'LABELS.EVENT_NAME' | translate }}</label>
+            <input mdbActive type="text" class="form-control" id="input_newevent_name" formControlName="name">
+            <label>{{ 'LABELS.EVENT_NAME' | translate }}</label>
           </div>
 
           <div class="md-form">
-            <input type="text" class="form-control" id="input_newevent_location" formControlName="location">
-            <label for="form2">{{ 'LABELS.EVENT_LOCATION' | translate }}</label>
+            <input mdbActive type="text" class="form-control" id="input_newevent_location" formControlName="location">
+            <label>{{ 'LABELS.EVENT_LOCATION' | translate }}</label>
           </div>
 
           <div class="md-form">
-            <input type="text" class="form-control" id="input_newevent_date" formControlName="date">
-            <label for="form2">{{ 'LABELS.EVENT_DATE' | translate }}</label>
+            <input mdbActive type="text" class="form-control" id="input_newevent_date" formControlName="date">
+            <label>{{ 'LABELS.EVENT_DATE' | translate }}</label>
           </div>
 
           <div class="text-center mt-1-half">

@@ -16,6 +16,7 @@ import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
+import { DownloadPricelist } from '../../classes/download-prices';
 
 /**
  * Photographer dashboard component
@@ -56,6 +57,9 @@ export class DashboardPhotographerComponent implements OnInit {
 
   /** Own printing house */
   public ownPrintingHouse: PrintingHouse;
+
+  /** Download price list */
+  public downloadPriceList: DownloadPricelist;
 
   /** Edited event */
   public eventEdit: Event;
@@ -221,6 +225,32 @@ export class DashboardPhotographerComponent implements OnInit {
       this.events = this.eventCollection.valueChanges();
 
       this.afs
+        .getDownloadPriceList(this.auth.getCurrentFirebaseUser().uid)
+        .valueChanges()
+        .subscribe(priceList => {
+          if (priceList) {
+            this.downloadPriceList = priceList;
+            this.log.d('loaded download pricing list', this.downloadPriceList);
+          } else {
+            this.log.d('Created new downlaod pricing list');
+            this.downloadPriceList = new DownloadPricelist(
+              this.auth.getCurrentFirebaseUser().uid
+            );
+            this.afs
+              .createDownloadPriceList(
+                this.downloadPriceList,
+                this.auth.getCurrentFirebaseUser().uid
+              )
+              .then(() => {
+                this.log.d('Created download pricing list');
+              })
+              .catch(err => {
+                this.log.d('Error creating download pricing list', err);
+              });
+          }
+        });
+
+      this.afs
         .getDefautlPrintingHouse()
         .valueChanges()
         .subscribe(printingHouse => {
@@ -357,6 +387,33 @@ export class DashboardPhotographerComponent implements OnInit {
     } else {
       this.log.er('No public profile data changed');
     }
+  }
+
+  /**
+   * Update download price list
+   */
+  updateDownloadPriceList() {
+    this.afs
+      .updateDownloadPriceList(
+        this.downloadPriceList,
+        this.auth.getCurrentFirebaseUser().uid
+      )
+      .then(() => {
+        this.log.d('Updated price list');
+      })
+      .catch(err => {
+        this.log.er('Error updateing price list', err);
+      });
+  }
+
+  /**
+   * Track ngFor loop
+   * @param  {number} index Index
+   * @param  {any} obj Object
+   * @returns any
+   */
+  trackByIndex(index: number, obj: any): any {
+    return index;
   }
 
   /**
