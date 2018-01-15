@@ -1,36 +1,84 @@
 <div class="container-fluid">
   <div class="row mt-5 pt-5">
-    <div class="col col-3 text-center">
+    <div class="col col-lg-4 text-center">
       <div class="md-form">
-        <input mdbActive type="text" class="form-control">
-        <label class="active">Search photographer by ZIP</label>
+        <input mdbActive type="text" class="form-control" (keyup)="onKey($event)">
+        <label class="active">{{ 'TEXTS.SEARCH_PHOTOGRAPHER' | translate }}</label>
       </div>
-      <table>
-        <tbody>
-          <tr *ngFor="let p of (photographer | async)">
-            <td class="card">
-              <div class="card-body">
-                <p class="card-text text-left">
-                  {{ p?.name }}
-                  <br> {{ p?.address?.street }}
-                  <br> {{ p?.address?.zip }} - {{ p?.address?.city }} {{ p?.address?.street }}
-                </p>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="scrollable">
+        <div *ngIf="editedPhotographer.length; else noPhotographer">
+          <div *ngFor="let p of editedPhotographer">
+            <div *ngIf="p.premium == true">
+              <a routerLink="/photographer/{{p.profileUrl}}">
+                <div class="card">
+                  <div class="card-body">
+                    <p class="name">{{ p.name }}</p>
+                    <div class="content">
+                      <img class="profile-img" src="{{p.photoUrl}}">
+                      <div *ngIf="p.address" class="address">{{p.address.street}} {{p.address.streetnumber}}
+                        <br/> {{p.address.zip}} {{p.address.city}}
+                        <br/>
+                      </div>
+                    </div>
+                    <br/>
+                    <div class="distance">
+                      {{getPhotographerDistance(p) | number:'0.2-2' | replace:'.':','}} km
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <hr *ngIf="hasBothProfiles" class="mt-4 mb-4 border">
+          <div *ngFor="let p of editedPhotographer">
+            <div *ngIf="p.premium == false">
+              <a routerLink="/photographer/{{p.profileUrl}}">
+                <div class="card">
+                  <div class="card-body">
+                    <p class="name">{{ p.name }}</p>
+                    <div>
+                      <div *ngIf="p.address" class="address">{{p.address.street}} {{p.address.streetnumber}}
+                        <br/> {{p.address.zip}} {{p.address.city}}
+                        <br/>
+                      </div>
+                    </div>
+                    <br/>
+                    <div class="distance">
+                      {{getPhotographerDistance(p) | number:'0.2-2' | replace:'.':','}} km
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <ng-template #noPhotographer>
+          <p>{{ 'TEXTS.NO_PHOTOGRAPHERS_FOUND' | translate}}</p>
+        </ng-template>
+      </div>
     </div>
-    <div class="col col-9 text-center">
-      <agm-map #map style="height: 500px; width: 100%" class="card">
-        <agm-marker *ngFor="let p of (photographer | async); let i = index" [latitude]="p.location.lat" [longitude]="p.location.lng"
+    <div class="col col-lg-8 text-center">
+      <agm-map #map class="card mapformat">
+        <agm-marker *ngFor="let p of editedPhotographer; let i = index" [latitude]="p.location.lat" [longitude]="p.location.lng"
           [title]="p.name" [zIndex]="i">
-          <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+          <agm-snazzy-info-window [maxWidth]="300" [closeWhenOthersOpen]="true" [maxHeight]="300">
             <ng-template>
-              <div class="text-left">
-                {{ p?.name }}
-                <br> {{ p?.address?.street }}
-                <br> {{ p?.address?.zip }} - {{ p?.address?.city }} {{ p?.address?.street }}
+              <div>
+                <span class="name">
+                  <b>{{ p.name }}</b>
+                </span>
+                <div class="content">
+                  <div>
+                    <img *ngIf="p.premium == true" class="content-img" src="{{p.photoUrl}}">
+                    <br/>
+                  </div>
+                  <span *ngIf="p.address.street">{{ p.address.street }} {{p.address.streetnumber}}
+                    <br> {{ p.address.zip }} {{ p.address.city }}</span>
+                  <br>
+                  <span *ngIf="p.phone">Tel: {{ p.phone }}</span>
+                  <br>
+                </div>
+                <a routerLink="/photographer/{{p.profileUrl}}">Profile</a>
               </div>
             </ng-template>
           </agm-snazzy-info-window>
