@@ -1,5 +1,3 @@
-import { userInfo } from 'os';
-
 /**
  * Clean-Up function handler
  * @author Daniel Sogl, Dennis Maurer
@@ -54,7 +52,7 @@ exports.deleteImageHandler = event => {
     });
 };
 
-exports.deleateUserFromDBHandler = event => {
+exports.deleteUserFromDBHandler = event => {
   const user = event.data;
   return admin
     .firestore()
