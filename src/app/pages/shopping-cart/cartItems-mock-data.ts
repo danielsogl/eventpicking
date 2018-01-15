@@ -5,7 +5,7 @@ export const ITEMS: ShoppingCartItem[] = [
     eventname: 'Geburtstag Inge 40',
     key: 'IMG_9000',
     format: { type: 'download', price: 3.99, height: 300, width: 300 },
-    url: 'http://www.partytipps.info/wp-content/uploads/geburtstag.jpg',
+    url: 'https://www.partytipps.info/wp-content/uploads/geburtstag.jpg',
     amount: 1
   },
   {
@@ -13,7 +13,7 @@ export const ITEMS: ShoppingCartItem[] = [
     key: 'IMG_352',
     format: { type: 'download', price: 0.99, height: 100, width: 100 },
     url:
-      'http://www.storyfox.de/wp-content/uploads/2016/11/2016-11-19-03_05_27-Ihr-Hochzeitsfoto-erntete-einen-Shitstorm.-5-Jahre-sp%C3%A4ter-haben-sie-etwas-Wichti.jpg',
+      'https://www.storyfox.de/wp-content/uploads/2016/11/2016-11-19-03_05_27-Ihr-Hochzeitsfoto-erntete-einen-Shitstorm.-5-Jahre-sp%C3%A4ter-haben-sie-etwas-Wichti.jpg',
     amount: 1
   },
   {
@@ -28,7 +28,7 @@ export const ITEMS: ShoppingCartItem[] = [
     eventname: 'Geburtstag Inge 40',
     key: 'IMG_9000',
     format: { type: 'download', price: 3.99, height: 300, width: 300 },
-    url: 'http://www.partytipps.info/wp-content/uploads/geburtstag.jpg',
+    url: 'https://www.partytipps.info/wp-content/uploads/geburtstag.jpg',
     amount: 1
   }
 ];
