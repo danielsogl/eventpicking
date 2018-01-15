@@ -173,6 +173,18 @@ export class PhotographerSearchPageComponent implements OnInit {
       this.editedPhotographer.splice(0);
     }
 
+    // add photographers in the circle of 10 kilometres
+    this.addPhotographerInCircle(10);
+    /** if there are no photographers in the circle of 10 kilometres,
+     * add photographers in the circle of 25 kilometres
+     */
+    if (!this.editedPhotographer.length) {
+      // TODO: Alert that circle is extended
+      this.addPhotographerInCircle(25);
+    }
+  }
+
+  addPhotographerInCircle(circle: number) {
     let hasPremium: boolean;
     let hasStandard: boolean;
     hasPremium = false;
@@ -182,9 +194,8 @@ export class PhotographerSearchPageComponent implements OnInit {
     for (let i = 0; i < this.photographer.length; i++) {
       let distance: number;
       distance = this.getPhotographerDistance(this.photographer[i]);
-
-      // add all photographers in the circle of 10 kilometres
-      if (distance < 10) {
+      // add all photographers in the circle
+      if (distance <= circle) {
         this.editedPhotographer.push(this.photographer[i]);
 
         /** check whether parting line is required */
