@@ -35,9 +35,6 @@
         <section class="section pb-3">
           <!--Section heading-->
           <h1 class="section-heading h1 pt-4">Our pricing plans</h1>
-          <!--Section description-->
-          <p class="section-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse
-            quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur accusamus veniam.</p>
 
 
           <div class="row">
@@ -426,6 +423,27 @@
       </div>
       <div class="modal-footer justify-content-center">
         <a type="button" class="btn btn-primary-modal waves-light" mdbRippleRadius (click)="notValidatedModal.hide()">Got it!
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #eventLimitModal="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Event limit reached</p>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-exclamation-triangle fa-4x mb-3 animated rotateIn"></i>
+          <p>You reached your event limit! Please upgrade to one of our premium plans to create more events or delete one.</p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary-modal waves-light" mdbRippleRadius (click)="eventLimitModal.hide()">Got it!
         </a>
       </div>
     </div>
