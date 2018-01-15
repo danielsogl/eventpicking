@@ -59,7 +59,7 @@ exports.deleateUserFromDBHandler = event => {};
 exports.deleteuserFromFirebaseHandler = event => {
   return admin
     .auth()
-    .deleteUser(uid)
+    .deleteUser(userID)
     .then(function() {
       console.log("Successfully deleted user");
     })
