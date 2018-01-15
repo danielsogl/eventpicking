@@ -105,7 +105,7 @@ export class EventUserComponent implements OnInit {
    * @param  {EventPicture} image Image to open
    */
   openImageModal(image: EventPicture) {
-    this.pictureModal.showModal(image, this.printingHouse);
+    this.pictureModal.showModal(image, this.printingHouse, this);
   }
 
   /**

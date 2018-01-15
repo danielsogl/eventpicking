@@ -2,17 +2,89 @@
   <div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <p class="heading lead">Lorem Ipsum</p>
+        <p class="heading lead">{{ 'LABELS.IMAGE_VIEW' | translate }}</p>
       </div>
       <div class="modal-body">
-        <div class="text-center">
-          <p>Lorem ipsum</p>
+        <div class="row">
+          <div class="col-12 col-md-8 vertical-ruler">
+            <img [src]="image.preview" class="img-size" [alt]="image.name">
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="btn-group">
+              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="Left" mdbRippleRadius (click)="this.templateType = this.download">
+                <i class="fa fa-download fa-5x" aria-hidden="true"></i>
+              </label>
+              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="Right" mdbRippleRadius (click)="this.templateType = this.print">
+                <i class="fa fa-print fa-5x" aria-hidden="true"></i>
+              </label>
+            </div>
+            <ng-container *ngTemplateOutlet="templateType"></ng-container>
+            <button type="button" class="btn btn-default btn-lg btn-block waves-light" mdbRippleRadius>
+              <i class="fa fa-shopping-cart mr-1"></i> {{ 'BUTTONS.ADD_TO_SHOPPING_CART' | translate }}</button>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer justify-content-center">
-        <a type="button" class="btn btn-primary-modal waves-light" mdbRippleRadius (click)="pictureModal.hide()">Got it!
-        </a>
+        <div class="row">
+          <div class="col-12 col-md-8 center">
+            <table>
+              <tr>
+                <td>
+                  <a class="icon-button" [ngStyle]="image.selected && { 'color': '#3f51b5' }" (click)="image.selected = !image.selected">
+                    <i class="fa fa-check fa-2x" aria-hidden="true">&nbsp;</i>
+                  </a>
+                </td>
+
+                <td>
+                  <a class="icon-button" style="color: #3f51b5" (click)="rateImage(image)">
+                    &nbsp;
+                    <i class="fa fa-heart fa-2x" aria-hidden="true">&nbsp;{{ image.ratings }}</i>
+                  </a>
+                </td>
+
+                <td>
+                  <a class="icon-button" style="color: #ff4848" (click)="reportImage(image)">
+                    &nbsp;
+                    <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true">&nbsp;</i>
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--<div class="modal-footer justify-content-center"></div>-->
       </div>
     </div>
   </div>
-</div>
+
+  <ng-template #download>
+    <div class="p-4">
+      <table>
+        <tr>
+          <td>{{ 'LABELS.FORMAT' | translate }}:</td>
+          <td>
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio1" checked="checked">
+              <label for="radio1">{{ 'LABELS.SMALL' | translate }}</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio2">
+              <label for="radio2">{{ 'LABELS.MEDIUM' | translate }}</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio3">
+              <label for="radio3">{{ 'LABELS.LARGE' | translate }}</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'LABELS.PRICE' | translate }}:</td>
+          <td>PRICE €</td>
+        </tr>
+      </table>
+    </div>
+  </ng-template>
+
+  <ng-template #print>
+    <p>Print-Template</p>
+  </ng-template>
