@@ -9,19 +9,19 @@
         <div *ngIf="editedPhotographer.length; else noPhotographer">
           <div *ngFor="let p of editedPhotographer">
             <div *ngIf="p.premium == true">
-              <a routerLink="/photographer/{{p.profileUrl}}">
-                <div class="card">
-                  <div class="card-body">
-                    <p class="name">{{ p.name }}</p>
-                    <div class="content">
-                      <img class="profile-img" src="{{p.photoUrl}}">
-                      <div *ngIf="p.address" class="address">{{p.address.street}} {{p.address.streetnumber}}
+              <a [routerLink]="['photographer', p.profileUrl]">
+                <div class="card ">
+                  <div class="card-body ">
+                    <p class="name ">{{ p.name }}</p>
+                    <div class="content ">
+                      <img class="profile-img " src="{{p.photoUrl}} ">
+                      <div *ngIf="p.address " class="address ">{{p.address.street}} {{p.address.streetnumber}}
                         <br/> {{p.address.zip}} {{p.address.city}}
                         <br/>
                       </div>
                     </div>
                     <br/>
-                    <div class="distance">
+                    <div class="distance ">
                       {{getPhotographerDistance(p) | number:'0.2-2' | replace:'.':','}} km
                     </div>
                   </div>
@@ -29,21 +29,21 @@
               </a>
             </div>
           </div>
-          <hr *ngIf="hasBothProfiles" class="mt-4 mb-4 border">
-          <div *ngFor="let p of editedPhotographer">
-            <div *ngIf="p.premium == false">
-              <a routerLink="/photographer/{{p.profileUrl}}">
-                <div class="card">
-                  <div class="card-body">
-                    <p class="name">{{ p.name }}</p>
+          <hr *ngIf="hasBothProfiles " class="mt-4 mb-4 border ">
+          <div *ngFor="let p of editedPhotographer ">
+            <div *ngIf="p.premium==f alse ">
+              <a routerLink="/photographer/{{p.profileUrl}} ">
+                <div class="card ">
+                  <div class="card-body ">
+                    <p class="name ">{{ p.name }}</p>
                     <div>
-                      <div *ngIf="p.address" class="address">{{p.address.street}} {{p.address.streetnumber}}
+                      <div *ngIf="p.address " class="address ">{{p.address.street}} {{p.address.streetnumber}}
                         <br/> {{p.address.zip}} {{p.address.city}}
                         <br/>
                       </div>
                     </div>
                     <br/>
-                    <div class="distance">
+                    <div class="distance ">
                       {{getPhotographerDistance(p) | number:'0.2-2' | replace:'.':','}} km
                     </div>
                   </div>
@@ -57,28 +57,28 @@
         </ng-template>
       </div>
     </div>
-    <div class="col col-lg-8 text-center">
-      <agm-map #map class="card mapformat">
-        <agm-marker *ngFor="let p of editedPhotographer; let i = index" [latitude]="p.location.lat" [longitude]="p.location.lng"
-          [title]="p.name" [zIndex]="i">
-          <agm-snazzy-info-window [maxWidth]="300" [closeWhenOthersOpen]="true" [maxHeight]="300">
+    <div class="col col-lg-8 text-center ">
+      <agm-map #map class="card mapformat ">
+        <agm-marker *ngFor="let p of editedPhotographer; let i=i ndex " [latitude]="p.location.lat " [longitude]="p.location.lng "
+          [title]="p.name " [zIndex]="i ">
+          <agm-snazzy-info-window [maxWidth]="300 " [closeWhenOthersOpen]="true " [maxHeight]="300 ">
             <ng-template>
               <div>
-                <span class="name">
+                <span class="name ">
                   <b>{{ p.name }}</b>
                 </span>
-                <div class="content">
+                <div class="content ">
                   <div>
-                    <img *ngIf="p.premium == true" class="content-img" src="{{p.photoUrl}}">
+                    <img *ngIf="p.premium==t rue " class="content-img " src="{{p.photoUrl}} ">
                     <br/>
                   </div>
-                  <span *ngIf="p.address.street">{{ p.address.street }} {{p.address.streetnumber}}
+                  <span *ngIf="p.address.street ">{{ p.address.street }} {{p.address.streetnumber}}
                     <br> {{ p.address.zip }} {{ p.address.city }}</span>
                   <br>
-                  <span *ngIf="p.phone">Tel: {{ p.phone }}</span>
+                  <span *ngIf="p.phone ">Tel: {{ p.phone }}</span>
                   <br>
                 </div>
-                <a routerLink="/photographer/{{p.profileUrl}}">Profile</a>
+                <a routerLink="/photographer/{{p.profileUrl}} ">Profile</a>
               </div>
             </ng-template>
           </agm-snazzy-info-window>

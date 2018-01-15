@@ -42,6 +42,7 @@ export class EventPhotographerComponent implements OnInit {
   public printingHouse: PrintingHouse;
 
   /**
+   * Constructor
    * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
    * @param  {FirebaseStorageService} storage Firebase Storage Service
    * @param  {FormBuilder} formBuilder Angular Form Builder

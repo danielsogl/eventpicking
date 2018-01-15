@@ -12,7 +12,6 @@ import { Event } from '../../classes/event';
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 
 /**
  * Event page component
@@ -24,12 +23,16 @@ import { FirebaseStorageService } from '../../services/firebase/storage/firebase
   styleUrls: ['./event-page.component.scss']
 })
 export class EventPageComponent implements OnInit, OnDestroy {
+  /** Logger */
   private log = Log.create('EventPageComponent');
 
+  /** Router sub */
   private sub: any;
+  /** Event ID */
   private id: string;
-
+  /** Event */
   public event: Event;
+  /** User */
   public user: User;
 
   /** Template ref  */
@@ -46,13 +49,21 @@ export class EventPageComponent implements OnInit, OnDestroy {
   /** TemplateRef event deleted */
   @ViewChild('eventDeleted') eventDeleted: TemplateRef<any>;
 
+  /**
+   * Constructor
+   * @param  {ActivatedRoute} router Activated Route
+   * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
+   * @param  {FirebaseAuthService} privaauthteauth Firebase Auth Service
+   */
   constructor(
     private router: ActivatedRoute,
     private afs: FirebaseFirestoreService,
-    private storage: FirebaseStorageService,
     private auth: FirebaseAuthService
   ) {}
 
+  /**
+   * Initialize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
@@ -96,6 +107,9 @@ export class EventPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Unload component
+   */
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
