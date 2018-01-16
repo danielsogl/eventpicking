@@ -267,9 +267,6 @@ export class DashboardPhotographerComponent implements OnInit {
           if (printingHouse[0]) {
             this.ownPrintingHouse = printingHouse[0];
             this.log.d('Loaded own printing house', this.ownPrintingHouse);
-          } else {
-            this.ownPrintingHouse = new PrintingHouse();
-            this.ownPrintingHouse.uid = this.auth.getCurrentFirebaseUser().uid;
           }
         });
     }
@@ -279,7 +276,7 @@ export class DashboardPhotographerComponent implements OnInit {
    * Track ngFor loop
    * @param  {number} index Index
    * @param  {any} obj Object
-   * @returns any
+   * @returns {any}
    */
   trackByIndex(index: number, obj: any): any {
     return index;

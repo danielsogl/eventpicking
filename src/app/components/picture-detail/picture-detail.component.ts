@@ -4,6 +4,7 @@ import { Log } from 'ng2-logger';
 
 import { PrintingHouse } from '../../classes/printing-house';
 import { EventPicture } from '../../interfaces/event-picture';
+import { PriceList } from '../../classes/price-list';
 
 /**
  * Picture detail modal component
@@ -24,7 +25,7 @@ export class PictureDetailComponent implements OnInit {
   /** Image */
   public image: EventPicture;
   /** Printing house */
-  public printingHouse: PrintingHouse;
+  public priceList: PriceList;
 
   constructor() {}
 

@@ -233,6 +233,108 @@
     </div>
   </mdb-tab>
 
+  <mdb-tab heading="{{ 'TABS.PRINTING_HOUSES' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+        <div *ngIf="!ownPrintingHouse && defaultPrintingHouse">
+          <h1>Default Printing House</h1>
+          <div class="text-left">
+            <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
+              <mdb-item>
+                <mdb-item-head>Adress</mdb-item-head>
+                <mdb-item-body>
+                  <form>
+                    <fieldset disabled>
+                      <br>
+                      <div class="md-form">
+                        <input type="text" class="form-control" name="name" [(ngModel)]="defaultPrintingHouse.name">
+                        <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                      </div>
+
+                      <div class="md-form">
+                        <input type="text" class="form-control" name="email" [(ngModel)]="defaultPrintingHouse.email">
+                        <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
+                      </div>
+
+                      <div class="md-form">
+                        <input type="text" class="form-control" name="phone" [(ngModel)]="defaultPrintingHouse.phone">
+                        <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-9">
+                          <div class="md-form">
+                            <input type="text" class="form-control" name="street" [(ngModel)]="defaultPrintingHouse.street">
+                            <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="md-form">
+                            <input type="text" class="form-control" name="streetNumber" [(ngModel)]="defaultPrintingHouse.streetNumber">
+                            <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="md-form">
+                            <input type="text" class="form-control" name="zip" [(ngModel)]="defaultPrintingHouse.zip">
+                            <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
+                          </div>
+                        </div>
+
+                        <div class="col-md-9">
+                          <div class="md-form">
+                            <input type="text" class="form-control" name="city" [(ngModel)]="defaultPrintingHouse.city">
+                            <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </form>
+                </mdb-item-body>
+              </mdb-item>
+              <mdb-item>
+                <mdb-item-head>Price List</mdb-item-head>
+                <mdb-item-body>
+                  <p>You can change the default price in the "Pricing Models" Tab. If you want to create your own pricing model
+                    you have to create your own printing house</p>
+                  <div *ngIf="priceList">
+                    <div *ngFor="let item of priceList.printingHouseItems">
+                      <h1>{{ item.name }}</h1>
+                      <table class="table text-left">
+                        <thead class="thead-default">
+                          <tr>
+                            <th scope="row">Article</th>
+                            <th>Format</th>
+                            <th>Minimal price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let article of item.articles">
+                            <td>{{ article.name}}</td>
+                            <td>{{ article.width}}x{{ article.heigh}}</td>
+                            <td>{{ article.minPrice | number: '0.2-2' }} €</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </mdb-item-body>
+              </mdb-item>
+            </mdb-squeezebox>
+          </div>
+        </div>
+        <div *ngIf="ownPrintingHouse">
+          <h1>Own Printing House</h1>
+        </div>
+      </div>
+    </div>
+  </mdb-tab>
+
   <mdb-tab heading="{{ 'TABS.PROFILE' | translate }}">
     <div class="row">
       <div class="col-12">
