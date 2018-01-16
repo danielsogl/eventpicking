@@ -40,7 +40,6 @@ export class FirebaseStorageService {
     const storageRef: AngularFireStorageReference = this.afStorage.ref(
       `events/${event}/${upload.file.name}`
     );
-
     return storageRef.put(upload.file);
   }
 }

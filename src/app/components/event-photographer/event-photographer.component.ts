@@ -182,7 +182,9 @@ export class EventPhotographerComponent implements OnInit {
 
       uploadTask.then().then(() => {
         console.log('Image upload finsihed: ', i);
-        this.uploadFiles.splice(i, 1);
+        // setTimeout(() => {
+        //   this.uploadFiles.splice(i, 1);
+        // }, 2000);
       });
     }
   }
