@@ -270,37 +270,32 @@ export class FirebaseFirestoreService {
    * @returns {AngularFirestoreCollection<EventPicture>}
    */
   getEventPictures(id: string): AngularFirestoreCollection<EventPicture> {
-    return this.afs
-      .collection('events')
-      .doc(id)
-      .collection('images');
+    return this.afs.collection('public-images', ref =>
+      ref.where('event', '==', id)
+    );
   }
 
   /**
-   * Get event pictures
+   * Get event original pictures
    * @param  {string} id ID
    * @returns {AngularFirestoreCollection<EventPicture>}
    */
   getEventOriginalPictures(
     id: string
   ): AngularFirestoreCollection<EventPicture> {
-    return this.afs
-      .collection('events')
-      .doc(id)
-      .collection('originals');
+    return this.afs.collection('original-images', ref =>
+      ref.where('event', '==', id)
+    );
   }
 
   /**
    * Delete image firestore document
-   * @param  {string} event Event ID
    * @param  {string} image Image ID
    * @returns {Promise<void>}
    */
-  deleteEventImage(event: string, image: string): Promise<void> {
+  deleteEventImage(image: string): Promise<void> {
     return this.afs
-      .collection('events')
-      .doc(event)
-      .collection('images')
+      .collection('public-images')
       .doc(image)
       .delete();
   }
@@ -308,16 +303,26 @@ export class FirebaseFirestoreService {
   /**
    * Update event picture information
    * @param  {EventPicture} image Image object
-   * @param  {string} event Event id
    * @returns {Promise<void>}
    */
-  updateImage(image: EventPicture, event: string): Promise<void> {
+  updateImage(image: EventPicture): Promise<void> {
     return this.afs
-      .collection('events')
-      .doc(event)
-      .collection('images')
+      .collection('public-images')
       .doc(image.id)
       .update(JSON.parse(JSON.stringify(image)));
+  }
+
+  /**
+   * Get most rated top 100 images
+   * @returns {AngularFirestoreCollection<EventPicture>}
+   */
+  getPopularImages(): AngularFirestoreCollection<EventPicture> {
+    return this.afs.collection('public-images', ref =>
+      ref
+        .where('ratings', '>', 0)
+        .orderBy('ratings', 'desc')
+        .limit(100)
+    );
   }
 
   /************************************

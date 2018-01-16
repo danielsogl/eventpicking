@@ -64,7 +64,6 @@ export class EventPhotographerComponent implements OnInit {
       photographerUid: ['', Validators.required],
       public: [false, Validators.required],
       ratings: [0, Validators.required],
-      printinghouse: ['', Validators.required],
       deleted: [false, Validators.required]
     });
   }
@@ -119,7 +118,7 @@ export class EventPhotographerComponent implements OnInit {
    */
   deleteImage(image: EventPicture) {
     this.afs
-      .deleteEventImage(this.event.id, image.id)
+      .deleteEventImage(image.id)
       .then(() => {
         this.log.d('Deleted image', image);
       })

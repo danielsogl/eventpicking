@@ -220,9 +220,7 @@ exports.transformImageHandler = event => {
       // Add the URLs to Firestore
       return admin
         .firestore()
-        .collection('events')
-        .doc(eventId)
-        .collection('images')
+        .collection('public-images')
         .doc(uuid)
         .set({
           info: fileInfo,
@@ -230,21 +228,21 @@ exports.transformImageHandler = event => {
           preview: preFileUrl,
           thumbnail: thumbFileUrl,
           ratings: 0,
-          id: uuid
+          id: uuid,
+          event: eventId
         })
         .then(() => {
           console.log('Saved thumb and pre urls');
           return admin
             .firestore()
-            .collection('events')
-            .doc(eventId)
-            .collection('originals')
+            .collection('original-images')
             .doc(uuid)
             .set({
               info: fileInfo,
               name: file.name.split('/')[3],
               url: fileUrl,
-              id: uuid
+              id: uuid,
+              event: eventId
             })
             .then(() => {
               console.log('Saved original url');

@@ -128,7 +128,7 @@ export class EventUserComponent implements OnInit {
     if (this.user) {
       image.ratings++;
       this.afs
-        .updateImage(image, this.event.id)
+        .updateImage(image)
         .then(() => {
           this.log.d('Upvoted image');
         })

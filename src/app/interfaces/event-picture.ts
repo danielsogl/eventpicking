@@ -5,6 +5,8 @@ import { ImageInfo } from './image-info';
  * @author Daniel Sogl
  */
 export interface EventPicture {
+  /** Event ID */
+  event: string;
   /** Image info */
   info: ImageInfo;
   /** Image name */
