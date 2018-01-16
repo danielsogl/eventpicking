@@ -6,25 +6,9 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-12 col-md-8 vertical-ruler">
+          <div class="col-12 col-lg-8">
             <img [src]="image.preview" class="img-size" [alt]="image.name">
-          </div>
-          <div class="col-12 col-md-4">
-            <div class="btn-group">
-              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="Left" mdbRippleRadius (click)="this.templateType = this.download">
-                <i class="fa fa-download fa-5x" aria-hidden="true"></i>
-              </label>
-              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="Right" mdbRippleRadius (click)="this.templateType = this.print">
-                <i class="fa fa-print fa-5x" aria-hidden="true"></i>
-              </label>
-            </div>
-            <ng-container *ngTemplateOutlet="templateType"></ng-container>
-            <button type="button" class="btn btn-default btn-lg btn-block waves-light" mdbRippleRadius>
-              <i class="fa fa-shopping-cart mr-1"></i> {{ 'BUTTONS.ADD_TO_SHOPPING_CART' | translate }}</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-md-8 center">
+            <p class="bildname">{{image.name}}</p>
             <table>
               <tr>
                 <td>
@@ -49,7 +33,21 @@
               </tr>
             </table>
           </div>
+          <div class="col-12 col-lg-4 vertical-ruler">
+            <div class="btn-group">
+              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="Left" mdbRippleRadius (click)="this.templateType = this.download">
+                <i class="fa fa-download fa-5x" aria-hidden="true"></i>
+              </label>
+              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="Right" mdbRippleRadius (click)="this.templateType = this.print">
+                <i class="fa fa-print fa-5x" aria-hidden="true"></i>
+              </label>
+            </div>
+            <ng-container *ngTemplateOutlet="templateType"></ng-container>
+            <button type="button" class="btn btn-default btn-lg btn-block waves-light" mdbRippleRadius>
+              <i class="fa fa-shopping-cart mr-1"></i> {{ 'BUTTONS.ADD_TO_SHOPPING_CART' | translate }}</button>
+          </div>
         </div>
+
         <!--<div class="modal-footer justify-content-center"></div>-->
       </div>
     </div>
@@ -62,18 +60,38 @@
           <td>{{ 'LABELS.FORMAT' | translate }}:</td>
           <td>
             <div class="form-group">
-              <input name="group1" type="radio" class="with-gap" id="radio1" checked="checked">
-              <label for="radio1">{{ 'LABELS.SMALL' | translate }}</label>
+              <input name="group1" type="radio" class="with-gap" id="radio1">
+              <label for="radio1">{{ 'LABELS.EXTRA_EXTRA_SMALL' | translate }}</label>
             </div>
 
             <div class="form-group">
               <input name="group1" type="radio" class="with-gap" id="radio2">
-              <label for="radio2">{{ 'LABELS.MEDIUM' | translate }}</label>
+              <label for="radio2">{{ 'LABELS.EXTRA_SMALL' | translate }}</label>
             </div>
 
             <div class="form-group">
               <input name="group1" type="radio" class="with-gap" id="radio3">
-              <label for="radio3">{{ 'LABELS.LARGE' | translate }}</label>
+              <label for="radio3">{{ 'LABELS.SMALL' | translate }}</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio4" checked="checked">
+              <label for="radio4">{{ 'LABELS.MEDIUM' | translate }}</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio5">
+              <label for="radio5">{{ 'LABELS.LARGE' | translate }}</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio6">
+              <label for="radio6">{{ 'LABELS.EXTRA_LARGE' | translate }}</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio7">
+              <label for="radio7">{{ 'LABELS.ORIGINAL' | translate }}</label>
             </div>
           </td>
         </tr>
@@ -86,5 +104,51 @@
   </ng-template>
 
   <ng-template #print>
-    <p>Print-Template</p>
+    <div class="p-4">
+      <table>
+        <tr>
+          <td>{{ 'LABELS.FORMAT' | translate }}:</td>
+          <td>
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio8">
+              <label for="radio8">20x30 cm</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio9">
+              <label for="radio9">30x40 cm</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio10">
+              <label for="radio10">30x45 cm</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio11" checked="checked">
+              <label for="radio11">40x60 cm</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio12">
+              <label for="radio12">45x60 cm</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio13">
+              <label for="radio13">50x75 cm</label>
+            </div>
+
+            <div class="form-group">
+              <input name="group1" type="radio" class="with-gap" id="radio14">
+              <label for="radio14">60x80 cm</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'LABELS.PRICE' | translate }}:</td>
+          <td>PRICE €</td>
+        </tr>
+      </table>
+    </div>
   </ng-template>

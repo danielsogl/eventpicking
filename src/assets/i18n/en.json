@@ -127,9 +127,13 @@
     "IMAGE_VIEW": "Image View",
     "FORMAT": "Format",
     "PRICE": "Price",
-    "SMALL": "Small",
-    "MEDIUM": "Medium",
-    "LARGE": "Large"
+    "EXTRA_EXTRA_SMALL": "XXS (max. 400px)",
+    "EXTRA_SMALL": "XS (max. 600px)",
+    "SMALL": "S (max. 800px)",
+    "MEDIUM": "M (max. 1200px)",
+    "LARGE": "L (max. 3000px)",
+    "EXTRA_LARGE": "XL (max. 5000px)",
+    "ORIGINAL": "Original"
   },
   "TABLE": {
     "NAME": "Name",
