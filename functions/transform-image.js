@@ -212,7 +212,7 @@ exports.transformImageHandler = event => {
       const fileUrl = results[2][0];
 
       // Event Id
-      const eventId = preFilePath.split('/')[2];
+      const eventId = preFilePath.split('/')[1];
 
       // Image ID
       const uuid = uuidv1();
@@ -224,7 +224,7 @@ exports.transformImageHandler = event => {
         .doc(uuid)
         .set({
           info: fileInfo,
-          name: file.name.split('/')[3],
+          name: file.name.split('/')[2],
           preview: preFileUrl,
           thumbnail: thumbFileUrl,
           ratings: 0,
@@ -239,7 +239,7 @@ exports.transformImageHandler = event => {
             .doc(uuid)
             .set({
               info: fileInfo,
-              name: file.name.split('/')[3],
+              name: file.name.split('/')[2],
               url: fileUrl,
               id: uuid,
               event: eventId
