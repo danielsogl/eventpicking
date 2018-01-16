@@ -5,13 +5,14 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../classes/printing-house';
+import { PrintingHouse } from '../../interfaces/printing-house';
 import { Upload } from '../../classes/upload-file';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
+import { PriceList } from '../../classes/price-list';
 
 /**
  * Event photographer view component
@@ -39,7 +40,7 @@ export class EventPhotographerComponent implements OnInit {
   /** Firebase user */
   @Input() public user: User;
   /** Event printing house */
-  public printingHouse: PrintingHouse;
+  public priceList: PriceList;
 
   /**
    * Constructor
@@ -89,11 +90,13 @@ export class EventPhotographerComponent implements OnInit {
       });
 
       this.afs
-        .getPrintingHouseById(this.event.printinghouse)
+        .getPriceList(this.event.photographerUid)
         .valueChanges()
-        .subscribe(printingHouse => {
-          this.printingHouse = printingHouse;
-          this.log.d('Loaded printing house', this.printingHouse);
+        .subscribe(priceList => {
+          if (priceList) {
+            this.priceList = priceList;
+            this.log.d('Loaded printing house', this.priceList);
+          }
         });
     }
   }

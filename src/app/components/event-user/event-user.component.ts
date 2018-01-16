@@ -9,10 +9,11 @@ import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../classes/printing-house';
+import { PrintingHouse } from '../../interfaces/printing-house';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { PriceList } from '../../classes/price-list';
 
 /**
  * Event user view component
@@ -51,7 +52,7 @@ export class EventUserComponent implements OnInit {
   public templateMarked: TemplateRef<any>;
 
   /** Printing house object */
-  public printingHouse: PrintingHouse;
+  public priceList: PriceList;
   /** Event images array */
   public images: EventPicture[];
 
@@ -91,11 +92,13 @@ export class EventUserComponent implements OnInit {
         });
 
       this.afs
-        .getPrintingHouseById(this.event.printinghouse)
+        .getPriceList(this.event.photographerUid)
         .valueChanges()
-        .subscribe(printingHouse => {
-          this.printingHouse = printingHouse;
-          this.log.d('Loaded printing house', this.printingHouse);
+        .subscribe(priceList => {
+          if (priceList) {
+            this.priceList = priceList;
+            this.log.d('Loaded printing house', this.priceList);
+          }
         });
     }
   }
@@ -105,7 +108,7 @@ export class EventUserComponent implements OnInit {
    * @param  {EventPicture} image Image to open
    */
   openImageModal(image: EventPicture) {
-    this.pictureModal.showModal(image, this.printingHouse);
+    this.pictureModal.showModal(image, this.priceList);
   }
 
   /**

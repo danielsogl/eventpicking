@@ -14,6 +14,9 @@ export class FooterComponent implements OnInit {
   /** Logger */
   private log = Log.create('FooterComponent');
 
+  /** Year */
+  public year = new Date().getFullYear();
+
   /**
    * Constructor
    */

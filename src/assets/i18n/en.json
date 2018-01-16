@@ -57,7 +57,9 @@
     "USER_EMAIL": "Your E-Mail",
     "USER_PASSWORD": "Your password",
     "WBESITE": "Website",
-    "ZIP": "ZIP"
+    "ZIP": "ZIP",
+    "PASSWORD": "Password",
+    "DESCRIPTION": "Description"
   },
   "BUTTONS": {
     "LOGIN": "Sign in",
@@ -77,7 +79,7 @@
     "ADD_PICTURES_TO_CART": "Add selected pictures to cart",
     "START_UPLOAD": "Start Upload",
     "DELETE_EVENT": "Delete Event",
-    "LOGINNOW": "Login Now",
+    "SINGUP_NOW": "Signup Now",
     "FIND_EVENT": "Find your event",
     "SEND_REPORT": "Send Report"
   },
@@ -85,7 +87,7 @@
     "ADDRESS": "Address",
     "ACCOUNT_DATA": "Account Data",
     "BILLING_ADDRESS": "Billing Address",
-    "BILLING_INFORMATION": "Billing Information",
+    "BILLING_INFORMATION": "Billing Address",
     "CREATE_NEW_EVENT": "Create new event",
     "CREATE": "Create",
     "CONTACT_DETAILS": "Contact-Details",
@@ -122,7 +124,8 @@
     "EVENT_GUEST": "Guest",
     "EVENT_ORGANISATOR": "Event Organisator",
     "REPORT_IMAGE": "Report Image",
-    "TYPE_HERE": "Type Here"
+    "TYPE_HERE": "Type Here",
+    "PASSWORD": "Password"
   },
   "TABLE": {
     "NAME": "Name",
@@ -173,7 +176,8 @@
     "SUBSCRIPTION": "Subscription",
     "UPLOAD": "Upload",
     "USER": "User",
-    "IMAGES": "Images"
+    "IMAGES": "Images",
+    "PRICING_MODEL": "Pricing Models"
   },
   "FIREBASE_ERRORS": {
     "auth/app-deleted": "Firebase project deleted",
