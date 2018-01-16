@@ -5,7 +5,7 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../classes/printing-house';
+import { PrintingHouse } from '../../interfaces/printing-house';
 import { Upload } from '../../classes/upload-file';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';

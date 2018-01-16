@@ -49,20 +49,6 @@ export class PriceList {
         price: 20
       }
     ];
-    this.printingHouseItems = [
-      {
-        name: PRINTTYPE.PICTURE,
-        articles: [
-          { price: 0, heigh: 20, width: 30, minPrice: 1, name: '20x30 cm' },
-          { price: 0, heigh: 30, width: 40, minPrice: 1.5, name: '30x40 cm' },
-          { price: 0, heigh: 30, width: 45, minPrice: 2, name: '30x45 cm' },
-          { price: 0, heigh: 40, width: 60, minPrice: 2.5, name: '40x60 cm' },
-          { price: 0, heigh: 45, width: 60, minPrice: 3, name: '45x60 cm' },
-          { price: 0, heigh: 50, width: 75, minPrice: 3.5, name: '50x75 cm' },
-          { price: 0, heigh: 60, width: 80, minPrice: 4, name: '60x80 cm' }
-        ]
-      }
-    ];
   }
 }
 

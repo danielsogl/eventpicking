@@ -9,7 +9,7 @@ import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../classes/printing-house';
+import { PrintingHouse } from '../../interfaces/printing-house';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';

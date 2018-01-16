@@ -10,7 +10,7 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../classes/printing-house';
+import { PrintingHouse } from '../../interfaces/printing-house';
 import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
@@ -222,32 +222,6 @@ export class DashboardPhotographerComponent implements OnInit {
         .valueChanges();
 
       this.afs
-        .getPriceList(this.auth.getCurrentFirebaseUser().uid)
-        .valueChanges()
-        .subscribe(priceList => {
-          if (priceList) {
-            this.priceList = priceList;
-            this.log.d('loaded download pricing list', this.priceList);
-          } else {
-            this.log.d('Created new downlaod pricing list');
-            this.priceList = new PriceList(
-              this.auth.getCurrentFirebaseUser().uid
-            );
-            this.afs
-              .createPriceList(
-                this.priceList,
-                this.auth.getCurrentFirebaseUser().uid
-              )
-              .then(() => {
-                this.log.d('Created download pricing list');
-              })
-              .catch(err => {
-                this.log.d('Error creating download pricing list', err);
-              });
-          }
-        });
-
-      this.afs
         .getDefautlPrintingHouse()
         .valueChanges()
         .subscribe(printingHouse => {
@@ -258,6 +232,33 @@ export class DashboardPhotographerComponent implements OnInit {
               this.defaultPrintingHouse
             );
           }
+          this.afs
+            .getPriceList(this.auth.getCurrentFirebaseUser().uid)
+            .valueChanges()
+            .subscribe(priceList => {
+              if (priceList) {
+                this.priceList = priceList;
+                this.log.d('loaded pricing list', this.priceList);
+              } else {
+                this.priceList = new PriceList(
+                  this.auth.getCurrentFirebaseUser().uid
+                );
+                if (this.defaultPrintingHouse) {
+                  this.priceList.printingHouseItems = this.defaultPrintingHouse.printingHouseItems;
+                }
+                this.afs
+                  .createPriceList(
+                    this.priceList,
+                    this.auth.getCurrentFirebaseUser().uid
+                  )
+                  .then(() => {
+                    this.log.d('Created pricing list');
+                  })
+                  .catch(err => {
+                    this.log.d('Error creating pricing list', err);
+                  });
+              }
+            });
         });
 
       this.afs
@@ -408,5 +409,44 @@ export class DashboardPhotographerComponent implements OnInit {
   /**
    * Update printing house data
    */
-  updatePrintingHouse() {}
+  updatePrintingHouse() {
+    this.afs
+      .updatePrintingHouse(this.ownPrintingHouse)
+      .then(() => {
+        this.log.d('updated own printing house');
+      })
+      .catch(err => {
+        this.log.er('Error updating own printing house', err);
+      });
+  }
+
+  createPrintingHouse() {
+    const printingHouse: PrintingHouse = {
+      address: {
+        city: '',
+        email: '',
+        name: '',
+        phone: '',
+        street: '',
+        streetnumber: '',
+        zip: ''
+      },
+      paymentInformation: {
+        accountOwner: '',
+        bic: '',
+        iban: ''
+      },
+      isDefault: false,
+      uid: this.auth.getCurrentFirebaseUser().uid,
+      id: this.afs.getId()
+    };
+    this.afs
+      .createPrintingHouse(printingHouse)
+      .then(() => {
+        this.log.d('Created own printing house');
+      })
+      .catch(err => {
+        this.log.er('Error creating own printing house', err);
+      });
+  }
 }

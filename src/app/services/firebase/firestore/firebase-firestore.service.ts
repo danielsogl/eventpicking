@@ -7,7 +7,7 @@ import {
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
-import { PrintingHouse } from '../../../classes/printing-house';
+import { PrintingHouse } from '../../../interfaces/printing-house';
 import { User } from '../../../classes/user';
 import { EventPicture } from '../../../interfaces/event-picture';
 import { PhotographerProfile } from '../../../interfaces/photographer-profile';
@@ -95,7 +95,7 @@ export class FirebaseFirestoreService {
    * @returns AngularFirestoreCollection
    */
   getDefautlPrintingHouse(): AngularFirestoreCollection<PrintingHouse> {
-    return this.afs.collection('printingHouses', ref =>
+    return this.afs.collection('printing-houses', ref =>
       ref.where('isDefault', '==', true)
     );
   }
@@ -106,7 +106,7 @@ export class FirebaseFirestoreService {
    * @returns {AngularFirestoreDocument<PrintingHouse>}
    */
   getPrintingHouseById(id: string): AngularFirestoreDocument<PrintingHouse> {
-    return this.afs.collection('printingHouses').doc(id);
+    return this.afs.collection('printing-houses').doc(id);
   }
 
   /**
@@ -117,9 +117,28 @@ export class FirebaseFirestoreService {
   getPrintingHouseByUser(
     uid: string
   ): AngularFirestoreCollection<PrintingHouse> {
-    return this.afs.collection('printingHouses', ref =>
+    return this.afs.collection('printing-houses', ref =>
       ref.where('uid', '==', uid)
     );
+  }
+
+  /**
+   * Create prin ting house
+   * @param  {PrintingHouse} printingHouse Printing house
+   * @returns {Promise<void>}
+   */
+  createPrintingHouse(printingHouse: PrintingHouse): Promise<void> {
+    return this.afs
+      .collection('printing-houses')
+      .doc(printingHouse.id)
+      .set(JSON.parse(JSON.stringify(printingHouse)));
+  }
+
+  updatePrintingHouse(printingHouse: PrintingHouse): Promise<void> {
+    return this.afs
+      .collection('printing-houses')
+      .doc(printingHouse.id)
+      .update(JSON.parse(JSON.stringify(printingHouse)));
   }
 
   /************************************

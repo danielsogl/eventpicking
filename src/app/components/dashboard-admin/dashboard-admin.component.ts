@@ -5,10 +5,11 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../classes/printing-house';
+import { PrintingHouse } from '../../interfaces/printing-house';
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { PRINTTYPE } from '../../classes/price-list';
 
 /**
  * Admin dashboard component
@@ -22,9 +23,6 @@ import { FirebaseFirestoreService } from '../../services/firebase/firestore/fire
 export class DashboardAdminComponent implements OnInit {
   /** Logger */
   private log = Log.create('DashboardAdminComponent');
-
-  /** Firebase user */
-  public user: User;
 
   /** Printing House */
   public printingHouse: PrintingHouse;
@@ -86,21 +84,23 @@ export class DashboardAdminComponent implements OnInit {
       ratings: [0, Validators.required]
     });
     this.printingHouseForm = this.formBuilder.group({
-      city: ['', Validators.required],
-      email: ['', Validators.email],
-      name: ['', Validators.required],
-      phone: ['', Validators.required],
-      street: ['', Validators.required],
-      streetNumber: ['', Validators.required],
-      zip: ['', Validators.required],
-      id: ['', Validators.required],
-      uid: ['', Validators.required],
-      isDefault: [true, Validators.required],
+      address: this.formBuilder.group({
+        city: ['', Validators.required],
+        email: ['', Validators.email],
+        name: ['', Validators.required],
+        phone: ['', Validators.required],
+        street: ['', Validators.required],
+        streetnumber: ['', Validators.required],
+        zip: ['', Validators.required]
+      }),
       paymentInformation: this.formBuilder.group({
         iban: ['', Validators.required],
         bic: ['', Validators.required],
         accountOwner: ['', Validators.required]
-      })
+      }),
+      id: ['', Validators.required],
+      uid: ['', Validators.required],
+      isDefault: [true, Validators.required]
     });
   }
 
@@ -112,13 +112,6 @@ export class DashboardAdminComponent implements OnInit {
     this.log.d('Component initialized');
 
     if (this.auth.getCurrentFirebaseUser()) {
-      this.auth.user.subscribe(user => {
-        if (user) {
-          this.user = user;
-          this.log.d('Loaded user', user);
-        }
-      });
-
       // Load users from Firestore
       this.users = this.afs.getAllUser().valueChanges();
       // Load events from Firestore
@@ -141,14 +134,92 @@ export class DashboardAdminComponent implements OnInit {
               'Loaded printinghouse from firestore',
               this.printingHouse
             );
+            this.printingHouseForm.patchValue(this.printingHouse);
           } else {
-            this.log.d('Created new printing house', this.printingHouse);
-            this.printingHouse = new PrintingHouse();
-            this.printingHouse.isDefault = true;
-            this.printingHouse.uid = this.auth.getCurrentFirebaseUser().uid;
-            this.printingHouse.id = this.afs.getId();
+            const printingHouse: PrintingHouse = {
+              address: {
+                city: 'Ludwigsburg',
+                email: 'info@druckhaus-goetz.de',
+                name: 'Druckhaus Götz GmbH',
+                phone: '07141451450',
+                street: 'Schwieberdinger Str.',
+                streetnumber: '111-115',
+                zip: '71636'
+              },
+              paymentInformation: {
+                accountOwner: 'Druckhaus Götz GmbH',
+                iban: 'DE27100777770209299700',
+                bic: 'NORSDE51XXX'
+              },
+              printingHouseItems: [
+                {
+                  name: PRINTTYPE.PICTURE,
+                  articles: [
+                    {
+                      price: 0,
+                      heigh: 20,
+                      width: 30,
+                      minPrice: 1,
+                      name: '20x30 cm'
+                    },
+                    {
+                      price: 0,
+                      heigh: 30,
+                      width: 40,
+                      minPrice: 1.5,
+                      name: '30x40 cm'
+                    },
+                    {
+                      price: 0,
+                      heigh: 30,
+                      width: 45,
+                      minPrice: 2,
+                      name: '30x45 cm'
+                    },
+                    {
+                      price: 0,
+                      heigh: 40,
+                      width: 60,
+                      minPrice: 2.5,
+                      name: '40x60 cm'
+                    },
+                    {
+                      price: 0,
+                      heigh: 45,
+                      width: 60,
+                      minPrice: 3,
+                      name: '45x60 cm'
+                    },
+                    {
+                      price: 0,
+                      heigh: 50,
+                      width: 75,
+                      minPrice: 3.5,
+                      name: '50x75 cm'
+                    },
+                    {
+                      price: 0,
+                      heigh: 60,
+                      width: 80,
+                      minPrice: 4,
+                      name: '60x80 cm'
+                    }
+                  ]
+                }
+              ],
+              isDefault: true,
+              uid: this.auth.getCurrentFirebaseUser().uid,
+              id: this.afs.getId()
+            };
+            this.afs
+              .createPrintingHouse(printingHouse)
+              .then(() => {
+                this.log.d('Created default printing house');
+              })
+              .catch(err => {
+                this.log.er('Error creating default printing house', err);
+              });
           }
-          this.printingHouseForm.patchValue(this.printingHouse);
         });
     }
   }
@@ -198,12 +269,11 @@ export class DashboardAdminComponent implements OnInit {
    */
   updatePrintingHouse() {
     if (this.printingHouseForm.valid) {
-      const products = this.printingHouse;
+      const printingHouseItems = this.printingHouse.printingHouseItems;
       this.printingHouse = this.printingHouseForm.getRawValue();
+      this.printingHouse.printingHouseItems = printingHouseItems;
       this.afs
-        .getDefautlPrintingHouse()
-        .doc(this.printingHouse.id)
-        .set(JSON.parse(JSON.stringify(this.printingHouse)))
+        .updatePrintingHouse(this.printingHouse)
         .then(() => {
           this.log.d('Updated printing house');
         })

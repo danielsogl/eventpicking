@@ -192,34 +192,63 @@
             <div class="row">
               <div class="col-12">
                 <br>
-                <mdb-squeezebox [multiple]="false" aria-multiselectable="true" *ngIf="priceList">
-                  <mdb-item *ngFor="let item of priceList.printingHouseItems; let i = index;">
-                    <mdb-item-head> {{ item.name }} </mdb-item-head>
-                    <mdb-item-body>
-                      <table class="table text-left">
-                        <thead class="thead-default">
-                          <tr>
-                            <th scope="row">Article</th>
-                            <th>Format</th>
-                            <th>Minimal price</th>
-                            <th>Your price</th>
-                            <th>Your profit ( -10% Provision)</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let article of item.articles; let j = index; trackBy:trackByIndex">
-                            <td>{{ article.name}}</td>
-                            <td>{{ article.width}}x{{ article.heigh}}</td>
-                            <td>{{ article.minPrice | number: '0.2-2' }} €</td>
-                            <td>
-                              <input type="number" class="form-control input-sm" [min]="article.minPrice" [(ngModel)]="priceList.printingHouseItems[i].articles[j].price">
-                            </td>
-                            <td>{{ article.price * 0.90 | number: '0.2-2' }} €</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </mdb-item-body>
-                  </mdb-item>
+                <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
+                  <div *ngIf="priceList && !ownPrintingHouse">
+                    <mdb-item *ngFor="let item of priceList.printingHouseItems; let i = index;">
+                      <mdb-item-head> {{ item.name }} </mdb-item-head>
+                      <mdb-item-body>
+                        <table class="table text-left">
+                          <thead class="thead-default">
+                            <tr>
+                              <th scope="row">Article</th>
+                              <th>Format</th>
+                              <th>Minimal price</th>
+                              <th>Your price</th>
+                              <th>Your profit ( -10% Provision)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let article of item.articles; let j = index; trackBy:trackByIndex">
+                              <td>{{ article.name}}</td>
+                              <td>{{ article.width}}x{{ article.heigh}}</td>
+                              <td>{{ article.minPrice | number: '0.2-2' }} €</td>
+                              <td>
+                                <input type="number" class="form-control input-sm" [min]="article.minPrice" [(ngModel)]="priceList.printingHouseItems[i].articles[j].price">
+                              </td>
+                              <td>{{ article.price * 0.90 | number: '0.2-2' }} €</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </mdb-item-body>
+                    </mdb-item>
+                  </div>
+                  <div *ngIf="priceList && ownPrintingHouse">
+                    <mdb-item *ngFor="let item of priceList.printingHouseItems; let i = index;">
+                      <mdb-item-head> {{ item.name }} </mdb-item-head>
+                      <mdb-item-body>
+                        <table class="table text-left">
+                          <thead class="thead-default">
+                            <tr>
+                              <th scope="row">Article</th>
+                              <th>Format</th>
+                              <th>Your price</th>
+                              <th>Your profit ( -10% Provision)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let article of item.articles; let j = index; trackBy:trackByIndex">
+                              <td>{{ article.name}}</td>
+                              <td>{{ article.width}}x{{ article.heigh}}</td>
+                              <td>
+                                <input type="number" class="form-control input-sm" [(ngModel)]="priceList.printingHouseItems[i].articles[j].price">
+                              </td>
+                              <td>{{ article.price * 0.90 | number: '0.2-2' }} €</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </mdb-item-body>
+                    </mdb-item>
+                  </div>
                 </mdb-squeezebox>
               </div>
             </div>
@@ -300,8 +329,7 @@
               <mdb-item>
                 <mdb-item-head>Price List</mdb-item-head>
                 <mdb-item-body>
-                  <p>You can change the default price in the "Pricing Models" Tab. If you want to create your own pricing model
-                    you have to create your own printing house</p>
+                  <p>You can change the default price in the "Pricing Models" Tab.</p>
                   <div *ngIf="priceList">
                     <div *ngFor="let item of priceList.printingHouseItems">
                       <h1>{{ item.name }}</h1>
@@ -327,9 +355,118 @@
               </mdb-item>
             </mdb-squeezebox>
           </div>
+          <button type="button" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="createPrintingHouse()">Create own printing house</button>
         </div>
         <div *ngIf="ownPrintingHouse">
           <h1>Own Printing House</h1>
+          <mdb-squeezebox [multiple]="false" aria-multiselectable="true" class="text-left">
+            <mdb-item>
+              <mdb-item-head>Adress</mdb-item-head>
+              <mdb-item-body>
+                <form>
+                  <fieldset disabled>
+                    <br>
+                    <div class="md-form">
+                      <input type="text" class="form-control" name="name" [(ngModel)]="ownPrintingHouse.name">
+                      <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                    </div>
+
+                    <div class="md-form">
+                      <input type="text" class="form-control" name="email" [(ngModel)]="ownPrintingHouse.email">
+                      <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
+                    </div>
+
+                    <div class="md-form">
+                      <input type="text" class="form-control" name="phone" [(ngModel)]="ownPrintingHouse.phone">
+                      <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-9">
+                        <div class="md-form">
+                          <input type="text" class="form-control" name="street" [(ngModel)]="ownPrintingHouse.street">
+                          <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="md-form">
+                          <input type="text" class="form-control" name="streetNumber" [(ngModel)]="ownPrintingHouse.streetNumber">
+                          <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="md-form">
+                          <input type="text" class="form-control" name="zip" [(ngModel)]="ownPrintingHouse.zip">
+                          <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-9">
+                        <div class="md-form">
+                          <input type="text" class="form-control" name="city" [(ngModel)]="ownPrintingHouse.city">
+                          <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </form>
+              </mdb-item-body>
+            </mdb-item>
+            <mdb-item>
+              <mdb-item-head>Billing Informations</mdb-item-head>
+              <mdb-item-body>
+                <br>
+                <form>
+                  <div class="md-form">
+                    <input type="text" class="form-control" name="accountOwner" [(ngModel)]="ownPrintingHouse.paymentInformation.accountOwner">
+                    <label class="active">{{ 'INPUTS.ACCOUNT_OWNER' | translate }}</label>
+                  </div>
+
+                  <div class="md-form">
+                    <input type="text" class="form-control" name="iban" [(ngModel)]="ownPrintingHouse.paymentInformation.iban">
+                    <label class="active">{{ 'INPUTS.IBAN' | translate }}</label>
+                  </div>
+
+                  <div class="md-form">
+                    <input type="text" class="form-control" name="bic" [(ngModel)]="ownPrintingHouse.paymentInformation.bic">
+                    <label class="active">{{ 'INPUTS.BIC' | translate }}</label>
+                  </div>
+                </form>
+              </mdb-item-body>
+            </mdb-item>
+            <mdb-item class="text-left">
+              <mdb-item-head>Price List</mdb-item-head>
+              <mdb-item-body>
+                <p>You can change the default price in the "Pricing Models" Tab.</p>
+                <div *ngIf="priceList">
+                  <div *ngFor="let item of priceList.printingHouseItems">
+                    <h1>{{ item.name }}</h1>
+                    <table class="table text-left">
+                      <thead class="thead-default">
+                        <tr>
+                          <th scope="row">Article</th>
+                          <th>Format</th>
+                          <th>Your price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let article of item.articles">
+                          <td>{{ article.name}}</td>
+                          <td>{{ article.width}}x{{ article.heigh}}</td>
+                          <td>{{ article.minPrice | number: '0.2-2' }} €</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </mdb-item-body>
+            </mdb-item>
+          </mdb-squeezebox>
+          <button type="button" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updatePrintingHouse()">Update printing house</button>
         </div>
       </div>
     </div>
