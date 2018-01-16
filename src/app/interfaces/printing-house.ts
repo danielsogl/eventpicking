@@ -1,5 +1,6 @@
 import { Address } from './address';
-import { PrintingHousePrices } from '../classes/price-list';
+import { PaymentInformation } from './payment-information';
+import { PrintingHousePrices } from './printing-house-prices';
 
 /**
  * Printing house interface
@@ -18,10 +19,4 @@ export interface PrintingHouse {
   isDefault: boolean;
   /** Id */
   id: string;
-}
-
-export interface PaymentInformation {
-  accountOwner: string;
-  bic: string;
-  iban: string;
 }

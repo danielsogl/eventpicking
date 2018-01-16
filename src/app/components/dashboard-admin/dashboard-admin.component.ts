@@ -9,7 +9,7 @@ import { PrintingHouse } from '../../interfaces/printing-house';
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { PRINTTYPE } from '../../classes/price-list';
+import { PRINTTYPE } from '../../enums/print-type';
 
 /**
  * Admin dashboard component

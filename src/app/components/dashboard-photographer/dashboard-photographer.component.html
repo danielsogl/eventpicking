@@ -266,7 +266,7 @@
     <div class="row">
       <div class="col-12">
         <br>
-        <div *ngIf="!ownPrintingHouse && defaultPrintingHouse">
+        <div *ngIf="checkDefaultPrintingHouse()">
           <h1>Default Printing House</h1>
           <div class="text-left">
             <mdb-squeezebox [multiple]="false" aria-multiselectable="true">

@@ -449,4 +449,12 @@ export class DashboardPhotographerComponent implements OnInit {
         this.log.er('Error creating own printing house', err);
       });
   }
+
+  checkDefaultPrintingHouse(): boolean {
+    if (!this.ownPrintingHouse && this.defaultPrintingHouse) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

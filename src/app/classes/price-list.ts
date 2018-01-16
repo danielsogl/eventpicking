@@ -1,3 +1,6 @@
+import { DownloadPrice } from '../interfaces/download-price';
+import { PrintingHousePrices } from '../interfaces/printing-house-prices';
+
 /**
  * Price list class
  * @author Daniel Sogl
@@ -50,53 +53,4 @@ export class PriceList {
       }
     ];
   }
-}
-
-/**
- * Download item interface
- * @author Daniel Sogl
- */
-export interface DownloadPrice {
-  /** Minimal price */
-  minPrice: number;
-  /** Item name */
-  name: string;
-  /** Constomer price */
-  price: number;
-}
-
-/**
- * Printing House Item Interface
- * @author Daniel Sogl
- */
-export interface PrintingHousePrices {
-  /** Price type */
-  name: PRINTTYPE;
-  /** Articles */
-  articles: PrintingHouseArticle[];
-}
-
-/**
- * Printing House Article Interface
- * @author Daniel Sogl
- */
-export interface PrintingHouseArticle {
-  /** Image heigh */
-  heigh: number;
-  /** Minimal price */
-  minPrice: number;
-  /** Image name */
-  name: string;
-  /** Costomer price */
-  price: number;
-  /** Image width */
-  width: number;
-}
-
-/**
- * Print type enum
- * @author Daniel Sogl
- */
-export enum PRINTTYPE {
-  PICTURE = 'Pictures'
 }
