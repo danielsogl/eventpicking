@@ -2,9 +2,10 @@ import { Component, TemplateRef, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 
-import { PrintingHouse } from '../../classes/printing-house';
+import { PrintingHouse } from '../../interfaces/printing-house';
 import { EventPicture } from '../../interfaces/event-picture';
 import { EventUserComponent } from '../event-user/event-user.component';
+import { PriceList } from '../../classes/price-list';
 
 /**
  * Picture detail modal component
@@ -48,6 +49,7 @@ export class PictureDetailComponent implements OnInit {
   public printingHouse: PrintingHouse;
   public radioModel = 'Left';
   public images: EventPicture[];
+  public priceList: PriceList;
 
   constructor() {}
 
