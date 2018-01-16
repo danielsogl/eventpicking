@@ -31,7 +31,7 @@
                 <td>{{ event.location }}</td>
                 <td>{{ event.ratings }}</td>
                 <td>
-                  <a (click)="editEvent(user)">
+                  <a (click)="editEvent(event)">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                   </a>
                 </td>
@@ -79,7 +79,7 @@
                   </a>
                 </td>
                 <td>
-                  <a>
+                  <a (click)="deleteUser(user)">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </a>
                 </td>
@@ -291,10 +291,36 @@
       </div>
 
       <div class="modal-body mb-0">
-        <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>
+        <form [formGroup]="eventForm">
+
+          <div class="md-form">
+            <input type="text" class="form-control" formControlName="name">
+            <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="text" class="form-control" formControlName="description">
+            <label class="active">{{ 'INPUTS.DESCRIPTION' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="text" class="form-control" formControlName="location">
+            <label class="active">{{ 'INPUTS.LOCATION' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="text" class="form-control" formControlName="date">
+            <label class="active">{{ 'INPUTS.DATE' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="password" class="form-control" formControlName="password">
+            <label class="active">{{ 'INPUTS.PASSWORD' | translate }}</label>
+          </div>
+
+        </form>
+        <button type="button" class="btn indigo btn-lg btn-block waves-light" (click)="updateEvent()" mdbRippleRadius>
           <i class="fa fa-refresh mr-1"></i>{{ 'BUTTONS.UPDATE_EVENT' | translate }}</button>
-        <button type="button" class="btn btn-danger btn-lg btn-block waves-light" mdbRippleRadius>
-          <i class="fa fa-trash mr-1"></i>{{ 'BUTTONS.DELETE_EVENT' | translate }}</button>
       </div>
     </div>
   </div>

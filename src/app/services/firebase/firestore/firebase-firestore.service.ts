@@ -86,6 +86,18 @@ export class FirebaseFirestoreService {
     return this.afs.collection('users');
   }
 
+  /**
+   * Delete user
+   * @param  {User} uid User uid to delete
+   * @returns {Promise<void>}
+   */
+  deleteUser(uid: string): Promise<void> {
+    return this.afs
+      .collection('users')
+      .doc(uid)
+      .delete();
+  }
+
   /************************************
    * Firestore: Printing houses
    ************************************/

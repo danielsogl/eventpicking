@@ -34,8 +34,10 @@ export class DashboardAdminComponent implements OnInit {
   /** Printing house modal form */
   public printingHouseForm: FormGroup;
 
-  /** Event to Edit */
+  /** Event to edit */
   public eventEdit: Event;
+  /** User to edit */
+  public userEdit: User;
 
   /** All users from Firestore */
   public users: Observable<User[]>;
@@ -79,6 +81,7 @@ export class DashboardAdminComponent implements OnInit {
       id: ['', Validators.required],
       location: ['', Validators.required],
       name: ['', Validators.required],
+      password: ['', Validators.required],
       photographerUid: ['', Validators.required],
       public: [false, Validators.required],
       ratings: [0, Validators.required]
@@ -239,6 +242,7 @@ export class DashboardAdminComponent implements OnInit {
    * @param  {Event} event Event
    */
   editEvent(event: Event) {
+    this.eventForm.patchValue(event);
     this.editEventModal.show();
   }
 
@@ -246,7 +250,16 @@ export class DashboardAdminComponent implements OnInit {
    * Update event and hide modal
    */
   updateEvent() {
-    this.editEventModal.hide();
+    this.afs
+      .updatePhotographerEvent(this.eventForm.getRawValue() as Event)
+      .then(() => {
+        this.log.d('Updated event');
+        this.editEventModal.hide();
+      })
+      .catch(err => {
+        this.log.er('Error updating event', err);
+        this.editEventModal.hide();
+      });
   }
 
   /**
@@ -254,6 +267,7 @@ export class DashboardAdminComponent implements OnInit {
    * @param  {User} user User
    */
   editUser(user: User) {
+    this.userEdit = user;
     this.editUserModal.show();
   }
 
@@ -261,7 +275,32 @@ export class DashboardAdminComponent implements OnInit {
    * Update user and hide modal
    */
   updateUser() {
-    this.editUserModal.hide();
+    this.afs
+      .updateUserData(this.userEdit)
+      .then(() => {
+        this.log.d('Updated user');
+        this.editUserModal.hide();
+      })
+      .catch(err => {
+        this.log.er('Error updating user', err);
+        this.editUserModal.hide();
+      });
+  }
+
+  /**
+   * Delete user
+   */
+  deleteUser(user: User) {
+    this.afs
+      .deleteUser(user.uid)
+      .then(() => {
+        this.log.d('Deleted user');
+        this.editUserModal.hide();
+      })
+      .catch(err => {
+        this.log.er('Error deleting user', err);
+        this.editUserModal.hide();
+      });
   }
 
   /**

@@ -57,7 +57,9 @@
     "USER_EMAIL": "Your E-Mail",
     "USER_PASSWORD": "Your password",
     "WBESITE": "Website",
-    "ZIP": "ZIP"
+    "ZIP": "ZIP",
+    "PASSWORD": "Password",
+    "DESCRIPTION": "Description"
   },
   "BUTTONS": {
     "LOGIN": "Sign in",
@@ -122,7 +124,8 @@
     "EVENT_GUEST": "Guest",
     "EVENT_ORGANISATOR": "Event Organisator",
     "REPORT_IMAGE": "Report Image",
-    "TYPE_HERE": "Type Here"
+    "TYPE_HERE": "Type Here",
+    "PASSWORD": "Password"
   },
   "TABLE": {
     "NAME": "Name",
