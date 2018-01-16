@@ -108,11 +108,8 @@ export class EventUserComponent implements OnInit {
    * @param  {EventPicture} image Image to open
    */
   openImageModal(image: EventPicture, imageIndex: number) {
-    this.pictureModal.showModal(image, this, imageIndex);
-  openImageModal(image: EventPicture) {
-    this.pictureModal.showModal(image, this.priceList);
+    this.pictureModal.showModal(image, imageIndex, this, this.priceList);
   }
-
   /**
    * Select all images
    */

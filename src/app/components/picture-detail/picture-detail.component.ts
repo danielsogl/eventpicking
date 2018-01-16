@@ -69,8 +69,9 @@ export class PictureDetailComponent implements OnInit {
    */
   showModal(
     image: EventPicture,
+    imageIndex: number,
     eventUserComponent: EventUserComponent,
-    imageIndex: number
+    priceList: PriceList
   ) {
     this.log.d('Open picture modal');
     this.image = image;
