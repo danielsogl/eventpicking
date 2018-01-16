@@ -34,23 +34,15 @@
                 </table>
               </div>
               <div class="col-12 col-lg-7 p-3">
-                <div *ngIf="previousFlag; else activePrevious">
-                  <button class="btn btn-primary waves-light navigation" mdbRippleRadius (click)="loadPreviousImage()" disabled>
-                    <i class="fa fa-angle-double-left mr-1"></i>{{ 'LABELS.PREVIOUS' | translate }}
-                  </button>
-                </div>
-                <button class="btn btn-primary waves-light navigation" mdbRippleRadius (click)="loadPreviousImage()" #activePrevious>
+                <button *ngIf="!previousFlag" class="btn btn-primary waves-light navigation" mdbRippleRadius (click)="loadPreviousImage()">
                   <i class="fa fa-angle-double-left mr-1"></i>{{ 'LABELS.PREVIOUS' | translate }}
                 </button>
 
-                <div *ngIf="nextFlag; else activeNext">
-                  <button class="btn btn-primary waves-light navigation" mdbRippleRadius (click)="loadNextImage()" disabled>{{ 'LABELS.NEXT' | translate }}
-                    <i class="fa fa-angle-double-right ml-1"></i>
-                  </button>
-                </div>
-                <button class="btn btn-primary waves-light navigation" mdbRippleRadius (click)="loadNextImage()" #activeNext>{{ 'LABELS.NEXT' | translate }}
+
+                <button *ngIf="!nextFlag" class="btn btn-primary waves-light navigation" mdbRippleRadius (click)="loadNextImage()">{{ 'LABELS.NEXT' | translate }}
                   <i class="fa fa-angle-double-right ml-1"></i>
                 </button>
+
               </div>
             </div>
           </div>

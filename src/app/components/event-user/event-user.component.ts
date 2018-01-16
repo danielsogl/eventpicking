@@ -108,7 +108,13 @@ export class EventUserComponent implements OnInit {
    * @param  {EventPicture} image Image to open
    */
   openImageModal(image: EventPicture, imageIndex: number) {
-    this.pictureModal.showModal(image, imageIndex, this, this.priceList);
+    this.pictureModal.showModal(
+      image,
+      imageIndex,
+      this.images.length,
+      this,
+      this.priceList
+    );
   }
   /**
    * Select all images
@@ -157,9 +163,6 @@ export class EventUserComponent implements OnInit {
   }
 
   getFollowingImage(imageIndex: number) {
-    if (imageIndex < this.images.length) {
-      this.log.info('Following Image: ' + this.images[imageIndex].name);
-      return this.images[imageIndex];
-    }
+    return this.images[imageIndex];
   }
 }

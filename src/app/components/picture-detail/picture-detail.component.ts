@@ -30,6 +30,7 @@ export class PictureDetailComponent implements OnInit {
   /** Template ref  */
   public templateType: TemplateRef<any>;
 
+  /** Parent Component */
   public eventUserComponent: EventUserComponent;
 
   /** Image */
@@ -46,6 +47,8 @@ export class PictureDetailComponent implements OnInit {
 
   /** index of images array */
   public imageIndex: number;
+  /** length of images array */
+  public imagesLength: number;
   /** previous image flag */
   public previousFlag: boolean;
   /** next image flag */
@@ -66,6 +69,7 @@ export class PictureDetailComponent implements OnInit {
     this.log.color = 'orange';
     this.log.d('Component initialized');
     this.templateType = this.download;
+    this.imagesLength = 0;
     this.previousFlag = false;
     this.nextFlag = false;
   }
@@ -78,13 +82,28 @@ export class PictureDetailComponent implements OnInit {
   showModal(
     image: EventPicture,
     imageIndex: number,
+    imagesLength: number,
     eventUserComponent: EventUserComponent,
     priceList: PriceList
   ) {
     this.log.d('Open picture modal');
     this.image = image;
-    this.eventUserComponent = eventUserComponent;
     this.imageIndex = imageIndex;
+    this.imagesLength = imagesLength;
+    this.eventUserComponent = eventUserComponent;
+    this.priceList = priceList;
+    this.previousFlag = false;
+    this.nextFlag = false;
+
+    /** deactivate previous button if selected first picture */
+    if (this.imageIndex === 0) {
+      this.previousFlag = true;
+    }
+    /** deactivate next button if selected last picture */
+    if (this.imageIndex + 1 === this.imagesLength) {
+      this.nextFlag = true;
+    }
+
     this.pictureModal.show();
   }
 
@@ -97,20 +116,25 @@ export class PictureDetailComponent implements OnInit {
   }
 
   loadPreviousImage() {
-    if (this.imageIndex >= 0) {
+    this.nextFlag = false;
+    if (this.imageIndex > 0) {
       this.imageIndex--;
       this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
-    } else {
+    }
+    if (this.imageIndex === 0) {
       this.previousFlag = true;
     }
   }
 
   loadNextImage() {
-    this.imageIndex++;
-    if (this.eventUserComponent.getFollowingImage(this.imageIndex) === null) {
+    this.previousFlag = false;
+    if (
+      this.eventUserComponent.getFollowingImage(this.imageIndex + 2) ===
+      undefined
+    ) {
       this.nextFlag = true;
-    } else {
-      this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
     }
+    this.imageIndex++;
+    this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
   }
 }
