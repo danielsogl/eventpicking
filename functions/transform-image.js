@@ -67,6 +67,12 @@ exports.transformImageHandler = event => {
     return null;
   }
 
+  // Exit if this is a move or deletion event.
+  if (event.data.resourceState === 'not_exists') {
+    console.log('Delete event');
+    return null;
+  }
+
   // Exit if the image is already a thumbnail.
   if (fileName.startsWith(THUMB_PREFIX)) {
     console.log('Already a Thumbnail.');
@@ -75,12 +81,6 @@ exports.transformImageHandler = event => {
 
   if (fileName.startsWith(PRE_PREFIX)) {
     console.log('Already a Preview.');
-    return null;
-  }
-
-  // Exit if this is a move or deletion event.
-  if (event.data.resourceState === 'not_exists') {
-    console.log('Delete event');
     return null;
   }
 

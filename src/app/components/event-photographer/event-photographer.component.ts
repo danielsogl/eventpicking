@@ -178,12 +178,11 @@ export class EventPhotographerComponent implements OnInit {
       uploadTask.snapshotChanges().subscribe(snapshot => {
         this.uploadFiles[i].progress =
           snapshot.bytesTransferred / snapshot.totalBytes * 100;
-        if (snapshot.bytesTransferred === snapshot.totalBytes) {
-          const index = i;
-          setTimeout(() => {
-            this.uploadFiles.splice(index, 1);
-          }, 1000);
-        }
+      });
+
+      uploadTask.then().then(() => {
+        console.log('Image upload finsihed: ', i);
+        this.uploadFiles.splice(i, 1);
       });
     }
   }
