@@ -42,9 +42,12 @@ export class PictureDetailComponent implements OnInit {
     id: ''
   };
 
+  public imageIndex: number;
+
   /** Printing house */
   public printingHouse: PrintingHouse;
   public radioModel = 'Left';
+  public images: EventPicture[];
 
   constructor() {}
 
@@ -64,12 +67,13 @@ export class PictureDetailComponent implements OnInit {
    */
   showModal(
     image: EventPicture,
-    printingHouse: PrintingHouse,
-    eventUserComponent: EventUserComponent
+    eventUserComponent: EventUserComponent,
+    imageIndex: number
   ) {
     this.log.d('Open picture modal');
     this.image = image;
     this.eventUserComponent = eventUserComponent;
+    this.imageIndex = imageIndex;
     this.pictureModal.show();
   }
 
@@ -79,5 +83,15 @@ export class PictureDetailComponent implements OnInit {
 
   reportImage(image: EventPicture) {
     this.eventUserComponent.reportImage(image);
+  }
+
+  loadPreviousImage() {
+    this.imageIndex--;
+    this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
+  }
+
+  loadNextImage() {
+    this.imageIndex++;
+    this.eventUserComponent.getFollowingImage(this.imageIndex);
   }
 }

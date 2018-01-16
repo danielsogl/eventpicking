@@ -133,7 +133,9 @@
     "MEDIUM": "M (max. 1200px)",
     "LARGE": "L (max. 3000px)",
     "EXTRA_LARGE": "XL (max. 5000px)",
-    "ORIGINAL": "Original"
+    "ORIGINAL": "Original",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next"
   },
   "TABLE": {
     "NAME": "Name",

@@ -6,34 +6,44 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-12 col-lg-8">
+          <div class="col-12 col-lg-8 p-3">
             <img [src]="image.preview" class="img-size" [alt]="image.name">
             <p class="bildname">{{image.name}}</p>
-            <table>
-              <tr>
-                <td>
-                  <a class="icon-button" [ngStyle]="image.selected && { 'color': '#3f51b5' }" (click)="image.selected = !image.selected">
-                    <i class="fa fa-check fa-2x" aria-hidden="true">&nbsp;</i>
-                  </a>
-                </td>
-
-                <td>
-                  <a class="icon-button" style="color: #3f51b5" (click)="rateImage(image)">
-                    &nbsp;
-                    <i class="fa fa-heart fa-2x" aria-hidden="true">&nbsp;{{ image.ratings }}</i>
-                  </a>
-                </td>
-
-                <td>
-                  <a class="icon-button" style="color: #ff4848" (click)="reportImage(image)">
-                    &nbsp;
-                    <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true">&nbsp;</i>
-                  </a>
-                </td>
-              </tr>
-            </table>
+            <div class="row">
+              <div class="col-12 col-lg-5 p-3">
+                <table>
+                  <tr>
+                    <td>
+                      <a class="icon-button" [ngStyle]="image.selected && { 'color': '#3f51b5' }" (click)="image.selected = !image.selected">
+                        <i class="fa fa-check fa-2x" aria-hidden="true">&nbsp;</i>
+                      </a>
+                    </td>
+                    <td>
+                      <a class="icon-button" style="color: #3f51b5" (click)="rateImage(image)">
+                        &nbsp;
+                        <i class="fa fa-heart fa-2x" aria-hidden="true">&nbsp;{{ image.ratings }}</i>
+                      </a>
+                    </td>
+                    <td>
+                      <a class="icon-button" style="color: #ff4848" (click)="reportImage(image)">
+                        &nbsp;
+                        <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true">&nbsp;</i>
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-12 col-lg-7 p-3">
+                <button class="btn btn-primary waves-light navigation" mdbRippleRadius (click)="loadPreviousImage()">
+                  <i class="fa fa-angle-double-left mr-1"></i>{{ 'LABELS.PREVIOUS' | translate }}
+                </button>
+                <button class="btn btn-primary waves-light navigation" mdbRippleRadius (click)="loadNextImage()">{{ 'LABELS.NEXT' | translate }}
+                  <i class="fa fa-angle-double-right ml-1"></i>
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="col-12 col-lg-4 vertical-ruler">
+          <div class="col-12 col-lg-4 vertical-ruler p-3">
             <div class="btn-group">
               <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="Left" mdbRippleRadius (click)="this.templateType = this.download">
                 <i class="fa fa-download fa-5x" aria-hidden="true"></i>
@@ -57,8 +67,8 @@
     <div class="p-4">
       <table>
         <tr>
-          <td>{{ 'LABELS.FORMAT' | translate }}:</td>
           <td>
+            <p>{{ 'LABELS.FORMAT' | translate }}:</p>
             <div class="form-group">
               <input name="group1" type="radio" class="with-gap" id="radio1">
               <label for="radio1">{{ 'LABELS.EXTRA_EXTRA_SMALL' | translate }}</label>
@@ -96,8 +106,7 @@
           </td>
         </tr>
         <tr>
-          <td>{{ 'LABELS.PRICE' | translate }}:</td>
-          <td>PRICE €</td>
+          <td>{{ 'LABELS.PRICE' | translate }}: PRICE €</td>
         </tr>
       </table>
     </div>
@@ -107,8 +116,8 @@
     <div class="p-4">
       <table>
         <tr>
-          <td>{{ 'LABELS.FORMAT' | translate }}:</td>
           <td>
+            <p>{{ 'LABELS.FORMAT' | translate }}:</p>
             <div class="form-group">
               <input name="group1" type="radio" class="with-gap" id="radio8">
               <label for="radio8">20x30 cm</label>

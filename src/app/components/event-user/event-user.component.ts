@@ -16,7 +16,7 @@ import { FirebaseFirestoreService } from '../../services/firebase/firestore/fire
 
 /**
  * Event user view component
- * @author Daniel Sogl, Markus Kirschner
+ * @author Daniel Sogl, Markus Kirschner, Tim Krießler
  */
 @Component({
   selector: 'app-event-user',
@@ -104,8 +104,8 @@ export class EventUserComponent implements OnInit {
    * Open image detail modal
    * @param  {EventPicture} image Image to open
    */
-  openImageModal(image: EventPicture) {
-    this.pictureModal.showModal(image, this.printingHouse, this);
+  openImageModal(image: EventPicture, imageIndex: number) {
+    this.pictureModal.showModal(image, this, imageIndex);
   }
 
   /**
@@ -143,5 +143,9 @@ export class EventUserComponent implements OnInit {
    */
   reportImage(image: EventPicture) {
     this.reportImageModal.show();
+  }
+
+  getFollowingImage(imageIndex: number) {
+    return this.images[imageIndex];
   }
 }

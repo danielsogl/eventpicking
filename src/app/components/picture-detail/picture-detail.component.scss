@@ -9,7 +9,7 @@
 
 .modal-body {
   overflow-y: scroll;
-  height: 90%;
+  height: 600px;
 }
 
 .vertical-ruler {
@@ -31,6 +31,10 @@
   padding-top: 5px;
 }
 
+.modal-dialog.modal-notify.modal-info .fa {
+  color: unset;
+}
+
 td {
   vertical-align: top;
   padding-top: 10px;
@@ -47,4 +51,8 @@ td {
 .bildname {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.navigation {
+  width: 45%;
 }

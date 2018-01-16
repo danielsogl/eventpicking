@@ -64,7 +64,7 @@
 <ng-template #imgBigOverview>
   <div class="card-columns">
     <div class="card card-outline-primary z-depth-1" *ngFor="let image of images; let i = index">
-      <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
+      <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image, i)">
       <div class="card-body">
         <table>
           <tr>
