@@ -120,6 +120,15 @@ export class EventUserComponent implements OnInit {
   }
 
   /**
+   * Deselect all images
+   */
+  deselectAllImages() {
+    for (let i = 0; i < this.images.length; i++) {
+      this.images[i].selected = false;
+    }
+  }
+
+  /**
    * Upvote image
    * @param  {EventPicture} image Image object
    */
@@ -148,6 +157,9 @@ export class EventUserComponent implements OnInit {
   }
 
   getFollowingImage(imageIndex: number) {
-    return this.images[imageIndex];
+    if (imageIndex < this.images.length) {
+      this.log.info('Following Image: ' + this.images[imageIndex].name);
+      return this.images[imageIndex];
+    }
   }
 }

@@ -76,6 +76,7 @@
     "SEND_ORDER": "Pay Pal Button",
     "ABO": "Buy now",
     "SELECT_PICTURES": "Select all pictures",
+    "DESELECT_PICTURES": "Deselect all pictures",
     "ADD_PICTURES_TO_CART": "Add selected pictures to cart",
     "START_UPLOAD": "Start Upload",
     "DELETE_EVENT": "Delete Event",

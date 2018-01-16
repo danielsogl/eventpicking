@@ -40,7 +40,10 @@
   <mdb-tab heading="{{ 'TEXTS.EVENT_SELECTED_PICTURES' | translate}}">
     <div class="row no-gutters justify-content-start" style="align-items: center">
 
-      <div class="col-1 offset-md-11">
+      <div class="col-3">
+        <a class="btn btn-indigo darken-2 waves-light" id="button_deselect_all_pictures" (click)="deselectAllImages()" mdbRippleRadius>{{ 'BUTTONS.DESELECT_PICTURES' | translate }}</a>
+      </div>
+      <div class="col-1 offset-md-8">
         <a class="icon-button lessVertical" id="button_two_pictures_per_row" (click)="this.templateMarked = this.imgBigMarked" style="color: #3f51b5">
           <i class="fa fa-th-large fa-2x" aria-hidden="true"></i>
         </a>
@@ -62,10 +65,11 @@
 <app-picture-detail #pictureModal></app-picture-detail>
 
 <ng-template #imgBigOverview>
-  <div class="card-columns">
-    <div class="card card-outline-primary z-depth-1" *ngFor="let image of images; let i = index">
+  <div class="row">
+    <div class="card card-outline-primary z-depth-1 col-4" *ngFor="let image of images; let i = index">
       <img class="img-fluid" [src]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image, i)">
       <div class="card-body">
+        <p>{{image.name}}</p>
         <table>
           <tr>
             <td>

@@ -34,16 +34,22 @@ export class PictureDetailComponent implements OnInit {
 
   /** Image */
   public image: EventPicture = {
+    event: '',
     info: { height: 0, size: 0, type: '', width: 0 },
     name: '',
     preview: '',
     ratings: 0,
     thumbnail: '',
-    selected: false,
-    id: ''
+    id: '',
+    selected: false
   };
 
+  /** index of images array */
   public imageIndex: number;
+  /** previous image flag */
+  public previousFlag: boolean;
+  /** next image flag */
+  public nextFlag: boolean;
 
   /** Printing house */
   public printingHouse: PrintingHouse;
@@ -60,6 +66,8 @@ export class PictureDetailComponent implements OnInit {
     this.log.color = 'orange';
     this.log.d('Component initialized');
     this.templateType = this.download;
+    this.previousFlag = false;
+    this.nextFlag = false;
   }
 
   /**
@@ -89,12 +97,20 @@ export class PictureDetailComponent implements OnInit {
   }
 
   loadPreviousImage() {
-    this.imageIndex--;
-    this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
+    if (this.imageIndex >= 0) {
+      this.imageIndex--;
+      this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
+    } else {
+      this.previousFlag = true;
+    }
   }
 
   loadNextImage() {
     this.imageIndex++;
-    this.eventUserComponent.getFollowingImage(this.imageIndex);
+    if (this.eventUserComponent.getFollowingImage(this.imageIndex) === null) {
+      this.nextFlag = true;
+    } else {
+      this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
+    }
   }
 }
