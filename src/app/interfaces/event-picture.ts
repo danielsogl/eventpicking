@@ -1,8 +1,12 @@
+import { ImageInfo } from './image-info';
+
 /**
  * Event picture interface
  * @author Daniel Sogl
  */
 export interface EventPicture {
+  /** Event ID */
+  event: string;
   /** Image info */
   info: ImageInfo;
   /** Image name */
@@ -19,18 +23,4 @@ export interface EventPicture {
   selected?: boolean;
   /** Amount */
   amount?: number;
-}
-/**
- * Image info interface
- * @author Daniel Sogl
- */
-export interface ImageInfo {
-  /** Image height */
-  height: number;
-  /** Image size */
-  size: number;
-  /** Image type */
-  type: string;
-  /** Image width */
-  width: number;
 }
