@@ -1,4 +1,4 @@
-<div class="container card partition">
+<div class="container-fluid card">
     <!-- Header-Section -->
     <div id="header" class="header">
         <div class="container">
@@ -59,127 +59,13 @@
 
                         <div class="gal">
 
-                            <div class="subtitle">
-                                <img class src="https://nadjaosieka.de/wp-content/uploads/2016/05/Fotobox-Loerrach-Basel-Fotograf-705x470.jpg" alt="">
+                            <div class="subtitle" *ngFor="let image of (images | async)">
+                                <img [src]="image.thumbnail" [alt]="image.name" [routerLink]="['/event', image.event]">
                                 <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
+                                    <i class="fa fa-heart" aria-hidden="true"> {{ image.ratings }}</i>
                                 </span>
                             </div>
 
-                            <div class="subtitle">
-                                <img src="https://preview.ibb.co/mWpE3Q/2.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://radiient.com/c/geraumiges-tolles-hochzeitsdeko-tisch-hochzeit-dekoration-tisch-comforafrica.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://preview.ibb.co/mysOxk/3.jpg" alt="">
-                                <span>300 Likes</span>
-                            </div>
-
-
-                            <div class="subtitle">
-                                <img src="https://preview.ibb.co/i0PmHk/1.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://preview.ibb.co/mWpE3Q/2.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://preview.ibb.co/i0PmHk/1.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-
-                            <div class="subtitle">
-                                <img src="https://preview.ibb.co/mysOxk/3.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://radiient.com/c/geraumiges-tolles-hochzeitsdeko-tisch-hochzeit-dekoration-tisch-comforafrica.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://www.curt.de/nbg/images/thumbs/450_news_news_2014_buntes_treiben_das_holi_festival_web_holi_c_steffenoliverriese.jpg"
-                                    alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://www.curt.de/nbg/images/thumbs/450_news_news_2014_buntes_treiben_das_holi_festival_web_holi_c_steffenoliverriese.jpg"
-                                    alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://preview.ibb.co/i0PmHk/1.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://preview.ibb.co/i0PmHk/1.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://www.curt.de/nbg/images/thumbs/450_news_news_2014_buntes_treiben_das_holi_festival_web_holi_c_steffenoliverriese.jpg"
-                                    alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://radiient.com/c/geraumiges-tolles-hochzeitsdeko-tisch-hochzeit-dekoration-tisch-comforafrica.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://preview.ibb.co/mysOxk/3.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
-
-                            <div class="subtitle">
-                                <img src="https://preview.ibb.co/i0PmHk/1.jpg" alt="">
-                                <span>
-                                    <i class="fa fa-heart" aria-hidden="true"> 300</i>
-                                </span>
-                            </div>
                         </div>
 
                     </div>

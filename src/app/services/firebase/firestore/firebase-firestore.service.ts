@@ -312,6 +312,19 @@ export class FirebaseFirestoreService {
       .update(JSON.parse(JSON.stringify(image)));
   }
 
+  /**
+   * Get most rated top 100 images
+   * @returns {AngularFirestoreCollection<EventPicture>}
+   */
+  getPopularImages(): AngularFirestoreCollection<EventPicture> {
+    return this.afs.collection('public-images', ref =>
+      ref
+        .where('ratings', '>', 0)
+        .orderBy('ratings', 'desc')
+        .limit(100)
+    );
+  }
+
   /************************************
    * Firestore: Photographer Profile
    ************************************/

@@ -18,7 +18,7 @@ export class HomePageComponent implements OnInit {
   private log = Log.create('HomePageComponent');
 
   /** Upvoted images */
-  public images: Observable<EventPicture>;
+  public images: Observable<EventPicture[]>;
 
   /**
    * Constructor
@@ -31,5 +31,11 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
+
+    this.images = this.afs.getPopularImages().valueChanges();
+
+    this.images.subscribe(images => {
+      this.log.d('Popular images', images);
+    });
   }
 }
