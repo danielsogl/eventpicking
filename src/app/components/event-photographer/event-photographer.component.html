@@ -39,8 +39,17 @@
         <label>
           <input type="file" (change)="detectFiles($event)" multiple>
         </label>
-        <button type="button" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius (click)="startUpload()">{{ 'BUTTONS.START_UPLOAD' | translate }}</button>
 
+        <br>
+        <br>
+          <div class="row no-gutters justify-content-start" style="align-items: center">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <button type="button" class="btn pink btn-lg btn-block waves-light" mdbRippleRadius (click)="startUpload()">{{ 'BUTTONS.START_UPLOAD' | translate }}</button>
+            </div>
+            <div class="col-4"></div>
+          </div>
+        <br>
 
         <div class="table-responsive text-left">
           <table class="table">
@@ -104,8 +113,24 @@
             <label class="active">{{ 'LABELS.EVENT_PASSWORD' | translate }}</label>
           </div>
 
-          <button type="button" class="btn btn-danger btn-lg btn-block waves-light" mdbRippleRadius (click)="deleteEvent()">{{ 'BUTTONS.DELETE_EVENT' | translate }}</button>
-          <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius (click)="updateEvent()">{{ 'BUTTONS.UPDATE_EVENT' | translate }}</button>
+
+          <div class="row no-gutters justify-content-start" style="align-items: center">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius (click)="updateEvent()">{{ 'BUTTONS.UPDATE_EVENT' | translate }}</button>
+            </div>
+            <div class="col-4"></div>
+          </div>
+
+          <br>
+
+          <div class="row no-gutters justify-content-start" style="align-items: center">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <button type="button" class="btn btn-danger btn-lg btn-block waves-light" mdbRippleRadius (click)="deleteEvent()">{{ 'BUTTONS.DELETE_EVENT' | translate }}</button>
+            </div>
+            <div class="col-4"></div>
+          </div>
 
         </form>
       </div>
