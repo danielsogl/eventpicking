@@ -233,9 +233,7 @@ export class DashboardPhotographerComponent implements OnInit {
             this.log.d('loaded download pricing list', this.downloadPriceList);
           } else {
             this.log.d('Created new downlaod pricing list');
-            this.downloadPriceList = new DownloadPricelist(
-              this.auth.getCurrentFirebaseUser().uid
-            );
+            this.downloadPriceList = new DownloadPricelist();
             this.afs
               .createDownloadPriceList(
                 this.downloadPriceList,

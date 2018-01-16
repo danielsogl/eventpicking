@@ -3,11 +3,9 @@
  * @author Daniel Sogl
  */
 export class DownloadPricelist {
-  photographer: string;
   items: DownloadItem[];
 
-  constructor(photographer: string) {
-    this.photographer = photographer;
+  constructor() {
     this.items = [
       {
         name: 'XXS (max. 400px)',
