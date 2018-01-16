@@ -14,39 +14,33 @@ const gcs = require('@google-cloud/storage')({
  */
 exports.deleteImageHandler = event => {
   const image = event.data.previous.data();
-  const eventId = event.params.eventID;
 
   // Configure Google Plattform Storage Bucket
   const storageBucket = functions.config().firebase.storageBucket;
   const bucket = gcs.bucket(storageBucket);
 
-  return admin
-    .firestore()
-    .collection('events')
-    .doc(eventId)
-    .get()
-    .then(function(data) {
-      console.log('Event loaded');
+  // Thumbnail Path
+  const thumbPath = `events/${image.event}/thumb_${image.name}`;
+  // Preview Path
+  const prePath = `events/${image.event}/pre_${image.name}`;
+  // Original Path
+  const originalPath = `events/${image.event}/${image.name}`;
 
-      // Thumbnail Path
-      const thumbPath = `events/${
-        data.data().photographerUid
-      }/${eventId}/thumb_${image.name}`;
-      // Preview Path
-      const prePath = `events/${data.data().photographerUid}/${eventId}/pre_${
-        image.name
-      }`;
-
+  return bucket
+    .file(thumbPath)
+    .delete()
+    .then(value => {
+      console.log('Deleted Thumbnail');
       return bucket
-        .file(thumbPath)
+        .file(prePath)
         .delete()
         .then(value => {
-          console.log('Deleted Thumbnail');
+          console.log('Deleted Preview');
           return bucket
-            .file(prePath)
+            .file(originalPath)
             .delete()
-            .then(value => {
-              console.log('Deleted Preview');
+            .then(() => {
+              console.log('Deleted original image');
             });
         });
     });

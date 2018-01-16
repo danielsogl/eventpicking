@@ -67,6 +67,12 @@ exports.transformImageHandler = event => {
     return null;
   }
 
+  // Exit if this is a move or deletion event.
+  if (event.data.resourceState === 'not_exists') {
+    console.log('Delete event');
+    return null;
+  }
+
   // Exit if the image is already a thumbnail.
   if (fileName.startsWith(THUMB_PREFIX)) {
     console.log('Already a Thumbnail.');
@@ -75,12 +81,6 @@ exports.transformImageHandler = event => {
 
   if (fileName.startsWith(PRE_PREFIX)) {
     console.log('Already a Preview.');
-    return null;
-  }
-
-  // Exit if this is a move or deletion event.
-  if (event.data.resourceState === 'not_exists') {
-    console.log('Delete event');
     return null;
   }
 
@@ -212,7 +212,7 @@ exports.transformImageHandler = event => {
       const fileUrl = results[2][0];
 
       // Event Id
-      const eventId = preFilePath.split('/')[2];
+      const eventId = preFilePath.split('/')[1];
 
       // Image ID
       const uuid = uuidv1();
@@ -224,7 +224,7 @@ exports.transformImageHandler = event => {
         .doc(uuid)
         .set({
           info: fileInfo,
-          name: file.name.split('/')[3],
+          name: file.name.split('/')[2],
           preview: preFileUrl,
           thumbnail: thumbFileUrl,
           ratings: 0,
@@ -239,7 +239,7 @@ exports.transformImageHandler = event => {
             .doc(uuid)
             .set({
               info: fileInfo,
-              name: file.name.split('/')[3],
+              name: file.name.split('/')[2],
               url: fileUrl,
               id: uuid,
               event: eventId
