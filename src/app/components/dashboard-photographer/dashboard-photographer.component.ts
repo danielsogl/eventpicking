@@ -16,7 +16,7 @@ import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
-import { DownloadPricelist } from '../../classes/download-prices';
+import { PriceList } from '../../classes/price-list';
 
 /**
  * Photographer dashboard component
@@ -59,13 +59,11 @@ export class DashboardPhotographerComponent implements OnInit {
   public ownPrintingHouse: PrintingHouse;
 
   /** Download price list */
-  public downloadPriceList: DownloadPricelist;
+  public priceList: PriceList;
 
   /** Edited event */
   public eventEdit: Event;
 
-  /** Events firebase collection */
-  public eventCollection: AngularFirestoreCollection<Event>;
   /** Photographer events */
   public events: Observable<Event[]>;
   /** Photographer profile document */
@@ -219,24 +217,25 @@ export class DashboardPhotographerComponent implements OnInit {
         }
       });
 
-      this.eventCollection = this.afs.getPhotographerEvents(
-        this.auth.getCurrentFirebaseUser().uid
-      );
-      this.events = this.eventCollection.valueChanges();
+      this.events = this.afs
+        .getPhotographerEvents(this.auth.getCurrentFirebaseUser().uid)
+        .valueChanges();
 
       this.afs
-        .getDownloadPriceList(this.auth.getCurrentFirebaseUser().uid)
+        .getPriceList(this.auth.getCurrentFirebaseUser().uid)
         .valueChanges()
         .subscribe(priceList => {
           if (priceList) {
-            this.downloadPriceList = priceList;
-            this.log.d('loaded download pricing list', this.downloadPriceList);
+            this.priceList = priceList;
+            this.log.d('loaded download pricing list', this.priceList);
           } else {
             this.log.d('Created new downlaod pricing list');
-            this.downloadPriceList = new DownloadPricelist();
+            this.priceList = new PriceList(
+              this.auth.getCurrentFirebaseUser().uid
+            );
             this.afs
-              .createDownloadPriceList(
-                this.downloadPriceList,
+              .createPriceList(
+                this.priceList,
                 this.auth.getCurrentFirebaseUser().uid
               )
               .then(() => {
@@ -277,6 +276,16 @@ export class DashboardPhotographerComponent implements OnInit {
   }
 
   /**
+   * Track ngFor loop
+   * @param  {number} index Index
+   * @param  {any} obj Object
+   * @returns any
+   */
+  trackByIndex(index: number, obj: any): any {
+    return index;
+  }
+
+  /**
    * Create new event
    */
   createNewEvent() {
@@ -301,12 +310,10 @@ export class DashboardPhotographerComponent implements OnInit {
         id: uid,
         location: this.newEventForm.value.location,
         name: this.newEventForm.value.name,
-        photographerUid: this.user.uid,
-        printinghouse: '4qd7Em6sEa6AzZaqNEQV'
+        photographerUid: this.user.uid
       });
-      this.eventCollection
-        .doc(uid)
-        .set(JSON.parse(JSON.stringify(event)))
+      this.afs
+        .createEvent(event)
         .then(() => {
           this.log.d('Added new event to firestore');
           this.newEventModal.hide();
@@ -388,30 +395,17 @@ export class DashboardPhotographerComponent implements OnInit {
   }
 
   /**
-   * Update download price list
+   * Update price list
    */
-  updateDownloadPriceList() {
+  updatePriceList() {
     this.afs
-      .updateDownloadPriceList(
-        this.downloadPriceList,
-        this.auth.getCurrentFirebaseUser().uid
-      )
+      .updatePriceList(this.priceList, this.auth.getCurrentFirebaseUser().uid)
       .then(() => {
         this.log.d('Updated price list');
       })
       .catch(err => {
         this.log.er('Error updateing price list', err);
       });
-  }
-
-  /**
-   * Track ngFor loop
-   * @param  {number} index Index
-   * @param  {any} obj Object
-   * @returns any
-   */
-  trackByIndex(index: number, obj: any): any {
-    return index;
   }
 
   /**

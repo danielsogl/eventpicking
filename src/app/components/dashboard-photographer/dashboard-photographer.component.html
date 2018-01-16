@@ -164,7 +164,7 @@
             <div class="row">
               <div class="col-12">
                 <br>
-                <table class="table text-left" *ngIf="downloadPriceList">
+                <table class="table text-left" *ngIf="priceList">
                   <thead class="thead-default">
                     <tr>
                       <th scope="row">Article</th>
@@ -174,17 +174,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let article of downloadPriceList.items; let i = index; trackBy:trackByIndex">
+                    <tr *ngFor="let article of priceList.downloadItems; let i = index; trackBy:trackByIndex">
                       <td>{{ article.name}}</td>
                       <td>{{ article.minPrice | number: '0.2-2' }} €</td>
                       <td>
-                        <input type="number" class="form-control input-sm" [min]="article.minPrice" [(ngModel)]="downloadPriceList.items[i].price">
+                        <input type="number" class="form-control input-sm" [min]="article.minPrice" [(ngModel)]="priceList.downloadItems[i].price">
                       </td>
                       <td>{{ article.price * 0.90 | number: '0.2-2' }} €</td>
                     </tr>
                   </tbody>
                 </table>
-                <button type="button" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updateDownloadPriceList()">Save</button>
               </div>
             </div>
           </mdb-tab>
@@ -193,11 +192,42 @@
             <div class="row">
               <div class="col-12">
                 <br>
+                <mdb-squeezebox [multiple]="false" aria-multiselectable="true" *ngIf="priceList">
+                  <mdb-item *ngFor="let item of priceList.printingHouseItems; let i = index;">
+                    <mdb-item-head> {{ item.name }} </mdb-item-head>
+                    <mdb-item-body>
+                      <table class="table text-left">
+                        <thead class="thead-default">
+                          <tr>
+                            <th scope="row">Article</th>
+                            <th>Format</th>
+                            <th>Minimal price</th>
+                            <th>Your price</th>
+                            <th>Your profit ( -10% Provision)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let article of item.articles; let j = index; trackBy:trackByIndex">
+                            <td>{{ article.name}}</td>
+                            <td>{{ article.width}}x{{ article.heigh}}</td>
+                            <td>{{ article.minPrice | number: '0.2-2' }} €</td>
+                            <td>
+                              <input type="number" class="form-control input-sm" [min]="article.minPrice" [(ngModel)]="priceList.printingHouseItems[i].articles[j].price">
+                            </td>
+                            <td>{{ article.price * 0.90 | number: '0.2-2' }} €</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </mdb-item-body>
+                  </mdb-item>
+                </mdb-squeezebox>
               </div>
             </div>
           </mdb-tab>
 
         </mdb-tabset>
+
+        <button type="button" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updatePriceList()">Save</button>
 
       </div>
     </div>

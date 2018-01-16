@@ -11,7 +11,7 @@ import { PrintingHouse } from '../../../classes/printing-house';
 import { User } from '../../../classes/user';
 import { EventPicture } from '../../../interfaces/event-picture';
 import { PhotographerProfile } from '../../../interfaces/photographer-profile';
-import { DownloadPricelist } from '../../../classes/download-prices';
+import { PriceList } from '../../../classes/price-list';
 
 /**
  * Service to comunicate with the Firestore database
@@ -123,42 +123,40 @@ export class FirebaseFirestoreService {
   }
 
   /************************************
-   * Firestore: Download Prices
+   * Firestore: Price Lists
    ************************************/
 
   /**
-   * Get photographer download price list
+   * Get photographer price list
    * @param  {string} photographer Photographer UID
-   * @returns {AngularFirestoreDocument<DownloadPricelist>}
+   * @returns {AngularFirestoreDocument<PriceList>}
    */
-  getDownloadPriceList(
-    photographer: string
-  ): AngularFirestoreDocument<DownloadPricelist> {
-    return this.afs.collection('download-prices').doc(photographer);
+  getPriceList(photographer: string): AngularFirestoreDocument<PriceList> {
+    return this.afs.collection('price-lists').doc(photographer);
   }
 
-  createDownloadPriceList(
-    priceList: DownloadPricelist,
-    photographer: string
-  ): Promise<void> {
+  /**
+   * Create photographer price list
+   * @param  {PriceList} priceList Price list
+   * @param  {string} photographer Photographer UID
+   * @returns {Promise<void>}
+   */
+  createPriceList(priceList: PriceList, photographer: string): Promise<void> {
     return this.afs
-      .collection('download-prices')
+      .collection('price-lists')
       .doc(photographer)
       .set(JSON.parse(JSON.stringify(priceList)));
   }
 
   /**
-   * Update download price list
-   * @param  {DownloadPricelist} priceList Price list
+   * Update photographer price list
+   * @param  {PriceList} priceList Price list
    * @param  {string} photographer Photographer UID
    * @returns {Promise<void>}
    */
-  updateDownloadPriceList(
-    priceList: DownloadPricelist,
-    photographer: string
-  ): Promise<void> {
+  updatePriceList(priceList: PriceList, photographer: string): Promise<void> {
     return this.afs
-      .collection('download-prices')
+      .collection('price-lists')
       .doc(photographer)
       .update(JSON.parse(JSON.stringify(priceList)));
   }
@@ -174,6 +172,18 @@ export class FirebaseFirestoreService {
    */
   getEvent(id: string): AngularFirestoreDocument<Event> {
     return this.afs.doc(`events/${id}`);
+  }
+
+  /**
+   * Create event
+   * @param  {Event} event Event
+   * @returns {Promise<void>}
+   */
+  createEvent(event: Event): Promise<void> {
+    return this.afs
+      .collection('events')
+      .doc(event.id)
+      .set(JSON.parse(JSON.stringify(event)));
   }
 
   /**
