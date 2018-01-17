@@ -62,6 +62,7 @@ export class PictureDetailComponent implements OnInit {
 
   /** Printing house */
   public printingHouse: PrintingHouse;
+  /** Images */
   public images: EventPicture[];
   /** Price list */
   public priceList: PriceList;
@@ -74,8 +75,12 @@ export class PictureDetailComponent implements OnInit {
   /** define which register is preselected */
   public radioModel = 'left';
   /** Shopping cart items */
-  public cartItems: Observable<ShoppingCartItem[]>;
+  public cartItems: ShoppingCartItem[];
 
+  /**
+   * Constructor
+   * @param  {AsyncLocalStorage} localStorage AsyncLocal Storage
+   */
   constructor(private localStorage: AsyncLocalStorage) {}
 
   /**
@@ -124,15 +129,23 @@ export class PictureDetailComponent implements OnInit {
     this.pictureModal.show();
   }
 
+  /**
+   * @param  {EventPicture} image
+   */
   rateImage(image: EventPicture) {
     this.eventUserComponent.rateImage(image);
   }
 
+  /**
+   * @param  {EventPicture} image
+   */
   reportImage(image: EventPicture) {
     this.eventUserComponent.reportImage(image);
   }
 
-  /** load previous image of event-images array for modal-gallery */
+  /**
+   * load previous image of event-images array for modal-gallery
+   */
   loadPreviousImage() {
     this.nextFlag = false;
     if (this.imageIndex > 0) {
@@ -145,7 +158,9 @@ export class PictureDetailComponent implements OnInit {
     }
   }
 
-  /** load next image of event-images array for modal-gallery */
+  /**
+   * load next image of event-images array for modal-gallery
+   */
   loadNextImage() {
     this.previousFlag = false;
 
@@ -160,7 +175,9 @@ export class PictureDetailComponent implements OnInit {
     this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
   }
 
-  // create array to save print-picture pricelist
+  /**
+   *  create array to save print-picture pricelist
+   */
   createPrintPicturePriceList() {
     for (let i = 0; i < this.priceList.printingHouseItems.length; i++) {
       if (this.priceList.printingHouseItems[i].name === PRINTTYPE.PICTURE) {
@@ -171,7 +188,11 @@ export class PictureDetailComponent implements OnInit {
     }
   }
 
-  /** radio button Listener for updating price if other format is selected */
+  /**
+   * radio button Listener for updating price if other format is selected
+   * @param  {string} type type
+   * @param  {string} formatName format name
+   */
   changeFormat(type: string, formatName: string) {
     if (type === 'print') {
       for (let i = 0; i < this.printPicturePriceList.length; i++) {
@@ -191,7 +212,9 @@ export class PictureDetailComponent implements OnInit {
     }
   }
 
-  /** add image to shopping cart */
+  /**
+   * add image to shopping cart
+   */
   addToShoppingCart() {
     if (this.format === undefined) {
       // TODO Alert: 'Select format!'
@@ -207,25 +230,34 @@ export class PictureDetailComponent implements OnInit {
       }
       this.log.info('itemType: ' + itemType);
       // Load items from local storage
-      this.cartItems = this.localStorage.getItem<ShoppingCartItem>(
-        'cart-items'
-      );
-
-      // Create new Shopping cart item
-      const shoppingCartItem: ShoppingCartItem = {
-        eventname: this.image.event,
-        name: this.image.name,
-        info: this.image.info,
-        itemType: itemType,
-        amount: 1,
-        totalPrice: 0,
-        preview: this.image.preview,
-        thumbnail: this.image.thumbnail,
-        price: this.price
-      };
-      // this.cartItems.toPromise();
-
-      // this.localStorage.setItem('cart-items',);
+      this.localStorage
+        .getItem<ShoppingCartItem>('cart-items')
+        .toPromise()
+        .then(items => {
+          console.log(items);
+          this.cartItems = items;
+          const shoppingCartItem: ShoppingCartItem = {
+            eventname: this.image.event,
+            name: this.image.name,
+            info: this.image.info,
+            itemType: itemType,
+            amount: 1,
+            totalPrice: 0,
+            preview: this.image.preview,
+            thumbnail: this.image.thumbnail,
+            price: this.price
+          };
+          this.cartItems.concat(shoppingCartItem);
+          this.localStorage
+            .setItem('cart-items', this.cartItems)
+            .toPromise()
+            .then(() => {
+              this.log.d('Saved item to cart');
+            })
+            .catch(err => {
+              this.log.er('Error saving item', err);
+            });
+        });
     }
   }
 }
