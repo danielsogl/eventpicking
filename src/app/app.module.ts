@@ -7,7 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AsyncLocalStorageModule } from 'angular-async-local-storage';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -110,7 +109,6 @@ export function HttpLoaderFactory(http: HttpClient) {
       apiKey: environment.agmKey
     }),
     AgmSnazzyInfoWindowModule,
-    AsyncLocalStorageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

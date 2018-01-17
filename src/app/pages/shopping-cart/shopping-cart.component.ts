@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AsyncLocalStorage } from 'angular-async-local-storage';
 import { Log } from 'ng2-logger';
 
 import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
+import * as localforage from 'localforage';
 
 /**
  * Shopping cart page component
@@ -23,9 +23,8 @@ export class ShoppingCartComponent implements OnInit {
 
   /**
    * Constructor
-   * @param  {AsyncLocalStorage} localStorage Local storage
    */
-  constructor(private localStorage: AsyncLocalStorage) {}
+  constructor() {}
 
   /**
    * Initalize component
@@ -35,12 +34,12 @@ export class ShoppingCartComponent implements OnInit {
     this.log.d('Component initialized');
 
     // Load items from local storage
-    this.localStorage
-      .getItem<ShoppingCartItem>('cart-items')
-      .subscribe(items => {
+    localforage.ready().then(() => {
+      localforage.getItem<ShoppingCartItem[]>('cart-items').then(items => {
         if (items) {
+          this.log.d('Cart items', items);
           this.cartItems = items;
-          this.cartItems.sort(function(a, b) {
+          this.cartItems.sort((a, b) => {
             if (a.eventname < b.eventname) {
               return -1;
             }
@@ -52,6 +51,7 @@ export class ShoppingCartComponent implements OnInit {
         }
         this.calculateSum();
       });
+    });
   }
 
   /**
@@ -107,6 +107,6 @@ export class ShoppingCartComponent implements OnInit {
    */
   deleteCartItem(index: number) {
     this.cartItems.splice(index, 1);
-    this.localStorage.setItem('cart-items', this.cartItems);
+    localforage.setItem('cart-items', this.cartItems);
   }
 }

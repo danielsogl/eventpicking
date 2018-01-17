@@ -26,18 +26,18 @@
         <!-- dynamic table row that iterates through shoppingCartItems array -->
         <tr *ngFor="let cartItem of cartItems; let i = index">
           <td class="vertical-mid">
-            <img src="{{cartItem.url}}" class="img-thumbnail mr-2" />
-            <span data-toggle="tooltip" data-placement="right" title="{{cartItem.eventname}}">{{cartItem.key}}</span>
+            <img [src]="cartItem.thumbnail" class="img-thumbnail mr-2" />
+            <span data-toggle="tooltip" data-placement="right" title="{{cartItem.eventname}}">{{cartItem.name}}</span>
           </td>
           <td class="vertical-mid">
-            <i *ngIf="cartItem.format.type == 'print'" class="fa fa-print fa-2x" aria-hidden="true"></i>
-            <i *ngIf="cartItem.format.type == 'download'" class="fa fa-download fa-2x" aria-hidden="true"></i>
+            <i *ngIf="cartItem.itemType.PRINT" class="fa fa-print fa-2x" aria-hidden="true"></i>
+            <i *ngIf="cartItem.itemType.DOWNNLOAD" class="fa fa-download fa-2x" aria-hidden="true"></i>
           </td>
-          <td class="vertical-mid">{{cartItem.format.width}}x{{cartItem.format.height}}</td>
+          <td class="vertical-mid">{{cartItem.info.width}}x{{cartItem.info.height}}</td>
           <td class="vertical-mid">
-            <i *ngIf="cartItem.format.type == 'print'" class="fa fa-chevron-left fa-lg clickable pl-2 pr-2" aria-hidden="true" (click)="decreaseQuantity(cartItem)"></i>
+            <i *ngIf="cartItem.itemType.PRINT" class="fa fa-chevron-left fa-lg clickable pl-2 pr-2" aria-hidden="true" (click)="decreaseQuantity(cartItem)"></i>
             <span>{{cartItem.amount}}</span>
-            <i *ngIf="cartItem.format.type == 'print'" class="fa fa-chevron-right fa-lg clickable pl-2 pr-2" aria-hidden="true" (click)="increaseQuantity(cartItem)"></i>
+            <i *ngIf="cartItem.itemType.DOWNLOAD" class="fa fa-chevron-right fa-lg clickable pl-2 pr-2" aria-hidden="true" (click)="increaseQuantity(cartItem)"></i>
           </td>
           <td class="vertical-mid">{{cartItem.totalPrice | number:'0.2-2' | replace:'.':','}}€</td>
           <td class="vertical-mid">

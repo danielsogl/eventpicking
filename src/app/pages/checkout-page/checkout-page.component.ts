@@ -1,10 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Log } from 'ng2-logger';
-import { AsyncLocalStorage } from 'angular-async-local-storage';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { User } from '../../classes/user';
 import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
+import * as localforage from 'localforage';
 
 /**
  * Checkout page component
@@ -46,12 +46,10 @@ export class CheckoutPageComponent implements OnInit {
 
   /**
    * Constructor
-   * @param  {AsyncLocalStorage} localStorage Async Local Storage
    * @param  {FirebaseStorageService} afs Firebase Storage Service
    * @param  {FirebaseAuthService} auth Firebase Auth Service
    */
   constructor(
-    private localStorage: AsyncLocalStorage,
     private afs: FirebaseStorageService,
     private auth: FirebaseAuthService
   ) {}
@@ -69,14 +67,14 @@ export class CheckoutPageComponent implements OnInit {
       this.log.d('Loaded user', this.user);
     });
 
-    this.localStorage
-      .getItem<ShoppingCartItem[]>('cart-items')
-      .subscribe(items => {
+    localforage.ready().then(() => {
+      localforage.getItem<ShoppingCartItem[]>('cart-items').then(items => {
         if (items) {
           this.cartItems = items;
         }
         this.log.d('Shopping cart items', this.cartItems);
       });
+    });
   }
 
   /**

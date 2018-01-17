@@ -1,7 +1,6 @@
 import { Component, TemplateRef, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
-import { AsyncLocalStorage } from 'angular-async-local-storage';
 import { Observable } from 'rxjs/Observable';
 
 import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
@@ -12,6 +11,7 @@ import { PriceList } from '../../classes/price-list';
 import { PrintingHouseArticle } from '../../interfaces/printing-house-article';
 import { PRINTTYPE } from '../../enums/print-type';
 import { SHOPPINGCARTITEMTYPE } from '../../enums/shopping-cart-item-type';
+import * as localforage from 'localforage';
 
 /**
  * Picture detail modal component
@@ -74,14 +74,11 @@ export class PictureDetailComponent implements OnInit {
   public format: string;
   /** define which register is preselected */
   public radioModel = 'left';
-  /** Shopping cart items */
-  public cartItems: ShoppingCartItem[];
 
   /**
    * Constructor
-   * @param  {AsyncLocalStorage} localStorage AsyncLocal Storage
    */
-  constructor(private localStorage: AsyncLocalStorage) {}
+  constructor() {}
 
   /**
    * Initalize component
@@ -230,34 +227,36 @@ export class PictureDetailComponent implements OnInit {
       }
       this.log.info('itemType: ' + itemType);
       // Load items from local storage
-      this.localStorage
-        .getItem<ShoppingCartItem>('cart-items')
-        .toPromise()
-        .then(items => {
-          console.log(items);
-          this.cartItems = items;
-          const shoppingCartItem: ShoppingCartItem = {
-            eventname: this.image.event,
-            name: this.image.name,
-            info: this.image.info,
-            itemType: itemType,
-            amount: 1,
-            totalPrice: 0,
-            preview: this.image.preview,
-            thumbnail: this.image.thumbnail,
-            price: this.price
-          };
-          this.cartItems.concat(shoppingCartItem);
-          this.localStorage
-            .setItem('cart-items', this.cartItems)
-            .toPromise()
-            .then(() => {
-              this.log.d('Saved item to cart');
-            })
-            .catch(err => {
-              this.log.er('Error saving item', err);
-            });
-        });
+      const shoppingCartItem: ShoppingCartItem = {
+        eventname: this.image.event,
+        name: this.image.name,
+        info: this.image.info,
+        itemType: itemType,
+        amount: 1,
+        totalPrice: 0,
+        preview: this.image.preview,
+        thumbnail: this.image.thumbnail,
+        price: this.price
+      };
+
+      localforage.getItem<ShoppingCartItem[]>('cart-items').then(items => {
+        console.log(items);
+        if (items) {
+          items.push(shoppingCartItem);
+        } else {
+          items = [];
+          items.push(shoppingCartItem);
+        }
+        console.log(items);
+        localforage
+          .setItem('cart-items', items)
+          .then(() => {
+            this.log.d('Saved item to cart');
+          })
+          .catch(err => {
+            this.log.er('Error saving item', err);
+          });
+      });
     }
   }
 }

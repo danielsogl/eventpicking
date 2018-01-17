@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MDBSpinningPreloader } from 'ng-mdb-pro';
 import { Log } from 'ng2-logger';
+import * as localforage from 'localforage';
 
 /**
  * Root component
@@ -36,5 +37,14 @@ export class AppComponent implements OnInit {
     this.log.color = 'orange';
     this.log.d('Component initialized');
     this.mdbSpinningPreloader.stop();
+
+    localforage.config({
+      driver: localforage.WEBSQL,
+      name: 'eventpicking',
+      version: 1.0,
+      size: 4980736,
+      storeName: '_eventpicking',
+      description: 'some description'
+    });
   }
 }
