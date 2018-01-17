@@ -3,5 +3,5 @@
  * @author Daniel Sogl
  */
 export enum PRINTTYPE {
-    PICTURE = 'Pictures'
-  }
+  PICTURE = 'Pictures'
+}

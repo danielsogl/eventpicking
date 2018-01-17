@@ -6,6 +6,8 @@ import { PrintingHouse } from '../../interfaces/printing-house';
 import { EventPicture } from '../../interfaces/event-picture';
 import { EventUserComponent } from '../event-user/event-user.component';
 import { PriceList } from '../../classes/price-list';
+import { PrintingHouseArticle } from '../../interfaces/printing-house-article';
+import { PRINTTYPE } from '../../enums/print-type';
 
 /**
  * Picture detail modal component
@@ -56,9 +58,12 @@ export class PictureDetailComponent implements OnInit {
 
   /** Printing house */
   public printingHouse: PrintingHouse;
-  public radioModel = 'Left';
   public images: EventPicture[];
   public priceList: PriceList;
+  public printPicturePriceList: PrintingHouseArticle[];
+  public price: number;
+  public format: string;
+  public radioModel = 'Left';
 
   constructor() {}
 
@@ -77,7 +82,6 @@ export class PictureDetailComponent implements OnInit {
   /**
    * Show modal
    * @param  {EventPicture} image Image
-   * @param  {PrintingHouse} printingHouse Printing house
    */
   showModal(
     image: EventPicture,
@@ -94,6 +98,8 @@ export class PictureDetailComponent implements OnInit {
     this.priceList = priceList;
     this.previousFlag = false;
     this.nextFlag = false;
+
+    this.createPrintPicturePriceList();
 
     /** deactivate previous button if selected first picture */
     if (this.imageIndex === 0) {
@@ -115,19 +121,24 @@ export class PictureDetailComponent implements OnInit {
     this.eventUserComponent.reportImage(image);
   }
 
+  /** load previous image of event-images array for modal-gallery */
   loadPreviousImage() {
     this.nextFlag = false;
     if (this.imageIndex > 0) {
       this.imageIndex--;
       this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
     }
+    // hide previous button if last picture is reached
     if (this.imageIndex === 0) {
       this.previousFlag = true;
     }
   }
 
+  /** load next image of event-images array for modal-gallery */
   loadNextImage() {
     this.previousFlag = false;
+
+    // hide next button if last picture is reached
     if (
       this.eventUserComponent.getFollowingImage(this.imageIndex + 2) ===
       undefined
@@ -137,4 +148,37 @@ export class PictureDetailComponent implements OnInit {
     this.imageIndex++;
     this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
   }
+
+  createPrintPicturePriceList() {
+    // create array to save print-picture pricelist
+    for (let i = 0; i < this.priceList.printingHouseItems.length; i++) {
+      if (this.priceList.printingHouseItems[i].name === PRINTTYPE.PICTURE) {
+        this.printPicturePriceList = this.priceList.printingHouseItems[
+          i
+        ].articles;
+      }
+    }
+  }
+
+  /** radio button Listener to change price */
+  changeFormat(type: string, formatName: string) {
+    if (type === 'print') {
+      for (let i = 0; i < this.printPicturePriceList.length; i++) {
+        if (formatName === this.printPicturePriceList[i].name) {
+          this.format = this.printPicturePriceList[i].name;
+          this.price = this.printPicturePriceList[i].price;
+        }
+      }
+    }
+    if (type === 'download') {
+      for (let i = 0; i < this.priceList.downloadItems.length; i++) {
+        if (formatName === this.priceList.downloadItems[i].name) {
+          this.format = this.printPicturePriceList[i].name;
+          this.price = this.priceList.downloadItems[i].price;
+        }
+      }
+    }
+  }
+
+  addToShoppingCart() {}
 }

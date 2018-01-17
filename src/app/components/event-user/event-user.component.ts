@@ -97,7 +97,7 @@ export class EventUserComponent implements OnInit {
         .subscribe(priceList => {
           if (priceList) {
             this.priceList = priceList;
-            this.log.d('Loaded printing house', this.priceList);
+            this.log.d('Loaded priceList', this.priceList);
           }
         });
     }
@@ -116,6 +116,7 @@ export class EventUserComponent implements OnInit {
       this.priceList
     );
   }
+
   /**
    * Select all images
    */
