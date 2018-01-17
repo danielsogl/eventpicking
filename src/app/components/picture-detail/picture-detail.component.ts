@@ -1,7 +1,10 @@
 import { Component, TemplateRef, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
+import { AsyncLocalStorage } from 'angular-async-local-storage';
+import { Observable } from 'rxjs/Observable';
 
+import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 import { PrintingHouse } from '../../interfaces/printing-house';
 import { EventPicture } from '../../interfaces/event-picture';
 import { EventUserComponent } from '../event-user/event-user.component';
@@ -59,13 +62,20 @@ export class PictureDetailComponent implements OnInit {
   /** Printing house */
   public printingHouse: PrintingHouse;
   public images: EventPicture[];
+  /** Price list */
   public priceList: PriceList;
+  /** define certain price list for simplicity */
   public printPicturePriceList: PrintingHouseArticle[];
+  /** price of actual image */
   public price: number;
+  /** format of actual image */
   public format: string;
+  /** define which register is preselected */
   public radioModel = 'Left';
+  /** Shopping cart items */
+  public cartItems: Observable<ShoppingCartItem[]> = [];
 
-  constructor() {}
+  constructor(private localStorage: AsyncLocalStorage) {}
 
   /**
    * Initalize component
@@ -149,8 +159,8 @@ export class PictureDetailComponent implements OnInit {
     this.image = this.eventUserComponent.getFollowingImage(this.imageIndex);
   }
 
+  // create array to save print-picture pricelist
   createPrintPicturePriceList() {
-    // create array to save print-picture pricelist
     for (let i = 0; i < this.priceList.printingHouseItems.length; i++) {
       if (this.priceList.printingHouseItems[i].name === PRINTTYPE.PICTURE) {
         this.printPicturePriceList = this.priceList.printingHouseItems[
@@ -160,7 +170,7 @@ export class PictureDetailComponent implements OnInit {
     }
   }
 
-  /** radio button Listener to change price */
+  /** radio button Listener for updating price if other format is selected */
   changeFormat(type: string, formatName: string) {
     if (type === 'print') {
       for (let i = 0; i < this.printPicturePriceList.length; i++) {
@@ -180,5 +190,9 @@ export class PictureDetailComponent implements OnInit {
     }
   }
 
-  addToShoppingCart() {}
+  /** add image to shopping cart */
+  addToShoppingCart() {
+    // Load items from local storage
+    this.localStorage.getItem<ShoppingCartItem>('cart-items');
+  }
 }
