@@ -6,7 +6,6 @@ language: node_js
 
 node_js:
 - 8
-- 9
 
 branches:
   only:
@@ -34,10 +33,10 @@ jobs:
     - stage: E2E
       script: npm run e2e
 
-    - stage: coverage
-      script:
-        - npm run test:coverage
-        - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+    # - stage: coverage
+    #   script:
+    #     - npm run test:coverage
+    #     - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
 
     - stage: deploy to staging
       if: type IN (push)
