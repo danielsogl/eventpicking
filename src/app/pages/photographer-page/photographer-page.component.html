@@ -1,101 +1,186 @@
-<div class="row mt-5 pt-5">
-  <div *ngIf="photographer">
-    <div class="author-box grey-gradient">
-      <h2 class="h2-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h2>
-      <hr class="mt-5 mr-5 ml-5">
 
-      <!--site-navbar-->
-      <div id="navbar" class="row justify-content-md-center">
-        <div class="col-md-auto">
-          <a mdbPageScroll id="navelement" href="#description" [pageScrollDuration]="300">{{ 'NAV.DESCRIPTION' | translate }}</a>
+<div *ngIf="photographer.premium; else Standard">
+  <div class="row mt-5 pt-5">
+    <div *ngIf="photographer">
+      <div class="author-box grey-gradient">
+        <h2 class="h2-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h2>
+        <hr class="mt-5 mr-5 ml-5">
+  
+        <!--site-navbar-->
+        <div id="navbar" class="row justify-content-md-center">
+          <div class="col-md-auto">
+            <a mdbPageScroll id="navelement" href="#description" [pageScrollDuration]="300">{{ 'NAV.DESCRIPTION' | translate }}</a>
+          </div>
+          <div class="col-md-auto">
+            <a mdbPageScroll id="navelement" href="#events" [pageScrollDuration]="300">{{ 'NAV.EVENTS' | translate }}</a>
+          </div>
+          <div class="col-md-auto">
+            <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.PRICES' | translate }}</a>
+          </div>
+          <div class="col-md-auto">
+            <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.TESTIMONIAL' | translate }}</a>
+          </div>
         </div>
-        <div class="col-md-auto">
-          <a mdbPageScroll id="navelement" href="#events" [pageScrollDuration]="300">{{ 'NAV.EVENTS' | translate }}</a>
+        <!--END site-navbar-->
+  
+        <hr id="description" class="mb-5 mr-5 ml-5">
+  
+        <!--photographer-description box (picture, infotext, address)-->
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <img src="{{photographer?.photoUrl}}" alt="Bild nicht verfügbar" class="img-fluid rounded-circle z-depth-2">
+          </div>
+          <div id="authorData" class=" col-12 col-sm-9">
+            <p>{{photographer?.about}}</p>
+            <p id="address">
+              <b>{{photographer?.address?.street}} {{photographer?.address?.streetnumber}}
+                <br/> {{photographer?.address?.zip}} {{photographer?.address?.city}}</b>
+            </p>
+          </div>
         </div>
-        <div class="col-md-auto">
-          <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.PRICES' | translate }}</a>
+        <!--END photographer-description box-->
+  
+        <hr class="m-5">
+  
+        <!--social network links-->
+        <div id="centered" class="personal-sm">
+          <a *ngIf="photographer.website" class="email-ic" href="{{photographer?.website}}">
+            <i class="fa fa-home fa-2x"> </i>
+          </a>
+          <a *ngIf="photographer.facebook" class="fb-ic" href="{{photographer?.facebook}}">
+            <i class="fa fa-facebook fa-2x"> </i>
+          </a>
+          <a *ngIf="photographer.instagram" class="ins-ic" href="{{photographer?.instagram}}">
+            <i class="fa fa-instagram fa-2x"> </i>
+          </a>
+          <a *ngIf="photographer.twitter" class="tw-ic" href="{{photographer?.twitter}}">
+            <i class="fa fa-twitter fa-2x"> </i>
+          </a>
+          <a *ngIf="photographer.tumbler" class="vk-ic" href="{{photographer?.tumbler}}">
+            <i class="fa fa-tumblr fa-2x"> </i>
+          </a>
+          <a *ngIf="photographer.email" class="email-ic" href="mailto:{{photographer?.email}}">
+            <i class="fa fa-envelope-o fa-2x"> </i>
+          </a>
         </div>
-      </div>
-      <!--END site-navbar-->
-
-      <hr id="description" class="mb-5 mr-5 ml-5">
-
-      <!--photographer-description box (picture, infotext, address)-->
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <img src="{{photographer?.photoUrl}}" alt="Bild nicht verfügbar" class="img-fluid rounded-circle z-depth-2">
-        </div>
-        <div id="authorData" class=" col-12 col-sm-9">
-          <p>{{photographer?.about}}</p>
-          <p id="address">
-            <b>{{photographer?.address?.street}} {{photographer?.address?.streetnumber}}
-              <br/> {{photographer?.address?.zip}} {{photographer?.address?.city}}</b>
-          </p>
-        </div>
-      </div>
-      <!--END photographer-description box-->
-
-      <hr class="m-5">
-
-      <!--social network links-->
-      <div id="centered" class="personal-sm">
-        <a *ngIf="photographer.website" class="email-ic" href="{{photographer?.website}}">
-          <i class="fa fa-home fa-2x"> </i>
-        </a>
-        <a *ngIf="photographer.facebook" class="fb-ic" href="{{photographer?.facebook}}">
-          <i class="fa fa-facebook fa-2x"> </i>
-        </a>
-        <a *ngIf="photographer.instagram" class="ins-ic" href="{{photographer?.instagram}}">
-          <i class="fa fa-instagram fa-2x"> </i>
-        </a>
-        <a *ngIf="photographer.twitter" class="tw-ic" href="{{photographer?.twitter}}">
-          <i class="fa fa-twitter fa-2x"> </i>
-        </a>
-        <a *ngIf="photographer.tumbler" class="vk-ic" href="{{photographer?.tumbler}}">
-          <i class="fa fa-tumblr fa-2x"> </i>
-        </a>
-        <a *ngIf="photographer.email" class="email-ic" href="mailto:{{photographer?.email}}">
-          <i class="fa fa-envelope-o fa-2x"> </i>
-        </a>
-      </div>
-      <!--END social network links-->
-
-      <hr id="events" class="m-5">
-
-      <!--photographer events-->
-      <div id=" rowdesign " class="row">
-        <div *ngFor="let event of events | async " id="rowdesign " class="col-12 col-md-4 ">
-
-          <div class="card card-cascade wider ">
-
-            <div class="view gradient-card-header peach-gradient ">
-              <h2 class="h2-responsive mb-2 ">
-                <i *ngIf="!event?.public" class="fa fa-lock"></i> {{event.name}}</h2>
-              <p>
-                <i class="fa fa-calendar "></i>&nbsp;{{event.date}}</p>
-
-            </div>
-            <div class="card-body text-center ">
-
-              <p class="card-text mr-2 ml-2 ">{{event.description}}</p>
-
-              <a [routerLink]="[ '/event', event.id] " class="orange-text mt-1 d-flex flex-row-reverse ">
-                <h5 class="waves-effect p-2 " mdbRippleRadius>View Pictures
-                  <i class="fa fa-chevron-right "></i>
-                </h5>
-              </a>
+        <!--END social network links-->
+  
+        <hr id="events" class="m-5">
+  
+        <!--photographer events-->
+        <div id=" rowdesign " class="row">
+          <div *ngFor="let event of events | async " id="rowdesign " class="col-12 col-md-4 ">
+  
+            <div class="card card-cascade wider ">
+  
+              <div class="view gradient-card-header peach-gradient ">
+                <h2 class="h2-responsive mb-2 ">
+                  <i *ngIf="!event?.public" class="fa fa-lock"></i> {{event.name}}</h2>
+                <p>
+                  <i class="fa fa-calendar "></i>&nbsp;{{event.date}}</p>
+  
+              </div>
+              <div class="card-body text-center ">
+  
+                <p class="card-text mr-2 ml-2 ">{{event.description}}</p>
+  
+                <a [routerLink]="[ '/event', event.id] " class="orange-text mt-1 d-flex flex-row-reverse ">
+                  <h5 class="waves-effect p-2 " mdbRippleRadius>View Pictures
+                    <i class="fa fa-chevron-right "></i>
+                  </h5>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!--END photographer events-->
-
-      <hr id="prices" class="m-5">
-
-      <!--photographer prices-->
-      <p>Preisliste in Bearbeitung...</p>
+        <!--END photographer events-->
+  
+        <hr id="prices" class="m-5">
+        <!--photographer prices-->
+        <div class="container">
+          <h2>{{ 'LABELS.CART_PRICE' | translate }}</h2>
+          <br>
+        <div class="row">
+          <div class="col-4 text-center">
+            Hallo
+          </div>
+          <div class="col-4 text-center">
+              Hallo
+          </div>
+          <div class="col-4 text-center">
+                Hallo
+          </div>
+          <table class="table table-responsive-sm">
+              <thead id="sum_row">
+                <tr>
+                </tr>
+              </thead>
+              <tbody>
+               <!-- Downloads -->
+                <tr >
+                  <!-- <th scope="row">1</th> -->
+                  <td>S</td>
+                  <td>M</td>
+                  <td>L</td>
+                  <td>XL</td>
+                </tr>  
+                <tr >
+                  <td>XX,XX€</td>
+                  <td>XX,XX€</td>
+                  <td>XX,XX€</td>
+                  <td>XX,XX€</td>
+                </tr>     
+                
+                <!-- Fotos -->
+                <tr >
+                    <td>S</td>
+                    <td>M</td>
+                    <td>L</td>
+                    <td>XL</td>
+                </tr>     
+                <tr >
+                    <td>XX,XX€</td>
+                    <td>XX,XX€</td>
+                    <td>XX,XX€</td>
+                    <td>XX,XX€</td>
+                </tr>        
+              </tbody>
+            </table>     
+         </div><!--row-->
+      </div> <!--container-->
       <!--END photographer prices-->
-    </div>
-    <!--END author-box element-->
-  </div>
-</div>
+      
+      <!-- photographer testimonials -->
+      <hr id="testimonials" class="m-5">
+      <div class="row">
+        <div class="col-2">
+            <div class="orange-text">
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+            </div><!--review1-end-->          
+            <!-- <div class="avatar">
+                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" class="rounded-circle z-depth-1 img-fluid" alt="">
+             </div> -->
+        </div><!--col1-->
+        <div class="col-10">
+            <h4 class="mb-3">Stephan Naumann</h4>
+            <p>Super Website um Kunden zu erreichen. Preis- Leistungsverhältnis von EventPicKing TOP. Werde
+              weitere Zusammenarbeit gerne beibehalten.
+           </p>
+
+        </div><!--col2-->
+      </div><!--row-->
+      <!-- END-TESTIMONIAL -->
+
+
+
+  
+
+  </div><!--END-Premium-->
+  </div><!--END-ngif-->
+  
+  <ng-template #Standard>other content here</ng-template>
+ 
