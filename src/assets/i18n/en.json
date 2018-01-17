@@ -149,7 +149,7 @@
     "PRICING_MONTHLY": "month",
     "PRICING_PICTURE_AMOUNT": "pictures per album",
     "PRICING_CANCEL": "Monthly cancellable",
-    "SEARCH_PHOTOGRAPHER": "Search photographer by ZIP",
+    "SEARCH_PHOTOGRAPHER": "Search photographer by postal code",
     "EVENT_ALL_PICTURES": "All pictures",
     "EVENT_SELECTED_PICTURES": "Selected pictures",
     "SEARCH_PICTURES": "Search for pictures by name",
