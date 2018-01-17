@@ -29,7 +29,6 @@
     "@angular/router": "^5.2.0",
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
-    "angular-async-local-storage": "^3.1.1",
     "angularfire2": "^5.0.0-rc.5-next",
     "chart.js": "^2.7.1",
     "core-js": "^2.5.3",
@@ -38,6 +37,7 @@
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
     "intl": "^1.2.5",
+    "localforage": "^1.5.5",
     "lodash": "^4.17.4",
     "ng-mdb-pro": "git+https://fdbab677d1494b5590791d1b5de3e14c775010db:x-oauth-basic@github.com/danielsogl/ng-mdb-pro.git",
     "ng2-logger": "^1.0.12",
@@ -50,6 +50,7 @@
     "zone.js": "^0.8.20"
   },
   "devDependencies": {
+    "@types/localforage": "0.0.34",
     "@angular/cli": "^1.6.4",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",

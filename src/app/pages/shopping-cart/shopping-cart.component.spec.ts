@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { AsyncLocalStorageModule } from 'angular-async-local-storage';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { ShoppingCartComponent } from './shopping-cart.component';
@@ -14,7 +13,6 @@ describe('ShoppingCartComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         imports: [
-          AsyncLocalStorageModule,
           TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useClass: FakeLoader }
           })

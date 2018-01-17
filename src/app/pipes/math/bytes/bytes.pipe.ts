@@ -1,8 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNumberFinite, isInteger, isPositive, toDecimal } from '../../utils';
+
+import { isInteger, isNumberFinite, isPositive, toDecimal } from '../../utils';
 
 export type ByteUnit = 'B' | 'KB' | 'MB' | 'GB' | 'TB';
 
+/**
+ * Bytes pipe
+ * @author Daniel Sogl
+ */
 @Pipe({
   name: 'bytes'
 })
