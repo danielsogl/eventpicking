@@ -1,5 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Log } from 'ng2-logger';
+import { AsyncLocalStorage } from 'angular-async-local-storage';
+import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
+import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
+import { User } from '../../classes/user';
+import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 
 /**
  * Checkout page component
@@ -14,6 +19,10 @@ export class CheckoutPageComponent implements OnInit {
   /** Logger */
   private log = Log.create('CheckoutPageComponent');
 
+  public user: User;
+
+  public cartItems: ShoppingCartItem[];
+
   /**  */
   public contactDetailsStatus: string;
   /**  */
@@ -21,42 +30,55 @@ export class CheckoutPageComponent implements OnInit {
   /**  */
   public checkOrderStatus: string;
 
+  /**  */
   public template: TemplateRef<any>;
+  /**  */
   @ViewChild('loadingTmpl') loadingTmpl: TemplateRef<any>;
+  /**  */
   @ViewChild('checkoutContactDetails') checkoutContactDetails: TemplateRef<any>;
+  /**  */
   @ViewChild('checkoutPaymentDelivery')
   checkoutPaymentDelivery: TemplateRef<any>;
+  /**  */
   @ViewChild('checkoutCheckOrder') checkoutCheckOrder: TemplateRef<any>;
 
-  constructor() {}
+  constructor(
+    private localStorage: AsyncLocalStorage,
+    private afs: FirebaseStorageService,
+    private auth: FirebaseAuthService
+  ) {}
 
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
     this.setTemplate('contactDetails');
+
+    this.auth.user.subscribe(user => {
+      this.user = user;
+      this.log.d('Loaded user', this.user);
+    });
+
+    this.localStorage
+      .getItem<ShoppingCartItem[]>('cart-items')
+      .subscribe(items => {
+        if (items) {
+          this.cartItems = items;
+        }
+        this.log.d('Shopping cart items', this.cartItems);
+      });
   }
 
   setTemplate(template: string) {
     switch (template) {
       case 'contactDetails':
         this.template = this.checkoutContactDetails;
-        this.contactDetailsStatus = 'active';
-        this.paymentDeliveryStatus = '';
-        this.checkOrderStatus = '';
         break;
       case 'paymentDelivery':
         this.template = this.checkoutPaymentDelivery;
-        this.contactDetailsStatus = '';
-        this.paymentDeliveryStatus = 'active';
-        this.checkOrderStatus = '';
         break;
       case 'checkOrder':
         this.template = this.checkoutCheckOrder;
-        this.contactDetailsStatus = '';
-        this.paymentDeliveryStatus = '';
-        this.checkOrderStatus = 'active';
         break;
-
       default:
         this.template = this.loadingTmpl;
         break;

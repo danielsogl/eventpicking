@@ -134,6 +134,8 @@
     "PRICE": "Price",
     "PREVIOUS": "Previous",
     "NEXT": "Next"
+    "PASSWORD": "Password",
+    "DELIVERY_COSTS": "Lieferkosten"
   },
   "TABLE": {
     "NAME": "Name",
