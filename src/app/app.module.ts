@@ -30,6 +30,7 @@ import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.compo
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { DataProtectionPageComponent } from './pages/data-protection-page/data-protection-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
+import { EventSearchPageComponent } from './pages/event-search-page/event-search-page.component';
 import { FeaturesPageComponent } from './pages/features-page/features-page.component';
 import { GtcpageComponent } from './pages/gtcpage/gtcpage.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -90,7 +91,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GtcpageComponent,
     DashboardEventCardComponent,
     BytesPipe,
-    ReplacePipe
+    ReplacePipe,
+    EventSearchPageComponent
   ],
   imports: [
     BrowserModule,
