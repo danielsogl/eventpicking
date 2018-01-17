@@ -150,13 +150,13 @@
                 <td>{{ item.amount }}</td>
                 <td>{{ item.name }}</td>
                 <td>
-                  <i class="fa fa-check" aria-hidden="true" *ngIf="item.format.type.PRINT"></i>
+                  <i class="fa fa-check" aria-hidden="true" *ngIf="item.itemType.PRINT"></i>
                 </td>
                 <td>
-                  <i class="fa fa-check" aria-hidden="true" *ngIf="item.format.type.DOWNLOAD"></i>
+                  <i class="fa fa-check" aria-hidden="true" *ngIf="item.itemType.DOWNLOAD"></i>
                 </td>
-                <td>{{ item.format.width }}x{{ item.format.height }}</td>
-                <td>{{ item.totalPrice }}</td>
+                <td>{{ item.info.width }}x{{ item.info.height }}</td>
+                <td>{{ item.price }}</td>
                 <td class="background-white">
                   <i class="fa fa-lg fa-trash clickable" aria-hidden="true"></i>
                 </td>
