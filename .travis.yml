@@ -30,6 +30,9 @@ jobs:
     - stage: compile
       script: ng build --prod
 
+    - stage: Unit
+      script: npm run test:ci
+
     - stage: E2E
       script: npm run e2e
 
