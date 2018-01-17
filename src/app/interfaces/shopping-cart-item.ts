@@ -7,8 +7,8 @@ import { ShoppingCartItemFormat } from './shopping-cart-item-format';
 export interface ShoppingCartItem {
   /** Name */
   eventname: string;
-  /** Key ->photoname */
-  key: string;
+  /** photoname */
+  name: string;
   /** Format */
   format: ShoppingCartItemFormat;
   /** Image-Url Thumbnail */
