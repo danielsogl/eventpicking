@@ -126,7 +126,8 @@
     "EVENT_ORGANISATOR": "Event Organisator",
     "REPORT_IMAGE": "Report Image",
     "TYPE_HERE": "Type Here",
-    "PASSWORD": "Password"
+    "PASSWORD": "Password",
+    "DELIVERY_COSTS": "Lieferkosten"
   },
   "TABLE": {
     "NAME": "Name",

@@ -61,7 +61,7 @@ export class ShoppingCartComponent implements OnInit {
     this.sum = 0;
     for (let i = 0; i < this.cartItems.length; i++) {
       this.calculateTotalPrice(this.cartItems[i]);
-      this.sum += this.cartItems[i].format.price * this.cartItems[i].amount;
+      this.sum += this.cartItems[i].price * this.cartItems[i].amount;
     }
   }
 
@@ -76,7 +76,7 @@ export class ShoppingCartComponent implements OnInit {
     this.calculateTotalPrice(cartItem); // update total price
     this.calculateSum(); // update shopping cart sum
     this.log.info(
-      'Amount decremented. Event: ' + cartItem.key + ' ' + cartItem.eventname
+      'Amount decremented. Event: ' + cartItem.name + ' ' + cartItem.eventname
     );
   }
 
@@ -89,7 +89,7 @@ export class ShoppingCartComponent implements OnInit {
     this.calculateTotalPrice(cartItem); // update total price
     this.calculateSum(); // update shopping cart sum
     this.log.info(
-      'Amount incremented. Event: ' + cartItem.key + ' ' + cartItem.eventname
+      'Amount incremented. Event: ' + cartItem.name + ' ' + cartItem.eventname
     );
   }
 
@@ -98,7 +98,7 @@ export class ShoppingCartComponent implements OnInit {
    * @param  {ShoppingCartItem} cartItem Item
    */
   calculateTotalPrice(cartItem: ShoppingCartItem) {
-    cartItem.totalPrice = cartItem.amount * cartItem.format.price;
+    cartItem.totalPrice = cartItem.amount * cartItem.price;
   }
 
   /**
