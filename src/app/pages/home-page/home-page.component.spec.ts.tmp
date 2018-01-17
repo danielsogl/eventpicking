@@ -1,29 +1,24 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuth } from 'angularfire2/auth';
 import {
   AngularFirestore,
   AngularFirestoreModule
 } from 'angularfire2/firestore';
-import { AngularFireStorage } from 'angularfire2/storage';
-import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
-import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
-import { NavigationService } from '../../services/navigation/navigation.service';
-import { EventPhotographerComponent } from './event-photographer.component';
-import { BytesPipe } from '../../pipes/math/bytes/bytes.pipe';
+import { HomePageComponent } from './home-page.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
+import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
-describe('EventPhotographerComponent', () => {
-  let component: EventPhotographerComponent;
-  let fixture: ComponentFixture<EventPhotographerComponent>;
+describe('HomePageComponent', () => {
+  let component: HomePageComponent;
+  let fixture: ComponentFixture<HomePageComponent>;
 
   beforeEach(
     async(() => {
@@ -38,22 +33,18 @@ describe('EventPhotographerComponent', () => {
         ],
         providers: [
           FirebaseAuthService,
-          FirebaseStorageService,
           FirebaseFirestoreService,
           AngularFireAuth,
-          FormBuilder,
-          AngularFireStorage,
-          NavigationService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
-        declarations: [EventPhotographerComponent, BytesPipe],
+        declarations: [HomePageComponent],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EventPhotographerComponent);
+    fixture = TestBed.createComponent(HomePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

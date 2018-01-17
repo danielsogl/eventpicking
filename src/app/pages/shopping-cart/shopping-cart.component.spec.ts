@@ -3,8 +3,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AsyncLocalStorageModule } from 'angular-async-local-storage';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
-import { ReplacePipe } from '../../pipes/replacePipe';
 import { ShoppingCartComponent } from './shopping-cart.component';
+import { ReplacePipe } from '../../pipes/string/replace/replace.pipe';
 
 describe('ShoppingCartComponent', () => {
   let component: ShoppingCartComponent;
