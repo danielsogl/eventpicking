@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { ReplacePipe } from 'angular-pipes/src/string/replace.pipe';
 
 describe('PhotographerSearchPageComponent', () => {
   let component: PhotographerSearchPageComponent;
@@ -17,6 +18,7 @@ describe('PhotographerSearchPageComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           AngularFireModule.initializeApp(environment.firebase),
+          ReplacePipe,
           AgmCoreModule.forRoot({
             apiKey: environment.agmKey
           }),
