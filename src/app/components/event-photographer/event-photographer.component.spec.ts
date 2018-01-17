@@ -9,7 +9,6 @@ import {
   AngularFirestore,
   AngularFirestoreModule
 } from 'angularfire2/firestore';
-import { AngularFireStorage } from 'angularfire2/storage';
 import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
@@ -17,9 +16,9 @@ import { environment } from '../../../environments/environment';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
-import { NavigationService } from '../../services/navigation/navigation.service';
 import { EventPhotographerComponent } from './event-photographer.component';
-import { BytesPipe } from '../../pipes/math/bytes/bytes.pipe';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 describe('EventPhotographerComponent', () => {
   let component: EventPhotographerComponent;
@@ -46,7 +45,7 @@ describe('EventPhotographerComponent', () => {
           NavigationService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
-        declarations: [EventPhotographerComponent, BytesPipe],
+        declarations: [EventPhotographerComponent],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

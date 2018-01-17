@@ -1,5 +1,3 @@
-import { ShoppingCartItemFormat } from './shopping-cart-item-format';
-
 /**
  * Shopping cart item interface
  * @author Daniel Sogl
@@ -17,4 +15,19 @@ export interface ShoppingCartItem {
   amount?: number;
   /** Total price */
   totalPrice?: number;
+}
+
+/**
+ * Shopping cart item format interface
+ * @author Daniel Sogl
+ */
+export interface ShoppingCartItemFormat {
+  /** Type */
+  type: string;
+  /** Price */
+  price: number;
+  /** Height */
+  height?: number;
+  /** Width */
+  width?: number;
 }

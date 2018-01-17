@@ -32,14 +32,20 @@ export class FirebaseStorageService {
 
   /**
    * Upload images to Firebase storage
+   * @param  {string} uid UID
    * @param  {string} event Event ID
    * @param  {Upload} upload Uploadfile
    * @returns {AngularFireUploadTask}
    */
-  pushUpload(event: string, upload: Upload): AngularFireUploadTask {
+  pushUpload(
+    uid: string,
+    event: string,
+    upload: Upload
+  ): AngularFireUploadTask {
     const storageRef: AngularFireStorageReference = this.afStorage.ref(
-      `events/${event}/${upload.file.name}`
+      `events/${uid}/${event}/${upload.file.name}`
     );
+
     return storageRef.put(upload.file);
   }
 }

@@ -10,13 +10,12 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../interfaces/printing-house';
+import { PrintingHouse } from '../../classes/printing-house';
 import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
-import { PriceList } from '../../classes/price-list';
 
 /**
  * Photographer dashboard component
@@ -58,12 +57,11 @@ export class DashboardPhotographerComponent implements OnInit {
   /** Own printing house */
   public ownPrintingHouse: PrintingHouse;
 
-  /** Download price list */
-  public priceList: PriceList;
-
   /** Edited event */
   public eventEdit: Event;
 
+  /** Events firebase collection */
+  public eventCollection: AngularFirestoreCollection<Event>;
   /** Photographer events */
   public events: Observable<Event[]>;
   /** Photographer profile document */
@@ -217,9 +215,10 @@ export class DashboardPhotographerComponent implements OnInit {
         }
       });
 
-      this.events = this.afs
-        .getPhotographerEvents(this.auth.getCurrentFirebaseUser().uid)
-        .valueChanges();
+      this.eventCollection = this.afs.getPhotographerEvents(
+        this.auth.getCurrentFirebaseUser().uid
+      );
+      this.events = this.eventCollection.valueChanges();
 
       this.afs
         .getDefautlPrintingHouse()
@@ -232,33 +231,6 @@ export class DashboardPhotographerComponent implements OnInit {
               this.defaultPrintingHouse
             );
           }
-          this.afs
-            .getPriceList(this.auth.getCurrentFirebaseUser().uid)
-            .valueChanges()
-            .subscribe(priceList => {
-              if (priceList) {
-                this.priceList = priceList;
-                this.log.d('loaded pricing list', this.priceList);
-              } else {
-                this.priceList = new PriceList(
-                  this.auth.getCurrentFirebaseUser().uid
-                );
-                if (this.defaultPrintingHouse) {
-                  this.priceList.printingHouseItems = this.defaultPrintingHouse.printingHouseItems;
-                }
-                this.afs
-                  .createPriceList(
-                    this.priceList,
-                    this.auth.getCurrentFirebaseUser().uid
-                  )
-                  .then(() => {
-                    this.log.d('Created pricing list');
-                  })
-                  .catch(err => {
-                    this.log.d('Error creating pricing list', err);
-                  });
-              }
-            });
         });
 
       this.afs
@@ -268,19 +240,12 @@ export class DashboardPhotographerComponent implements OnInit {
           if (printingHouse[0]) {
             this.ownPrintingHouse = printingHouse[0];
             this.log.d('Loaded own printing house', this.ownPrintingHouse);
+          } else {
+            this.ownPrintingHouse = new PrintingHouse();
+            this.ownPrintingHouse.uid = this.auth.getCurrentFirebaseUser().uid;
           }
         });
     }
-  }
-
-  /**
-   * Track ngFor loop
-   * @param  {number} index Index
-   * @param  {any} obj Object
-   * @returns {any}
-   */
-  trackByIndex(index: number, obj: any): any {
-    return index;
   }
 
   /**
@@ -308,10 +273,12 @@ export class DashboardPhotographerComponent implements OnInit {
         id: uid,
         location: this.newEventForm.value.location,
         name: this.newEventForm.value.name,
-        photographerUid: this.user.uid
+        photographerUid: this.user.uid,
+        printinghouse: '4qd7Em6sEa6AzZaqNEQV'
       });
-      this.afs
-        .createEvent(event)
+      this.eventCollection
+        .doc(uid)
+        .set(JSON.parse(JSON.stringify(event)))
         .then(() => {
           this.log.d('Added new event to firestore');
           this.newEventModal.hide();
@@ -362,7 +329,6 @@ export class DashboardPhotographerComponent implements OnInit {
     }
     if (this.publicProfileForm.valid && !this.publicProfileForm.untouched) {
       this.photographerProfile = this.publicProfileForm.getRawValue();
-      this.photographerProfile.address = this.billingAddressForm.getRawValue();
       this.photographerProfile.uid = this.user.uid;
       this.photographerProfile.profileUrl = this.user.photographerUrl;
       this.log.d('Update public profile data', this.photographerProfile);
@@ -393,68 +359,7 @@ export class DashboardPhotographerComponent implements OnInit {
   }
 
   /**
-   * Update price list
-   */
-  updatePriceList() {
-    this.afs
-      .updatePriceList(this.priceList, this.auth.getCurrentFirebaseUser().uid)
-      .then(() => {
-        this.log.d('Updated price list');
-      })
-      .catch(err => {
-        this.log.er('Error updateing price list', err);
-      });
-  }
-
-  /**
    * Update printing house data
    */
-  updatePrintingHouse() {
-    this.afs
-      .updatePrintingHouse(this.ownPrintingHouse)
-      .then(() => {
-        this.log.d('updated own printing house');
-      })
-      .catch(err => {
-        this.log.er('Error updating own printing house', err);
-      });
-  }
-
-  createPrintingHouse() {
-    const printingHouse: PrintingHouse = {
-      address: {
-        city: '',
-        email: '',
-        name: '',
-        phone: '',
-        street: '',
-        streetnumber: '',
-        zip: ''
-      },
-      paymentInformation: {
-        accountOwner: '',
-        bic: '',
-        iban: ''
-      },
-      isDefault: false,
-      uid: this.auth.getCurrentFirebaseUser().uid,
-      id: this.afs.getId()
-    };
-    this.afs
-      .createPrintingHouse(printingHouse)
-      .then(() => {
-        this.log.d('Created own printing house');
-      })
-      .catch(err => {
-        this.log.er('Error creating own printing house', err);
-      });
-  }
-
-  checkDefaultPrintingHouse(): boolean {
-    if (!this.ownPrintingHouse && this.defaultPrintingHouse) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  updatePrintingHouse() {}
 }

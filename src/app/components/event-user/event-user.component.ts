@@ -9,11 +9,10 @@ import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../interfaces/printing-house';
+import { PrintingHouse } from '../../classes/printing-house';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { PriceList } from '../../classes/price-list';
 
 /**
  * Event user view component
@@ -52,7 +51,7 @@ export class EventUserComponent implements OnInit {
   public templateMarked: TemplateRef<any>;
 
   /** Printing house object */
-  public priceList: PriceList;
+  public printingHouse: PrintingHouse;
   /** Event images array */
   public images: EventPicture[];
 
@@ -92,13 +91,11 @@ export class EventUserComponent implements OnInit {
         });
 
       this.afs
-        .getPriceList(this.event.photographerUid)
+        .getPrintingHouseById(this.event.printinghouse)
         .valueChanges()
-        .subscribe(priceList => {
-          if (priceList) {
-            this.priceList = priceList;
-            this.log.d('Loaded printing house', this.priceList);
-          }
+        .subscribe(printingHouse => {
+          this.printingHouse = printingHouse;
+          this.log.d('Loaded printing house', this.printingHouse);
         });
     }
   }
@@ -108,7 +105,7 @@ export class EventUserComponent implements OnInit {
    * @param  {EventPicture} image Image to open
    */
   openImageModal(image: EventPicture) {
-    this.pictureModal.showModal(image, this.priceList);
+    this.pictureModal.showModal(image, this.printingHouse);
   }
 
   /**
@@ -128,7 +125,7 @@ export class EventUserComponent implements OnInit {
     if (this.user) {
       image.ratings++;
       this.afs
-        .updateImage(image)
+        .updateImage(image, this.event.id)
         .then(() => {
           this.log.d('Upvoted image');
         })

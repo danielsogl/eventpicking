@@ -21,7 +21,7 @@
                 <td>{{ image.name }}</td>
                 <td>{{ image.info.type }}</td>
                 <td>{{ image.info.width }}x{{ image.info.height }}</td>
-                <td>{{ (image.info.size) | bytes }}</td>
+                <td>{{ (image.info.size) }} KB</td>
                 <td>
                   <a class="fa fa-trash-o" aria-hidden="true" (click)="deleteImage(image)"></a>
                 </td>
@@ -59,8 +59,8 @@
                 <td>{{ 'TABLE.NAME' | translate }}</td>
                 <td>{{ 'TABLE.TYPE' | translate }}</td>
                 <td>{{ 'TABLE.SIZE' | translate }}</td>
-                <td *ngIf="uploadStarted">{{ 'TABLE.PROGRESS' | translate }}</td>
-                <td *ngIf="!uploadStarted">{{ 'TABLE.DELETE' | translate }}</td>
+                <td>{{ 'TABLE.PROGRESS' | translate }}</td>
+                <td>{{ 'TABLE.DELETE' | translate }}</td>
               </tr>
             </thead>
             <tbody>
@@ -68,11 +68,11 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ file.name }}</td>
                 <td>{{ file.file.type }}</td>
-                <td>{{ file.file.size | bytes }}</td>
-                <td *ngIf="uploadStarted">
+                <td>{{ file.file.size }}</td>
+                <td>
                   <mdb-progressbar [value]="file.progress" min="0" max="100" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></mdb-progressbar>
                 </td>
-                <td *ngIf="!uploadStarted">
+                <td>
                   <a class="fa fa-trash-o" aria-hidden="true" (click)="deleteFile(i)"></a>
                 </td>
               </tr>

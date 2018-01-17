@@ -30,7 +30,6 @@ import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.compo
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { DataProtectionPageComponent } from './pages/data-protection-page/data-protection-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
-import { EventSearchPageComponent } from './pages/event-search-page/event-search-page.component';
 import { FeaturesPageComponent } from './pages/features-page/features-page.component';
 import { GtcpageComponent } from './pages/gtcpage/gtcpage.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -43,8 +42,7 @@ import { PhotographerSearchPageComponent } from './pages/photographer-search-pag
 import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
-import { BytesPipe } from './pipes/math/bytes/bytes.pipe';
-import { ReplacePipe } from './pipes/string/replace/replace.pipe';
+import { ReplacePipe } from './pipes/replacePipe';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
@@ -63,6 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
+    ReplacePipe,
     AppComponent,
     EventPageComponent,
     FooterComponent,
@@ -89,10 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PictureDetailComponent,
     DashboardPhotographerComponent,
     GtcpageComponent,
-    DashboardEventCardComponent,
-    BytesPipe,
-    ReplacePipe,
-    EventSearchPageComponent
+    DashboardEventCardComponent
   ],
   imports: [
     BrowserModule,

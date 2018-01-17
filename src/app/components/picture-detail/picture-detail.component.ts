@@ -2,9 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 
-import { PrintingHouse } from '../../interfaces/printing-house';
+import { PrintingHouse } from '../../classes/printing-house';
 import { EventPicture } from '../../interfaces/event-picture';
-import { PriceList } from '../../classes/price-list';
 
 /**
  * Picture detail modal component
@@ -25,7 +24,7 @@ export class PictureDetailComponent implements OnInit {
   /** Image */
   public image: EventPicture;
   /** Printing house */
-  public priceList: PriceList;
+  public printingHouse: PrintingHouse;
 
   constructor() {}
 

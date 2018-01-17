@@ -21,8 +21,7 @@
     "HOME": "Home",
     "LOGOUT": "Log out",
     "EVENTS": "Events",
-    "SEARCH_PHOTOGRAPHER": "Photographer near you",
-    "SEARCH_EVENTS": "Events",
+    "SEARCH": "Photographer near you",
     "SIGNIN": "Sign in",
     "SIGNUP": "Sign up",
     "CONTACT_DETAILS": "Contact details",
@@ -58,9 +57,7 @@
     "USER_EMAIL": "Your E-Mail",
     "USER_PASSWORD": "Your password",
     "WBESITE": "Website",
-    "ZIP": "ZIP",
-    "PASSWORD": "Password",
-    "DESCRIPTION": "Description"
+    "ZIP": "ZIP"
   },
   "BUTTONS": {
     "LOGIN": "Sign in",
@@ -80,7 +77,7 @@
     "ADD_PICTURES_TO_CART": "Add selected pictures to cart",
     "START_UPLOAD": "Start Upload",
     "DELETE_EVENT": "Delete Event",
-    "SINGUP_NOW": "Signup Now",
+    "LOGINNOW": "Login Now",
     "FIND_EVENT": "Find your event",
     "SEND_REPORT": "Send Report"
   },
@@ -88,7 +85,7 @@
     "ADDRESS": "Address",
     "ACCOUNT_DATA": "Account Data",
     "BILLING_ADDRESS": "Billing Address",
-    "BILLING_INFORMATION": "Billing Address",
+    "BILLING_INFORMATION": "Billing Information",
     "CREATE_NEW_EVENT": "Create new event",
     "CREATE": "Create",
     "CONTACT_DETAILS": "Contact-Details",
@@ -125,8 +122,7 @@
     "EVENT_GUEST": "Guest",
     "EVENT_ORGANISATOR": "Event Organisator",
     "REPORT_IMAGE": "Report Image",
-    "TYPE_HERE": "Type Here",
-    "PASSWORD": "Password"
+    "TYPE_HERE": "Type Here"
   },
   "TABLE": {
     "NAME": "Name",
@@ -177,8 +173,7 @@
     "SUBSCRIPTION": "Subscription",
     "UPLOAD": "Upload",
     "USER": "User",
-    "IMAGES": "Images",
-    "PRICING_MODEL": "Pricing Models"
+    "IMAGES": "Images"
   },
   "FIREBASE_ERRORS": {
     "auth/app-deleted": "Firebase project deleted",
