@@ -19,35 +19,46 @@ export class CheckoutPageComponent implements OnInit {
   /** Logger */
   private log = Log.create('CheckoutPageComponent');
 
+  /** User */
   public user: User;
 
+  /** Cart items */
   public cartItems: ShoppingCartItem[];
 
-  /**  */
+  /** contactDetailsStatus */
   public contactDetailsStatus: string;
-  /**  */
+  /** paymentDeliveryStatus */
   public paymentDeliveryStatus: string;
-  /**  */
+  /** checkOrderStatus */
   public checkOrderStatus: string;
 
-  /**  */
+  /** template */
   public template: TemplateRef<any>;
-  /**  */
+  /** loadingTmpl */
   @ViewChild('loadingTmpl') loadingTmpl: TemplateRef<any>;
-  /**  */
+  /** checkoutContactDetails */
   @ViewChild('checkoutContactDetails') checkoutContactDetails: TemplateRef<any>;
-  /**  */
+  /** checkoutPaymentDelivery */
   @ViewChild('checkoutPaymentDelivery')
   checkoutPaymentDelivery: TemplateRef<any>;
-  /**  */
+  /** checkoutCheckOrder */
   @ViewChild('checkoutCheckOrder') checkoutCheckOrder: TemplateRef<any>;
 
+  /**
+   * Constructor
+   * @param  {AsyncLocalStorage} localStorage Async Local Storage
+   * @param  {FirebaseStorageService} afs Firebase Storage Service
+   * @param  {FirebaseAuthService} auth Firebase Auth Service
+   */
   constructor(
     private localStorage: AsyncLocalStorage,
     private afs: FirebaseStorageService,
     private auth: FirebaseAuthService
   ) {}
 
+  /**
+   * Initalize component
+   */
   ngOnInit() {
     this.log.color = 'orange';
     this.log.d('Component initialized');
@@ -68,6 +79,10 @@ export class CheckoutPageComponent implements OnInit {
       });
   }
 
+  /**
+   * Set template
+   * @param  {string} template Template name
+   */
   setTemplate(template: string) {
     switch (template) {
       case 'contactDetails':
