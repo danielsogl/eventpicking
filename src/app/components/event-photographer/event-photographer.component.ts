@@ -33,6 +33,9 @@ export class EventPhotographerComponent implements OnInit {
   /** Files for the upload */
   public uploadFiles: Upload[] = [];
 
+  /** Upload in progress */
+  public uploadStarted: boolean;
+
   /** Event */
   @Input() public event: Event;
   /** Event images */
@@ -169,9 +172,11 @@ export class EventPhotographerComponent implements OnInit {
    * Start upload
    */
   startUpload() {
+    this.uploadStarted = true;
+    const items = this.uploadFiles.length;
+    let count = 0;
     for (let i = 0; i < this.uploadFiles.length; i++) {
       const uploadTask = this.storage.pushUpload(
-        this.user.uid,
         this.event.id,
         this.uploadFiles[i]
       );
@@ -179,6 +184,17 @@ export class EventPhotographerComponent implements OnInit {
       uploadTask.snapshotChanges().subscribe(snapshot => {
         this.uploadFiles[i].progress =
           snapshot.bytesTransferred / snapshot.totalBytes * 100;
+      });
+
+      uploadTask.then().then(() => {
+        console.log('Image upload finsihed: ', i);
+        count++;
+        if (count === items) {
+          this.uploadStarted = false;
+          setTimeout(() => {
+            this.uploadFiles = [];
+          }, 2000);
+        }
       });
     }
   }
