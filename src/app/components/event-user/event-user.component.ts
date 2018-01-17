@@ -17,7 +17,7 @@ import { PriceList } from '../../classes/price-list';
 
 /**
  * Event user view component
- * @author Daniel Sogl, Markus Kirschner
+ * @author Daniel Sogl, Markus Kirschner, Tim Krießler
  */
 @Component({
   selector: 'app-event-user',
@@ -97,7 +97,7 @@ export class EventUserComponent implements OnInit {
         .subscribe(priceList => {
           if (priceList) {
             this.priceList = priceList;
-            this.log.d('Loaded printing house', this.priceList);
+            this.log.d('Loaded priceList', this.priceList);
           }
         });
     }
@@ -107,8 +107,14 @@ export class EventUserComponent implements OnInit {
    * Open image detail modal
    * @param  {EventPicture} image Image to open
    */
-  openImageModal(image: EventPicture) {
-    this.pictureModal.showModal(image, this.priceList);
+  openImageModal(image: EventPicture, imageIndex: number) {
+    this.pictureModal.showModal(
+      image,
+      imageIndex,
+      this.images.length,
+      this,
+      this.priceList
+    );
   }
 
   /**
@@ -117,6 +123,15 @@ export class EventUserComponent implements OnInit {
   selectAllImages() {
     for (let i = 0; i < this.images.length; i++) {
       this.images[i].selected = true;
+    }
+  }
+
+  /**
+   * Deselect all images
+   */
+  deselectAllImages() {
+    for (let i = 0; i < this.images.length; i++) {
+      this.images[i].selected = false;
     }
   }
 
@@ -146,5 +161,9 @@ export class EventUserComponent implements OnInit {
    */
   reportImage(image: EventPicture) {
     this.reportImageModal.show();
+  }
+
+  getFollowingImage(imageIndex: number) {
+    return this.images[imageIndex];
   }
 }
