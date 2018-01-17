@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AsyncLocalStorageModule } from 'angular-async-local-storage';
-import { NgStringPipesModule } from 'angular-pipes';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { ShoppingCartComponent } from './shopping-cart.component';
+import { ReplacePipe } from '../../pipes/string/replace/replace.pipe';
 
 describe('ShoppingCartComponent', () => {
   let component: ShoppingCartComponent;
@@ -17,10 +17,9 @@ describe('ShoppingCartComponent', () => {
           AsyncLocalStorageModule,
           TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useClass: FakeLoader }
-          }),
-          NgStringPipesModule
+          })
         ],
-        declarations: [ShoppingCartComponent]
+        declarations: [ShoppingCartComponent, ReplacePipe]
       }).compileComponents();
     })
   );

@@ -3,8 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { NgMathPipesModule } from 'angular-pipes';
-import { BytesPipe } from 'angular-pipes/src/math/bytes.pipe';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {
@@ -21,6 +19,7 @@ import { FirebaseFirestoreService } from '../../services/firebase/firestore/fire
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { EventPhotographerComponent } from './event-photographer.component';
+import { BytesPipe } from '../../pipes/math/bytes/bytes.pipe';
 
 describe('EventPhotographerComponent', () => {
   let component: EventPhotographerComponent;
@@ -35,8 +34,7 @@ describe('EventPhotographerComponent', () => {
           AngularFireModule.initializeApp(environment.firebase),
           TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useClass: FakeLoader }
-          }),
-          NgMathPipesModule
+          })
         ],
         providers: [
           FirebaseAuthService,
