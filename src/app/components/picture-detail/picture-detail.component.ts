@@ -11,6 +11,7 @@ import { EventUserComponent } from '../event-user/event-user.component';
 import { PriceList } from '../../classes/price-list';
 import { PrintingHouseArticle } from '../../interfaces/printing-house-article';
 import { PRINTTYPE } from '../../enums/print-type';
+import { SHOPPINGCARTITEMTYPE } from '../../enums/shopping-cart-item-type';
 
 /**
  * Picture detail modal component
@@ -71,9 +72,9 @@ export class PictureDetailComponent implements OnInit {
   /** format of actual image */
   public format: string;
   /** define which register is preselected */
-  public radioModel = 'Left';
+  public radioModel = 'left';
   /** Shopping cart items */
-  public cartItems: Observable<ShoppingCartItem[]> = [];
+  public cartItems: Observable<ShoppingCartItem[]>;
 
   constructor(private localStorage: AsyncLocalStorage) {}
 
@@ -192,7 +193,39 @@ export class PictureDetailComponent implements OnInit {
 
   /** add image to shopping cart */
   addToShoppingCart() {
-    // Load items from local storage
-    this.localStorage.getItem<ShoppingCartItem>('cart-items');
+    if (this.format === undefined) {
+      // TODO Alert: 'Select format!'
+      this.log.info('No format selected');
+    } else {
+      this.log.info('addtoShoppingCart: ' + this.radioModel);
+      let itemType: SHOPPINGCARTITEMTYPE;
+      if (this.radioModel === 'left') {
+        itemType = SHOPPINGCARTITEMTYPE.DOWNLOAD;
+      }
+      if (this.radioModel === 'right') {
+        itemType = SHOPPINGCARTITEMTYPE.PRINT;
+      }
+      this.log.info('itemType: ' + itemType);
+      // Load items from local storage
+      this.cartItems = this.localStorage.getItem<ShoppingCartItem>(
+        'cart-items'
+      );
+
+      // Create new Shopping cart item
+      const shoppingCartItem: ShoppingCartItem = {
+        eventname: this.image.event,
+        name: this.image.name,
+        info: this.image.info,
+        itemType: itemType,
+        amount: 1,
+        totalPrice: 0,
+        preview: this.image.preview,
+        thumbnail: this.image.thumbnail,
+        price: this.price
+      };
+      // this.cartItems.toPromise();
+
+      // this.localStorage.setItem('cart-items',);
+    }
   }
 }

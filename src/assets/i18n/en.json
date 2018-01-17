@@ -128,12 +128,11 @@
     "EVENT_ORGANISATOR": "Event Organisator",
     "REPORT_IMAGE": "Report Image",
     "TYPE_HERE": "Type Here",
-    "PASSWORD": "Password",
     "IMAGE_VIEW": "Image View",
     "FORMAT": "Format",
     "PRICE": "Price",
     "PREVIOUS": "Previous",
-    "NEXT": "Next"
+    "NEXT": "Next",
     "PASSWORD": "Password",
     "DELIVERY_COSTS": "Lieferkosten"
   },

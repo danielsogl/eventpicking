@@ -48,17 +48,17 @@
           </div>
           <div class="col-12 col-lg-4 vertical-ruler p-3">
             <div class="btn-group">
-              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="Left" mdbRippleRadius (click)="this.templateType = this.download; this.price = undefined">
+              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="left" mdbRippleRadius (click)="this.templateType = this.download; this.price = undefined; this.format = undefined">
                 <i class="fa fa-download fa-5x" aria-hidden="true"></i>
               </label>
-              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="Right" mdbRippleRadius (click)="this.templateType = this.print; this.price = undefined">
+              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="right" mdbRippleRadius (click)="this.templateType = this.print; this.price = undefined; this.format = undefined">
                 <i class="fa fa-print fa-5x" aria-hidden="true"></i>
               </label>
             </div>
 
             <ng-container *ngTemplateOutlet="templateType"></ng-container>
 
-            <button type="button" class="btn btn-default btn-lg btn-block waves-light" mdbRippleRadius (click)="addToShoppingCart()">
+            <button type="button" class="btn btn-default btn-lg btn-block waves-light" mdbRippleRadius (click)="addToShoppingCart(templateType)">
               <i class="fa fa-shopping-cart mr-1"></i> {{ 'BUTTONS.ADD_TO_SHOPPING_CART' | translate }}</button>
           </div>
         </div>
