@@ -1,7 +1,6 @@
 
 <div *ngIf="photographer.premium; else Standard">
   <div class="row mt-5 pt-5">
-    <div *ngIf="photographer">
       <div class="author-box grey-gradient">
         <h2 class="h2-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h2>
         <hr class="mt-5 mr-5 ml-5">
@@ -98,60 +97,147 @@
         <hr id="prices" class="m-5">
         <!--photographer prices-->
         <div class="container">
-          <h2>{{ 'LABELS.CART_PRICE' | translate }}</h2>
+          <h2 class="text-center">{{ 'LABELS.CART_PRICE' | translate }}</h2>
           <br>
         <div class="row">
+
+          <!-- Prices for Download -->
           <div class="col-4 text-center">
-            Hallo
-          </div>
-          <div class="col-4 text-center">
-              Hallo
-          </div>
-          <div class="col-4 text-center">
-                Hallo
-          </div>
-          <table class="table table-responsive-sm">
+            <p class="tab-hdg">Download</p>
+            <table class="table table-responsive-sm">
               <thead id="sum_row">
-                <tr>
-                </tr>
+                <tr> </tr>
               </thead>
               <tbody>
-               <!-- Downloads -->
                 <tr >
-                  <!-- <th scope="row">1</th> -->
                   <td>S</td>
+                  <td>XX,XX€</td>
+                </tr> 
+                <tr >
                   <td>M</td>
+                  <td>XX,XX€</td>
+                </tr>   
+                <tr >
                   <td>L</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
                   <td>XL</td>
-                </tr>  
-                <tr >
                   <td>XX,XX€</td>
-                  <td>XX,XX€</td>
-                  <td>XX,XX€</td>
-                  <td>XX,XX€</td>
-                </tr>     
-                
-                <!-- Fotos -->
-                <tr >
-                    <td>S</td>
-                    <td>M</td>
-                    <td>L</td>
-                    <td>XL</td>
-                </tr>     
-                <tr >
-                    <td>XX,XX€</td>
-                    <td>XX,XX€</td>
-                    <td>XX,XX€</td>
-                    <td>XX,XX€</td>
                 </tr>        
               </tbody>
             </table>     
+          </div><!--col-download-->
+
+          <!-- Prices for Pics -->
+          <div class="col-4 text-center">
+              <p class="tab-hdg">Fotos</p>
+              <table class="table table-responsive-sm">
+                <thead id="sum_row">
+                  <tr> </tr>
+                </thead>
+                <tbody>
+                  <tr >
+                    <td>9x13cm</td>
+                    <td>XX,XX€</td>
+                  </tr> 
+                  <tr >
+                    <td>10x15cm</td>
+                    <td>XX,XX€</td>
+                  </tr>   
+                  <tr >
+                    <td>11x17cm</td>
+                    <td>XX,XX€</td>
+                  </tr>
+                  <tr>
+                    <td>13x18cm</td>
+                    <td>XX,XX€</td>
+                  </tr>    
+                  <tr>
+                    <td>20x30cm</td>
+                    <td>XX,XX€</td>
+                  </tr>   
+                  <tr>
+                    <td>30x45cm</td>
+                    <td>XX,XX€</td>
+                  </tr>   
+                  <tr>
+                    <td>40x60cm</td>
+                    <td>XX,XX€</td>
+                  </tr>   
+                  <tr>
+                    <td>50x75cm</td>
+                    <td>XX,XX€</td>
+                  </tr>       
+                </tbody>
+              </table>     
+          </div><!--col-Fotos-->
+
+          <!-- Prices for Canvas -->
+          <div class="col-4 text-center">
+              <p class="tab-hdg">Leinwand</p>
+              <table class="table table-responsive-sm">
+                <thead id="sum_row">
+                  <tr> </tr>
+                </thead>
+                <tbody>
+                  <tr >
+                    <td>20x30cm</td>
+                    <td>XX,XX€</td>
+                  </tr> 
+                  <tr >
+                    <td>40x60cm</td>
+                    <td>XX,XX€</td>
+                  </tr>   
+                  <tr >
+                    <td>60x90cm</td>
+                    <td>XX,XX€</td>
+                  </tr>
+                  <tr>
+                    <td>80x120cm</td>
+                    <td>XX,XX€</td>
+                  </tr>    
+                  <tr>
+                    <td>100x150cm</td>
+                    <td>XX,XX€</td>
+                  </tr>   
+                </tbody>
+              </table>
+          </div><!--col-canvas-->
          </div><!--row-->
       </div> <!--container-->
       <!--END photographer prices-->
       
       <!-- photographer testimonials -->
       <hr id="testimonials" class="m-5">
+      <!--Customer-Rating-->
+      <div class="row">
+        <div class="col-12">
+          Bewerten sie hier ihren Forografen:
+        </div>
+      </div>
+      <div class="row justify-content-start">
+      <div class="col-8">
+          <div class="orange-text">
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+          </div><!--review1-end-->          
+    
+
+      <!-- <div class="col-6"> -->
+      <form>
+          <div class="form-group">
+            <!-- <label for="inputRating"></label> -->
+               <textarea class="form-control" id="inputRating" rows="7" placeholder="Schreiben sie hier ihre Bewertung"></textarea>
+               <small id="emailHelp" class="form-text text-muted">Einverständnis, dass Kommentar auf Seite erscheint.</small>
+          </div>  
+        </form>
+      </div>
+    </div><!--row-->
+
       <div class="row">
         <div class="col-2">
             <div class="orange-text">
@@ -170,16 +256,46 @@
             <p>Super Website um Kunden zu erreichen. Preis- Leistungsverhältnis von EventPicKing TOP. Werde
               weitere Zusammenarbeit gerne beibehalten.
            </p>
-
         </div><!--col2-->
+        <div class="col-2">
+            <div class="orange-text">
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+            </div><!--review1-end-->          
+            <!-- <div class="avatar">
+                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" class="rounded-circle z-depth-1 img-fluid" alt="">
+             </div> -->
+        </div><!--col1-->
+
+        <div class="col-10">
+            <h4 class="mb-3">Stephan Naumann</h4>
+            <p>Super Website um Kunden zu erreichen. Preis- Leistungsverhältnis von EventPicKing TOP. Werde
+              weitere Zusammenarbeit gerne beibehalten.
+           </p>
+        </div>
+        <div class="col-2">
+            <div class="orange-text">
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+                <i class="fa fa-star"> </i>
+            </div><!--review1-end-->          
+            <!-- <div class="avatar">
+                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" class="rounded-circle z-depth-1 img-fluid" alt="">
+             </div> -->
+        </div><!--col1-->
+        <div class="col-10">
+            <h4 class="mb-3">Stephan Naumann</h4>
+            <p>Super Website um Kunden zu erreichen. Preis- Leistungsverhältnis von EventPicKing TOP. Werde
+              weitere Zusammenarbeit gerne beibehalten.
+           </p>
       </div><!--row-->
       <!-- END-TESTIMONIAL -->
-
-
-
-  
-
-  </div><!--END-Premium-->
+<!--END-Premium-->
   </div><!--END-ngif-->
   
   <ng-template #Standard>other content here</ng-template>
