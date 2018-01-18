@@ -115,7 +115,7 @@
       <div class="row justify-content-end">
         <button id="checkout3_back" type="button" class="btn btn-outline-primary waves-effect" (click)="setTemplate('contactDetails')"
           mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
-        <button id="checkout3_send_order" type="button" class="btn btn-outline-primary waves-effect" (click)="setTemplate('checkOrder')"
+        <button id="checkout3_send_order" type="button" class="btn btn-outline-primary waves-effect" (click)="setTemplate('checkOrder'); renderPaypalButton()"
           mdbRippleRadius>{{ 'BUTTONS.NEXT' | translate }}</button>
         <!-- END buttons -->
       </div>
@@ -150,10 +150,10 @@
                 <td>{{ item.amount }}</td>
                 <td>{{ item.name }}</td>
                 <td>
-                  <i class="fa fa-check" aria-hidden="true" *ngIf="item.itemType.PRINT"></i>
+                  <i class="fa fa-check" aria-hidden="true"></i>
                 </td>
                 <td>
-                  <i class="fa fa-check" aria-hidden="true" *ngIf="item.itemType.DOWNLOAD"></i>
+                  <i class="fa fa-check" aria-hidden="true"></i>
                 </td>
                 <td>{{ item.info.width }}x{{ item.info.height }}</td>
                 <td>{{ item.price }}</td>
@@ -203,7 +203,7 @@
       <div class="row justify-content-end">
         <button id="checkout3_back" type="button" class="btn btn-outline-primary waves-effect" (click)="setTemplate('paymentDelivery')"
           mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
-        <button id="checkout3_send_order" type="button" class="btn btn-outline-primary waves-effect" mdbRippleRadius>{{ 'BUTTONS.SEND_ORDER' | translate }}</button>
+        <div id="paypal-button"></div>
         <!-- END buttons -->
       </div>
       <!--row-->

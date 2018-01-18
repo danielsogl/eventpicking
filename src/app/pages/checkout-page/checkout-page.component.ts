@@ -5,6 +5,9 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { User } from '../../classes/user';
 import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 import * as localforage from 'localforage';
+import { environment } from '../../../environments/environment';
+
+declare let paypal: any;
 
 /**
  * Checkout page component
@@ -24,6 +27,7 @@ export class CheckoutPageComponent implements OnInit {
 
   /** Cart items */
   public cartItems: ShoppingCartItem[];
+  public paypalItems: any[] = [];
 
   /** contactDetailsStatus */
   public contactDetailsStatus: string;
@@ -31,6 +35,12 @@ export class CheckoutPageComponent implements OnInit {
   public paymentDeliveryStatus: string;
   /** checkOrderStatus */
   public checkOrderStatus: string;
+
+  public didPaypalScriptLoad = false;
+  public loading = true;
+  public paymentAmount = 0;
+
+  public paypalConfig: any;
 
   /** template */
   public template: TemplateRef<any>;
@@ -70,9 +80,70 @@ export class CheckoutPageComponent implements OnInit {
     localforage.ready().then(() => {
       localforage.getItem<ShoppingCartItem[]>('cart-items').then(items => {
         if (items) {
-          this.cartItems = items;
+          for (let i = 0; i < items.length; i++) {
+            this.paypalItems.push({
+              name: items[i].name,
+              quantity: items[i].amount,
+              price: items[i].price,
+              currency: 'EUR'
+            });
+            this.paymentAmount += items[i].price;
+          }
         }
+
         this.log.d('Shopping cart items', this.cartItems);
+        this.paypalConfig = {
+          env: 'sandbox',
+          locale: 'de_DE',
+          client: {
+            sandbox: environment.paypal_sandbox
+          },
+          commit: true,
+          payment: (data, actions) => {
+            return actions.payment.create({
+              payment: {
+                transactions: [
+                  {
+                    amount: { total: this.paymentAmount, currency: 'EUR' },
+                    item_list: {
+                      items: this.paypalItems,
+                      shipping_address: {
+                        recipient_name: `${this.user.deliveryAdress.name} ${
+                          this.user.deliveryAdress.lastname
+                        }`,
+                        line1: `${this.user.deliveryAdress.street} ${
+                          this.user.deliveryAdress.streetnumber
+                        }`,
+                        city: `${this.user.deliveryAdress.city}`,
+                        country_code: 'DE',
+                        postal_code: `${this.user.deliveryAdress.zip}`
+                      }
+                    }
+                  }
+                ]
+              }
+            });
+          },
+          onAuthorize: (data, actions) => {
+            return actions.payment.execute().then(payment => {
+              // show success page
+            });
+          },
+          onCancel: (data, actions) => {
+            /*
+           * Buyer cancelled the payment
+           */
+            return;
+          },
+
+          onError: err => {
+            /*
+           * An error occurred during the transaction
+           */
+            console.log('Error', err);
+            return;
+          }
+        };
       });
     });
   }
@@ -96,5 +167,31 @@ export class CheckoutPageComponent implements OnInit {
         this.template = this.loadingTmpl;
         break;
     }
+  }
+
+  /**
+   * Render paypal button
+   */
+  renderPaypalButton() {
+    if (!this.didPaypalScriptLoad) {
+      this.loadPaypalScript().then(() => {
+        paypal.Button.render(this.paypalConfig, '#paypal-button');
+        this.loading = false;
+      });
+    }
+  }
+
+  /**
+   * Load paypal checkout script into DOM
+   * @returns {Promise<any>}
+   */
+  loadPaypalScript(): Promise<any> {
+    this.didPaypalScriptLoad = true;
+    return new Promise((resolve, reject) => {
+      const scriptElement = document.createElement('script');
+      scriptElement.src = 'https://www.paypalobjects.com/api/checkout.js';
+      scriptElement.onload = resolve;
+      document.body.appendChild(scriptElement);
+    });
   }
 }
