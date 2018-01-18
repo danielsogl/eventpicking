@@ -1,3 +1,4 @@
+import { COUNTRY } from '../enums/country';
 import { CURRENCY } from '../enums/currency';
 
 /**
@@ -27,16 +28,20 @@ export interface TransactionAmount {
   /** The additional details about the payment amount. */
   details?: TransactionAmountDetails;
   /** The total amount charged to the payee by the payer. */
-  total: string;
+  total: number;
 }
 
+/**
+ * The additional details about the payment amount.
+ * @author Daniel Sogl
+ */
 export interface TransactionAmountDetails {
-  handling_fee: string;
-  insurance: string;
-  shipping: string;
-  shipping_discount: string;
-  subtotal: string;
-  tax: string;
+  /** The shipping fee */
+  shipping?: string;
+  /** The subtotal amount for the items */
+  subtotal?: number;
+  /** The tax */
+  tax: number;
 }
 
 /**
@@ -65,15 +70,17 @@ export interface TransactionItem {
   /** The item name. Maximum length is 127 characters. */
   name: string;
   /** The item cost. Maximum length is 10 characters, which includes: */
-  price: string;
+  price: number;
   /** The item quantity. Maximum length is 10 characters. */
-  quantity: string;
+  quantity: number;
   /** The stock keeping unit (SKU) for the item  */
   sku?: string;
   /** The URL to item information. Available to the payer in the transaction history. */
   url?: string;
   /** The item tax. Supported only for the PayPal payment method. */
-  tax?: string;
+  tax?: number;
+  /** Download URL */
+  downloadUrl?: string;
 }
 
 /**
@@ -84,13 +91,15 @@ export interface TransactionAddress {
   /** The city name. */
   city: string;
   /** A two-character ISO 3166-1 code that identifies the country or region. */
-  country_code: string;
+  country_code: COUNTRY;
   /** The first line of the address. For example, number, street, and so on. */
   line1: string;
   /** Optional. The second line of the address. For example, suite, apartment number, and so on. */
   line2?: string;
-  phone: string;
-  postal_code: string;
-  recipient_name: string;
-  state: string;
+  /** The phone number, in E.123 format. Maximum length is 50 characters. */
+  phone?: string;
+  /** The postal code, which is the zip code or equivalent */
+  postal_code?: string;
+  /** The name of the recipient at this address. */
+  recipient_name?: string;
 }

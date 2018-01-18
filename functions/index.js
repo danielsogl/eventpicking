@@ -10,6 +10,7 @@ admin.initializeApp(functions.config().firebase);
 const imageModule = require('./transform-image.js');
 const eventModule = require('./events.js');
 const cleanUpModule = require('./clean-up.js');
+const paymentModule = require('./payment.js');
 
 /**
  * Transform Image
@@ -26,6 +27,14 @@ exports.transformImage = functions.storage
 exports.deleteImage = functions.firestore
   .document('public-images/{imageID}')
   .onDelete(cleanUpModule.deleteImageHandler);
+
+/**
+ * Save download url to transaction items
+ * @author Daniel Sogl
+ */
+exports.addDownloadUrlToTransaction = functions.firestore
+  .document('transactions/{transactionID}')
+  .onCreate(paymentModule.addDownloadUrlToTransactionHandler);
 
 /**
  * Decrease events left counter

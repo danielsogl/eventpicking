@@ -7,6 +7,10 @@ import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 import * as localforage from 'localforage';
 import { environment } from '../../../environments/environment';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { Transaction, TransactionItem } from '../../interfaces/transaction';
+import { CURRENCY } from '../../enums/currency';
+import { COUNTRY } from '../../enums/country';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 declare let paypal: any;
 
@@ -28,7 +32,7 @@ export class CheckoutPageComponent implements OnInit {
 
   /** Cart items */
   public cartItems: ShoppingCartItem[];
-  public paypalItems: any[] = [];
+  public paypalItems: TransactionItem[] = [];
 
   /** contactDetailsStatus */
   public contactDetailsStatus: string;
@@ -50,6 +54,8 @@ export class CheckoutPageComponent implements OnInit {
   /** Invoice number */
   public invoice_number: string;
 
+  public transaction: Transaction;
+
   /** template */
   public template: TemplateRef<any>;
   /** loadingTmpl */
@@ -69,7 +75,8 @@ export class CheckoutPageComponent implements OnInit {
    */
   constructor(
     private afs: FirebaseFirestoreService,
-    private auth: FirebaseAuthService
+    private auth: FirebaseAuthService,
+    private navigation: NavigationService
   ) {}
 
   /**
@@ -85,82 +92,93 @@ export class CheckoutPageComponent implements OnInit {
     this.auth.user.subscribe(user => {
       this.user = user;
       this.log.d('Loaded user', this.user);
-    });
-
-    localforage.ready().then(() => {
-      localforage.getItem<ShoppingCartItem[]>('cart-items').then(items => {
-        if (items) {
-          for (let i = 0; i < items.length; i++) {
-            this.paypalItems.push({
-              name: items[i].name,
-              quantity: items[i].amount,
-              price: items[i].price,
-              currency: 'EUR',
-              sku: items[i].eventname,
-              description: items[i].itemType
-            });
-            this.paymentAmount += items[i].price * items[i].amount;
+      localforage.ready().then(() => {
+        localforage.getItem<ShoppingCartItem[]>('cart-items').then(items => {
+          if (items) {
+            this.cartItems = items;
+            for (let i = 0; i < items.length; i++) {
+              this.paypalItems.push({
+                currency: CURRENCY.EUR,
+                description: 'Ein Bild',
+                name: `${items[i].eventname}/${items[i].name}`,
+                price: items[i].price,
+                quantity: items[i].amount,
+                sku: items[i].itemType,
+                tax: 0.19
+              });
+              this.paymentAmount += items[i].price * items[i].amount;
+            }
           }
-        }
 
-        this.log.d('Shopping cart items', this.cartItems);
-        this.paypalConfig = {
-          env: 'sandbox',
-          locale: 'de_DE',
-          client: {
-            sandbox: environment.paypal_sandbox
-          },
-          commit: true,
-          payment: (data, actions) => {
-            return actions.payment.create({
-              payment: {
-                transactions: [
-                  {
-                    amount: {
-                      total: this.paymentAmount,
-                      currency: 'EUR',
-                      details: {
-                        subtotal: this.paymentAmount,
-                        tax: 0.19
-                      }
-                    },
-                    description: '',
-                    invoice_number: '',
-                    item_list: {
-                      items: this.paypalItems,
-                      shipping_address: {
-                        recipient_name: `${this.user.deliveryAdress.name} ${
-                          this.user.deliveryAdress.lastname
-                        }`,
-                        line1: `${this.user.deliveryAdress.street} ${
-                          this.user.deliveryAdress.streetnumber
-                        }`,
-                        city: `${this.user.deliveryAdress.city}`,
-                        country_code: 'DE',
-                        postal_code: `${this.user.deliveryAdress.zip}`
-                      }
-                    }
-                  }
-                ]
-              }
-            });
-          },
-          onAuthorize: (data, actions) => {
-            return actions.payment.execute().then(payment => {
-              // show success page
-            });
-          },
-          onCancel: (data, actions) => {
-            // Buyer cancelled the payment
-            return;
-          },
+          this.transaction = {
+            invoice_number: this.invoice_number,
+            description: 'EventPicking Bestellung',
+            reference_id: this.auth.getCurrentFirebaseUser().uid,
+            amount: {
+              currency: CURRENCY.EUR,
+              total: this.paymentAmount
+            },
+            item_list: {
+              items: this.paypalItems,
+              shipping_address: {
+                city: this.user.deliveryAdress.city,
+                country_code: COUNTRY.GERMANY,
+                line1: `${this.user.deliveryAdress.street} ${
+                  this.user.deliveryAdress.streetnumber
+                }`,
+                phone: this.user.deliveryAdress.phone,
+                postal_code: this.user.deliveryAdress.zip,
+                recipient_name: `${this.user.deliveryAdress.name} ${
+                  this.user.deliveryAdress.lastname
+                }`
+              },
+              shipping_method: 'DHL oder EMail',
+              shipping_phone_number: this.user.deliveryAdress.phone
+            }
+          };
 
-          onError: err => {
-            // An error occurred during the transaction
-            console.log('Error', err);
-            return;
-          }
-        };
+          this.log.d('Shopping cart items', this.cartItems);
+          this.log.d('Translaction', this.transaction);
+          this.paypalConfig = {
+            env: 'sandbox',
+            locale: 'de_DE',
+            client: {
+              sandbox: environment.paypal_sandbox
+            },
+            commit: true,
+            payment: (data, actions) => {
+              return actions.payment.create({
+                payment: {
+                  transactions: [this.transaction]
+                }
+              });
+            },
+            onAuthorize: (data, actions) => {
+              return actions.payment.execute().then(payment => {
+                // Save transaction into firestore
+                this.afs
+                  .saveTransaction(this.transaction)
+                  .then(() => {
+                    this.log.d('Saved transaction');
+                    this.navigation.navigateTo('payment-success');
+                  })
+                  .catch(err => {
+                    this.log.er('Error saving transaction', err);
+                  });
+              });
+            },
+            onCancel: (data, actions) => {
+              // Buyer cancelled the payment
+              return;
+            },
+
+            onError: err => {
+              // An error occurred during the transaction
+              console.log('Error', err);
+              return;
+            }
+          };
+        });
       });
     });
   }
@@ -185,6 +203,8 @@ export class CheckoutPageComponent implements OnInit {
         break;
     }
   }
+
+  removeItem(index: number) {}
 
   /**
    * Render paypal button

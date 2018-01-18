@@ -51,6 +51,7 @@ import { FirebaseFirestoreService } from './services/firebase/firestore/firebase
 import { FirebaseStorageService } from './services/firebase/storage/firebase-storage.service';
 import { GeolocationService } from './services/geolocation/geolocation.service';
 import { NavigationService } from './services/navigation/navigation.service';
+import { PaymentSuccessPageComponent } from './pages/payment-success-page/payment-success-page.component';
 
 /**
  * Configures ngx-translate HttpLoader
@@ -91,7 +92,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashboardEventCardComponent,
     BytesPipe,
     ReplacePipe,
-    EventSearchPageComponent
+    EventSearchPageComponent,
+    PaymentSuccessPageComponent
   ],
   imports: [
     BrowserModule,
