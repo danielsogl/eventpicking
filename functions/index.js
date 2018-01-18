@@ -32,9 +32,9 @@ exports.deleteImage = functions.firestore
  * Save download url to transaction items
  * @author Daniel Sogl
  */
-exports.addDownloadUrlToTransaction = functions.firestore
+exports.transactionProcess = functions.firestore
   .document('transactions/{transactionID}')
-  .onCreate(paymentModule.addDownloadUrlToTransactionHandler);
+  .onCreate(paymentModule.transactionProcessHandler);
 
 /**
  * Decrease events left counter
