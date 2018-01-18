@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Log } from 'ng2-logger';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
@@ -19,6 +20,8 @@ export class DashboardUserComponent implements OnInit {
   private log = Log.create('DashboardUserComponent');
   /** Firebase user */
   public user: User;
+  /** New event form */
+  public userForm: FormGroup;
 
   /**
    * Constructor
@@ -27,8 +30,37 @@ export class DashboardUserComponent implements OnInit {
    */
   constructor(
     private auth: FirebaseAuthService,
-    private afs: FirebaseFirestoreService
-  ) {}
+    private afs: FirebaseFirestoreService,
+    private formBuilder: FormBuilder
+  ) {
+    this.userForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      lastname: ['', Validators.required],
+      email: ['', Validators.required],
+      billingAdress: this.formBuilder.group({
+        city: ['', Validators.required],
+        company: [''],
+        email: ['', Validators.email],
+        name: [''],
+        lastname: [''],
+        phone: ['', Validators.required],
+        street: ['', Validators.required],
+        streetnumber: ['', Validators.required],
+        zip: ['', Validators.required]
+      }),
+      deliveryAdress: this.formBuilder.group({
+        city: ['', Validators.required],
+        company: [''],
+        email: ['', Validators.email],
+        name: [''],
+        lastname: [''],
+        phone: ['', Validators.required],
+        street: ['', Validators.required],
+        streetnumber: ['', Validators.required],
+        zip: ['', Validators.required]
+      })
+    });
+  }
 
   /**
    * Initialize component
@@ -40,6 +72,25 @@ export class DashboardUserComponent implements OnInit {
     this.auth.user.subscribe(user => {
       this.user = user;
       this.log.d('Loaded user', user);
+      this.userForm.patchValue(this.user);
     });
+  }
+
+  updateProfile() {
+    const user = this.userForm.getRawValue();
+    this.user.billingAdress = user.billingAdress;
+    this.user.deliveryAdress = user.deliveryAdress;
+    this.user.name = user.name;
+    this.user.lastname = user.lastname;
+    this.user.email = user.email;
+
+    this.afs
+      .updateUserData(this.user)
+      .then(() => {
+        this.log.d('Updated user');
+      })
+      .catch(err => {
+        this.log.er('Error updating', err);
+      });
   }
 }

@@ -24,7 +24,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '404', component: PageNotFoundComponent },
   {
-    path: 'check-out',
+    path: 'checkout',
     component: CheckoutPageComponent
   },
   { path: 'cart', component: ShoppingCartComponent },

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AsyncLocalStorage } from 'angular-async-local-storage';
 import { Log } from 'ng2-logger';
 
-import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 
 /**
@@ -17,8 +15,6 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 export class NavigationBarComponent implements OnInit {
   /** Logger */
   private log = Log.create('NavigationBarComponent');
-  /** Number of cart items */
-  public cartItems: number;
 
   /** User */
   public user: any;
@@ -26,25 +22,13 @@ export class NavigationBarComponent implements OnInit {
   /**
    * Constructor
    * @param  {FirebaseAuthService} auth Firebase Auth Service
-   * @param  {AsyncLocalStorage} localStorage Local storage
    */
-  constructor(
-    private auth: FirebaseAuthService,
-    private localStorage: AsyncLocalStorage
-  ) {
+  constructor(private auth: FirebaseAuthService) {
     this.auth.user.subscribe(user => {
       if (user) {
         this.user = user;
       }
     });
-    this.localStorage
-      .getItem<ShoppingCartItem[]>('cart-items')
-      .subscribe(items => {
-        if (items) {
-          this.cartItems = items.length;
-        }
-        this.log.d('Shopping cart items', this.cartItems);
-      });
   }
 
   /**
