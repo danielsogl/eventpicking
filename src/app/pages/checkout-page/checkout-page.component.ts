@@ -6,6 +6,7 @@ import { User } from '../../classes/user';
 import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 import * as localforage from 'localforage';
 import { environment } from '../../../environments/environment';
+import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 
 declare let paypal: any;
 
@@ -36,11 +37,18 @@ export class CheckoutPageComponent implements OnInit {
   /** checkOrderStatus */
   public checkOrderStatus: string;
 
+  /** Display loading */
   public didPaypalScriptLoad = false;
+  /** Loading */
   public loading = true;
+  /** Payment amount */
   public paymentAmount = 0;
 
+  /** paypal config */
   public paypalConfig: any;
+
+  /** Invoice number */
+  public invoice_number: string;
 
   /** template */
   public template: TemplateRef<any>;
@@ -60,7 +68,7 @@ export class CheckoutPageComponent implements OnInit {
    * @param  {FirebaseAuthService} auth Firebase Auth Service
    */
   constructor(
-    private afs: FirebaseStorageService,
+    private afs: FirebaseFirestoreService,
     private auth: FirebaseAuthService
   ) {}
 
@@ -71,6 +79,8 @@ export class CheckoutPageComponent implements OnInit {
     this.log.color = 'orange';
     this.log.d('Component initialized');
     this.setTemplate('contactDetails');
+
+    this.invoice_number = this.afs.getId();
 
     this.auth.user.subscribe(user => {
       this.user = user;
@@ -85,9 +95,11 @@ export class CheckoutPageComponent implements OnInit {
               name: items[i].name,
               quantity: items[i].amount,
               price: items[i].price,
-              currency: 'EUR'
+              currency: 'EUR',
+              sku: items[i].eventname,
+              description: items[i].itemType
             });
-            this.paymentAmount += items[i].price;
+            this.paymentAmount += items[i].price * items[i].amount;
           }
         }
 
@@ -104,7 +116,16 @@ export class CheckoutPageComponent implements OnInit {
               payment: {
                 transactions: [
                   {
-                    amount: { total: this.paymentAmount, currency: 'EUR' },
+                    amount: {
+                      total: this.paymentAmount,
+                      currency: 'EUR',
+                      details: {
+                        subtotal: this.paymentAmount,
+                        tax: 0.19
+                      }
+                    },
+                    description: '',
+                    invoice_number: '',
                     item_list: {
                       items: this.paypalItems,
                       shipping_address: {
@@ -130,16 +151,12 @@ export class CheckoutPageComponent implements OnInit {
             });
           },
           onCancel: (data, actions) => {
-            /*
-           * Buyer cancelled the payment
-           */
+            // Buyer cancelled the payment
             return;
           },
 
           onError: err => {
-            /*
-           * An error occurred during the transaction
-           */
+            // An error occurred during the transaction
             console.log('Error', err);
             return;
           }
