@@ -140,7 +140,16 @@
             </mdb-item>
 
           </mdb-squeezebox>
-          <button type="submit" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updateProfile()">{{ 'BUTTONS.UPDATE_PROFILE' | translate }}</button>
+
+          <br>
+          <div class="row no-gutters justify-content-start" style="align-items: center">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <button type="submit" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updateProfile()">{{ 'BUTTONS.UPDATE_PROFILE' | translate }}</button>
+            </div>
+            <div class="col-4"></div>
+          </div>
+
         </form>
       </div>
     </div>
