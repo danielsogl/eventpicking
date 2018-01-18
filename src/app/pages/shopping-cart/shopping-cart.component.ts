@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Log } from 'ng2-logger';
 
 import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
+import { SHOPPINGCARTITEMTYPE } from '../../enums/shopping-cart-item-type';
 import * as localforage from 'localforage';
 
 /**
@@ -20,6 +21,8 @@ export class ShoppingCartComponent implements OnInit {
   public cartItems: ShoppingCartItem[] = [];
   /** Sum */
   public sum: number;
+  /** checkType variable */
+  public checkType: any = SHOPPINGCARTITEMTYPE;
 
   /**
    * Constructor
@@ -108,5 +111,6 @@ export class ShoppingCartComponent implements OnInit {
   deleteCartItem(index: number) {
     this.cartItems.splice(index, 1);
     localforage.setItem('cart-items', this.cartItems);
+    this.calculateSum();
   }
 }
