@@ -12,8 +12,15 @@
 .tab-hdg{
   font-weight: bold;
 }
-.fa-star{
-  border:orange;
+
+.rating{
+ font-weight: bold;
+ margin-top: 20px
+}
+
+.write{
+  font-size:30px !important;
+  margin-bottom: 15px;
 }
 
 .grey-gradient {
@@ -22,9 +29,15 @@
   // background: linear-gradient(40deg, #fff176, #ffa726); // yellow-orange
 }
 
-hr{
-  color: #3f51b5;
-}
+  .white{
+    color: white;
+    background-color: white;
+    border-color: white;
+  }
+
+  .form-check-inline{
+    margin-right: 20px;
+  }
 
 td{
   border: none;

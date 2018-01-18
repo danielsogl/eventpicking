@@ -80,13 +80,16 @@
     "DELETE_EVENT": "Delete Event",
     "LOGINNOW": "Login Now",
     "FIND_EVENT": "Find your event",
-    "SEND_REPORT": "Send Report"
+    "SEND_REPORT": "Send Report",
+    "SUBMIT": "Submit"
   },
   "LABELS": {
     "ADDRESS": "Address",
     "ACCOUNT_DATA": "Account Data",
     "BILLING_ADDRESS": "Billing Address",
     "BILLING_INFORMATION": "Billing Information",
+    "COMMENT": "Your comment:",
+    "CUSTOMER_RATING": "Customer Rating",
     "CREATE_NEW_EVENT": "Create new event",
     "CREATE": "Create",
     "CONTACT_DETAILS": "Contact-Details",
@@ -100,7 +103,9 @@
     "ORDER_DETAILS": "Order Overview",
     "PAYMENT_METHOD": "Payment Method",
     "PAYMENT_SHIPPING_DETAILS": "Payment and Shipping Method",
+    "RATING": "Your rating:",
     "PUBLIC_PROFILE": "Public Profile",
+    "PRICES": "Prices",
     "RESET_PASSWORD": "Reset Password",
     "SIGN_IN_WITH": "or Sign in with:",
     "SIGN_UP_WITH": "Or Signup with:",
