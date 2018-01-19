@@ -1,6 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { isString } from 'util';
 
+/**
+ * Replace pipe
+ * @author Daniel Sogl
+ */
 @Pipe({
   name: 'replace'
 })
