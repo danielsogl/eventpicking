@@ -49,6 +49,8 @@ exports.transactionProcessHandler = event => {
       return null;
     });
 
+    transaction.date = new Date().toISOString();
+
   return event.data.ref.set(transaction, { merge: true });
 
   console.log('New transaction', transaction);

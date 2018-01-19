@@ -16,6 +16,8 @@ export interface Transaction {
   item_list?: TransactionItemList;
   /** Optional. The merchant-provided ID for the purchase unit. */
   reference_id?: string;
+  /** Transaction date */
+  date?: Date;
 }
 
 /**
