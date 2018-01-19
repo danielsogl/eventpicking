@@ -1,33 +1,27 @@
+import { SHOPPINGCARTITEMTYPE } from '../enums/shopping-cart-item-type';
+import { ImageInfo } from './image-info';
+
 /**
  * Shopping cart item interface
  * @author Daniel Sogl
  */
 export interface ShoppingCartItem {
-  /** Name */
+  /** Event name */
   eventname: string;
-  /** Key ->photoname */
-  key: string;
-  /** Format */
-  format: ShoppingCartItemFormat;
-  /** Image-Url Thumbnail */
-  url: string;
+  /** photoname */
+  name: string;
+  /** Image info */
+  info: ImageInfo;
+  /** */
+  itemType: SHOPPINGCARTITEMTYPE;
   /** Amount */
   amount?: number;
   /** Total price */
   totalPrice?: number;
-}
-
-/**
- * Shopping cart item format interface
- * @author Daniel Sogl
- */
-export interface ShoppingCartItemFormat {
-  /** Type */
-  type: string;
-  /** Price */
+  /** Preview */
+  preview: string;
+  /** THumbnail */
+  thumbnail: string;
+  /** Article price */
   price: number;
-  /** Height */
-  height?: number;
-  /** Width */
-  width?: number;
 }

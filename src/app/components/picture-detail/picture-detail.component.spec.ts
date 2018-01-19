@@ -2,6 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MDBBootstrapModules } from 'ng-mdb-pro/mdb.module';
 
 import { PictureDetailComponent } from './picture-detail.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { FakeLoader } from '../../../../jest-mocks/fake-loader';
+import { FormsModule } from '@angular/forms';
 
 describe('PictureDetailComponent', () => {
   let component: PictureDetailComponent;
@@ -10,7 +13,14 @@ describe('PictureDetailComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        imports: [MDBBootstrapModules.forRoot()],
+        imports: [
+          FormsModule,
+          MDBBootstrapModules.forRoot(),
+          TranslateModule.forRoot({
+            loader: { provide: TranslateLoader, useClass: FakeLoader }
+          })
+        ],
+        providers: [],
         declarations: [PictureDetailComponent]
       }).compileComponents();
     })

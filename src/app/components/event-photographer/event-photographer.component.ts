@@ -5,13 +5,14 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../classes/printing-house';
+import { PrintingHouse } from '../../interfaces/printing-house';
 import { Upload } from '../../classes/upload-file';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
+import { PriceList } from '../../classes/price-list';
 
 /**
  * Event photographer view component
@@ -32,6 +33,9 @@ export class EventPhotographerComponent implements OnInit {
   /** Files for the upload */
   public uploadFiles: Upload[] = [];
 
+  /** Upload in progress */
+  public uploadStarted: boolean;
+
   /** Event */
   @Input() public event: Event;
   /** Event images */
@@ -39,7 +43,7 @@ export class EventPhotographerComponent implements OnInit {
   /** Firebase user */
   @Input() public user: User;
   /** Event printing house */
-  public printingHouse: PrintingHouse;
+  public priceList: PriceList;
 
   /**
    * Constructor
@@ -63,7 +67,6 @@ export class EventPhotographerComponent implements OnInit {
       photographerUid: ['', Validators.required],
       public: [false, Validators.required],
       ratings: [0, Validators.required],
-      printinghouse: ['', Validators.required],
       deleted: [false, Validators.required]
     });
   }
@@ -89,11 +92,13 @@ export class EventPhotographerComponent implements OnInit {
       });
 
       this.afs
-        .getPrintingHouseById(this.event.printinghouse)
+        .getPriceList(this.event.photographerUid)
         .valueChanges()
-        .subscribe(printingHouse => {
-          this.printingHouse = printingHouse;
-          this.log.d('Loaded printing house', this.printingHouse);
+        .subscribe(priceList => {
+          if (priceList) {
+            this.priceList = priceList;
+            this.log.d('Loaded printing house', this.priceList);
+          }
         });
     }
   }
@@ -116,7 +121,7 @@ export class EventPhotographerComponent implements OnInit {
    */
   deleteImage(image: EventPicture) {
     this.afs
-      .deleteEventImage(this.event.id, image.id)
+      .deleteEventImage(image.id)
       .then(() => {
         this.log.d('Deleted image', image);
       })
@@ -167,9 +172,11 @@ export class EventPhotographerComponent implements OnInit {
    * Start upload
    */
   startUpload() {
+    this.uploadStarted = true;
+    const items = this.uploadFiles.length;
+    let count = 0;
     for (let i = 0; i < this.uploadFiles.length; i++) {
       const uploadTask = this.storage.pushUpload(
-        this.user.uid,
         this.event.id,
         this.uploadFiles[i]
       );
@@ -177,6 +184,17 @@ export class EventPhotographerComponent implements OnInit {
       uploadTask.snapshotChanges().subscribe(snapshot => {
         this.uploadFiles[i].progress =
           snapshot.bytesTransferred / snapshot.totalBytes * 100;
+      });
+
+      uploadTask.then().then(() => {
+        console.log('Image upload finsihed: ', i);
+        count++;
+        if (count === items) {
+          this.uploadStarted = false;
+          setTimeout(() => {
+            this.uploadFiles = [];
+          }, 2000);
+        }
       });
     }
   }

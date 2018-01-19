@@ -16,7 +16,7 @@ const cleanUpModule = require('./clean-up.js');
  * @author Daniel Sogl, Dennis Maurer
  */
 exports.transformImage = functions.storage
-  .object('events/{photographer}/{eventID}')
+  .object('events/{eventID}')
   .onChange(imageModule.transformImageHandler);
 
 /**
@@ -24,7 +24,7 @@ exports.transformImage = functions.storage
  * @author Daniel Sogl, Dennis Maurer
  */
 exports.deleteImage = functions.firestore
-  .document('events/{eventID}/images/{imageID}')
+  .document('public-images/{imageID}')
   .onDelete(cleanUpModule.deleteImageHandler);
 
 /**

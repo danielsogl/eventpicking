@@ -8,8 +8,140 @@
   </mdb-tab>
   <mdb-tab heading="Profile">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 text-left">
         <br>
+        <form [formGroup]="userForm">
+          <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
+
+            <mdb-item>
+              <mdb-item-head>Contact informations</mdb-item-head>
+              <mdb-item-body>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="name">
+                  <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="lastname">
+                  <label class="active">{{ 'INPUTS.LASTNAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="email">
+                  <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
+                </div>
+              </mdb-item-body>
+            </mdb-item>
+
+            <mdb-item>
+              <mdb-item-head>Billing Address</mdb-item-head>
+              <mdb-item-body formArrayName="billingAdress">
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="company">
+                  <label class="active">{{ 'INPUTS.COMPANY' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="name">
+                  <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="lastname">
+                  <label class="active">{{ 'INPUTS.LASTNAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="phone">
+                  <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="email">
+                  <label class="active">{{ 'INPUTS.CONTACT_EMAIL' | translate }}</label>
+                </div>
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="street">
+                      <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="streetnumber">
+                      <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="zip">
+                      <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="city">
+                      <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </mdb-item-body>
+            </mdb-item>
+
+            <mdb-item>
+              <mdb-item-head>Delivery Address</mdb-item-head>
+              <mdb-item-body formArrayName="deliveryAdress">
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="company">
+                  <label class="active">{{ 'INPUTS.COMPANY' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="name">
+                  <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="lastname">
+                  <label class="active">{{ 'INPUTS.LASTNAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="phone">
+                  <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="email">
+                  <label class="active">{{ 'INPUTS.CONTACT_EMAIL' | translate }}</label>
+                </div>
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="street">
+                      <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="streetnumber">
+                      <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="zip">
+                      <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="city">
+                      <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </mdb-item-body>
+            </mdb-item>
+
+          </mdb-squeezebox>
+          <button type="submit" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updateProfile()">{{ 'BUTTONS.UPDATE_PROFILE' | translate }}</button>
+        </form>
       </div>
     </div>
   </mdb-tab>

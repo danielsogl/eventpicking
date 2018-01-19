@@ -9,14 +9,15 @@ import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../classes/printing-house';
+import { PrintingHouse } from '../../interfaces/printing-house';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { PriceList } from '../../classes/price-list';
 
 /**
  * Event user view component
- * @author Daniel Sogl, Markus Kirschner
+ * @author Daniel Sogl, Markus Kirschner, Tim Krießler
  */
 @Component({
   selector: 'app-event-user',
@@ -51,7 +52,7 @@ export class EventUserComponent implements OnInit {
   public templateMarked: TemplateRef<any>;
 
   /** Printing house object */
-  public printingHouse: PrintingHouse;
+  public priceList: PriceList;
   /** Event images array */
   public images: EventPicture[];
 
@@ -91,11 +92,13 @@ export class EventUserComponent implements OnInit {
         });
 
       this.afs
-        .getPrintingHouseById(this.event.printinghouse)
+        .getPriceList(this.event.photographerUid)
         .valueChanges()
-        .subscribe(printingHouse => {
-          this.printingHouse = printingHouse;
-          this.log.d('Loaded printing house', this.printingHouse);
+        .subscribe(priceList => {
+          if (priceList) {
+            this.priceList = priceList;
+            this.log.d('Loaded priceList', this.priceList);
+          }
         });
     }
   }
@@ -104,8 +107,14 @@ export class EventUserComponent implements OnInit {
    * Open image detail modal
    * @param  {EventPicture} image Image to open
    */
-  openImageModal(image: EventPicture) {
-    this.pictureModal.showModal(image, this.printingHouse);
+  openImageModal(image: EventPicture, imageIndex: number) {
+    this.pictureModal.showModal(
+      image,
+      imageIndex,
+      this.images.length,
+      this,
+      this.priceList
+    );
   }
 
   /**
@@ -118,6 +127,15 @@ export class EventUserComponent implements OnInit {
   }
 
   /**
+   * Deselect all images
+   */
+  deselectAllImages() {
+    for (let i = 0; i < this.images.length; i++) {
+      this.images[i].selected = false;
+    }
+  }
+
+  /**
    * Upvote image
    * @param  {EventPicture} image Image object
    */
@@ -125,7 +143,7 @@ export class EventUserComponent implements OnInit {
     if (this.user) {
       image.ratings++;
       this.afs
-        .updateImage(image, this.event.id)
+        .updateImage(image)
         .then(() => {
           this.log.d('Upvoted image');
         })
@@ -143,5 +161,9 @@ export class EventUserComponent implements OnInit {
    */
   reportImage(image: EventPicture) {
     this.reportImageModal.show();
+  }
+
+  getFollowingImage(imageIndex: number) {
+    return this.images[imageIndex];
   }
 }

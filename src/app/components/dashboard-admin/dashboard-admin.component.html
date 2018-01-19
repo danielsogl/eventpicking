@@ -31,7 +31,7 @@
                 <td>{{ event.location }}</td>
                 <td>{{ event.ratings }}</td>
                 <td>
-                  <a (click)="editEvent(user)">
+                  <a (click)="editEvent(event)">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                   </a>
                 </td>
@@ -79,7 +79,7 @@
                   </a>
                 </td>
                 <td>
-                  <a>
+                  <a (click)="deleteUser(user)">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </a>
                 </td>
@@ -95,55 +95,56 @@
       <div class="col-12 text-left">
         <br>
         <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
-          <form [formGroup]="printingHouseForm" (ngSubmit)="updatePrintingHouse()">
+          <form [formGroup]="printingHouseForm">
             <mdb-item>
               <mdb-item-head>Contact Information</mdb-item-head>
               <mdb-item-body>
                 <br>
+                <div formArrayName="address">
+                  <div class="md-form">
+                    <input type="text" class="form-control" formControlName="name">
+                    <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                  </div>
 
-                <div class="md-form">
-                  <input type="text" class="form-control" formControlName="name">
-                  <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
-                </div>
+                  <div class="md-form">
+                    <input type="text" class="form-control" formControlName="email">
+                    <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
+                  </div>
 
-                <div class="md-form">
-                  <input type="text" class="form-control" formControlName="email">
-                  <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
-                </div>
+                  <div class="md-form">
+                    <input type="text" class="form-control" formControlName="phone">
+                    <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
+                  </div>
 
-                <div class="md-form">
-                  <input type="text" class="form-control" formControlName="phone">
-                  <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
-                </div>
+                  <div class="row">
+                    <div class="col-md-9">
+                      <div class="md-form">
+                        <input type="text" class="form-control" formControlName="street">
+                        <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
+                      </div>
+                    </div>
 
-                <div class="row">
-                  <div class="col-md-9">
-                    <div class="md-form">
-                      <input type="text" class="form-control" formControlName="street">
-                      <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
+                    <div class="col-md-3">
+                      <div class="md-form">
+                        <input type="text" class="form-control" formControlName="streetnumber">
+                        <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="col-md-3">
-                    <div class="md-form">
-                      <input type="text" class="form-control" formControlName="streetNumber">
-                      <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="md-form">
+                        <input type="text" class="form-control" formControlName="zip">
+                        <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
+                      </div>
                     </div>
-                  </div>
-                </div>
 
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="md-form">
-                      <input type="text" class="form-control" formControlName="zip">
-                      <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
-                    </div>
-                  </div>
-
-                  <div class="col-md-9">
-                    <div class="md-form">
-                      <input type="text" class="form-control" formControlName="city">
-                      <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
+                    <div class="col-md-9">
+                      <div class="md-form">
+                        <input type="text" class="form-control" formControlName="city">
+                        <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -182,45 +183,27 @@
                   <div class="row">
                     <div class="col-12">
                       <br>
-                      <table class="table">
-                        <thead class="thead-default">
-                          <tr>
-                            <th scope="row">Article</th>
-                            <th>Production Costs</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let article of printingHouse.salesTypes.photo.articles; let i = index; trackBy:trackByIndex">
-                            <td>{{ article.name }}</td>
-                            <td>
-                              <input type="number" class="form-control" [(ngModel)]="printingHouse.salesTypes.photo.articles[i].minPrice">
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </mdb-tab>
-                <mdb-tab heading="Downloads">
-                  <div class="row">
-                    <div class="col-12">
-                      <br>
-                      <table class="table">
-                        <thead class="thead-default">
-                          <tr>
-                            <th scope="row">Article</th>
-                            <th>Minimal price</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let article of printingHouse.salesTypes.download.articles; let i = index; trackBy:trackByIndex">
-                            <td>{{ article.name }}</td>
-                            <td>
-                              <input type="number" class="form-control" [(ngModel)]="printingHouse.salesTypes.download.articles[i].minPrice">
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <div *ngFor="let article of printingHouse.printingHouseItems; let i = index">
+                        <h1>{{ article.name }}</h1>
+                        <table class="table">
+                          <thead class="thead-default">
+                            <tr>
+                              <th scope="row">Article</th>
+                              <th>Format</th>
+                              <th>Minimal Price</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of article.articles; let j = index; trackBy:trackByIndex">
+                              <td>{{ item.name }}</td>
+                              <td>{{ item.width }}x{{ item.heigh }}</td>
+                              <td>
+                                <input type="number" class="form-control" [(ngModel)]="printingHouse.printingHouseItems[i].articles[j].minPrice">
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </mdb-tab>
@@ -308,10 +291,36 @@
       </div>
 
       <div class="modal-body mb-0">
-        <button type="submit" class="btn indigo btn-lg btn-block waves-light" mdbRippleRadius>
+        <form [formGroup]="eventForm">
+
+          <div class="md-form">
+            <input type="text" class="form-control" formControlName="name">
+            <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="text" class="form-control" formControlName="description">
+            <label class="active">{{ 'INPUTS.DESCRIPTION' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="text" class="form-control" formControlName="location">
+            <label class="active">{{ 'INPUTS.LOCATION' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="text" class="form-control" formControlName="date">
+            <label class="active">{{ 'INPUTS.DATE' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input type="password" class="form-control" formControlName="password">
+            <label class="active">{{ 'INPUTS.PASSWORD' | translate }}</label>
+          </div>
+
+        </form>
+        <button type="button" class="btn indigo btn-lg btn-block waves-light" (click)="updateEvent()" mdbRippleRadius>
           <i class="fa fa-refresh mr-1"></i>{{ 'BUTTONS.UPDATE_EVENT' | translate }}</button>
-        <button type="button" class="btn btn-danger btn-lg btn-block waves-light" mdbRippleRadius>
-          <i class="fa fa-trash mr-1"></i>{{ 'BUTTONS.DELETE_EVENT' | translate }}</button>
       </div>
     </div>
   </div>
