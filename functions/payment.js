@@ -9,6 +9,9 @@ exports.transactionProcessHandler = event => {
   // Transaction
   let transaction = event.data.data();
 
+  // Set Date
+  transaction.date = new Date().toISOString();
+
   let images = [];
 
   // Get original image download url
@@ -20,36 +23,22 @@ exports.transactionProcessHandler = event => {
     });
   }
 
-  const fetches = images.map(image => {
-    return admin
+  for (let i = 0; i < images.length; i++) {
+    admin
       .firestore()
       .collection('original-images')
-      .where('event', '==', image.event)
-      .where('name', '==', image.name)
-      .get().then(querySnapshot => {
+      .where('event', '==', images[i].event)
+      .where('name', '==', images[i].name)
+      .get()
+      .then(querySnapshot => {
         console.log('Image', querySnapshot.docs[0].data());
-        return transaction.item_list.items[i].url = querySnapshot.docs[0].data().url;
+        // transaction.item_list.items[i].url = querySnapshot.docs[0].data().url);
       })
-  });
-
-  const docs = await Promise.all(fetches)
-
-  admin
-    .firestore()
-    .collection('original-images')
-    .where('event', '==', transaction.item_list.items[i].name.split('/')[0])
-    .where('name', '==', transaction.item_list.items[i].name.split('/')[1])
-    .get()
-    .then(querySnapshot => {
-      console.log('Image', querySnapshot.docs[0].data());
-      transaction.item_list.items[i].url = querySnapshot.docs[0].data().url;
-    })
-    .catch(error => {
-      console.log('Error getting documents: ', error);
-      return null;
-    });
-
-    transaction.date = new Date().toISOString();
+      .catch(error => {
+        console.log('Error getting documents: ', error);
+        return null;
+      });
+  }
 
   return event.data.ref.set(transaction, { merge: true });
 
