@@ -40,7 +40,7 @@ exports.decreaseEventsLeftHandler = event => {
 };
 
 exports.increaseEventsLeftHandler = event => {
-  var eventData = event.data.data();
+  var eventData = event.data.previous.data();
   var photographerUid = eventData.photographerUid;
 
   return admin
