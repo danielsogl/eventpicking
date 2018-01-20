@@ -27,7 +27,7 @@
     "SIGNUP": "Sign up",
     "CONTACT_DETAILS": "Contact details",
     "PAYMENT_DELIVERY": "Payment/Delivery",
-    "TESTIMONIAL":"Testimonials",
+    "TESTIMONIAL": "Testimonials",
     "CHECK_ORDER": "Check order",
     "CART_QUANTITY": "Quantity",
     "CART_PICTURE": "Picture",
@@ -171,7 +171,6 @@
     "PRICING_PICTURE_AMOUNT": "pictures per album",
     "PRICING_CANCEL": "Monthly cancellable",
     "SEARCH_PHOTOGRAPHER": "Search photographer by ZIP",
-    "SEARCH_EVENT": "Search event by name",
     "EVENT_ALL_PICTURES": "All pictures",
     "EVENT_SELECTED_PICTURES": "Selected pictures",
     "SEARCH_PICTURES": "Search for pictures by name",
@@ -182,7 +181,11 @@
     "PRICING_FIRST_POSITION": "Be always on the first position",
     "NO_PHOTOGRAPHERS_FOUND": "There are no photographers in your area",
     "NO_EVENTS_FOUND": "No Events found",
-    "DESCRIBE_REPORT": "Describe why you want to report this image"
+    "DESCRIBE_REPORT": "Describe why you want to report this image",
+    "SEARCH_BY_NAME": "Search by name",
+    "SEARCH_BY_ID": "Search by id",
+    "SEARCH_EVENT_BY_NAME": "Search event by name",
+    "SEARCH_EVENT_BY_ID": "Search event by id"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",
