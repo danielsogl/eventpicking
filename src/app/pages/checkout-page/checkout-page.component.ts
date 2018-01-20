@@ -90,12 +90,13 @@ export class CheckoutPageComponent implements OnInit {
     this.log.d('Component initialized');
     this.setTemplate('contactDetails');
 
-    this.invoice_number = this.afs.getId();
-
     this.auth.user.subscribe(user => {
       if (user) {
         this.user = user;
         this.log.d('Loaded user', this.user);
+
+        this.invoice_number = this.afs.getId();
+
         localforage
           .getItem<ShoppingCartItem[]>('cart-items')
           .then(items => {
