@@ -1,3 +1,5 @@
+
+
 .authorData {
   text-align: left;
   padding-top: 20px;
@@ -9,10 +11,39 @@
   padding-bottom: 10px;
 }
 
+.tab-hdg{
+  font-weight: bold;
+}
+
+.rating{
+ font-weight: bold;
+ margin-top: 20px
+}
+
+.write{
+  font-size:30px !important;
+  margin-bottom: 15px;
+}
+
 .grey-gradient {
   // background: linear-gradient(40deg, #e8eaf6, #fafafa);
   // background: linear-gradient(40deg, #b2dfdb, #00796b); // chiara türkis
   // background: linear-gradient(40deg, #fff176, #ffa726); // yellow-orange
+}
+
+  .white{
+    color: white;
+    background-color: white;
+    border-color: white;
+  }
+
+  .form-check-inline{
+    margin-right: 20px;
+  }
+
+td{
+  border: none;
+ 
 }
 
 #centered {
@@ -33,4 +64,10 @@
 
 .indigo-gradient {
   background: linear-gradient(80deg, #9dafff, rgb(104, 129, 253));
+}
+#testimonials{
+  img{
+    width:10%;
+    height:10%;
+  }
 }
