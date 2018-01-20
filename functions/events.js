@@ -19,13 +19,12 @@ exports.updateEventVotesHandler = event => {
     .then(doc => {
       var data = doc.data();
       if (image.ratings > event.data.previous.data().ratings) {
-        console.log('Added upvote');
         data.ratings = data.ratings + 1;
+        console.log('Added upvote', data.ratings);
       } else if (image.ratings < event.data.previous.data().ratings) {
-        console.log('Added Downvote');
         data.ratings = data.ratings - 1;
+        console.log('Added downvote', data.ratings);
       }
-      console.log('New rating', data.ratings);
 
       return admin
         .firestore()
