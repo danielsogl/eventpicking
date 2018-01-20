@@ -35,8 +35,10 @@ export class EventSearchPageComponent implements OnInit {
       .getAllEvents()
       .valueChanges()
       .subscribe(events => {
-        this.events = events;
-        this.log.info('Events: ', this.events);
+        if (events) {
+          this.events = events;
+          this.log.info('Events: ', this.events);
+        }
       });
   }
 
