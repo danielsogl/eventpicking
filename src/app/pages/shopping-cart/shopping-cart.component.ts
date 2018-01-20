@@ -37,8 +37,9 @@ export class ShoppingCartComponent implements OnInit {
     this.log.d('Component initialized');
 
     // Load items from local storage
-    localforage.ready().then(() => {
-      localforage.getItem<ShoppingCartItem[]>('cart-items').then(items => {
+    localforage
+      .getItem<ShoppingCartItem[]>('cart-items')
+      .then(items => {
         if (items) {
           this.log.d('Cart items', items);
           this.cartItems = items;
@@ -53,8 +54,10 @@ export class ShoppingCartComponent implements OnInit {
           });
         }
         this.calculateSum();
+      })
+      .catch(err => {
+        this.log.er('Error getting local storage items');
       });
-    });
   }
 
   /**
