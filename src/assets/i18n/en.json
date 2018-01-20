@@ -168,6 +168,7 @@
     "PRICING_PICTURE_AMOUNT": "pictures per album",
     "PRICING_CANCEL": "Monthly cancellable",
     "SEARCH_PHOTOGRAPHER": "Search photographer by ZIP",
+    "SEARCH_EVENT": "Search event by name",
     "EVENT_ALL_PICTURES": "All pictures",
     "EVENT_SELECTED_PICTURES": "Selected pictures",
     "SEARCH_PICTURES": "Search for pictures by name",
@@ -177,6 +178,7 @@
     "PRICING_MORE_ATTENTION": "Receive more attention from customers",
     "PRICING_FIRST_POSITION": "Be always on the first position",
     "NO_PHOTOGRAPHERS_FOUND": "There are no photographers in your area",
+    "NO_EVENTS_FOUND": "No Events found",
     "DESCRIBE_REPORT": "Describe why you want to report this image"
   },
   "TABS": {
