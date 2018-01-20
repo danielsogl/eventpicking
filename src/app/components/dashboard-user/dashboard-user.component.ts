@@ -70,9 +70,11 @@ export class DashboardUserComponent implements OnInit {
     this.log.d('Component initialized');
 
     this.auth.user.subscribe(user => {
-      this.user = user;
-      this.log.d('Loaded user', user);
-      this.userForm.patchValue(this.user);
+      if (user) {
+        this.user = user;
+        this.log.d('Loaded user', user);
+        this.userForm.patchValue(this.user);
+      }
     });
   }
 

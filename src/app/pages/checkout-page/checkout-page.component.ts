@@ -67,14 +67,17 @@ export class CheckoutPageComponent implements OnInit {
       this.log.d('Loaded user', this.user);
     });
 
-    localforage.ready().then(() => {
-      localforage.getItem<ShoppingCartItem[]>('cart-items').then(items => {
+    localforage
+      .getItem<ShoppingCartItem[]>('cart-items')
+      .then(items => {
         if (items) {
           this.cartItems = items;
         }
         this.log.d('Shopping cart items', this.cartItems);
+      })
+      .catch(err => {
+        this.log.er('Error getting local storage items');
       });
-    });
   }
 
   /**
