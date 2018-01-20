@@ -19,6 +19,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
 import { DashboardPhotographerComponent } from './dashboard-photographer.component';
+import { AlertService } from '../../services/alert/alert.service';
 
 describe('DashboardPhotographerComponent', () => {
   let component: DashboardPhotographerComponent;
@@ -43,6 +44,7 @@ describe('DashboardPhotographerComponent', () => {
           AngularFireAuth,
           FormBuilder,
           GeolocationService,
+          AlertService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [DashboardPhotographerComponent],

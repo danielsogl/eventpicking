@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Log } from 'ng2-logger';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Log } from 'ng2-logger';
+import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../classes/user';
+import { Transaction } from '../../interfaces/transaction';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 
@@ -20,6 +22,8 @@ export class DashboardUserComponent implements OnInit {
   private log = Log.create('DashboardUserComponent');
   /** Firebase user */
   public user: User;
+  /** Transactions */
+  public transactions: Observable<Transaction[]>;
   /** New event form */
   public userForm: FormGroup;
 
@@ -76,8 +80,27 @@ export class DashboardUserComponent implements OnInit {
         this.userForm.patchValue(this.user);
       }
     });
+
+    if (this.auth.getCurrentFirebaseUser()) {
+      this.transactions = this.afs
+        .getTransactionsByUser(this.auth.getCurrentFirebaseUser().uid)
+        .valueChanges();
+
+      this.transactions.subscribe(transactions => {
+        this.log.d('Transactions', transactions);
+      });
+    }
   }
 
+  /**
+   * Open transaction detail model
+   * @param  {Transaction} transaction Transaction to open
+   */
+  openTransaction(transaction: Transaction) {}
+
+  /**
+   * Update user profile
+   */
   updateProfile() {
     const user = this.userForm.getRawValue();
     this.user.billingAdress = user.billingAdress;

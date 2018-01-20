@@ -1,7 +1,7 @@
-<div class="row mt-5 pt-5">
-  <div *ngIf="photographer">
+<div *ngIf="photographer && photographer.premium; else standard">
+  <div class="row mt-5 pt-5">
     <div class="author-box grey-gradient">
-      <h2 class="h2-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h2>
+      <h1 class="h1-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h1>
       <hr class="mt-5 mr-5 ml-5">
 
       <!--site-navbar-->
@@ -14,6 +14,9 @@
         </div>
         <div class="col-md-auto">
           <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.PRICES' | translate }}</a>
+        </div>
+        <div class="col-md-auto">
+          <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.TESTIMONIAL' | translate }}</a>
         </div>
       </div>
       <!--END site-navbar-->
@@ -39,22 +42,22 @@
 
       <!--social network links-->
       <div id="centered" class="personal-sm">
-        <a *ngIf="photographer.website" class="email-ic" href="{{photographer?.website}}">
+        <a *ngIf="photographer.website" class="email-ic" href="{{photographer.website}}">
           <i class="fa fa-home fa-2x"> </i>
         </a>
-        <a *ngIf="photographer.facebook" class="fb-ic" href="{{photographer?.facebook}}">
+        <a *ngIf="photographer.facebook" class="fb-ic" href="{{photographer.facebook}}">
           <i class="fa fa-facebook fa-2x"> </i>
         </a>
-        <a *ngIf="photographer.instagram" class="ins-ic" href="{{photographer?.instagram}}">
+        <a *ngIf="photographer.instagram" class="ins-ic" href="{{photographer.instagram}}">
           <i class="fa fa-instagram fa-2x"> </i>
         </a>
-        <a *ngIf="photographer.twitter" class="tw-ic" href="{{photographer?.twitter}}">
+        <a *ngIf="photographer.twitter" class="tw-ic" href="{{photographer.twitter}}">
           <i class="fa fa-twitter fa-2x"> </i>
         </a>
-        <a *ngIf="photographer.tumbler" class="vk-ic" href="{{photographer?.tumbler}}">
+        <a *ngIf="photographer.tumbler" class="vk-ic" href="{{photographer.tumbler}}">
           <i class="fa fa-tumblr fa-2x"> </i>
         </a>
-        <a *ngIf="photographer.email" class="email-ic" href="mailto:{{photographer?.email}}">
+        <a *ngIf="photographer.email" class="email-ic" href="mailto:{{photographer.email}}">
           <i class="fa fa-envelope-o fa-2x"> </i>
         </a>
       </div>
@@ -91,11 +94,389 @@
       <!--END photographer events-->
 
       <hr id="prices" class="m-5">
-
       <!--photographer prices-->
-      <p>Preisliste in Bearbeitung...</p>
+      <div class="container">
+        <h2 class="text-center">{{ 'LABELS.PRICES' | translate }}</h2>
+        <br>
+        <div class="row">
+
+          <!-- Prices for Download -->
+          <div class="col-6 text-center">
+            <p class="tab-hdg">Download</p>
+            <table class="table table-responsive-sm">
+              <thead id="sum_row">
+                <tr> </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>S</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
+                  <td>M</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
+                  <td>L</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
+                  <td>XL</td>
+                  <td>XX,XX€</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--col-download-->
+
+          <!-- Prices for Pics -->
+          <div class="col-6 text-center">
+            <p class="tab-hdg">Fotos</p>
+            <table class="table table-responsive-sm">
+              <thead id="sum_row">
+                <tr> </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>9x13cm</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
+                  <td>10x15cm</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
+                  <td>11x17cm</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
+                  <td>13x18cm</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
+                  <td>20x30cm</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
+                  <td>30x45cm</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
+                  <td>40x60cm</td>
+                  <td>XX,XX€</td>
+                </tr>
+                <tr>
+                  <td>50x75cm</td>
+                  <td>XX,XX€</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--row-->
+      </div>
+      <!--container-->
       <!--END photographer prices-->
+
+      <!-- photographer testimonials -->
+      <hr id="testimonials" class="mb-5 mr-5 ml-5">
+      <div class="container">
+        <div class="col-12">
+          <h2 class="text-center">{{ 'LABELS.CUSTOMER_RATING' | translate }}</h2>
+          <br>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <div class="orange-text">
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+            </div>
+            <!--review1-end-->
+            <!-- <div class="avatar">
+                  <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" class="rounded-circle z-depth-1 img-fluid" alt="">
+               </div> -->
+          </div>
+          <!--col1-->
+          <div class="col-9">
+            <h4 class="mb-3">Lena A.</h4>
+            <p>Unsere Hochzeit wurde durch Max Mustermann unvergesslich! Er hat großartige Bilder von uns und unseren Gästen
+              gemacht und war pünktlich an unserem großen Tag da.
+            </p>
+          </div>
+          <!--col2-->
+        </div>
+        <!--row-->
+        <hr>
+
+        <div class="row">
+          <div class="col-2">
+            <div class="orange-text">
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+              <i class="fa fa-star"> </i>
+            </div>
+            <!--review1-end-->
+          </div>
+          <!--col1-->
+          <div class="col-9">
+            <h4 class="mb-3">Nadja B.</h4>
+            <p>Die Bilder die Max Mustermann von unserer Familienfeier gemacht hat werden für immer im Gedächnis bleiben und
+              auch seine freundliche und sehr höfliche Art werde ich auf jeden Fall nicht vergessen! Ich werde ihn nächstes
+              Mal wieder buchen!
+            </p>
+          </div>
+          <!--col2-->
+        </div>
+        <!--row-->
+        <hr>
+
+        <div class="row">
+          <div class="col-2">
+            <div class="orange-text">
+              <i class="fa fa-star responsive"> </i>
+              <i class="fa fa-star responsive"> </i>
+              <i class="fa fa-star responsive"> </i>
+              <i class="fa fa-star responsive"> </i>
+              <i class="fa fa-star responsive"> </i>
+            </div>
+            <!--review1-end-->
+          </div>
+          <!--col1-->
+          <div class="col-9">
+            <h4 class="mb-3">Martin N.</h4>
+            <p>Überragende Bilder zu einem top Preis-Leistungsverhältnis! Wir habenMax bereits für mehrere Veranstaltungen gebucht
+              und waren jedes Mal sehr zufrieden.
+            </p>
+          </div>
+          <!--col2-->
+        </div>
+        <!--row-->
+      </div>
+      <!--container-->
+
+      <!--Customer-Rating-->
+      <hr id="customerRating" class="white mb-5 mr-5 ml-5">
+      <hr class="white">
+      <div class="container">
+        <br>
+        <h5 class="rating text-center">Bewerten sie hier Ihren Forografen:</h5>
+        <br>
+        <br>
+
+        <div class="row justify-content-start">
+          <div class="col-2">
+            <label>{{'LABELS.RATING'|translate}}</label>
+            <!-- <star-rating-comp [starType]="'svg'" [rating]="2.63"></star-rating-comp> -->
+          </div>
+          <div class="col-9">
+            <div class="form-check form-check-inline">
+              <input name="group1" class="form-check-input " type="radio" value="" id="rate1">
+              <label class="form-check-label" for="rate1">
+                <div class="orange-text">
+                  <i class="fa fa-star write"> </i>
+                  <i class="fa fa-star write"> </i>
+                  <i class="fa fa-star write"> </i>
+                  <i class="fa fa-star write"> </i>
+                  <i class="fa fa-star write"> </i>
+                </div>
+                <!--review1-end-->
+              </label>
+            </div>
+            <!--form-check-->
+
+            <div class="form-check form-check-inline">
+              <input name="group1" class="form-check-input" type="radio" value="" id="rate2">
+              <label class="form-check-label" for="rate2">
+                <div class="orange-text">
+                  <i class="fa fa-star write"> </i>
+                  <i class="fa fa-star write"> </i>
+                  <i class="fa fa-star write"> </i>
+                  <i class="fa fa-star write"> </i>
+                </div>
+                <!--review1-end-->
+              </label>
+            </div>
+            <!--form-check-->
+
+            <div class="form-check form-check-inline">
+              <input name="group1" class="form-check-input" type="radio" value="" id="rate3">
+              <label class="form-check-label" for="rate3">
+                <div class="orange-text">
+                  <i class="fa fa-star write"> </i>
+                  <i class="fa fa-star write"> </i>
+                  <i class="fa fa-star write"> </i>
+                </div>
+                <!--review1-end-->
+              </label>
+            </div>
+            <!--form-check-->
+
+            <div class="form-check form-check-inline">
+              <input name="group1" class="form-check-input" type="radio" value="" id="rate4">
+              <label class="form-check-label" for="rate4">
+                <div class="orange-text">
+                  <i class="fa fa-star write"> </i>
+                  <i class="fa fa-star write"> </i>
+                </div>
+                <!--review1-end-->
+              </label>
+            </div>
+            <!--form-check-->
+
+            <div class="form-check form-check-inline">
+              <input name="group1" class="form-check-input" type="radio" value="" id="rate5">
+              <label class="form-check-label" for="rate5">
+                <div class="orange-text">
+                  <i class="fa fa-star write"> </i>
+                </div>
+                <!--review1-end-->
+              </label>
+            </div>
+            <!--form-check-->
+          </div>
+          <!--col-->
+        </div>
+        <!--row-->
+
+        <br>
+
+        <div class="row justify-content-start">
+          <div class="col-2">
+            <label for="inputRating">{{'LABELS.COMMENT'|translate}}</label>
+          </div>
+
+          <div class="col-9">
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" id="inputRating" rows="10" placeholder="Schreiben sie hier Ihre Bewertung"></textarea>
+              </div>
+              <small id="giveOk" class="form-text text-muted">Einverständnis, dass Kommentar auf Seite erscheint.</small>
+            </form>
+          </div>
+          <!--col-->
+        </div>
+        <!--row-->
+
+        <div class="row justify-content-end">
+          <div class="col-3 offset-1">
+            <!-- <div class="row justify-content-end" style="margin-left:10px"> -->
+            <button id="submitRating" class="btn btn-unique">{{'BUTTONS.SUBMIT'|translate}}
+              <i class="fa fa-paper-plane-o ml-1"></i>
+            </button>
+          </div>
+          <!--col-->
+        </div>
+        <!--row-->
+      </div>
+      <!--container-->
     </div>
-    <!--END author-box element-->
   </div>
 </div>
+
+
+<!-- Standad-Account -->
+<ng-template #standard>
+  <div class="row mt-5 pt-5" *ngIf="photographer">
+    <div class="author-box grey-gradient">
+      <h2 class="h2-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h2>
+      <hr class="mt-5 mr-5 ml-5">
+
+      <!--site-navbar-->
+      <div id="navbar" class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <a mdbPageScroll id="navelement" href="#description" [pageScrollDuration]="300">{{ 'NAV.DESCRIPTION' | translate }}</a>
+        </div>
+        <div class="col-md-auto">
+          <a mdbPageScroll id="navelement" href="#events" [pageScrollDuration]="300">{{ 'NAV.EVENTS' | translate }}</a>
+        </div>
+        <div class="col-md-auto">
+          <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.PRICES' | translate }}</a>
+        </div>
+        <div class="col-md-auto">
+          <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.TESTIMONIAL' | translate }}</a>
+        </div>
+      </div>
+      <!--END site-navbar-->
+
+      <hr id="description" class="mb-5 mr-5 ml-5">
+
+      <!--photographer-description box (picture, infotext, address)-->
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-3 text-center">
+          <img src="{{photographer?.photoUrl}}" alt="Bild nicht verfügbar" class="img-fluid rounded-circle z-depth-2">
+          <br>
+          <br>
+        </div>
+      </div>
+      <!--row-->
+      <div class="row justify-content-center">
+        <div class="col-6 text-center">
+          <p>{{photographer?.about}}</p>
+        </div>
+        <!--col-->
+      </div>
+      <!--row-->
+      <!--END photographer-description box-->
+
+      <hr class="m-5">
+
+      <!--social network links-->
+      <div id="centered" class="personal-sm">
+        <a *ngIf="photographer.website" class="email-ic" href="{{photographer?.website}}">
+          <i class="fa fa-home fa-2x"> </i>
+        </a>
+        <a *ngIf="photographer.facebook" class="fb-ic" href="{{photographer?.facebook}}">
+          <i class="fa fa-facebook fa-2x"> </i>
+        </a>
+        <a *ngIf="photographer.instagram" class="ins-ic" href="{{photographer?.instagram}}">
+          <i class="fa fa-instagram fa-2x"> </i>
+        </a>
+        <a *ngIf="photographer.twitter" class="tw-ic" href="{{photographer?.twitter}}">
+          <i class="fa fa-twitter fa-2x"> </i>
+        </a>
+        <a *ngIf="photographer.tumbler" class="vk-ic" href="{{photographer?.tumbler}}">
+          <i class="fa fa-tumblr fa-2x"> </i>
+        </a>
+        <a *ngIf="photographer.email" class="email-ic" href="mailto:{{photographer?.email}}">
+          <i class="fa fa-envelope-o fa-2x"> </i>
+        </a>
+      </div>
+      <!--END social network links-->
+
+      <hr id="events" class="m-5">
+
+      <!--photographer events-->
+      <div id=" rowdesign " class="row">
+        <div *ngFor="let event of events | async " id="rowdesign " class="col-12 col-md-4 ">
+
+          <div class="card card-cascade wider " style="margin-bottom: 30px">
+
+            <div class="view gradient-card-header indigo-gradient ">
+              <h2 class="h2-responsive mb-2 ">
+                <i *ngIf="!event?.public" class="fa fa-lock"></i> {{event.name}}</h2>
+              <p>
+                <i class="fa fa-calendar "></i>&nbsp;{{event.date}}</p>
+
+            </div>
+            <div class="card-body text-center ">
+
+              <p class="card-text mr-2 ml-2 ">{{event.description}}</p>
+
+              <a [routerLink]="[ '/event', event.id] " class="pink-text mt-1 d-flex flex-row-reverse ">
+                <h5 class="waves-effect p-2 " mdbRippleRadius>View Pictures
+                  <i class="fa fa-chevron-right "></i>
+                </h5>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!--END photographer events-->
+      </div>
+    </div>
+  </div>
+</ng-template>

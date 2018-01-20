@@ -34,7 +34,9 @@
         <!--Section: Pricing v.1-->
         <section class="section pb-3">
           <!--Section heading-->
-          <h1 class="section-heading h1 pt-4">Our pricing plans</h1>
+          <h1>Our pricing plans</h1>
+          <br>
+          <br>
 
 
           <div class="row">
@@ -43,9 +45,9 @@
 
               <div class="card pricing-card">
                 <!--Price-->
-                <div class="price header indigo">
+                <div class="price header indigo indigo-gradient">
                   <h1>25</h1>
-                  <div class="version">
+                  <div class="version indigo-gradient">
                     <h5>Basic</h5>
                   </div>
                 </div>
@@ -68,7 +70,7 @@
                     </li>
                   </ul>
 
-                  <button class="btn btn-indigo waves-light" mdbRippleRadius>Upgrade</button>
+                  <button class="btn pink waves-light" mdbRippleRadius>Upgrade</button>
                 </div>
                 <!--/.Features-->
 
@@ -79,9 +81,9 @@
             <div class="col-lg-4 col-md-6 mb-r">
               <div class="card pricing-card">
                 <!--Price-->
-                <div class="price header indigo">
+                <div class="price header indigo indigo-gradient-2">
                   <h1>35</h1>
-                  <div class="version">
+                  <div class="version indigo-gradient-2">
                     <h5>Smart</h5>
                   </div>
                 </div>
@@ -104,7 +106,7 @@
                     </li>
                   </ul>
 
-                  <button class="btn btn-indigo waves-light" mdbRippleRadius>Upgrade</button>
+                  <button class="btn pink waves-light" mdbRippleRadius>Upgrade</button>
                 </div>
                 <!--/.Features-->
 
@@ -114,9 +116,9 @@
             <div class="col-lg-4 col-md-6 mb-r">
               <div class="card pricing-card">
                 <!--Price-->
-                <div class="price header indigo">
+                <div class="price header indigo indigo-gradient">
                   <h1>50</h1>
-                  <div class="version">
+                  <div class="version indigo-gradient">
                     <h5>Pro</h5>
                   </div>
                 </div>
@@ -139,7 +141,7 @@
                     </li>
                   </ul>
 
-                  <button class="btn btn-indigo waves-light" mdbRippleRadius>Upgrade</button>
+                  <button class="btn pink waves-light" mdbRippleRadius>Upgrade</button>
                 </div>
                 <!--/.Features-->
 
@@ -256,7 +258,14 @@
 
         </mdb-tabset>
 
-        <button type="button" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updatePriceList()">Save</button>
+        <br>
+        <div class="row no-gutters justify-content-start" style="align-items: center">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updatePriceList()">Save</button>
+          </div>
+          <div class="col-4"></div>
+        </div>
 
       </div>
     </div>
@@ -417,7 +426,7 @@
               </mdb-item-body>
             </mdb-item>
             <mdb-item>
-              <mdb-item-head>Billing Informations</mdb-item-head>
+              <mdb-item-head>Billing Information</mdb-item-head>
               <mdb-item-body>
                 <br>
                 <form>
@@ -466,7 +475,16 @@
               </mdb-item-body>
             </mdb-item>
           </mdb-squeezebox>
-          <button type="button" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updatePrintingHouse()">Update printing house</button>
+
+          <br>
+          <div class="row no-gutters justify-content-start" style="align-items: center">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updatePrintingHouse()">Update printing house</button>
+            </div>
+            <div class="col-4"></div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -598,7 +616,16 @@
             </mdb-item-body>
           </mdb-item>
         </mdb-squeezebox>
-        <button type="submit" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="updateProfile()">{{ 'BUTTONS.UPDATE_PROFILE' | translate }}</button>
+        <br>
+
+        <div class="row no-gutters justify-content-start" style="align-items: center">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <button type="submit" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updateProfile()">{{ 'BUTTONS.UPDATE_PROFILE' | translate }}</button>
+          </div>
+          <div class="col-4"></div>
+        </div>
+
       </div>
     </div>
   </mdb-tab>
@@ -638,7 +665,7 @@
           </div>
 
           <div class="text-center mt-1-half">
-            <button type="submit" class="btn indigo mb-2 waves-light" mdbRippleRadius>{{ 'LABELS.CREATE' | translate }}
+            <button type="submit" class="btn pink mb-2 waves-light" mdbRippleRadius>{{ 'LABELS.CREATE' | translate }}
               <i class="fa fa-plus ml-1"></i>
             </button>
           </div>

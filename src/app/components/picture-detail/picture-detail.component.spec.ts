@@ -5,6 +5,7 @@ import { PictureDetailComponent } from './picture-detail.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { FormsModule } from '@angular/forms';
+import { AlertService } from '../../services/alert/alert.service';
 
 describe('PictureDetailComponent', () => {
   let component: PictureDetailComponent;
@@ -20,7 +21,7 @@ describe('PictureDetailComponent', () => {
             loader: { provide: TranslateLoader, useClass: FakeLoader }
           })
         ],
-        providers: [],
+        providers: [AlertService],
         declarations: [PictureDetailComponent]
       }).compileComponents();
     })

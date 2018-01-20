@@ -12,6 +12,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { MDBBootstrapModules, MDBSpinningPreloader } from 'ng-mdb-pro';
+import { ToastModule } from 'ng-mdb-pro/pro/alerts';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,6 +37,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ImprintPageComponent } from './pages/imprint-page/imprint-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { PaymentSuccessPageComponent } from './pages/payment-success-page/payment-success-page.component';
 import { PhotoDetailPageComponent } from './pages/photo-detail-page/photo-detail-page.component';
 import { PhotographerPageComponent } from './pages/photographer-page/photographer-page.component';
 import { PhotographerSearchPageComponent } from './pages/photographer-search-page/photographer-search-page.component';
@@ -44,6 +46,7 @@ import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.compo
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { BytesPipe } from './pipes/math/bytes/bytes.pipe';
 import { ReplacePipe } from './pipes/string/replace/replace.pipe';
+import { AlertService } from './services/alert/alert.service';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
 import { FirebaseAuthService } from './services/auth/firebase-auth/firebase-auth.service';
 import { RoleGuard } from './services/auth/role-guard/role-guard.service';
@@ -91,7 +94,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashboardEventCardComponent,
     BytesPipe,
     ReplacePipe,
-    EventSearchPageComponent
+    EventSearchPageComponent,
+    PaymentSuccessPageComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +109,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFirestoreModule,
     AngularFireStorageModule,
     MDBBootstrapModules.forRoot(),
+    ToastModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: environment.agmKey
     }),
@@ -125,7 +130,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MDBSpinningPreloader,
     RoleGuard,
     GeolocationService,
-    NavigationService
+    NavigationService,
+    AlertService
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]

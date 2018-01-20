@@ -15,6 +15,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { PhotographerPageComponent } from './photographer-page.component';
+import { AlertService } from '../../services/alert/alert.service';
 
 describe('PhotographerPageComponent', () => {
   let component: PhotographerPageComponent;
@@ -36,6 +37,7 @@ describe('PhotographerPageComponent', () => {
           AngularFireAuth,
           FirebaseStorageService,
           FirebaseFirestoreService,
+          AlertService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [PhotographerPageComponent]

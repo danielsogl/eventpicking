@@ -16,6 +16,10 @@
   background: linear-gradient(80deg, #9dafff, rgb(104, 129, 253));
 }
 
-.indigo-gradient-2{
+.indigo-gradient-2 {
   background: linear-gradient(50deg, rgb(104, 129, 253), #9dafff);
+}
+
+.pricing-card .striped li {
+  border-bottom: 1px solid #ffffff;
 }
