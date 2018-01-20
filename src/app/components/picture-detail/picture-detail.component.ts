@@ -12,6 +12,8 @@ import { PrintingHouseArticle } from '../../interfaces/printing-house-article';
 import { PRINTTYPE } from '../../enums/print-type';
 import { SHOPPINGCARTITEMTYPE } from '../../enums/shopping-cart-item-type';
 import * as localforage from 'localforage';
+import { AlertService } from '../../services/alert/alert.service';
+import { Alert } from '../../interfaces/alert';
 
 /**
  * Picture detail modal component
@@ -78,7 +80,7 @@ export class PictureDetailComponent implements OnInit {
   /**
    * Constructor
    */
-  constructor() {}
+  constructor(private service: AlertService) {}
 
   /**
    * Initalize component
@@ -214,7 +216,11 @@ export class PictureDetailComponent implements OnInit {
    */
   addToShoppingCart() {
     if (this.format === undefined) {
-      // TODO Alert: 'Select format!'
+      const alert: Alert = {
+        title: 'Kein Format ausgewählt!'
+      };
+      this.service.showError(alert);
+
       this.log.info('No format selected');
     } else {
       this.log.info('addtoShoppingCart: ' + this.radioModel);
@@ -258,6 +264,10 @@ export class PictureDetailComponent implements OnInit {
             this.log.er('Error saving item', err);
           });
       });
+      const alert: Alert = {
+        title: 'Bild zum Warenkorb hinzugefügt'
+      };
+      this.service.showSuccess(alert);
     }
   }
 }

@@ -4,6 +4,8 @@ import { Log } from 'ng2-logger';
 import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 import { SHOPPINGCARTITEMTYPE } from '../../enums/shopping-cart-item-type';
 import * as localforage from 'localforage';
+import { Alert } from '../../interfaces/alert';
+import { AlertService } from '../../services/alert/alert.service';
 
 /**
  * Shopping cart page component
@@ -27,7 +29,7 @@ export class ShoppingCartComponent implements OnInit {
   /**
    * Constructor
    */
-  constructor() {}
+  constructor(private service: AlertService) {}
 
   /**
    * Initalize component
@@ -112,8 +114,12 @@ export class ShoppingCartComponent implements OnInit {
    * @param  {ShoppingCartItem} cartItem Item
    */
   deleteCartItem(index: number) {
+    const alert: Alert = {
+      title: 'Produkt aus Warenkorb entfernt'
+    };
     this.cartItems.splice(index, 1);
     localforage.setItem('cart-items', this.cartItems);
     this.calculateSum();
+    this.service.showSuccess(alert);
   }
 }
