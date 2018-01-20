@@ -53,6 +53,14 @@ exports.increaseEventsLeft = functions.firestore
   .onDelete(eventModule.increaseEventsLeftHandler);
 
 /**
+ * Update events votes
+ * @author Daniel Sogl
+ */
+exports.updateEventVotes = functions.firestore
+  .document('public-images/{imageID}')
+  .onUpdate(eventModule.updateEventVotesHandler);
+
+/**
  * Delete user from DB including events
  * @author Daniel Sogl, Dennis Maurer
  */

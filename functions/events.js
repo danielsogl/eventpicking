@@ -1,11 +1,37 @@
 const admin = require('firebase-admin');
 
-exports.increaseEventVotes = event => {
-  var eventData = event.data.data();
-};
+exports.updateEventVotesHandler = event => {
+  var image = event.data.data();
 
-exports.decreaseEventVotes = event => {
-  var eventData = event.data.data();
+  if (
+    event.data.data() === event.data.previous.data() ||
+    event.data.data().ratings === event.data.previous.data().ratings
+  ) {
+    console.log('Nothing changed');
+    return null;
+  }
+
+  return admin
+    .firestore()
+    .collection('events')
+    .doc(image.event)
+    .get()
+    .then(doc => {
+      var data = doc.data();
+      if (image.ratings > event.data.previous.data().ratings) {
+        data.ratings = data.ratings + 1;
+        console.log('Added upvote', data.ratings);
+      } else if (image.ratings < event.data.previous.data().ratings) {
+        data.ratings = data.ratings - 1;
+        console.log('Added downvote', data.ratings);
+      }
+
+      return admin
+        .firestore()
+        .collection('events')
+        .doc(image.event)
+        .update(data);
+    });
 };
 
 /**
@@ -40,7 +66,7 @@ exports.decreaseEventsLeftHandler = event => {
 };
 
 exports.increaseEventsLeftHandler = event => {
-  var eventData = event.data.data();
+  var eventData = event.data.previous.data();
   var photographerUid = eventData.photographerUid;
 
   return admin
