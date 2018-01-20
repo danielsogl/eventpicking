@@ -4,13 +4,22 @@
  */
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const nodemailer = require('nodemailer');
+const gmailEmail = functions.config().gmail.email;
+const gmailPassword = functions.config().gmail.password;
+const mailTransport = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: gmailEmail,
+    pass: gmailPassword
+  }
+});
+
+const APP_NAME = 'Eventpicking.de - Your pictures, their events';
 
 exports.transactionProcessHandler = event => {
   // Transaction
   let transaction = event.data.data();
-
-  // Set Date
-  transaction.date = new Date().toISOString();
 
   let images = [];
 
@@ -40,7 +49,27 @@ exports.transactionProcessHandler = event => {
       });
   }
 
-  return event.data.ref.set(transaction, { merge: true });
+  transaction.status = 'available';
 
   console.log('New transaction', transaction);
+
+  return event.data.ref.set(transaction, { merge: true });
+
+  // // Send Mail
+  // const mailOptions = {
+  //   from: `${APP_NAME} <noreply@firebase.com>`,
+  //   to: 'daniel@sogls.de'
+  // };
+
+  // mailOptions.subject = `Ihre Bestellung bei ${APP_NAME}`;
+  // mailOptions.text = `Vielen Dank für Ihre Bestellung`;
+  // return mailTransport
+  //   .sendMail(mailOptions)
+  //   .then(() => {
+
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //     return null;
+  //   });
 };

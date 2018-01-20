@@ -162,6 +162,9 @@ export class CheckoutPageComponent implements OnInit {
               onAuthorize: (data, actions) => {
                 return actions.payment.execute().then(payment => {
                   // Save transaction into firestore
+                  this.transaction.date = new Date().toDateString();
+                  this.transaction.status = 'pending';
+                  this.transaction.email = this.auth.getCurrentFirebaseUser().email;
                   this.afs
                     .saveTransaction(this.transaction)
                     .then(() => {

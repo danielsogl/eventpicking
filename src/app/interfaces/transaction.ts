@@ -17,7 +17,11 @@ export interface Transaction {
   /** Optional. The merchant-provided ID for the purchase unit. */
   reference_id?: string;
   /** Transaction date */
-  date?: Date;
+  date?: string;
+  /** Status */
+  status?: string;
+  /** User email */
+  email?: string;
 }
 
 /**
