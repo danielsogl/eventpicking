@@ -230,6 +230,7 @@ export class PictureDetailComponent implements OnInit {
       const shoppingCartItem: ShoppingCartItem = {
         eventname: this.image.event,
         name: this.image.name,
+        // TODO: differentiation between Download and Print
         info: this.image.info,
         itemType: itemType,
         amount: 1,
