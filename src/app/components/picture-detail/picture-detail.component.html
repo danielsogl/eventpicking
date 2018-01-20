@@ -1,8 +1,8 @@
 <div mdbModal #pictureModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-notify modal-info" role="document">
+  <div class="modal-dialog modal-fluid" role="document">
     <div class="modal-content">
       <div class="modal-header indigo">
-        <p class="heading lead">{{ 'LABELS.IMAGE_VIEW' | translate }}</p>
+        <h4 class="modal-title w-100 text-white" id="myModalLabel">{{ image.name }}</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -77,13 +77,10 @@
             <div *ngIf="priceList" class="form-group">
               <div *ngFor="let downloadItem of priceList.downloadItems; let i = index">
                 <input name="group1" type="radio" class="with-gap" id="radio{{i}}" (click)="changeFormat('download', downloadItem.name)">
-                <label for="radio{{i}}">{{downloadItem.name}}</label>
+                <label for="radio{{i}}">{{downloadItem.name}} - {{ downloadItem.price | number:'0.2-2' }}€</label>
               </div>
             </div>
           </td>
-        </tr>
-        <tr>
-          <td *ngIf="!(price === undefined)">{{ 'LABELS.PRICE' | translate }}: {{price}}€</td>
         </tr>
       </table>
     </div>
@@ -98,13 +95,10 @@
             <div *ngIf="priceList" class="form-group">
               <div *ngFor="let article of printPicturePriceList; let i = index">
                 <input name="group1" type="radio" class="with-gap" id="radio{{i}}" (click)="changeFormat('print', article.name)">
-                <label for="radio{{i}}">{{article.name}}</label>
+                <label for="radio{{i}}">{{article.name}} - {{ article.price | number:'0.2-2' }}€</label>
               </div>
             </div>
           </td>
-        </tr>
-        <tr>
-          <td *ngIf="!(price === undefined)">{{ 'LABELS.PRICE' | translate }}: {{price}}€</td>
         </tr>
       </table>
     </div>
