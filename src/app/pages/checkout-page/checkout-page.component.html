@@ -157,9 +157,6 @@
                 </td>
                 <td>{{ item.info.width }}x{{ item.info.height }}</td>
                 <td>{{ item.price | number:'0.2' }}€</td>
-                <td class="background-white">
-                  <i class="fa fa-lg fa-trash clickable" aria-hidden="true" (click)="removeItem(i)"></i>
-                </td>
               </tr>
               <tr class="table background-white">
                 <td>Zwischensumme</td>
@@ -167,7 +164,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>20€</td>
+                <td>{{ paymentAmount | number:'0.2-2' }}€</td>
               </tr>
               <tr class="table  background-white">
                 <td>+ Versandkosten</td>
@@ -183,7 +180,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>{{ paymentAmount | number:'0.2' }}€</td>
+                <td>{{ paymentTotalAmount | number:'0.2' }}€</td>
               </tr>
             </tbody>
           </table>
@@ -193,7 +190,9 @@
       <!--row-->
       <div class="row">
         <div class="col-12">
-          <br> Indem du deine Bestellung aufgibst, akzeptierst du unsere Allgemeinen Geschäftsbedingungen und unsere Datenschutzrichtlinie.
+          <br> Indem du deine Bestellung aufgibst, akzeptierst du unsere
+          <a target="_blank" href="./gtc">Allgemeinen Geschäftsbedingungen</a> und unsere
+          <a target="_blank" href="./data-protection">Datenschutzrichtlinie</a>.
           <br>
         </div>
         <!--col-->
