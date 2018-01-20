@@ -1,7 +1,7 @@
 <div mdbModal #pictureModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header indigo">
         <p class="heading lead">{{ 'LABELS.IMAGE_VIEW' | translate }}</p>
       </div>
       <div class="modal-body">
@@ -34,12 +34,12 @@
                 </table>
               </div>
               <div class="col-12 col-lg-7 p-3">
-                <button *ngIf="!previousFlag" class="btn btn-primary waves-light navigation" mdbRippleRadius (click)="loadPreviousImage()">
+                <button *ngIf="!previousFlag" class="btn btn-primary pink waves-light navigation" mdbRippleRadius (click)="loadPreviousImage()">
                   <i class="fa fa-angle-double-left mr-1"></i>{{ 'LABELS.PREVIOUS' | translate }}
                 </button>
 
 
-                <button *ngIf="!nextFlag" class="btn btn-primary waves-light navigation" mdbRippleRadius (click)="loadNextImage()">{{ 'LABELS.NEXT' | translate }}
+                <button *ngIf="!nextFlag" class="btn btn-primary pink waves-light navigation" mdbRippleRadius (click)="loadNextImage()">{{ 'LABELS.NEXT' | translate }}
                   <i class="fa fa-angle-double-right ml-1"></i>
                 </button>
 
@@ -58,7 +58,7 @@
 
             <ng-container *ngTemplateOutlet="templateType"></ng-container>
 
-            <button type="button" class="btn btn-default btn-lg btn-block waves-light" mdbRippleRadius (click)="addToShoppingCart()">
+            <button type="button" class="btn btn-pink btn-lg btn-block waves-light" mdbRippleRadius (click)="addToShoppingCart()">
               <i class="fa fa-shopping-cart mr-1"></i> {{ 'BUTTONS.ADD_TO_SHOPPING_CART' | translate }}</button>
           </div>
         </div>

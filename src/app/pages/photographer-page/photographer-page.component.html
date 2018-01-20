@@ -1,7 +1,7 @@
 <div class="row mt-5 pt-5">
   <div *ngIf="photographer">
     <div class="author-box grey-gradient">
-      <h2 class="h2-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h2>
+      <h1 class="h1-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h1>
       <hr class="mt-5 mr-5 ml-5">
 
       <!--site-navbar-->
@@ -66,9 +66,9 @@
       <div id=" rowdesign " class="row">
         <div *ngFor="let event of events | async " id="rowdesign " class="col-12 col-md-4 ">
 
-          <div class="card card-cascade wider ">
+          <div class="card card-cascade wider " style="margin-bottom: 30px">
 
-            <div class="view gradient-card-header peach-gradient ">
+            <div class="view gradient-card-header indigo-gradient ">
               <h2 class="h2-responsive mb-2 ">
                 <i *ngIf="!event?.public" class="fa fa-lock"></i> {{event.name}}</h2>
               <p>
@@ -79,7 +79,7 @@
 
               <p class="card-text mr-2 ml-2 ">{{event.description}}</p>
 
-              <a [routerLink]="[ '/event', event.id] " class="orange-text mt-1 d-flex flex-row-reverse ">
+              <a [routerLink]="[ '/event', event.id] " class="pink-text mt-1 d-flex flex-row-reverse ">
                 <h5 class="waves-effect p-2 " mdbRippleRadius>View Pictures
                   <i class="fa fa-chevron-right "></i>
                 </h5>
