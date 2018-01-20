@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Log } from 'ng2-logger';
 
+import { AlertService } from '../../services/alert/alert.service';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 
 /**
@@ -47,7 +48,8 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private auth: FirebaseAuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alert: AlertService
   ) {
     // Init login form
     this.loginForm = this.formBuilder.group({
@@ -82,10 +84,12 @@ export class LoginPageComponent implements OnInit {
         .then(() => {
           this.log.d('Singed in with Email and password');
           this.router.navigate(['dashboard']);
+          this.alert.showSuccess({ title: 'Login erfolgreich' });
         })
         .catch(err => {
           this.error = err;
           this.log.er('error', err);
+          this.alert.showError({ title: 'Es ist ein Fehler aufgetreten' });
         });
     }
   }

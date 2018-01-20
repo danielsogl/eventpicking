@@ -15,6 +15,7 @@ import { environment } from '../../../environments/environment';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { EventUserComponent } from './event-user.component';
+import { AlertService } from '../../services/alert/alert.service';
 
 describe('EventUserComponent', () => {
   let component: EventUserComponent;
@@ -35,6 +36,7 @@ describe('EventUserComponent', () => {
           FirebaseAuthService,
           FirebaseFirestoreService,
           AngularFireAuth,
+          AlertService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [EventUserComponent],

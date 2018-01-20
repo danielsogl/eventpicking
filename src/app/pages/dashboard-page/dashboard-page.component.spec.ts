@@ -15,6 +15,7 @@ import { environment } from '../../../environments/environment';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { DashboardPageComponent } from './dashboard-page.component';
+import { AlertService } from '../../services/alert/alert.service';
 
 describe('DashboardPageComponent', () => {
   let component: DashboardPageComponent;
@@ -34,6 +35,7 @@ describe('DashboardPageComponent', () => {
           FirebaseAuthService,
           AngularFireAuth,
           FirebaseFirestoreService,
+          AlertService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [DashboardPageComponent],

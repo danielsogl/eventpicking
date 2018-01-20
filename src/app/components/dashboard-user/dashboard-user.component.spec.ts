@@ -5,7 +5,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreModule
+} from 'angularfire2/firestore';
 import { MDBBootstrapModules } from 'ng-mdb-pro';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
@@ -13,6 +16,7 @@ import { environment } from '../../../environments/environment';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { DashboardUserComponent } from './dashboard-user.component';
+import { AlertService } from '../../services/alert/alert.service';
 
 describe('DashboardUserComponent', () => {
   let component: DashboardUserComponent;
@@ -34,6 +38,7 @@ describe('DashboardUserComponent', () => {
           FirebaseFirestoreService,
           AngularFireAuth,
           FormBuilder,
+          AlertService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [DashboardUserComponent],
