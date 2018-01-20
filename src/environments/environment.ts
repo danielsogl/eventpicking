@@ -6,6 +6,8 @@
 export const environment = {
   production: false,
   agmKey: 'AIzaSyARLUCxW543JYIU-BfJOTiI2mAlQHLj6vQ',
+  paypal_sandbox:
+    'AWlMGZwpQbS0dq_r2Dt0ejp1TxDm72JD7Pt4Uc2mYlihAE3FU5axxS9wr4HcnVc13gB7TcbYDVLp9Vne',
   firebase: {
     apiKey: 'AIzaSyBnB8M0rd5R87WvE57NzQVPuEQ6JiRbq_I',
     authDomain: 'eventpicking-development.firebaseapp.com',
