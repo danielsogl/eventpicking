@@ -35,11 +35,11 @@
           </td>
           <td class="vertical-mid">{{cartItem.info.width}}x{{cartItem.info.height}}</td>
           <td class="vertical-mid">
-            <i *ngIf="cartItem.itemType === checkType.PRINT" class="fa fa-chevron-left fa-lg clickable pl-2 pr-2" style="color: #e91e63"aria-hidden="true"
-              (click)="decreaseQuantity(cartItem)"></i>
+            <i *ngIf="cartItem.itemType === checkType.PRINT" class="fa fa-chevron-left fa-lg clickable pl-2 pr-2" style="color: #e91e63"
+              aria-hidden="true" (click)="decreaseQuantity(cartItem)"></i>
             <span>{{cartItem.amount}}</span>
-            <i *ngIf="cartItem.itemType === checkType.PRINT" class="fa fa-chevron-right fa-lg clickable pl-2 pr-2" style="color: #e91e63" aria-hidden="true"
-              (click)="increaseQuantity(cartItem)"></i>
+            <i *ngIf="cartItem.itemType === checkType.PRINT" class="fa fa-chevron-right fa-lg clickable pl-2 pr-2" style="color: #e91e63"
+              aria-hidden="true" (click)="increaseQuantity(cartItem)"></i>
           </td>
           <td class="vertical-mid">{{cartItem.totalPrice | number:'0.2-2' | replace:'.':','}}€</td>
           <td class="vertical-mid">
@@ -61,7 +61,7 @@
     </table>
     <!-- Buttons to previous or next step -->
     <div class="row justify-content-end">
-      <button type="button" class="btn pink waves-light col-sm-3" mdbRippleRadius>{{ 'BUTTONS.CONTINUE_SHOPPING' | translate }}</button>
+      <button type="button" class="btn pink waves-light col-sm-3" routerLink="/search-events" mdbRippleRadius>{{ 'BUTTONS.CONTINUE_SHOPPING' | translate }}</button>
       <button type="button" class="btn pink waves-light col-sm-3" routerLink="/checkout" mdbRippleRadius>{{ 'BUTTONS.PROCEED_TO_CHECKOUT' | translate }}</button>
     </div>
     <!-- END buttons -->
