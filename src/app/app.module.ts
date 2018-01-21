@@ -13,6 +13,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { MDBBootstrapModules, MDBSpinningPreloader } from 'ng-mdb-pro';
 import { ToastModule } from 'ng-mdb-pro/pro/alerts';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -110,6 +111,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireStorageModule,
     MDBBootstrapModules.forRoot(),
     ToastModule.forRoot(),
+    LazyLoadImageModule,
     AgmCoreModule.forRoot({
       apiKey: environment.agmKey
     }),
