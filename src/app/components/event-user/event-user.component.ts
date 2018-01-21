@@ -14,7 +14,7 @@ import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { PriceList } from '../../classes/price-list';
-
+import { PhotographerProfile } from '../../interfaces/photographer-profile';
 /**
  * Event user view component
  * @author Daniel Sogl, Markus Kirschner, Tim Krießler
@@ -55,6 +55,8 @@ export class EventUserComponent implements OnInit {
   public priceList: PriceList;
   /** Event images array */
   public images: EventPicture[];
+  /** owner of event */
+  public photographer: PhotographerProfile;
 
   /**
    * Constructor
@@ -77,6 +79,13 @@ export class EventUserComponent implements OnInit {
 
     // Load images
     if (this.event) {
+      this.afs
+        .getPhotographerProfile(this.event.photographerUid)
+        .valueChanges()
+        .subscribe(photographer => {
+          this.photographer = photographer;
+        });
+
       this.afs
         .getEventPictures(this.event.id)
         .valueChanges()

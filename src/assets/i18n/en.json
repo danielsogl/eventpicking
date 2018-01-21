@@ -185,7 +185,8 @@
     "SEARCH_BY_NAME": "Search by name",
     "SEARCH_BY_ID": "Search by id",
     "SEARCH_EVENT_BY_NAME": "Search event by name",
-    "SEARCH_EVENT_BY_ID": "Search event by id"
+    "SEARCH_EVENT_BY_ID": "Search event by id",
+    "VISIT_PHOTOGRAPHERS_PAGE": "Visit photographers page"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",
