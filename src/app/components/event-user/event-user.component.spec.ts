@@ -16,6 +16,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { EventUserComponent } from './event-user.component';
 import { AlertService } from '../../services/alert/alert.service';
+import { LazyLoadImageModule } from 'ng-lazyload-image/src/lazyload-image.module';
 
 describe('EventUserComponent', () => {
   let component: EventUserComponent;
@@ -27,6 +28,7 @@ describe('EventUserComponent', () => {
         imports: [
           RouterTestingModule,
           MDBBootstrapModules.forRoot(),
+          LazyLoadImageModule,
           AngularFireModule.initializeApp(environment.firebase),
           TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useClass: FakeLoader }

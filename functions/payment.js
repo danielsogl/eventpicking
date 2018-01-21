@@ -4,43 +4,57 @@
  */
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const nodemailer = require('nodemailer');
+const gmailEmail = functions.config().gmail.email;
+const gmailPassword = functions.config().gmail.password;
+const mailTransport = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'eventpicking@gmail.com',
+    pass: 'Mtis2011'
+  }
+});
 
 exports.transactionProcessHandler = event => {
   // Transaction
   let transaction = event.data.data();
 
-  // Set Date
-  transaction.date = new Date().toISOString();
+  const promises = [];
 
-  let images = [];
+  transaction.item_list.items.forEach(item => {
+    if (item.sku === 'Download') {
+      const promise = admin
+        .firestore()
+        .collection('original-images')
+        .where('event', '==', item.name.split('/')[0])
+        .where('name', '==', item.name.split('/')[1])
+        .get();
+      promises.push(promise);
+    } else {
+      promises.push(
+        new Promise((resolve, reject) => {
+          resolve(null);
+        })
+      );
+    }
+  });
 
-  // Get original image download url
-  for (let i = 0; i < transaction.item_list.items.length; i++) {
-    images.push({
-      event: transaction.item_list.items[i].name.split('/')[0],
-      name: transaction.item_list.items[i].name.split('/')[1],
-      index: i
-    });
-  }
+  return Promise.all(promises)
+    .then(results => {
+      console.log('Loaded all image documents');
+      for (var i = 0; i < transaction.item_list.items.length; i++) {
+        if (transaction.item_list.items[i].sku === 'Download') {
+          transaction.item_list.items[i].url = results[i].docs[0].data().url;
+        }
+      }
 
-  for (let i = 0; i < images.length; i++) {
-    admin
-      .firestore()
-      .collection('original-images')
-      .where('event', '==', images[i].event)
-      .where('name', '==', images[i].name)
-      .get()
-      .then(querySnapshot => {
-        console.log('Image', querySnapshot.docs[0].data());
-        // transaction.item_list.items[i].url = querySnapshot.docs[0].data().url);
-      })
-      .catch(error => {
-        console.log('Error getting documents: ', error);
-        return null;
+      console.log('Finished transaction');
+      // Set transaction as finsihed
+      transaction.status = 'available';
+    })
+    .then(() => {
+      return event.data.ref.set(transaction, {
+        merge: true
       });
-  }
-
-  return event.data.ref.set(transaction, { merge: true });
-
-  console.log('New transaction', transaction);
+    });
 };
