@@ -34,12 +34,12 @@
                 </table>
               </div>
               <div class="col-12 col-lg-7 p-3">
-                <button *ngIf="!previousFlag" class="btn btn-primary pink waves-light navigation" mdbRippleRadius (click)="loadPreviousImage()">
+                <button *ngIf="!previousFlag" class="btn pink waves-light navigation" mdbRippleRadius (click)="loadPreviousImage()">
                   <i class="fa fa-angle-double-left mr-1"></i>{{ 'LABELS.PREVIOUS' | translate }}
                 </button>
 
 
-                <button *ngIf="!nextFlag" class="btn btn-primary pink waves-light navigation" mdbRippleRadius (click)="loadNextImage()">{{ 'LABELS.NEXT' | translate }}
+                <button *ngIf="!nextFlag" class="btn pink waves-light navigation" mdbRippleRadius (click)="loadNextImage()">{{ 'LABELS.NEXT' | translate }}
                   <i class="fa fa-angle-double-right ml-1"></i>
                 </button>
 
