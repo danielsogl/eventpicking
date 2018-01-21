@@ -18,31 +18,43 @@ const mailTransport = nodemailer.createTransport({
 exports.transactionProcessHandler = event => {
   // Transaction
   let transaction = event.data.data();
-  transaction.status = 'available';
 
-  var counter = 0;
+  const promises = [];
 
-  // Get original image download url
-  for (let i = 0; i < transaction.item_list.items.length; i++) {
-    admin
-      .firestore()
-      .collection('original-images')
-      .where('event', '==', transaction.item_list.items[i].name.split('/')[0])
-      .where('name', '==', transaction.item_list.items[i].name.split('/')[1])
-      .get()
-      .then(querySnapshot => {
-        transaction.item_list.items[i].url = querySnapshot.docs[0].data().url;
-        counter++;
-        console.log(counter);
-        if (counter === transaction.item_list.items.length) {
-          return event.data.ref.set(transaction, { merge: true });
+  transaction.item_list.items.forEach(item => {
+    if (item.sku === 'Download') {
+      const promise = admin
+        .firestore()
+        .collection('original-images')
+        .where('event', '==', item.name.split('/')[0])
+        .where('name', '==', item.name.split('/')[1])
+        .get();
+      promises.push(promise);
+    } else {
+      promises.push(
+        new Promise((resolve, reject) => {
+          resolve(null);
+        })
+      );
+    }
+  });
+
+  return Promise.all(promises)
+    .then(results => {
+      console.log('Loaded all image documents');
+      for (var i = 0; i < transaction.item_list.items.length; i++) {
+        if (transaction.item_list.items[i].sku === 'Download') {
+          transaction.item_list.items[i].url = results[i].docs[0].data().url;
         }
-      })
-      .catch(error => {
-        console.log('Error getting documents: ', error);
-        return null;
-      });
-  }
+      }
 
-  return event.data.ref.set(transaction, { merge: true });
+      console.log('Finished transaction');
+      // Set transaction as finsihed
+      transaction.status = 'available';
+    })
+    .then(() => {
+      return event.data.ref.set(transaction, {
+        merge: true
+      });
+    });
 };
