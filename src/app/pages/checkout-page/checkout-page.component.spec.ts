@@ -16,6 +16,8 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { CheckoutPageComponent } from './checkout-page.component';
+import { NavigationService } from '../../services/navigation/navigation.service';
+import { AlertService } from '../../services/alert/alert.service';
 
 describe('CheckoutPageComponent', () => {
   let component: CheckoutPageComponent;
@@ -38,6 +40,8 @@ describe('CheckoutPageComponent', () => {
           AngularFireAuth,
           AngularFireStorage,
           FirebaseStorageService,
+          NavigationService,
+          AlertService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [CheckoutPageComponent]

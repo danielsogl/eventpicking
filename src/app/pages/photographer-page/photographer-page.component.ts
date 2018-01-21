@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
@@ -29,6 +35,9 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
   /** Events */
   public events: Observable<Event[]>;
 
+  /** Standard photographer */
+  @ViewChild('standard') dashboardAdmin: TemplateRef<any>;
+
   /**
    * Constructor
    * @param  {ActivatedRoute} router Activated Route
@@ -53,11 +62,12 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
           .getPhotographerByUrl(this.photographerUrl)
           .valueChanges()
           .subscribe(photographer => {
-            this.log.d('Photographer UID');
-            this.photographer = photographer[0];
-            this.events = this.afs
-              .getPhotographerEvents(this.photographer.uid)
-              .valueChanges();
+            if (photographer) {
+              this.photographer = photographer[0];
+              this.events = this.afs
+                .getPhotographerEvents(this.photographer.uid)
+                .valueChanges();
+            }
           });
       }
     });

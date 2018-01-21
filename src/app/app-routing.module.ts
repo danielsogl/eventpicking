@@ -19,6 +19,7 @@ import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
+import { PaymentSuccessPageComponent } from './pages/payment-success-page/payment-success-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -36,6 +37,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'gtc', component: GtcpageComponent },
   { path: 'prices', component: PricesPageComponent },
+  { path: 'payment-success', component: PaymentSuccessPageComponent },
   { path: 'photo/:id', component: PhotoDetailPageComponent },
   {
     path: 'photographer/:photographerUrl',

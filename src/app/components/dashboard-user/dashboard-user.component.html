@@ -3,6 +3,30 @@
     <div class="row">
       <div class="col-12">
         <br>
+        <table class="table text-left">
+          <thead>
+            <tr>
+              <td>#</td>
+              <td>Transaction ID</td>
+              <td>Order Date</td>
+              <td>Order Price</td>
+              <td>View Order</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of (transactions | async); let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ transaction.invoice_number }}</td>
+              <td>{{ transaction.date | date }}</td>
+              <td>{{ transaction.amount.total | number:'0.2-2' }} €</td>
+              <td>
+                <a (click)="openTransaction(transaction)">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </mdb-tab>

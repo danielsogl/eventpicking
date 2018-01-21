@@ -27,6 +27,7 @@
     "SIGNUP": "Sign up",
     "CONTACT_DETAILS": "Contact details",
     "PAYMENT_DELIVERY": "Payment/Delivery",
+    "TESTIMONIAL": "Testimonials",
     "CHECK_ORDER": "Check order",
     "CART_QUANTITY": "Quantity",
     "CART_PICTURE": "Picture",
@@ -83,14 +84,17 @@
     "DELETE_EVENT": "Delete Event",
     "SINGUP_NOW": "Sign up Now",
     "FIND_EVENT": "Find your event",
+    "ADD_TO_SHOPPING_CART": "Add to shopping cart",
     "SEND_REPORT": "Send Report",
-    "ADD_TO_SHOPPING_CART": "Add to shopping cart"
+    "SUBMIT": "Submit"
   },
   "LABELS": {
     "ADDRESS": "Address",
     "ACCOUNT_DATA": "Account Data",
     "BILLING_ADDRESS": "Billing Address",
-    "BILLING_INFORMATION": "Billing Address",
+    "BILLING_INFORMATION": "Billing Information",
+    "COMMENT": "Your comment:",
+    "CUSTOMER_RATING": "Customer Rating",
     "CREATE_NEW_EVENT": "Create new event",
     "CREATE": "Create",
     "CONTACT_DETAILS": "Contact-Details",
@@ -104,7 +108,9 @@
     "ORDER_DETAILS": "Order Overview",
     "PAYMENT_METHOD": "Payment Method",
     "PAYMENT_SHIPPING_DETAILS": "Payment and Shipping Method",
+    "RATING": "Your rating:",
     "PUBLIC_PROFILE": "Public Profile",
+    "PRICES": "Prices",
     "RESET_PASSWORD": "Reset Password",
     "SIGN_IN_WITH": "or Sign in with:",
     "SIGN_UP_WITH": "Or Signup with:",
@@ -165,7 +171,6 @@
     "PRICING_PICTURE_AMOUNT": "pictures per album",
     "PRICING_CANCEL": "Monthly cancellable",
     "SEARCH_PHOTOGRAPHER": "Search photographer by ZIP",
-    "SEARCH_EVENT": "Search event by name",
     "EVENT_ALL_PICTURES": "All pictures",
     "EVENT_SELECTED_PICTURES": "Selected pictures",
     "SEARCH_PICTURES": "Search for pictures by name",
@@ -176,7 +181,11 @@
     "PRICING_FIRST_POSITION": "Be always on the first position",
     "NO_PHOTOGRAPHERS_FOUND": "There are no photographers in your area",
     "NO_EVENTS_FOUND": "No Events found",
-    "DESCRIBE_REPORT": "Describe why you want to report this image"
+    "DESCRIBE_REPORT": "Describe why you want to report this image",
+    "SEARCH_BY_NAME": "Search by name",
+    "SEARCH_BY_ID": "Search by id",
+    "SEARCH_EVENT_BY_NAME": "Search event by name",
+    "SEARCH_EVENT_BY_ID": "Search event by id"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",

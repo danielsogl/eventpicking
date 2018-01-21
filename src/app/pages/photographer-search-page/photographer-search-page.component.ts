@@ -5,6 +5,8 @@ import { Log } from 'ng2-logger';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
+import { AlertService } from '../../services/alert/alert.service';
+import { Alert } from '../../interfaces/alert';
 
 /**
  * Photographer search page component
@@ -63,7 +65,8 @@ export class PhotographerSearchPageComponent implements OnInit {
    */
   constructor(
     private geolocation: GeolocationService,
-    private afs: FirebaseFirestoreService
+    private afs: FirebaseFirestoreService,
+    private service: AlertService
   ) {}
 
   /**
@@ -140,8 +143,12 @@ export class PhotographerSearchPageComponent implements OnInit {
   onKey(event: any) {
     if (+event.target.value && event.target.value.length === 5) {
       this.handleEnteredZip(event.target.value);
+    } else if (event.target.value.length === 5) {
+      const alert: Alert = {
+        title: 'Ungültige PLZ eingegeben!'
+      };
+      this.service.showError(alert);
     }
-    // TODO: Alert for valid and invalid zip
   }
 
   /**
@@ -182,7 +189,10 @@ export class PhotographerSearchPageComponent implements OnInit {
      * add photographers in the circle of 25 kilometres
      */
     if (!this.editedPhotographer.length) {
-      // TODO: Alert that circle is extended
+      const alert: Alert = {
+        title: 'Kein Fotograf gefunden. Umkreis auf 25km erhöht'
+      };
+      this.service.showInfo(alert);
       this.addPhotographerInCircle(25);
       this.agmMap.zoom = 10;
     }

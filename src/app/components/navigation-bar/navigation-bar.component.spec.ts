@@ -14,6 +14,7 @@ import { environment } from '../../../environments/environment';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { NavigationBarComponent } from './navigation-bar.component';
+import { AlertService } from '../../services/alert/alert.service';
 
 describe('NavigationBarComponent', () => {
   let component: NavigationBarComponent;
@@ -33,6 +34,7 @@ describe('NavigationBarComponent', () => {
           FirebaseAuthService,
           AngularFireAuth,
           FirebaseFirestoreService,
+          AlertService,
           { provide: AngularFirestore, depends: AngularFirestoreModule }
         ],
         declarations: [NavigationBarComponent],

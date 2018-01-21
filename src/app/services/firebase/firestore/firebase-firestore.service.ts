@@ -12,6 +12,7 @@ import { User } from '../../../classes/user';
 import { EventPicture } from '../../../interfaces/event-picture';
 import { PhotographerProfile } from '../../../interfaces/photographer-profile';
 import { PriceList } from '../../../classes/price-list';
+import { Transaction } from '../../../interfaces/transaction';
 
 /**
  * Service to comunicate with the Firestore database
@@ -190,6 +191,35 @@ export class FirebaseFirestoreService {
       .collection('price-lists')
       .doc(photographer)
       .update(JSON.parse(JSON.stringify(priceList)));
+  }
+
+  /************************************
+   * Firestore: Transactions
+   ************************************/
+
+  /**
+   * Save transaction
+   * @param  {Transaction} transaction Transaction
+   * @returns {Promise<void>}
+   */
+  saveTransaction(transaction: Transaction): Promise<void> {
+    return this.afs
+      .collection('transactions')
+      .doc(transaction.invoice_number)
+      .set(JSON.parse(JSON.stringify(transaction)));
+  }
+
+  /**
+   * Get transaction by user uid
+   * @param  {string} reference_id
+   * @returns {AngularFirestoreCollection<Transaction>}
+   */
+  getTransactionsByUser(
+    reference_id: string
+  ): AngularFirestoreCollection<Transaction> {
+    return this.afs.collection('transactions', ref =>
+      ref.where('reference_id', '==', reference_id)
+    );
   }
 
   /************************************
