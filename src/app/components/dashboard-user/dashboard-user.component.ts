@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../classes/user';
 import { Transaction } from '../../interfaces/transaction';
+import { AlertService } from '../../services/alert/alert.service';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 
 /**
  * User dashboard component
@@ -26,6 +28,10 @@ export class DashboardUserComponent implements OnInit {
   public transactions: Observable<Transaction[]>;
   /** New event form */
   public userForm: FormGroup;
+  /** Transaction modal data */
+  public transaction: Transaction;
+  /** Create new event modal */
+  @ViewChild('transactionModal') public transactionModal: ModalDirective;
 
   /**
    * Constructor
@@ -35,7 +41,8 @@ export class DashboardUserComponent implements OnInit {
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alert: AlertService
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -96,7 +103,10 @@ export class DashboardUserComponent implements OnInit {
    * Open transaction detail model
    * @param  {Transaction} transaction Transaction to open
    */
-  openTransaction(transaction: Transaction) {}
+  openTransaction(transaction: Transaction) {
+    this.transaction = transaction;
+    this.transactionModal.show();
+  }
 
   /**
    * Update user profile
@@ -113,9 +123,13 @@ export class DashboardUserComponent implements OnInit {
       .updateUserData(this.user)
       .then(() => {
         this.log.d('Updated user');
+        this.alert.showInfo({ title: 'Profil erfolgreich aktualisiert' });
       })
       .catch(err => {
         this.log.er('Error updating', err);
+        this.alert.showError({
+          title: 'Profil konnte nicht aktualisiert werden.'
+        });
       });
   }
 }
