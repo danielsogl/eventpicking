@@ -1,17 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaymentSuccessPageComponent } from './payment-success-page.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 
 describe('PaymentSuccessPageComponent', () => {
   let component: PaymentSuccessPageComponent;
   let fixture: ComponentFixture<PaymentSuccessPageComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PaymentSuccessPageComponent ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          TranslateModule.forRoot({
+            loader: { provide: TranslateLoader, useClass: FakeLoader }
+          })
+        ],
+        declarations: [PaymentSuccessPageComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PaymentSuccessPageComponent);
