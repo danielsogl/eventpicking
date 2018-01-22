@@ -11,6 +11,7 @@ import { Transaction, TransactionItem } from '../../interfaces/transaction';
 import { CURRENCY } from '../../enums/currency';
 import { COUNTRY } from '../../enums/country';
 import { NavigationService } from '../../services/navigation/navigation.service';
+import { SHOPPINGCARTITEMTYPE } from '../../enums/shopping-cart-item-type';
 
 declare let paypal: any;
 
@@ -55,6 +56,8 @@ export class CheckoutPageComponent implements OnInit {
 
   /** Invoice number */
   public invoice_number: string;
+  /** checkType variable */
+  public checkType: any = SHOPPINGCARTITEMTYPE;
 
   public transaction: Transaction;
 
