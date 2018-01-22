@@ -205,7 +205,7 @@ export class PictureDetailComponent implements OnInit {
     if (type === 'download') {
       for (let i = 0; i < this.priceList.downloadItems.length; i++) {
         if (formatName === this.priceList.downloadItems[i].name) {
-          this.format = this.printPicturePriceList[i].name;
+          this.format = this.priceList.downloadItems[i].name;
           this.price = this.priceList.downloadItems[i].price;
         }
       }
@@ -239,6 +239,7 @@ export class PictureDetailComponent implements OnInit {
         name: this.image.name,
         // TODO: differentiation between Download and Print
         info: this.image.info,
+        format: this.format,
         itemType: itemType,
         amount: 1,
         totalPrice: 0,

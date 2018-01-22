@@ -33,7 +33,7 @@
             <i *ngIf="cartItem.itemType === checkType.PRINT" class="fa fa-print fa-2x" aria-hidden="true"></i>
             <i *ngIf="cartItem.itemType === checkType.DOWNLOAD" class="fa fa-download fa-2x" aria-hidden="true"></i>
           </td>
-          <td class="vertical-mid">{{cartItem.info.width}}x{{cartItem.info.height}}</td>
+          <td class="vertical-mid">{{cartItem.format}}</td>
           <td class="vertical-mid">
             <i *ngIf="cartItem.itemType === checkType.PRINT" class="fa fa-chevron-left fa-lg clickable pl-2 pr-2" style="color: #e91e63"
               aria-hidden="true" (click)="decreaseQuantity(cartItem)"></i>
