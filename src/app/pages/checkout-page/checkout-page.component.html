@@ -134,13 +134,8 @@
             <thead id="sum_row">
               <tr>
                 <th scope="col">{{ 'NAV.CART_QUANTITY' | translate }}</th>
-                <th>Item</th>
-                <th>
-                  <i class="fa fa-print fa-lg" aria-hidden="true"></i>
-                </th>
-                <th>
-                  <i class="fa fa-download fa-lg" aria-hidden="true"></i>
-                </th>
+                <th scope="col">{{ 'NAV.CART_ITEM' | translate }}</th>
+                <th scope="col">{{ 'NAV.CART_TYPE' | translate }}</th>
                 <th scope="col">{{ 'NAV.CART_SIZE' | translate }}</th>
                 <th scope="col">{{ 'NAV.CART_PRICE' | translate }}</th>
               </tr>
@@ -150,17 +145,14 @@
                 <td>{{ item.amount }}</td>
                 <td>{{ item.name }}</td>
                 <td>
-                  <i class="fa fa-check" aria-hidden="true"></i>
+                  <i *ngIf="item.itemType === checkType.PRINT" class="fa fa-print fa-lg" aria-hidden="true"></i>
+                  <i *ngIf="item.itemType === checkType.DOWNLOAD" class="fa fa-download fa-lg" aria-hidden="true"></i>
                 </td>
-                <td>
-                  <i class="fa fa-check" aria-hidden="true"></i>
-                </td>
-                <td>{{ item.info.width }}x{{ item.info.height }}</td>
+                <td>{{ item.format }}</td>
                 <td>{{ item.price | number:'0.2' }}€</td>
               </tr>
               <tr class="table background-white">
                 <td>Zwischensumme</td>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -171,12 +163,10 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
                 <td>20€</td>
               </tr>
               <tr class="table  background-white">
                 <td>{{'LABELS.TOTAL'|translate}}</td>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
