@@ -183,7 +183,8 @@
     "SEARCH_BY_ID": "Search by id",
     "SEARCH_EVENT_BY_NAME": "Search event by name",
     "SEARCH_EVENT_BY_ID": "Search event by id",
-    "PAYMENT_SUCCESSFULL": "Payment successfull!"
+    "PAYMENT_SUCCESSFULL": "Payment successfull!",
+    "VISIT_PHOTOGRAPHERS_PAGE": "Visit photographers page"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",

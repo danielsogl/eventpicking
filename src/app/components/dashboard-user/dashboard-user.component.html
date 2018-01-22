@@ -10,6 +10,7 @@
               <td>Transaction ID</td>
               <td>Order Date</td>
               <td>Order Price</td>
+              <td>Order Status</td>
               <td>View Order</td>
             </tr>
           </thead>
@@ -19,8 +20,9 @@
               <td>{{ transaction.invoice_number }}</td>
               <td>{{ transaction.date | date }}</td>
               <td>{{ transaction.amount.total | number:'0.2-2' }} €</td>
+              <td>{{ transaction.status | uppercase }}</td>
               <td>
-                <a (click)="openTransaction(transaction)">
+                <a (click)="openTransaction(transaction)" *ngIf="transaction.status === 'available'">
                   <i class="fa fa-eye" aria-hidden="true"></i>
                 </a>
               </td>

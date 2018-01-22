@@ -79,6 +79,7 @@ export class PictureDetailComponent implements OnInit {
 
   /**
    * Constructor
+   * @param  {AlertService} service AlertService
    */
   constructor(private service: AlertService) {}
 

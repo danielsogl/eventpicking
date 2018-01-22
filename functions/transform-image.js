@@ -13,8 +13,8 @@ const imageinfo = require('imageinfo');
 const uuidv1 = require('uuid/v1');
 
 // Max height and width of the thumbnail in pixels.
-const THUMB_MAX_HEIGHT = 400;
-const THUMB_MAX_WIDTH = 300;
+const THUMB_MAX_HEIGHT = 300;
+const THUMB_MAX_WIDTH = 400;
 // Thumbnail prefix added to file names.
 const THUMB_PREFIX = 'thumb_';
 
