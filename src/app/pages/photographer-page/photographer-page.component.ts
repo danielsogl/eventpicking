@@ -9,6 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
+import { PriceList } from '../../classes/price-list';
+import { PrintingHouseArticle } from '../../interfaces/printing-house-article';
+import { PRINTTYPE } from '../../enums/print-type';
 import { Event } from '../../classes/event';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
@@ -34,6 +37,10 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
   public photographer: PhotographerProfile;
   /** Events */
   public events: Observable<Event[]>;
+  /** Printing house object */
+  public priceList: PriceList;
+  /** define certain price list for simplicity */
+  public printPicturePriceList: PrintingHouseArticle[];
 
   /** Standard photographer */
   @ViewChild('standard') dashboardAdmin: TemplateRef<any>;
@@ -67,10 +74,32 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
               this.events = this.afs
                 .getPhotographerEvents(this.photographer.uid)
                 .valueChanges();
+
+              this.afs
+                .getPriceList(this.photographer.uid)
+                .valueChanges()
+                .subscribe(priceList => {
+                  this.priceList = priceList;
+                  this.log.d('Loaded priceList', this.priceList);
+                  this.createPrintPicturePriceList();
+                });
             }
           });
       }
     });
+  }
+
+  /**
+   *  create array to save print-picture pricelist
+   */
+  createPrintPicturePriceList() {
+    for (let i = 0; i < this.priceList.printingHouseItems.length; i++) {
+      if (this.priceList.printingHouseItems[i].name === PRINTTYPE.PICTURE) {
+        this.printPicturePriceList = this.priceList.printingHouseItems[
+          i
+        ].articles;
+      }
+    }
   }
 
   /**
