@@ -16,7 +16,7 @@
           <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.PRICES' | translate }}</a>
         </div>
         <div class="col-md-auto">
-          <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.TESTIMONIAL' | translate }}</a>
+          <a mdbPageScroll id="navelement" href="#testimonials" [pageScrollDuration]="300">{{ 'NAV.TESTIMONIAL' | translate }}</a>
         </div>
       </div>
       <!--END site-navbar-->
@@ -102,27 +102,12 @@
 
           <!-- Prices for Download -->
           <div class="col-6 text-center">
-            <p class="tab-hdg">Download</p>
+            <p class="tab-hdg">{{ 'LABELS.DOWNLOAD' | translate }}</p>
             <table class="table table-responsive-sm">
-              <thead id="sum_row">
-                <tr> </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>S</td>
-                  <td>XX,XX€</td>
-                </tr>
-                <tr>
-                  <td>M</td>
-                  <td>XX,XX€</td>
-                </tr>
-                <tr>
-                  <td>L</td>
-                  <td>XX,XX€</td>
-                </tr>
-                <tr>
-                  <td>XL</td>
-                  <td>XX,XX€</td>
+              <tbody *ngIf="priceList">
+                <tr *ngFor="let downloadItem of priceList.downloadItems">
+                  <td>{{downloadItem.name}}</td>
+                  <td>{{ downloadItem.price | number:'0.2-2' }}€</td>
                 </tr>
               </tbody>
             </table>
@@ -131,43 +116,12 @@
 
           <!-- Prices for Pics -->
           <div class="col-6 text-center">
-            <p class="tab-hdg">Fotos</p>
+            <p class="tab-hdg">{{ 'LABELS.PRINT' | translate }}</p>
             <table class="table table-responsive-sm">
-              <thead id="sum_row">
-                <tr> </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>9x13cm</td>
-                  <td>XX,XX€</td>
-                </tr>
-                <tr>
-                  <td>10x15cm</td>
-                  <td>XX,XX€</td>
-                </tr>
-                <tr>
-                  <td>11x17cm</td>
-                  <td>XX,XX€</td>
-                </tr>
-                <tr>
-                  <td>13x18cm</td>
-                  <td>XX,XX€</td>
-                </tr>
-                <tr>
-                  <td>20x30cm</td>
-                  <td>XX,XX€</td>
-                </tr>
-                <tr>
-                  <td>30x45cm</td>
-                  <td>XX,XX€</td>
-                </tr>
-                <tr>
-                  <td>40x60cm</td>
-                  <td>XX,XX€</td>
-                </tr>
-                <tr>
-                  <td>50x75cm</td>
-                  <td>XX,XX€</td>
+              <tbody *ngIf="printPicturePriceList">
+                <tr *ngFor="let printItem of printPicturePriceList">
+                  <td>{{ printItem.name }}</td>
+                  <td>{{ printItem.price | number:'0.2-2' }}€</td>
                 </tr>
               </tbody>
             </table>
