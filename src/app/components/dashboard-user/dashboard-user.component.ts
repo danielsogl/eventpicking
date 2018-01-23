@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { saveAs } from 'file-saver/FileSaver';
+import * as JSZip from 'jszip';
+import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
@@ -8,10 +11,6 @@ import { Transaction, TransactionItem } from '../../interfaces/transaction';
 import { AlertService } from '../../services/alert/alert.service';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
-import * as JSZip from 'jszip';
-import { saveAs } from 'file-saver/FileSaver';
-import { HttpClient } from '@angular/common/http';
 
 declare var JSZipUtils;
 
@@ -47,8 +46,7 @@ export class DashboardUserComponent implements OnInit {
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
     private formBuilder: FormBuilder,
-    private alert: AlertService,
-    private http: HttpClient
+    private alert: AlertService
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', Validators.required],
