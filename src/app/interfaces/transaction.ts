@@ -22,6 +22,8 @@ export interface Transaction {
   status?: string;
   /** User email */
   email?: string;
+  /** Photographer UID */
+  photographer?: string;
 }
 
 /**

@@ -177,6 +177,7 @@ export class CheckoutPageComponent implements OnInit {
                   this.transaction.date = new Date().toDateString();
                   this.transaction.status = 'pending';
                   this.transaction.email = this.auth.getCurrentFirebaseUser().email;
+                  this.transaction.photographer = this.cartItems[0].photographer;
                   this.afs
                     .saveTransaction(this.transaction)
                     .then(() => {

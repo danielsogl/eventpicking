@@ -222,6 +222,19 @@ export class FirebaseFirestoreService {
     );
   }
 
+  /**
+   * Get transaction by photographer uid
+   * @param  {string} reference_id
+   * @returns {AngularFirestoreCollection<Transaction>}
+   */
+  getTransactionsByPhotographer(
+    photographer: string
+  ): AngularFirestoreCollection<Transaction> {
+    return this.afs.collection('transactions', ref =>
+      ref.where('photographer', '==', photographer)
+    );
+  }
+
   /************************************
    * Firestore: Events
    ************************************/

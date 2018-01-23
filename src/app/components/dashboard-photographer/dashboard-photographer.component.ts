@@ -17,6 +17,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
 import { PriceList } from '../../classes/price-list';
+import { Transaction } from '../../interfaces/transaction';
 
 /**
  * Photographer dashboard component
@@ -63,6 +64,9 @@ export class DashboardPhotographerComponent implements OnInit {
 
   /** Edited event */
   public eventEdit: Event;
+
+  /** Transactions */
+  public transactions: Observable<Transaction[]>;
 
   /** Photographer events */
   public events: Observable<Event[]>;
@@ -219,6 +223,10 @@ export class DashboardPhotographerComponent implements OnInit {
 
       this.events = this.afs
         .getPhotographerEvents(this.auth.getCurrentFirebaseUser().uid)
+        .valueChanges();
+
+      this.transactions = this.afs
+        .getTransactionsByPhotographer(this.auth.getCurrentFirebaseUser().uid)
         .valueChanges();
 
       this.afs
