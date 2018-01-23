@@ -14,8 +14,8 @@
     "USER": "Benutzer"
   },
   "NAV": {
-    "DASHBOARD": "Instrumententafel",
-    "FEATURES": "Eigenschaften",
+    "DASHBOARD": "Dashboard",
+    "FEATURES": "Features",
     "PRICES": "Preise",
     "DESCRIPTION": "Beschreibung",
     "HOME": "Zuhause",
@@ -75,7 +75,7 @@
     "CONTINUE_SHOPPING": "Mit dem Einkaufen fortfahren",
     "PROCEED_TO_CHECKOUT": "Zur Kasse",
     "BACK": "Zurück",
-    "NEXT": "Nächster",
+    "NEXT": "Weiter",
     "SEND_ORDER": "Jetzt bestellen",
     "ABO": "Kaufe jetzt",
     "SELECT_PICTURES": "Wähle alle Bilder aus",
@@ -202,7 +202,7 @@
     "PRINTING_HOUSES": "Druckerei",
     "PROFILE": "Profil",
     "REVENUE": "Einnahmen",
-    "SALES": "Der Umsatz",
+    "SALES": "Verkäufe",
     "SUBSCRIPTION": "Abonnement",
     "UPLOAD": "Hochladen",
     "USER": "Benutzer",

@@ -163,6 +163,13 @@ export class CheckoutPageComponent implements OnInit {
               client: {
                 sandbox: environment.paypal_sandbox
               },
+              style: {
+                label: 'paypal',
+                size: 'responsive', // small | medium | large | responsive
+                shape: 'rect', // pill | rect
+                color: 'blue', // gold | blue | silver | black
+                tagline: false
+              },
               commit: true,
               payment: (data, actions) => {
                 return actions.payment.create({

@@ -4,11 +4,16 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../classes/user';
-import { Transaction } from '../../interfaces/transaction';
+import { Transaction, TransactionItem } from '../../interfaces/transaction';
 import { AlertService } from '../../services/alert/alert.service';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
+import * as JSZip from 'jszip';
+import { saveAs } from 'file-saver/FileSaver';
+import { HttpClient } from '@angular/common/http';
+
+declare var JSZipUtils;
 
 /**
  * User dashboard component
@@ -42,7 +47,8 @@ export class DashboardUserComponent implements OnInit {
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
     private formBuilder: FormBuilder,
-    private alert: AlertService
+    private alert: AlertService,
+    private http: HttpClient
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -108,6 +114,47 @@ export class DashboardUserComponent implements OnInit {
     this.transactionModal.show();
   }
 
+  downloadImage(url: string) {
+    // This can be downloaded directly:
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = function(event) {
+      const blob = xhr.response;
+    };
+    xhr.open('GET', url);
+    xhr.send();
+  }
+
+  /**
+   * Download all images as a zip folder
+   * @param  {TransactionItem} images Images to download
+   */
+  downloadAllImages(items: TransactionItem[]) {
+    this.loadJSUtilScript().then(() => {
+      let count = 0;
+      const zip = new JSZip();
+      const zipFilename = 'zipFilename.zip';
+      items.forEach(item => {
+        if (item.sku === 'Download') {
+          JSZipUtils.getBinaryContent(item.downloadUrl, function(err, data) {
+            if (err) {
+              throw err;
+            }
+            zip.file(item.url, data, { binary: true });
+            count++;
+            if (count === items.length) {
+              zip.generateAsync({ type: 'blob' }).then(function(content) {
+                saveAs(content, name);
+              });
+            }
+          });
+        } else {
+          count++;
+        }
+      });
+    });
+  }
+
   /**
    * Update user profile
    */
@@ -131,5 +178,19 @@ export class DashboardUserComponent implements OnInit {
           title: 'Profil konnte nicht aktualisiert werden.'
         });
       });
+  }
+
+  /**
+   * Load paypal checkout script into DOM
+   * @returns {Promise<any>}
+   */
+  loadJSUtilScript(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const scriptElement = document.createElement('script');
+      scriptElement.src =
+        'https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.0.2/jszip-utils.min.js';
+      scriptElement.onload = resolve;
+      document.body.appendChild(scriptElement);
+    });
   }
 }
