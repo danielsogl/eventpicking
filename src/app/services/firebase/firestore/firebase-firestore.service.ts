@@ -210,6 +210,14 @@ export class FirebaseFirestoreService {
   }
 
   /**
+   * Returns all transactions
+   * @returns {AngularFirestoreCollection<Transaction>}
+   */
+  getAllTransactions(): AngularFirestoreCollection<Transaction> {
+    return this.afs.collection('transactions');
+  }
+
+  /**
    * Get transaction by user uid
    * @param  {string} reference_id
    * @returns {AngularFirestoreCollection<Transaction>}

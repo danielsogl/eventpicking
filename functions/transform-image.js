@@ -165,7 +165,7 @@ exports.transformImageHandler = event => {
         'composite',
         [
           '-watermark',
-          '75',
+          '50',
           '-gravity',
           'South',
           tempLocalWatermark,
