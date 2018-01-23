@@ -8,6 +8,8 @@ import { ImageInfo } from './image-info';
 export interface ShoppingCartItem {
   /** Event name */
   eventname: string;
+  /** Photographer UID */
+  photographer: string;
   /** photoname */
   name: string;
   /** Image info */

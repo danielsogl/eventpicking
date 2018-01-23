@@ -43,7 +43,7 @@ export interface TransactionAmount {
  */
 export interface TransactionAmountDetails {
   /** The shipping fee */
-  shipping?: string;
+  shipping?: number;
   /** The subtotal amount for the items */
   subtotal?: number;
   /** The tax */
@@ -87,6 +87,8 @@ export interface TransactionItem {
   tax?: number;
   /** Download URL */
   downloadUrl?: string;
+  /** Photographer UID */
+  photographer?: string;
 }
 
 /**

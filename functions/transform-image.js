@@ -67,6 +67,11 @@ exports.transformImageHandler = event => {
     return null;
   }
 
+  if (!filePath.startsWith('event')) {
+    console.log('No event image');
+    return null;
+  }
+
   // Exit if this is a move or deletion event.
   if (event.data.resourceState === 'not_exists') {
     console.log('Delete event');

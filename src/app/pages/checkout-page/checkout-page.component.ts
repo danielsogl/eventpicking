@@ -46,10 +46,6 @@ export class CheckoutPageComponent implements OnInit {
   public didPaypalScriptLoad = false;
   /** Loading */
   public loading = true;
-  /** Payment amount */
-  public paymentAmount = 0;
-  /** Payment amount with taxes and fees */
-  public paymentTotalAmount = 0; /** Payment amount */
 
   /** paypal config */
   public paypalConfig: any;
@@ -60,6 +56,9 @@ export class CheckoutPageComponent implements OnInit {
   public checkType: any = SHOPPINGCARTITEMTYPE;
 
   public transaction: Transaction;
+
+  public shipping = 0;
+  public subTotal = 0;
 
   /** template */
   public template: TemplateRef<any>;
@@ -93,30 +92,36 @@ export class CheckoutPageComponent implements OnInit {
     this.log.d('Component initialized');
     this.setTemplate('contactDetails');
 
-    this.auth.user.subscribe(user => {
-      if (user) {
-        this.user = user;
-        this.log.d('Loaded user', this.user);
+    localforage
+      .getItem('cart-items')
+      .then((items: ShoppingCartItem[]) => {
+        this.cartItems = items;
+        this.auth.user.subscribe(user => {
+          if (user) {
+            this.user = user;
+            this.log.d('Loaded user', this.user);
 
-        this.invoice_number = this.afs.getId();
-
-        localforage
-          .getItem<ShoppingCartItem[]>('cart-items')
-          .then(items => {
-            if (items) {
-              this.cartItems = items;
-              for (let i = 0; i < items.length; i++) {
-                this.paypalItems.push({
-                  currency: CURRENCY.EUR,
-                  description: 'Ein Bild',
-                  name: `${items[i].eventname}/${items[i].name}`,
-                  price: items[i].price,
-                  quantity: items[i].amount,
-                  sku: items[i].itemType,
-                  tax: 0.19
-                });
-                this.paymentAmount += items[i].price * items[i].amount;
+            this.invoice_number = this.afs.getId();
+            for (let i = 0; i < this.cartItems.length; i++) {
+              if (
+                this.cartItems[i].itemType === SHOPPINGCARTITEMTYPE.PRINT &&
+                this.shipping === 0
+              ) {
+                this.shipping = 4.95;
               }
+              this.paypalItems.push({
+                currency: CURRENCY.EUR,
+                description: 'Ein Bild',
+                name: `${this.cartItems[i].eventname}/${
+                  this.cartItems[i].name
+                }`,
+                price: this.cartItems[i].price,
+                quantity: this.cartItems[i].amount,
+                sku: this.cartItems[i].itemType,
+                tax: 0.19
+              });
+              this.subTotal +=
+                this.cartItems[i].price * this.cartItems[i].amount;
             }
 
             this.transaction = {
@@ -125,7 +130,12 @@ export class CheckoutPageComponent implements OnInit {
               reference_id: this.auth.getCurrentFirebaseUser().uid,
               amount: {
                 currency: CURRENCY.EUR,
-                total: this.paymentAmount
+                total: this.subTotal + this.shipping,
+                details: {
+                  tax: 0,
+                  shipping: this.shipping,
+                  subtotal: this.subTotal
+                }
               },
               item_list: {
                 items: this.paypalItems,
@@ -146,7 +156,6 @@ export class CheckoutPageComponent implements OnInit {
               }
             };
 
-            this.log.d('Shopping cart items', this.cartItems);
             this.log.d('Translaction', this.transaction);
             this.paypalConfig = {
               env: 'sandbox',
@@ -190,12 +199,12 @@ export class CheckoutPageComponent implements OnInit {
                 return;
               }
             };
-          })
-          .catch(err => {
-            this.log.er('Error loading local storage items');
-          });
-      }
-    });
+          }
+        });
+      })
+      .catch(err => {
+        this.log.er('Error loading local storage items');
+      });
   }
 
   /**

@@ -188,7 +188,7 @@ export class DashboardPhotographerComponent implements OnInit {
 
         this.billingAddressForm.setValue(this.user.billingAdress);
 
-        if (!user.isValidated) {
+        if (!user.isValidated && user.roles.photographer) {
           this.notValidatedModal.show();
         }
         if (this.user.eventsLeft > 0) {
