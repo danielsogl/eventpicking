@@ -220,9 +220,26 @@ export class PhotographerSearchPageComponent implements OnInit {
           hasStandard = true;
         }
       }
+      if (i === this.photographer.length - 1) {
+        this.sortPhotographerByDistance();
+      }
     }
     if (hasPremium && hasStandard) {
       this.hasBothProfiles = true;
+    }
+  }
+
+  sortPhotographerByDistance() {
+    if (this.editedPhotographer.length > 0) {
+      this.editedPhotographer.sort((a, b) => {
+        if (this.getPhotographerDistance(a) < this.getPhotographerDistance(b)) {
+          return -1;
+        }
+        if (this.getPhotographerDistance(a) > this.getPhotographerDistance(b)) {
+          return 1;
+        }
+        return 0;
+      });
     }
   }
 }

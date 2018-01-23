@@ -1,6 +1,6 @@
 <div *ngIf="photographer && photographer.premium; else standard">
   <div class="row mt-5 pt-5">
-    <div class="author-box grey-gradient">
+    <div class="author-box">
       <h1 class="h1-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h1>
       <hr class="mt-5 mr-5 ml-5">
 
@@ -67,7 +67,7 @@
 
       <!--photographer events-->
       <div id=" rowdesign " class="row">
-        <div *ngFor="let event of events | async " id="rowdesign " class="col-12 col-md-4 ">
+        <div *ngFor="let event of events" id="rowdesign " class="col-12 col-md-4 ">
 
           <div class="card card-cascade wider ">
 
@@ -335,82 +335,22 @@
 
 <!-- Standad-Account -->
 <ng-template #standard>
-  <div class="row mt-5 pt-5" *ngIf="photographer">
-    <div class="author-box grey-gradient">
-      <h2 class="h2-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h2>
+  <div class="row mt-5 pt-5">
+    <div class="author-box">
+      <h1 class="h1-responsive text-center">{{ 'LABELS.ABOUT' | translate }} {{photographer?.name}}</h1>
       <hr class="mt-5 mr-5 ml-5">
-
-      <!--site-navbar-->
-      <div id="navbar" class="row justify-content-md-center">
-        <div class="col-md-auto">
-          <a mdbPageScroll id="navelement" href="#description" [pageScrollDuration]="300">{{ 'NAV.DESCRIPTION' | translate }}</a>
-        </div>
-        <div class="col-md-auto">
-          <a mdbPageScroll id="navelement" href="#events" [pageScrollDuration]="300">{{ 'NAV.EVENTS' | translate }}</a>
-        </div>
-        <div class="col-md-auto">
-          <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.PRICES' | translate }}</a>
-        </div>
-        <div class="col-md-auto">
-          <a mdbPageScroll id="navelement" href="#prices" [pageScrollDuration]="300">{{ 'NAV.TESTIMONIAL' | translate }}</a>
-        </div>
-      </div>
-      <!--END site-navbar-->
-
-      <hr id="description" class="mb-5 mr-5 ml-5">
-
-      <!--photographer-description box (picture, infotext, address)-->
-      <div class="row justify-content-center">
-        <div class="col-12 col-sm-3 text-center">
-          <img src="{{photographer?.photoUrl}}" alt="Bild nicht verfügbar" class="img-fluid rounded-circle z-depth-2">
-          <br>
-          <br>
-        </div>
-      </div>
-      <!--row-->
-      <div class="row justify-content-center">
-        <div class="col-6 text-center">
-          <p>{{photographer?.about}}</p>
-        </div>
-        <!--col-->
-      </div>
-      <!--row-->
-      <!--END photographer-description box-->
-
-      <hr class="m-5">
-
-      <!--social network links-->
-      <div id="centered" class="personal-sm">
-        <a *ngIf="photographer.website" class="email-ic" href="{{photographer?.website}}">
-          <i class="fa fa-home fa-2x"> </i>
-        </a>
-        <a *ngIf="photographer.facebook" class="fb-ic" href="{{photographer?.facebook}}">
-          <i class="fa fa-facebook fa-2x"> </i>
-        </a>
-        <a *ngIf="photographer.instagram" class="ins-ic" href="{{photographer?.instagram}}">
-          <i class="fa fa-instagram fa-2x"> </i>
-        </a>
-        <a *ngIf="photographer.twitter" class="tw-ic" href="{{photographer?.twitter}}">
-          <i class="fa fa-twitter fa-2x"> </i>
-        </a>
-        <a *ngIf="photographer.tumbler" class="vk-ic" href="{{photographer?.tumbler}}">
-          <i class="fa fa-tumblr fa-2x"> </i>
-        </a>
-        <a *ngIf="photographer.email" class="email-ic" href="mailto:{{photographer?.email}}">
-          <i class="fa fa-envelope-o fa-2x"> </i>
-        </a>
-      </div>
-      <!--END social network links-->
-
-      <hr id="events" class="m-5">
 
       <!--photographer events-->
       <div id=" rowdesign " class="row">
-        <div *ngFor="let event of events | async " id="rowdesign " class="col-12 col-md-4 ">
+        <div *ngIf="!events?.length" class="col-12">
+          <br>
+          <p class="alternativeText">{{ 'TEXTS.NO_EVENTS_FOUND' | translate }}</p>
+        </div>
 
-          <div class="card card-cascade wider " style="margin-bottom: 30px">
+        <div *ngFor="let event of events" id="rowdesign " class="col-12 col-md-4">
 
-            <div class="view gradient-card-header indigo-gradient ">
+          <div class="card card-cascade wider ">
+            <div class="view gradient-card-header peach-gradient ">
               <h2 class="h2-responsive mb-2 ">
                 <i *ngIf="!event?.public" class="fa fa-lock"></i> {{event.name}}</h2>
               <p>
@@ -421,7 +361,7 @@
 
               <p class="card-text mr-2 ml-2 ">{{event.description}}</p>
 
-              <a [routerLink]="[ '/event', event.id] " class="pink-text mt-1 d-flex flex-row-reverse ">
+              <a [routerLink]="[ '/event', event.id] " class="orange-text mt-1 d-flex flex-row-reverse ">
                 <h5 class="waves-effect p-2 " mdbRippleRadius>View Pictures
                   <i class="fa fa-chevron-right "></i>
                 </h5>
@@ -429,8 +369,49 @@
             </div>
           </div>
         </div>
-        <!--END photographer events-->
       </div>
+      <!--END photographer events-->
+
+      <hr id="prices" class="m-5">
+
+      <!--photographer prices-->
+      <div class="container">
+        <h2 class="text-center">{{ 'LABELS.PRICES' | translate }}</h2>
+        <br>
+        <div class="row">
+
+          <!-- Prices for Download -->
+          <div class="col-6 text-center">
+            <p class="tab-hdg">{{ 'LABELS.DOWNLOAD' | translate }}</p>
+            <table class="table table-responsive-sm">
+              <tbody *ngIf="priceList">
+                <tr *ngFor="let downloadItem of priceList.downloadItems">
+                  <td>{{downloadItem.name}}</td>
+                  <td>{{ downloadItem.price | number:'0.2-2' }}€</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--col-download-->
+
+          <!-- Prices for Pics -->
+          <div class="col-6 text-center">
+            <p class="tab-hdg">{{ 'LABELS.PRINT' | translate }}</p>
+            <table class="table table-responsive-sm">
+              <tbody *ngIf="printPicturePriceList">
+                <tr *ngFor="let printItem of printPicturePriceList">
+                  <td>{{ printItem.name }}</td>
+                  <td>{{ printItem.price | number:'0.2-2' }}€</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--row-->
+      </div>
+      <!--container-->
+      <!--END photographer prices-->
+
     </div>
   </div>
 </ng-template>
