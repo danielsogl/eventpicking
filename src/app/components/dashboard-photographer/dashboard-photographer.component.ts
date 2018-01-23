@@ -1,23 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
-} from 'angularfire2/firestore';
+import { AngularFirestoreDocument } from 'angularfire2/firestore';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../interfaces/printing-house';
+import { PriceList } from '../../classes/price-list';
 import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
+import { PrintingHouse } from '../../interfaces/printing-house';
+import { Transaction, TransactionItem } from '../../interfaces/transaction';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
-import { PriceList } from '../../classes/price-list';
-import { Transaction } from '../../interfaces/transaction';
 
 /**
  * Photographer dashboard component
@@ -67,6 +64,8 @@ export class DashboardPhotographerComponent implements OnInit {
 
   /** Transactions */
   public transactions: Observable<Transaction[]>;
+  /** Transaction for modal */
+  public transaction: Transaction;
 
   /** Photographer events */
   public events: Observable<Event[]>;
@@ -98,6 +97,8 @@ export class DashboardPhotographerComponent implements OnInit {
   @ViewChild('notValidatedModal') public notValidatedModal: ModalDirective;
   /** Event limit modal */
   @ViewChild('eventLimitModal') public eventLimitModal: ModalDirective;
+  /** Transaction modal */
+  @ViewChild('transactionModal') public transactionModal: ModalDirective;
 
   /**
    * Constructor
@@ -294,6 +295,11 @@ export class DashboardPhotographerComponent implements OnInit {
    */
   trackByIndex(index: number, obj: any): any {
     return index;
+  }
+
+  openTransaction(transaction: TransactionItem) {
+    this.transaction = transaction;
+    this.transactionModal.show();
   }
 
   /**
