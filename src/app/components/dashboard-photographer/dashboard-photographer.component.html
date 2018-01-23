@@ -68,7 +68,7 @@
         <!--Section: Pricing v.1-->
         <section class="section pb-3">
           <!--Section heading-->
-          <h1>Our pricing plans</h1>
+          <h1>Unsere Abonnements</h1>
           <br>
           <br>
 
@@ -92,19 +92,19 @@
                   <ul>
                     <li>
                       <p>
-                        <i class="fa fa-check"></i> 15 Events</p>
+                        <i class="fa fa-check"></i>15 Events pro Monat</p>
                     </li>
                     <li>
                       <p>
-                        <i class="fa fa-check"></i> No storage limitation</p>
+                        <i class="fa fa-check"></i>Kein Speicherlimit</p>
                     </li>
                     <li>
                       <p>
-                        <i class="fa fa-check"></i> 10% provision</p>
+                        <i class="fa fa-check"></i>10% Provision</p>
                     </li>
                   </ul>
 
-                  <button class="btn pink waves-light" mdbRippleRadius>Upgrade</button>
+                  <button class="btn pink waves-light" mdbRippleRadius>Abo abschließen</button>
                 </div>
                 <!--/.Features-->
 
@@ -128,19 +128,19 @@
                   <ul>
                     <li>
                       <p>
-                        <i class="fa fa-check"></i> 25 Events</p>
+                        <i class="fa fa-check"></i>25 Events pro Monat</p>
                     </li>
                     <li>
                       <p>
-                        <i class="fa fa-check"></i> No storage limitation</p>
+                        <i class="fa fa-check"></i>Kein Speicherlimit</p>
                     </li>
                     <li>
                       <p>
-                        <i class="fa fa-check"></i> 10% provision</p>
+                        <i class="fa fa-check"></i>10% Provision</p>
                     </li>
                   </ul>
 
-                  <button class="btn pink waves-light" mdbRippleRadius>Upgrade</button>
+                  <button class="btn pink waves-light" mdbRippleRadius>Abo abschließen</button>
                 </div>
                 <!--/.Features-->
 
@@ -153,7 +153,7 @@
                 <div class="price header indigo indigo-gradient">
                   <h1>50</h1>
                   <div class="version indigo-gradient">
-                    <h5>Pro</h5>
+                    <h5>Professional</h5>
                   </div>
                 </div>
                 <!--/.Price-->
@@ -163,19 +163,19 @@
                   <ul>
                     <li>
                       <p>
-                        <i class="fa fa-check"></i> 50 Events</p>
+                        <i class="fa fa-check"></i>50 Events pro Monat</p>
                     </li>
                     <li>
                       <p>
-                        <i class="fa fa-check"></i> No storage limitation</p>
+                        <i class="fa fa-check"></i>Kein Speicherlimit</p>
                     </li>
                     <li>
                       <p>
-                        <i class="fa fa-check"></i> 10% provision</p>
+                        <i class="fa fa-check"></i>10% Provision</p>
                     </li>
                   </ul>
 
-                  <button class="btn pink waves-light" mdbRippleRadius>Upgrade</button>
+                  <button class="btn pink waves-light" mdbRippleRadius>Abo abschließen</button>
                 </div>
                 <!--/.Features-->
 
@@ -203,10 +203,10 @@
                 <table class="table text-left" *ngIf="priceList">
                   <thead class="thead-default">
                     <tr>
-                      <th scope="row">Article</th>
-                      <th>Minimal price</th>
-                      <th>Your price</th>
-                      <th>Your profit ( -10% Provision)</th>
+                      <th scope="row">Artikel</th>
+                      <th>Minimaler Preis</th>
+                      <th>Ihr Preis</th>
+                      <th>Ihre Provision (abz&uuml;glich -10%)</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -224,7 +224,7 @@
             </div>
           </mdb-tab>
 
-          <mdb-tab heading="<i class='fa fa-print'></i> Printing House">
+          <mdb-tab heading="<i class='fa fa-print'></i> Druckerei">
             <div class="row">
               <div class="col-12">
                 <br>
@@ -236,11 +236,11 @@
                         <table class="table text-left">
                           <thead class="thead-default">
                             <tr>
-                              <th scope="row">Article</th>
+                              <th scope="row">Artikel</th>
                               <th>Format</th>
-                              <th>Minimal price</th>
-                              <th>Your price</th>
-                              <th>Your profit ( -10% Provision)</th>
+                              <th>Minimaler Preis</th>
+                              <th>Ihr Preis</th>
+                              <th>Ihre Provision (abz&uuml;glich -10%)</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -265,10 +265,10 @@
                         <table class="table text-left">
                           <thead class="thead-default">
                             <tr>
-                              <th scope="row">Article</th>
+                              <th scope="row">Artikel</th>
                               <th>Format</th>
-                              <th>Your price</th>
-                              <th>Your profit ( -10% Provision)</th>
+                              <th>Ihr Preis</th>
+                              <th>Ihre Provision (abz&uuml;glich -10%)</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -292,11 +292,10 @@
 
         </mdb-tabset>
 
-        <br>
         <div class="row no-gutters justify-content-start" style="align-items: center">
           <div class="col-4"></div>
           <div class="col-4">
-            <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updatePriceList()">Save</button>
+            <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updatePriceList()">&Auml;nderungen speichern</button>
           </div>
           <div class="col-4"></div>
         </div>
@@ -372,16 +371,16 @@
               <mdb-item>
                 <mdb-item-head>Preisliste</mdb-item-head>
                 <mdb-item-body>
-                  <p>You can change the default price in the "Pricing Models" Tab.</p>
+                  <p>Sie können die Standardpreise unter dem Tab "Preismodelle" &auml;ndern.</p>
                   <div *ngIf="priceList">
                     <div *ngFor="let item of priceList.printingHouseItems">
                       <h1>{{ item.name }}</h1>
                       <table class="table text-left">
                         <thead class="thead-default">
                           <tr>
-                            <th scope="row">Article</th>
+                            <th scope="row">Artikel</th>
                             <th>Format</th>
-                            <th>Minimal price</th>
+                            <th>Minimaler Preis</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -398,13 +397,22 @@
               </mdb-item>
             </mdb-squeezebox>
           </div>
-          <button type="button" class="btn btn-lg btn-block waves-light indigo" mdbRippleRadius (click)="createPrintingHouse()">Create own printing house</button>
+
+          <br>
+          <div class="row no-gutters justify-content-start" style="align-items: center">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="createPrintingHouse()">Eigene Druckerei speichern</button>
+            </div>
+            <div class="col-4"></div>
+          </div>
+
         </div>
         <div *ngIf="ownPrintingHouse">
-          <h1>Own Printing House</h1>
+          <h1>Eigene Druckerei</h1>
           <mdb-squeezebox [multiple]="false" aria-multiselectable="true" class="text-left">
             <mdb-item>
-              <mdb-item-head>Adress</mdb-item-head>
+              <mdb-item-head>Adresse</mdb-item-head>
               <mdb-item-body>
                 <form>
                   <fieldset>
@@ -460,7 +468,7 @@
               </mdb-item-body>
             </mdb-item>
             <mdb-item>
-              <mdb-item-head>Billing Information</mdb-item-head>
+              <mdb-item-head>Rechnungsdaten</mdb-item-head>
               <mdb-item-body>
                 <br>
                 <form>
@@ -482,18 +490,18 @@
               </mdb-item-body>
             </mdb-item>
             <mdb-item class="text-left">
-              <mdb-item-head>Price List</mdb-item-head>
+              <mdb-item-head>Preisliste</mdb-item-head>
               <mdb-item-body>
-                <p>You can change the default price in the "Pricing Models" Tab.</p>
+                <p>Sie können die Standardpreise unter dem Tab "Preismodelle" &auml;ndern.</p>
                 <div *ngIf="priceList">
                   <div *ngFor="let item of priceList.printingHouseItems">
                     <h1>{{ item.name }}</h1>
                     <table class="table text-left">
                       <thead class="thead-default">
                         <tr>
-                          <th scope="row">Article</th>
+                          <th scope="row">Artikel</th>
                           <th>Format</th>
-                          <th>Your price</th>
+                          <th>Ihr Preis</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -514,7 +522,7 @@
           <div class="row no-gutters justify-content-start" style="align-items: center">
             <div class="col-4"></div>
             <div class="col-4">
-              <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updatePrintingHouse()">Update printing house</button>
+              <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updatePrintingHouse()">Eigene Druckerei speichern</button>
             </div>
             <div class="col-4"></div>
           </div>
@@ -719,14 +727,14 @@
   <div class="modal-dialog modal-notify modal-danger" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <p class="heading lead">Your profile is not validated!</p>
+        <p class="heading lead">Ihr Profil ist nicht validiert!</p>
       </div>
       <div class="modal-body">
         <div class="text-center">
           <i class="fa fa-exclamation-triangle fa-4x mb-3 animated rotateIn"></i>
-          <p>Please validate your account by sending your trade translucent to
-            <a href="mailto:validate@eventpicking.de">validate@eventpicking.de</a>.
-            <br> After we validated your account you are able to create and sell events.</p>
+          <p>Bitte validieren Sie Ihren Account, indem Sie uns Ihre Handelsregistereintragung an
+            <a href="mailto:validate@eventpicking.de">validate@eventpicking.de</a> senden.
+            <br> Nachdem wir Ihren Account validiert haben können Sie Events anlegen und Bilder daraus verkaufen.</p>
         </div>
       </div>
       <div class="modal-footer justify-content-center">
@@ -742,12 +750,13 @@
   <div class="modal-dialog modal-notify modal-danger" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <p class="heading lead">Event limit reached</p>
+        <p class="heading lead">Limit der monatlichen Events erreicht!</p>
       </div>
       <div class="modal-body">
         <div class="text-center">
           <i class="fa fa-exclamation-triangle fa-4x mb-3 animated rotateIn"></i>
-          <p>You reached your event limit! Please upgrade to one of our premium plans to create more events or delete one.</p>
+          <p>Sie haben Ihr monatliches Limit an Events erreicht! Bitte schließen Sie ein höherwertiges Abonnement ab, um neue
+            Events anzulegen. Alternativ können Sie andere Events l&ouml;schen.</p>
         </div>
       </div>
       <div class="modal-footer justify-content-center">
