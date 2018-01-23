@@ -41,28 +41,103 @@ exports.deleteImageHandler = event => {
             .delete()
             .then(() => {
               console.log('Deleted original image');
+              return admin
+                .firestore()
+                .collection('original-images')
+                .doc(event.params.imageID)
+                .delete()
+                .then(() => {
+                  console.log('Deleted firestore collection');
+                });
             });
         });
     });
 };
 
 exports.deleteUserFromDBHandler = event => {
-  const user = event.data;
+  const uid = event.data.uid;
   return admin
     .firestore()
     .collection('users')
-    .doc(user.uid)
-    .delete()
-    .then(() => {
-      console.log('Successfully deleted user from firestore');
-    })
-    .catch(err => {
-      console.log('Error deleting user from firestore:', err);
+    .doc(uid)
+    .get()
+    .then(doc => {
+      var user = doc.data();
+      if (user) {
+        return admin
+          .firestore()
+          .collection('users')
+          .doc(uid)
+          .delete()
+          .then(() => {
+            if (user.roles.photographer === true) {
+              return admin
+                .firestore()
+                .collection('photographerUrls')
+                .doc(user.photographerUrl)
+                .delete()
+                .then(() => {
+                  console.log('Deleted photographer url');
+                  return admin
+                    .firestore()
+                    .collection('photographer')
+                    .doc(uid)
+                    .delete()
+                    .then(() => {
+                      console.log('deleted photographer profile');
+                      return admin
+                        .firestore()
+                        .collection('price-lists')
+                        .doc(uid)
+                        .delete()
+                        .then(() => {
+                          console.log('deleted price list');
+                          return admin
+                            .firestore()
+                            .collection('printing-houses')
+                            .doc(uid)
+                            .delete()
+                            .then(() => {
+                              console.log('deleted printing house');
+                            })
+                            .catch(err => {
+                              console.log(err);
+                              return null;
+                            });
+                        })
+                        .catch(err => {
+                          console.log(err);
+                          return null;
+                        });
+                    })
+                    .catch(err => {
+                      console.log(err);
+                      return null;
+                    });
+                })
+                .catch(err => {
+                  console.log(err);
+                  return null;
+                });
+            } else {
+              console.log('user is no photographer');
+              return null;
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            return null;
+          });
+      } else {
+        console.log('user alreadey deleated from firestore');
+        return null;
+      }
     });
 };
 
 exports.deleteuserFromFirebaseHandler = event => {
   const userID = event.params.userID;
+  const user = event.data.previous;
 
   // Delete user from firebase
   return admin
@@ -70,8 +145,60 @@ exports.deleteuserFromFirebaseHandler = event => {
     .deleteUser(userID)
     .then(() => {
       console.log('Successfully deleted user');
+      console.log(user);
+      if (user.roles.photographer === true) {
+        return admin
+          .firestore()
+          .collection('photographerUrls')
+          .doc(user.photographerUrl)
+          .delete()
+          .then(() => {
+            console.log('Deleted photographer url');
+            return admin
+              .firestore()
+              .collection('photographer')
+              .doc(uid)
+              .delete()
+              .then(() => {
+                console.log('deleted photographer profile');
+                return admin
+                  .firestore()
+                  .collection('price-lists')
+                  .doc(uid)
+                  .delete()
+                  .then(() => {
+                    console.log('deleted price list');
+                    return admin
+                      .firestore()
+                      .collection('printing-houses')
+                      .doc(uid)
+                      .delete()
+                      .then(() => {
+                        console.log('deleted printing house');
+                      })
+                      .catch(err => {
+                        console.log(err);
+                        return null;
+                      });
+                  })
+                  .catch(err => {
+                    console.log(err);
+                    return null;
+                  });
+              })
+              .catch(err => {
+                console.log(err);
+                return null;
+              });
+          })
+          .catch(err => {
+            console.log(err);
+            return null;
+          });
+      }
     })
     .catch(error => {
       console.log('Error deleting user:', error);
+      return null;
     });
 };
