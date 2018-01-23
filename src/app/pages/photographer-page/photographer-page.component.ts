@@ -36,7 +36,7 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
   /** Photographer */
   public photographer: PhotographerProfile;
   /** Events */
-  public events: Observable<Event[]>;
+  public events: Event[];
   /** Printing house object */
   public priceList: PriceList;
   /** define certain price list for simplicity */
@@ -71,9 +71,14 @@ export class PhotographerPageComponent implements OnInit, OnDestroy {
           .subscribe(photographer => {
             if (photographer) {
               this.photographer = photographer[0];
-              this.events = this.afs
+              this.log.info('Photographer:', this.photographer);
+              this.afs
                 .getPhotographerEvents(this.photographer.uid)
-                .valueChanges();
+                .valueChanges()
+                .subscribe(events => {
+                  this.events = events;
+                  this.log.info('Events:', this.events);
+                });
 
               this.afs
                 .getPriceList(this.photographer.uid)
