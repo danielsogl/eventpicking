@@ -305,7 +305,7 @@ export class DashboardPhotographerComponent implements OnInit {
     return index;
   }
 
-  openTransaction(transaction: TransactionItem) {
+  openTransaction(transaction: Transaction) {
     this.transaction = transaction;
     this.transactionModal.show();
   }
