@@ -210,6 +210,14 @@ export class FirebaseFirestoreService {
   }
 
   /**
+   * Returns all transactions
+   * @returns {AngularFirestoreCollection<Transaction>}
+   */
+  getAllTransactions(): AngularFirestoreCollection<Transaction> {
+    return this.afs.collection('transactions');
+  }
+
+  /**
    * Get transaction by user uid
    * @param  {string} reference_id
    * @returns {AngularFirestoreCollection<Transaction>}
@@ -219,6 +227,19 @@ export class FirebaseFirestoreService {
   ): AngularFirestoreCollection<Transaction> {
     return this.afs.collection('transactions', ref =>
       ref.where('reference_id', '==', reference_id)
+    );
+  }
+
+  /**
+   * Get transaction by photographer uid
+   * @param  {string} reference_id
+   * @returns {AngularFirestoreCollection<Transaction>}
+   */
+  getTransactionsByPhotographer(
+    photographer: string
+  ): AngularFirestoreCollection<Transaction> {
+    return this.afs.collection('transactions', ref =>
+      ref.where('photographer', '==', photographer)
     );
   }
 

@@ -10,6 +10,7 @@ import { User } from '../../classes/user';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { PRINTTYPE } from '../../enums/print-type';
+import { Transaction } from '../../interfaces/transaction';
 
 /**
  * Admin dashboard component
@@ -43,6 +44,8 @@ export class DashboardAdminComponent implements OnInit {
   public users: Observable<User[]>;
   /** All events from Firestore */
   public events: Observable<Event[]>;
+  /** All transactions */
+  public transactions: Observable<Transaction[]>;
 
   /** Edit user modal */
   @ViewChild('editUserModal') public editUserModal: ModalDirective;
@@ -119,6 +122,8 @@ export class DashboardAdminComponent implements OnInit {
       this.users = this.afs.getAllUser().valueChanges();
       // Load events from Firestore
       this.events = this.afs.getAllEvents().valueChanges();
+      // Load all transactions from Firestore
+      this.transactions = this.afs.getAllTransactions().valueChanges();
 
       this.users.subscribe(user => {
         this.log.d('User', user);
@@ -126,7 +131,9 @@ export class DashboardAdminComponent implements OnInit {
       this.events.subscribe(events => {
         this.log.d('Events', events);
       });
-
+      this.transactions.subscribe(transactions => {
+        this.log.d('Transactions', transactions);
+      });
       this.afs
         .getDefautlPrintingHouse()
         .valueChanges()

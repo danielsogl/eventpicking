@@ -245,18 +245,17 @@ export class PictureDetailComponent implements OnInit {
         totalPrice: 0,
         preview: this.image.preview,
         thumbnail: this.image.thumbnail,
-        price: this.price
+        price: this.price,
+        photographer: this.eventUserComponent.event.photographerUid
       };
 
       localforage.getItem<ShoppingCartItem[]>('cart-items').then(items => {
-        console.log(items);
         if (items) {
           items.push(shoppingCartItem);
         } else {
           items = [];
           items.push(shoppingCartItem);
         }
-        console.log(items);
         localforage
           .setItem('cart-items', items)
           .then(() => {

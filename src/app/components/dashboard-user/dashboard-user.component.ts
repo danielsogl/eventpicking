@@ -1,12 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { saveAs } from 'file-saver/FileSaver';
+import * as JSZip from 'jszip';
+import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../classes/user';
-import { Transaction } from '../../interfaces/transaction';
+import { Transaction, TransactionItem } from '../../interfaces/transaction';
+import { AlertService } from '../../services/alert/alert.service';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+
+declare var JSZipUtils;
 
 /**
  * User dashboard component
@@ -26,6 +32,10 @@ export class DashboardUserComponent implements OnInit {
   public transactions: Observable<Transaction[]>;
   /** New event form */
   public userForm: FormGroup;
+  /** Transaction modal data */
+  public transaction: Transaction;
+  /** Create new event modal */
+  @ViewChild('transactionModal') public transactionModal: ModalDirective;
 
   /**
    * Constructor
@@ -35,7 +45,8 @@ export class DashboardUserComponent implements OnInit {
   constructor(
     private auth: FirebaseAuthService,
     private afs: FirebaseFirestoreService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alert: AlertService
   ) {
     this.userForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -96,7 +107,51 @@ export class DashboardUserComponent implements OnInit {
    * Open transaction detail model
    * @param  {Transaction} transaction Transaction to open
    */
-  openTransaction(transaction: Transaction) {}
+  openTransaction(transaction: Transaction) {
+    this.transaction = transaction;
+    this.transactionModal.show();
+  }
+
+  downloadImage(url: string) {
+    // This can be downloaded directly:
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = function(event) {
+      const blob = xhr.response;
+    };
+    xhr.open('GET', url);
+    xhr.send();
+  }
+
+  /**
+   * Download all images as a zip folder
+   * @param  {TransactionItem} images Images to download
+   */
+  downloadAllImages(items: TransactionItem[]) {
+    this.loadJSUtilScript().then(() => {
+      let count = 0;
+      const zip = new JSZip();
+      const zipFilename = 'zipFilename.zip';
+      items.forEach(item => {
+        if (item.sku === 'Download') {
+          JSZipUtils.getBinaryContent(item.downloadUrl, function(err, data) {
+            if (err) {
+              throw err;
+            }
+            zip.file(item.url, data, { binary: true });
+            count++;
+            if (count === items.length) {
+              zip.generateAsync({ type: 'blob' }).then(function(content) {
+                saveAs(content, name);
+              });
+            }
+          });
+        } else {
+          count++;
+        }
+      });
+    });
+  }
 
   /**
    * Update user profile
@@ -113,9 +168,27 @@ export class DashboardUserComponent implements OnInit {
       .updateUserData(this.user)
       .then(() => {
         this.log.d('Updated user');
+        this.alert.showInfo({ title: 'Profil erfolgreich aktualisiert' });
       })
       .catch(err => {
         this.log.er('Error updating', err);
+        this.alert.showError({
+          title: 'Profil konnte nicht aktualisiert werden.'
+        });
       });
+  }
+
+  /**
+   * Load paypal checkout script into DOM
+   * @returns {Promise<any>}
+   */
+  loadJSUtilScript(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const scriptElement = document.createElement('script');
+      scriptElement.src =
+        'https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.0.2/jszip-utils.min.js';
+      scriptElement.onload = resolve;
+      document.body.appendChild(scriptElement);
+    });
   }
 }
