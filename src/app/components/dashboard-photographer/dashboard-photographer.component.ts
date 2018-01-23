@@ -66,6 +66,10 @@ export class DashboardPhotographerComponent implements OnInit {
   public transactions: Observable<Transaction[]>;
   /** Transaction for modal */
   public transaction: Transaction;
+  /** totalSales */
+  totalSales = 0;
+  /** Total Picture Sales */
+  totalPictureSales = 0;
 
   /** Photographer events */
   public events: Observable<Event[]>;
@@ -234,8 +238,12 @@ export class DashboardPhotographerComponent implements OnInit {
         .getTransactionsByPhotographer(this.auth.getCurrentFirebaseUser().uid)
         .valueChanges();
 
-      this.transactions.subscribe(transactions => {
+      this.transactions.subscribe((transactions: Transaction[]) => {
         this.log.d('Transactions', transactions);
+        transactions.forEach(transaction => {
+          this.totalSales += transaction.amount.details.subtotal * 0.9;
+          this.totalPictureSales += transaction.item_list.items.length;
+        });
       });
 
       this.afs

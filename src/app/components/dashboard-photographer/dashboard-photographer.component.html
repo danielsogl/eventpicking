@@ -23,7 +23,10 @@
       <div class="col-12">
         <br>
         <h1>Gesamtumsatz:
-          <span class="light-green-text">1000€</span>
+          <span class="light-green-text">{{ totalSales | number:'0.2-2' }} €</span>
+        </h1>
+        <h1>Verkaufte Bilder:
+          <span class="light-green-text">{{ totalPictureSales }}</span>
         </h1>
         <hr>
         <table class="table text-left">
