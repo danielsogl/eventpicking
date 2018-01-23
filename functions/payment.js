@@ -44,7 +44,9 @@ exports.transactionProcessHandler = event => {
       console.log('Loaded all image documents');
       for (var i = 0; i < transaction.item_list.items.length; i++) {
         if (transaction.item_list.items[i].sku === 'Download') {
-          transaction.item_list.items[i].url = results[i].docs[0].data().url;
+          transaction.item_list.items[i].downloadUrl = results[
+            i
+          ].docs[0].data().url;
         }
       }
 

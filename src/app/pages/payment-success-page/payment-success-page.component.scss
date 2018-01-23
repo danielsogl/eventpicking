@@ -1,0 +1,41 @@
+// HEADER:
+.header {
+  height: 600px;
+  width: 100%;
+  padding: 120px 0px 30px;
+  margin-top: 50px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+    url('https://static.pexels.com/photos/699782/pexels-photo-699782.jpeg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  color: #fff;
+
+  img {
+    height: 350px;
+    width: 400px;
+    margin: 70px 0 40px;
+  }
+
+  h1 {
+    font-size: 100px;
+    font-weight: 700;
+    padding-top: 50px;
+    text-transform: none;
+    color: #00cc00;
+  }
+
+  h2 {
+    font-size: 40px;
+    font-weight: 700;
+    padding-top: 50px;
+    text-transform: none;
+  }
+
+  p {
+    margin-top: 30px;
+  }
+}
