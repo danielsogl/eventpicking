@@ -1,5 +1,4 @@
 <div class="row mt-5 pt-5">
-  <!--site-stepper / template-navigation-->
   <div class="col-sm-12">
     <ul class="stepper stepper-horizontal">
       <li [class.active]="template === checkoutContactDetails">
@@ -27,7 +26,6 @@
       <ng-container *ngTemplateOutlet="template"></ng-container>
     </div>
   </div>
-  <!--END site-stepper / template-navigation-->
 
   <!--checkout-templates-->
   <ng-template #loadingTmpl>

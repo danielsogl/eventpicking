@@ -197,6 +197,7 @@
           <mdb-tab heading="<i class='fa fa-credit-card'></i> Rechnung">
             <div class="row">
               <div class="col-12">
+                <br>
                 <div class="row">
                   <div class="col-4 text-left">
                     <h4>Versandadresse</h4>
@@ -235,22 +236,47 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of transaction.item_list.items; let i = index">
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ item.name }}</td>
-                      <td>
-                        <a [href]="item.downloadUrl" target="_blank">
-                          <i class="fa fa-eye" aria-hidden="true"></i>
-                        </a>
-                      </td>
-                      <td>
-                        <a (click)="downloadImage(item.downloadUrl)">Download</a>
-                      </td>
-                    </tr>
+                    <ng-container *ngFor="let item of transaction.item_list.items; let i = index">
+                      <tr *ngIf="item.sku === 'Download'">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>
+                          <a [href]="item.downloadUrl" target="_blank">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                        <td>
+                          <a (click)="downloadImage(item.downloadUrl)">Download</a>
+                        </td>
+                      </tr>
+                    </ng-container>
                   </tbody>
                 </table>
                 <br>
                 <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="downloadAllImages(transaction.item_list.items)">Bilder als .zip Ordner herunterladen</button>
+              </div>
+            </div>
+          </mdb-tab>
+          <mdb-tab heading="<i class='fa fa-print'></i> Druckerei Bilder">
+            <div class="row">
+              <div class="col-12">
+                <br>
+                <table class="table text-left">
+                  <thead>
+                    <tr>
+                      <td>#</td>
+                      <td>Name</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let item of transaction.item_list.items; let i = index">
+                      <tr *ngIf="item.sku === 'Print'">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ item.name }}</td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
               </div>
             </div>
           </mdb-tab>

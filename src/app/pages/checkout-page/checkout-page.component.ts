@@ -189,6 +189,7 @@ export class CheckoutPageComponent implements OnInit {
                     .saveTransaction(this.transaction)
                     .then(() => {
                       this.log.d('Saved transaction');
+                      localforage.setItem('cart-items', []);
                       this.navigation.navigateTo('payment-success');
                     })
                     .catch(err => {

@@ -41,6 +41,7 @@ export class DashboardUserComponent implements OnInit {
    * Constructor
    * @param  {FirebaseAuthService} auth Firebase Auth Service
    * @param  {FirebaseFirestoreService} afs Firebase Firestore Service
+   * @param  {AlertService} alert Alert Service
    */
   constructor(
     private auth: FirebaseAuthService,
@@ -112,6 +113,10 @@ export class DashboardUserComponent implements OnInit {
     this.transactionModal.show();
   }
 
+  /**
+   * Download Image
+   * @param  {string} url Download URL
+   */
   downloadImage(url: string) {
     // This can be downloaded directly:
     const xhr = new XMLHttpRequest();
@@ -121,6 +126,16 @@ export class DashboardUserComponent implements OnInit {
     };
     xhr.open('GET', url);
     xhr.send();
+    xhr.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        const downloadUrl = URL.createObjectURL(xhr.response);
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.href = downloadUrl;
+        a.download = '';
+        a.click();
+      }
+    };
   }
 
   /**
@@ -128,28 +143,34 @@ export class DashboardUserComponent implements OnInit {
    * @param  {TransactionItem} images Images to download
    */
   downloadAllImages(items: TransactionItem[]) {
-    this.loadJSUtilScript().then(() => {
-      let count = 0;
-      const zip = new JSZip();
-      const zipFilename = 'zipFilename.zip';
-      items.forEach(item => {
-        if (item.sku === 'Download') {
-          JSZipUtils.getBinaryContent(item.downloadUrl, function(err, data) {
-            if (err) {
-              throw err;
-            }
-            zip.file(item.url, data, { binary: true });
+    let count = 0;
+    const zip = new JSZip();
+    const zipFilename = 'images.zip';
+    items.forEach(item => {
+      if (item.sku === 'Download') {
+        // This can be downloaded directly:
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function(event) {
+          const blob = xhr.response;
+        };
+        xhr.open('GET', item.downloadUrl);
+        xhr.send();
+
+        xhr.onreadystatechange = function() {
+          if (this.readyState === 4 && this.status === 200) {
+            zip.file(item.name.split('/')[1], xhr.response, { binary: true });
             count++;
             if (count === items.length) {
               zip.generateAsync({ type: 'blob' }).then(function(content) {
                 saveAs(content, name);
               });
             }
-          });
-        } else {
-          count++;
-        }
-      });
+          }
+        };
+      } else {
+        count++;
+      }
     });
   }
 
@@ -176,19 +197,5 @@ export class DashboardUserComponent implements OnInit {
           title: 'Profil konnte nicht aktualisiert werden.'
         });
       });
-  }
-
-  /**
-   * Load paypal checkout script into DOM
-   * @returns {Promise<any>}
-   */
-  loadJSUtilScript(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const scriptElement = document.createElement('script');
-      scriptElement.src =
-        'https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.0.2/jszip-utils.min.js';
-      scriptElement.onload = resolve;
-      document.body.appendChild(scriptElement);
-    });
   }
 }
