@@ -40,7 +40,7 @@
         </div>
 
         <div class="md-form">
-          <input mdbActive type="password" class="form-control" formControlName="confirmPassword" id="input_password" [class.is-valid]="!signupForm.controls.confirmPassword.errors"
+          <input mdbActive type="password" class="form-control" formControlName="confirmPassword" id="input_password_repeat" [class.is-valid]="!signupForm.controls.confirmPassword.errors"
             [class.is-invalid]="signupForm.controls.confirmPassword.errors">
           <label>{{ 'INPUTS.CONFIRM_PASSWORD' | translate }}</label>
           <p1 class="text-danger" *ngIf="error.code">{{ ('FIREBASE_ERRORS.' + error.code) | translate }}

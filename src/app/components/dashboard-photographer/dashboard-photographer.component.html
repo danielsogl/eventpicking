@@ -22,6 +22,43 @@
     <div class="row">
       <div class="col-12">
         <br>
+        <h1>Gesamtumsatz:
+          <span class="light-green-text">{{ totalSales | number:'0.2-2' }} €</span>
+        </h1>
+        <h1>Verkaufte Bilder:
+          <span class="light-green-text">{{ totalPictureSales }}</span>
+        </h1>
+        <hr>
+        <table class="table text-left">
+          <thead class="thead-default">
+            <tr>
+              <td>#</td>
+              <td>Rechnungsnummer</td>
+              <td>Bestelldatum</td>
+              <td>Umsatz</td>
+              <td>Gewinn</td>
+              <td>Bestellstatus</td>
+              <td>Bestellung anzeigen</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of (transactions | async); let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ transaction.invoice_number }}</td>
+              <td>{{ transaction.date | date }}</td>
+              <td>{{ transaction.amount.total | number:'0.2-2' }} €</td>
+              <td>
+                <strong>{{ (transaction.amount.details.subtotal * 0.9) | number:'0.2-2' }} €</strong>
+              </td>
+              <td>{{ transaction.status | uppercase }}</td>
+              <td>
+                <a (click)="openTransaction(transaction)" *ngIf="transaction.status === 'available'">
+                  <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </mdb-tab>
@@ -275,7 +312,7 @@
       <div class="col-12">
         <br>
         <div *ngIf="checkDefaultPrintingHouse()">
-          <h1>Eigene Druckerei anlegen</h1>
+          <h1>Standard Druckerei</h1>
           <div class="text-left">
             <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
               <mdb-item>
@@ -285,31 +322,31 @@
                     <fieldset disabled>
                       <br>
                       <div class="md-form">
-                        <input type="text" class="form-control" name="name" [(ngModel)]="defaultPrintingHouse.name">
+                        <input type="text" class="form-control" name="name" [(ngModel)]="defaultPrintingHouse.address.name">
                         <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
                       </div>
 
                       <div class="md-form">
-                        <input type="text" class="form-control" name="email" [(ngModel)]="defaultPrintingHouse.email">
+                        <input type="text" class="form-control" name="email" [(ngModel)]="defaultPrintingHouse.address.email">
                         <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
                       </div>
 
                       <div class="md-form">
-                        <input type="text" class="form-control" name="phone" [(ngModel)]="defaultPrintingHouse.phone">
+                        <input type="text" class="form-control" name="phone" [(ngModel)]="defaultPrintingHouse.address.phone">
                         <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
                       </div>
 
                       <div class="row">
                         <div class="col-md-9">
                           <div class="md-form">
-                            <input type="text" class="form-control" name="street" [(ngModel)]="defaultPrintingHouse.street">
+                            <input type="text" class="form-control" name="street" [(ngModel)]="defaultPrintingHouse.address.street">
                             <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
                           </div>
                         </div>
 
                         <div class="col-md-3">
                           <div class="md-form">
-                            <input type="text" class="form-control" name="streetNumber" [(ngModel)]="defaultPrintingHouse.streetNumber">
+                            <input type="text" class="form-control" name="streetNumber" [(ngModel)]="defaultPrintingHouse.address.streetnumber">
                             <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
                           </div>
                         </div>
@@ -318,14 +355,14 @@
                       <div class="row">
                         <div class="col-md-3">
                           <div class="md-form">
-                            <input type="text" class="form-control" name="zip" [(ngModel)]="defaultPrintingHouse.zip">
+                            <input type="text" class="form-control" name="zip" [(ngModel)]="defaultPrintingHouse.address.zip">
                             <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
                           </div>
                         </div>
 
                         <div class="col-md-9">
                           <div class="md-form">
-                            <input type="text" class="form-control" name="city" [(ngModel)]="defaultPrintingHouse.city">
+                            <input type="text" class="form-control" name="city" [(ngModel)]="defaultPrintingHouse.address.city">
                             <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
                           </div>
                         </div>
@@ -381,34 +418,34 @@
               <mdb-item-head>Adresse</mdb-item-head>
               <mdb-item-body>
                 <form>
-                  <fieldset disabled>
+                  <fieldset>
                     <br>
                     <div class="md-form">
-                      <input type="text" class="form-control" name="name" [(ngModel)]="ownPrintingHouse.name">
+                      <input type="text" class="form-control" name="name" [(ngModel)]="ownPrintingHouse.address.name">
                       <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
                     </div>
 
                     <div class="md-form">
-                      <input type="text" class="form-control" name="email" [(ngModel)]="ownPrintingHouse.email">
+                      <input type="text" class="form-control" name="email" [(ngModel)]="ownPrintingHouse.address.email">
                       <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
                     </div>
 
                     <div class="md-form">
-                      <input type="text" class="form-control" name="phone" [(ngModel)]="ownPrintingHouse.phone">
+                      <input type="text" class="form-control" name="phone" [(ngModel)]="ownPrintingHouse.address.phone">
                       <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
                     </div>
 
                     <div class="row">
                       <div class="col-md-9">
                         <div class="md-form">
-                          <input type="text" class="form-control" name="street" [(ngModel)]="ownPrintingHouse.street">
+                          <input type="text" class="form-control" name="street" [(ngModel)]="ownPrintingHouse.address.street">
                           <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
                         </div>
                       </div>
 
                       <div class="col-md-3">
                         <div class="md-form">
-                          <input type="text" class="form-control" name="streetNumber" [(ngModel)]="ownPrintingHouse.streetNumber">
+                          <input type="text" class="form-control" name="streetNumber" [(ngModel)]="ownPrintingHouse.address.streetnumber">
                           <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
                         </div>
                       </div>
@@ -417,14 +454,14 @@
                     <div class="row">
                       <div class="col-md-3">
                         <div class="md-form">
-                          <input type="text" class="form-control" name="zip" [(ngModel)]="ownPrintingHouse.zip">
+                          <input type="text" class="form-control" name="zip" [(ngModel)]="ownPrintingHouse.address.zip">
                           <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
                         </div>
                       </div>
 
                       <div class="col-md-9">
                         <div class="md-form">
-                          <input type="text" class="form-control" name="city" [(ngModel)]="ownPrintingHouse.city">
+                          <input type="text" class="form-control" name="city" [(ngModel)]="ownPrintingHouse.address.city">
                           <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
                         </div>
                       </div>
@@ -728,6 +765,31 @@
       <div class="modal-footer justify-content-center">
         <a type="button" class="btn btn-primary-modal waves-light" mdbRippleRadius (click)="eventLimitModal.hide()">Got it!
         </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #transactionModal="mdb-modal" class="modal fade" id="transactionModal" tabindex="-1" role="dialog" aria-labelledby="transactionModal"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" *ngIf="transaction">
+      <div class="modal-header indigo">
+        <h4 class="modal-title w-100 text-white" id="myModalLabel">Order: {{ transaction.invoice_number }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="transactionModal.hide()">
+          <span aria-hidden="true" class="text-white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="''">
+          <mdb-tab heading="<i class='fa fa-credit-card'></i> Rechnung">
+            <div class="row">
+              <div class="col-12">
+                <br>
+              </div>
+            </div>
+          </mdb-tab>
+        </mdb-tabset>
       </div>
     </div>
   </div>

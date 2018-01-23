@@ -1,5 +1,6 @@
 import { COUNTRY } from '../enums/country';
 import { CURRENCY } from '../enums/currency';
+import { ImageInfo } from './image-info';
 
 /**
  * A transaction defines what the payment is for and who fulfills the payment
@@ -9,7 +10,7 @@ export interface Transaction {
   /** The amount to collect. */
   amount: TransactionAmount;
   /** The purchase description. */
-  description?: string;
+  description?: string | ImageInfo;
   /** The invoice number to track this payment. */
   invoice_number?: string;
   /** An array of items that are being purchased. */
@@ -72,7 +73,8 @@ export interface TransactionItemList {
  * @author Daniel Sogl
  */
 export interface TransactionItem {
-  currency: string;
+  /** CIrrency */
+  currency: CURRENCY;
   /** The item description. Supported only for the PayPal payment method. */
   description?: string;
   /** The item name. Maximum length is 127 characters. */

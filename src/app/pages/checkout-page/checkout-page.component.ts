@@ -111,7 +111,7 @@ export class CheckoutPageComponent implements OnInit {
               }
               this.paypalItems.push({
                 currency: CURRENCY.EUR,
-                description: 'Ein Bild',
+                description: JSON.stringify(this.cartItems[i].info),
                 name: `${this.cartItems[i].eventname}/${
                   this.cartItems[i].name
                 }`,
@@ -189,6 +189,7 @@ export class CheckoutPageComponent implements OnInit {
                     .saveTransaction(this.transaction)
                     .then(() => {
                       this.log.d('Saved transaction');
+                      localforage.setItem('cart-items', []);
                       this.navigation.navigateTo('payment-success');
                     })
                     .catch(err => {
