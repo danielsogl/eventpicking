@@ -193,7 +193,64 @@
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="''">
+          <mdb-tab heading="<i class='fa fa-credit-card'></i> Rechnung">
+            <div class="row">
+              <div class="col-12">
+                <!-- <div class="row text-left">
+                   <div class="col-md-4">
+                        <h4>Versandadresse</h4>
+                        <br>
+                        <p>{{ transaction.item_list.shipping_address.recipient_name }}</p>
+                        <p>{{ transaction.item_list.shipping_address.line1 }}</p>
+                        <p>{{ transaction.item_list.shipping_address.line2 }}</p>
+                        <p>{{ transaction.item_list.shipping_address.postal_code }} {{ transaction.item_list.shipping_address.city }}
+                        </p>
+                        <p>Tel: {{ transaction.item_list.shipping_address.phone }}</p>
+                      </div> -->
+                <!-- <div class="col-md-4">
+                        <h4>Kosten</h4>
+                        <br>
+                        <p>Gekaufte Artikel: {{ transaction.item_list.items.length }}</p>
+                        <p>Kosten: {{ transaction.amount.details.subtotal }}</p>
+                        <p>Versandkosten: {{ transaction.amount.details.shipping }}</p>
+                        <hr>
+                        <p>Gesamtkosten: {{ transaction.amount.total }}</p>
+                      </div>
+                </div>-->
+              </div>
+            </div>
+          </mdb-tab>
+          <mdb-tab heading="<i class='fa fa-download'></i> Downloads">
+            <div class="row">
+              <div class="col-12">
+                <br>
+                <table class="table text-left">
+                  <thead>
+                    <tr>
+                      <td>#</td>
+                      <td>Name</td>
+                      <td>Event</td>
+                      <td>Download</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of transaction.item_list.items; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ item.name }}</td>
+                      <td>
+                        <a target="_blank" [href]="item.url">Open Event</a>
+                      </td>
+                      <td>
+                        <a download="{{ item.name.split('/')[1] }}" [href]="item.downloadUrl" title="ImageName">Download</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </mdb-tab>
+        </mdb-tabset>
       </div>
     </div>
   </div>
