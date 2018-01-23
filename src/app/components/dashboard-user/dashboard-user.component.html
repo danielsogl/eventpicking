@@ -23,7 +23,7 @@
               <td>{{ transaction.status | uppercase }}</td>
               <td>
                 <a (click)="openTransaction(transaction)" *ngIf="transaction.status === 'available'">
-                  <i class="fa fa-eye" aria-hidden="true"></i>
+                  <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
                 </a>
               </td>
             </tr>
@@ -40,7 +40,7 @@
           <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
 
             <mdb-item>
-              <mdb-item-head>Contact informations</mdb-item-head>
+              <mdb-item-head>Kontaktdaten</mdb-item-head>
               <mdb-item-body>
                 <div class="md-form">
                   <input type="text" class="form-control" formControlName="name">
@@ -58,7 +58,7 @@
             </mdb-item>
 
             <mdb-item>
-              <mdb-item-head>Billing Address</mdb-item-head>
+              <mdb-item-head>Rechnungsadresse</mdb-item-head>
               <mdb-item-body formArrayName="billingAdress">
                 <div class="md-form">
                   <input type="text" class="form-control" formControlName="company">
@@ -112,7 +112,7 @@
             </mdb-item>
 
             <mdb-item>
-              <mdb-item-head>Delivery Address</mdb-item-head>
+              <mdb-item-head>Lieferadresse</mdb-item-head>
               <mdb-item-body formArrayName="deliveryAdress">
                 <div class="md-form">
                   <input type="text" class="form-control" formControlName="company">
@@ -231,6 +231,7 @@
                     <tr>
                       <td>#</td>
                       <td>Name</td>
+                      <td>Preis</td>
                       <td>Öffnen</td>
                       <td>Download</td>
                     </tr>
@@ -240,6 +241,7 @@
                       <tr *ngIf="item.sku === 'Download'">
                         <td>{{ i + 1 }}</td>
                         <td>{{ item.name }}</td>
+                        <td>{{ item.price | number:'0.2-2' }}€</td>
                         <td>
                           <a [href]="item.downloadUrl" target="_blank">
                             <i class="fa fa-eye" aria-hidden="true"></i>
@@ -266,6 +268,7 @@
                     <tr>
                       <td>#</td>
                       <td>Name</td>
+                      <td>Preis</td>
                     </tr>
                   </thead>
                   <tbody>
@@ -273,6 +276,7 @@
                       <tr *ngIf="item.sku === 'Print'">
                         <td>{{ i + 1 }}</td>
                         <td>{{ item.name }}</td>
+                        <td>{{ item.price | number:'0.2-2' }}€</td>
                       </tr>
                     </ng-container>
                   </tbody>
