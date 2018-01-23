@@ -3,6 +3,9 @@
   <div class="card-body">
     <h4 class="card-title">{{ event?.date }} - {{event?.location }}</h4>
     <p class="card-text">{{ event?.description }}</p>
+    <a routerLink="/photographer/{{photographer?.profileUrl}}">
+      <p>{{ 'TEXTS.VISIT_PHOTOGRAPHERS_PAGE' | translate }}</p>
+    </a>
   </div>
 </div>
 
@@ -104,7 +107,7 @@
 
 <ng-template #imgSmalOverview>
   <img *ngFor="let image of images; let i = index" class="img-fluid" [defaultImage]="'https://www.scandichotels.de/Static/img/placeholders/image-placeholder_3x2.svg'"
-    [lazyLoad]="image.thumbnail" width="250" height="150" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
+    [lazyLoad]="image.thumbnail" width="250" height="150" [alt]="image.name" div class="box1" (click)="openImageModal(image, i)">
 </ng-template>
 
 <ng-template #imgBigMarked>
@@ -112,7 +115,7 @@
     <div *ngFor="let image of images; let i = index">
       <div class="card card-outline-primary z-depth-1" *ngIf="image.selected">
         <img class="img-fluid" [defaultImage]="'https://www.scandichotels.de/Static/img/placeholders/image-placeholder_3x2.svg'"
-          [lazyLoad]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
+          [lazyLoad]="image.thumbnail" width="328" height="250" [alt]="image.name" div class="box1" (click)="openImageModal(image, i)">
       </div>
     </div>
   </div>
@@ -120,7 +123,7 @@
 <ng-template #imgSmalMarked>
   <div *ngFor="let image of images; let i = index">
     <img class="img-fluid" *ngIf="image.selected" [defaultImage]="'https://www.scandichotels.de/Static/img/placeholders/image-placeholder_3x2.svg'"
-      [lazyLoad]="image.thumbnail" width="250" height="150" [alt]="image.name" div class="box1" (click)="openImageModal(image)">
+      [lazyLoad]="image.thumbnail" width="250" height="150" [alt]="image.name" div class="box1" (click)="openImageModal(image, i)">
   </div>
 </ng-template>
 

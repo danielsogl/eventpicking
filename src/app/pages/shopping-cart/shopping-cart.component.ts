@@ -86,6 +86,7 @@ export class ShoppingCartComponent implements OnInit {
     this.log.info(
       'Amount decremented. Event: ' + cartItem.name + ' ' + cartItem.eventname
     );
+    localforage.setItem('cart-items', this.cartItems);
   }
 
   /**
@@ -99,6 +100,7 @@ export class ShoppingCartComponent implements OnInit {
     this.log.info(
       'Amount incremented. Event: ' + cartItem.name + ' ' + cartItem.eventname
     );
+    localforage.setItem('cart-items', this.cartItems);
   }
 
   /**

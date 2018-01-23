@@ -17,6 +17,7 @@ import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
 import { PriceList } from '../../classes/price-list';
+import { Transaction } from '../../interfaces/transaction';
 
 /**
  * Photographer dashboard component
@@ -63,6 +64,9 @@ export class DashboardPhotographerComponent implements OnInit {
 
   /** Edited event */
   public eventEdit: Event;
+
+  /** Transactions */
+  public transactions: Observable<Transaction[]>;
 
   /** Photographer events */
   public events: Observable<Event[]>;
@@ -188,7 +192,7 @@ export class DashboardPhotographerComponent implements OnInit {
 
         this.billingAddressForm.setValue(this.user.billingAdress);
 
-        if (!user.isValidated) {
+        if (!user.isValidated && user.roles.photographer) {
           this.notValidatedModal.show();
         }
         if (this.user.eventsLeft > 0) {
@@ -221,16 +225,25 @@ export class DashboardPhotographerComponent implements OnInit {
         .getPhotographerEvents(this.auth.getCurrentFirebaseUser().uid)
         .valueChanges();
 
+      this.events.subscribe(events => {
+        this.log.d('Events', events);
+      });
+
+      this.transactions = this.afs
+        .getTransactionsByPhotographer(this.auth.getCurrentFirebaseUser().uid)
+        .valueChanges();
+
+      this.transactions.subscribe(transactions => {
+        this.log.d('Transactions', transactions);
+      });
+
       this.afs
         .getDefautlPrintingHouse()
         .valueChanges()
         .subscribe(printingHouse => {
           if (printingHouse[0]) {
             this.defaultPrintingHouse = printingHouse[0];
-            this.log.d(
-              'Loaded default printing house',
-              this.defaultPrintingHouse
-            );
+            this.log.d('Default printing house', this.defaultPrintingHouse);
           }
           this.afs
             .getPriceList(this.auth.getCurrentFirebaseUser().uid)
@@ -238,7 +251,7 @@ export class DashboardPhotographerComponent implements OnInit {
             .subscribe(priceList => {
               if (priceList) {
                 this.priceList = priceList;
-                this.log.d('loaded pricing list', this.priceList);
+                this.log.d('Pricing list', this.priceList);
               } else {
                 this.priceList = new PriceList(
                   this.auth.getCurrentFirebaseUser().uid
@@ -267,7 +280,7 @@ export class DashboardPhotographerComponent implements OnInit {
         .subscribe(printingHouse => {
           if (printingHouse[0]) {
             this.ownPrintingHouse = printingHouse[0];
-            this.log.d('Loaded own printing house', this.ownPrintingHouse);
+            this.log.d('Own printing house', this.ownPrintingHouse);
           }
         });
     }

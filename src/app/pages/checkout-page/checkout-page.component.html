@@ -58,8 +58,7 @@
       <!--row-->
       <div class="row justify-content-end">
         <p>
-          <button id="checkout3_send_order" type="button" class="btn pink waves-effect" (click)="setTemplate('paymentDelivery')"
-            mdbRippleRadius>{{ 'BUTTONS.NEXT' | translate }}</button>
+          <button id="checkout3_send_order" type="button" class="btn pink waves-effect" (click)="setTemplate('paymentDelivery')" mdbRippleRadius>{{ 'BUTTONS.NEXT' | translate }}</button>
         </p>
       </div>
     </div>
@@ -113,8 +112,7 @@
       <!--row-->
       <!-- Buttons to previous or next step -->
       <div class="row justify-content-end">
-        <button id="checkout3_back" type="button" class="btn pink waves-effect" (click)="setTemplate('contactDetails')"
-          mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
+        <button id="checkout3_back" type="button" class="btn pink waves-effect" (click)="setTemplate('contactDetails')" mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
         <button id="checkout3_send_order" type="button" class="btn pink waves-effect" (click)="setTemplate('checkOrder'); renderPaypalButton()"
           mdbRippleRadius>{{ 'BUTTONS.NEXT' | translate }}</button>
         <!-- END buttons -->
@@ -134,53 +132,43 @@
             <thead id="sum_row">
               <tr>
                 <th scope="col">{{ 'NAV.CART_QUANTITY' | translate }}</th>
-                <th>Item</th>
-                <th>
-                  <i class="fa fa-print fa-lg" aria-hidden="true"></i>
-                </th>
-                <th>
-                  <i class="fa fa-download fa-lg" aria-hidden="true"></i>
-                </th>
+                <th scope="col">{{ 'NAV.CART_ITEM' | translate }}</th>
+                <th scope="col">{{ 'NAV.CART_TYPE' | translate }}</th>
                 <th scope="col">{{ 'NAV.CART_SIZE' | translate }}</th>
                 <th scope="col">{{ 'NAV.CART_PRICE' | translate }}</th>
               </tr>
             </thead>
             <tbody>
               <tr class="table-bordered" *ngFor="let item of cartItems; let i = index">
-                <td>{{ item.amount }}</td>
-                <td>{{ item.name }}</td>
+                <td>{{ item?.amount }}</td>
+                <td>{{ item?.name }}</td>
                 <td>
-                  <i class="fa fa-check" aria-hidden="true"></i>
+                  <i *ngIf="item.itemType === checkType.PRINT" class="fa fa-print fa-lg" aria-hidden="true"></i>
+                  <i *ngIf="item.itemType === checkType.DOWNLOAD" class="fa fa-download fa-lg" aria-hidden="true"></i>
                 </td>
-                <td>
-                  <i class="fa fa-check" aria-hidden="true"></i>
-                </td>
-                <td>{{ item.info.width }}x{{ item.info.height }}</td>
-                <td>{{ item.price | number:'0.2' }}€</td>
+                <td>{{ item?.format }}</td>
+                <td>{{ item?.price | number:'0.2' }}€</td>
               </tr>
               <tr class="table background-white">
                 <td>Zwischensumme</td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td>{{ paymentAmount | number:'0.2-2' }}€</td>
+                <td>{{ subTotal | number:'0.2-2' }}€</td>
               </tr>
               <tr class="table  background-white">
                 <td>+ Versandkosten</td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td>20€</td>
+                <td>{{ shipping | number:'0.2-2' }}€</td>
               </tr>
               <tr class="table  background-white">
-                <td>{{'LABELS.TOTAL'|translate}}</td>
+                <td>{{'LABELS.TOTAL'|translate}}€</td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td>{{ paymentTotalAmount | number:'0.2' }}€</td>
+                <td>{{ subTotal + shipping | number:'0.2-2' }}€</td>
               </tr>
             </tbody>
           </table>
@@ -200,8 +188,7 @@
       <!--row-->
       <!-- Buttons to previous or next step -->
       <div class="row justify-content-end">
-        <button id="checkout3_back" type="button" class="btn pink waves-effect" (click)="setTemplate('paymentDelivery')"
-          mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
+        <button id="checkout3_back" type="button" class="btn pink waves-effect" (click)="setTemplate('paymentDelivery')" mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
         <div id="paypal-button"></div>
         <!-- END buttons -->
       </div>

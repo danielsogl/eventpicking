@@ -79,6 +79,7 @@ export class PictureDetailComponent implements OnInit {
 
   /**
    * Constructor
+   * @param  {AlertService} service AlertService
    */
   constructor(private service: AlertService) {}
 
@@ -204,7 +205,7 @@ export class PictureDetailComponent implements OnInit {
     if (type === 'download') {
       for (let i = 0; i < this.priceList.downloadItems.length; i++) {
         if (formatName === this.priceList.downloadItems[i].name) {
-          this.format = this.printPicturePriceList[i].name;
+          this.format = this.priceList.downloadItems[i].name;
           this.price = this.priceList.downloadItems[i].price;
         }
       }
@@ -238,23 +239,23 @@ export class PictureDetailComponent implements OnInit {
         name: this.image.name,
         // TODO: differentiation between Download and Print
         info: this.image.info,
+        format: this.format,
         itemType: itemType,
         amount: 1,
         totalPrice: 0,
         preview: this.image.preview,
         thumbnail: this.image.thumbnail,
-        price: this.price
+        price: this.price,
+        photographer: this.eventUserComponent.event.photographerUid
       };
 
       localforage.getItem<ShoppingCartItem[]>('cart-items').then(items => {
-        console.log(items);
         if (items) {
           items.push(shoppingCartItem);
         } else {
           items = [];
           items.push(shoppingCartItem);
         }
-        console.log(items);
         localforage
           .setItem('cart-items', items)
           .then(() => {

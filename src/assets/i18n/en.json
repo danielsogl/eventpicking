@@ -33,7 +33,8 @@
     "CART_PICTURE": "Picture",
     "CART_SIZE": "Size",
     "CART_PRICE": "Price",
-    "CART_TYPE": "Type"
+    "CART_TYPE": "Type",
+    "CART_ITEM": "Item"
   },
   "INPUTS": {
     "ABOUT_YOU": "About you",
@@ -143,7 +144,10 @@
     "DELIVERY_COSTS": "Lieferkosten",
     "IMPRINT": "Imprint",
     "DATA_PROTECTION": "Data protection",
-    "GTC": "Terms and conditions"
+    "GTC": "Terms and conditions",
+    "EVENT_URL": "Event url",
+    "PRINT": "Print",
+    "DOWNLOAD": "Download"
   },
   "TABLE": {
     "NAME": "Name",
@@ -154,7 +158,8 @@
     "DELETE": "Delete"
   },
   "TEXTS": {
-    "PASSWORT_RESET_MODAL": "To which email address should the password reset email be sent?",
+    "PASSWORT_RESET_MODAL":
+      "To which email address should the password reset email be sent?",
     "PROVIDE_VALID_EMAIL": "Please provide a valid email",
     "PROVIDE_VALID_PASSWORD": "Please provide a valid password",
     "PROVIDE_VALID_URL": "Please provide a valid URL",
@@ -163,7 +168,8 @@
     "PAGE_NOT_FOUND_DESCRIPTION": "Looks like someone left the lens cap on...",
     "PRICING_TITLE": "Pricing Guide",
     "PRICING_GET_STARTED": "Get started",
-    "PRICING_DESCRIPTION": "with your first free album or upgrade to one of our plans.",
+    "PRICING_DESCRIPTION":
+      "with your first free album or upgrade to one of our plans.",
     "PRICING_MONTH": "events per month",
     "PRICING_MONTHLY": "month",
     "PRICING_PICTURE_AMOUNT": "pictures per album",
@@ -173,7 +179,8 @@
     "EVENT_SELECTED_PICTURES": "Selected pictures",
     "SEARCH_PICTURES": "Search for pictures by name",
     "PRICING_ADDITIONAL": "Become a premium member",
-    "PRICING_LIST_POSITION": "With upgrading to a premium account the photographer will always be listed on the first position of nearby photographers.",
+    "PRICING_LIST_POSITION":
+      "With upgrading to a premium account the photographer will always be listed on the first position of nearby photographers.",
     "PRICING_MORE_ATTENTION": "Receive more attention from customers",
     "PRICING_FIRST_POSITION": "Be always on the first position",
     "NO_PHOTOGRAPHERS_FOUND": "There are no photographers in your area",
@@ -183,7 +190,8 @@
     "SEARCH_BY_ID": "Search by id",
     "SEARCH_EVENT_BY_NAME": "Search event by name",
     "SEARCH_EVENT_BY_ID": "Search event by id",
-    "PAYMENT_SUCCESSFULL": "Payment successfull!"
+    "PAYMENT_SUCCESSFULL": "Payment successfull!",
+    "VISIT_PHOTOGRAPHERS_PAGE": "Visit photographers page"
   },
   "TABS": {
     "EDIT_IMAGES": "Edit Images",
