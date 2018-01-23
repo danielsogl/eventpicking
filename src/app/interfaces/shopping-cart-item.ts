@@ -24,4 +24,6 @@ export interface ShoppingCartItem {
   thumbnail: string;
   /** Article price */
   price: number;
+  /** format */
+  format?: string;
 }
