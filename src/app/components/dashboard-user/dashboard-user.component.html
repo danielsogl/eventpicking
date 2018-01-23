@@ -1,17 +1,17 @@
 <mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
-  <mdb-tab heading="Purchases">
+  <mdb-tab heading="Käufe">
     <div class="row">
       <div class="col-12">
         <br>
         <table class="table text-left">
-          <thead>
+          <thead class="thead-default">
             <tr>
               <td>#</td>
-              <td>Transaction ID</td>
-              <td>Order Date</td>
-              <td>Order Price</td>
-              <td>Order Status</td>
-              <td>View Order</td>
+              <td>Rechnungsnummer</td>
+              <td>Bestelldatum</td>
+              <td>Preis</td>
+              <td>Bestellstatus</td>
+              <td>Bestellung anzeigen</td>
             </tr>
           </thead>
           <tbody>
@@ -32,7 +32,7 @@
       </div>
     </div>
   </mdb-tab>
-  <mdb-tab heading="Profile">
+  <mdb-tab heading="Profil">
     <div class="row">
       <div class="col-12 text-left">
         <br>
@@ -181,3 +181,81 @@
     </div>
   </mdb-tab>
 </mdb-tabset>
+
+<div mdbModal #transactionModal="mdb-modal" class="modal fade" id="transactionModal" tabindex="-1" role="dialog" aria-labelledby="transactionModal"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" *ngIf="transaction">
+      <div class="modal-header indigo">
+        <h4 class="modal-title w-100 text-white" id="myModalLabel">Order: {{ transaction.invoice_number }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="transactionModal.hide()">
+          <span aria-hidden="true" class="text-white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="''">
+          <mdb-tab heading="<i class='fa fa-credit-card'></i> Rechnung">
+            <div class="row">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-4 text-left">
+                    <h4>Versandadresse</h4>
+                    <br>
+                    <p>{{ transaction.item_list.shipping_address.recipient_name }}</p>
+                    <p>{{ transaction.item_list.shipping_address.line1 }}</p>
+                    <p>{{ transaction.item_list.shipping_address.line2 }}</p>
+                    <p>{{ transaction.item_list.shipping_address.postal_code }} {{ transaction.item_list.shipping_address.city
+                      }}
+                    </p>
+                    <p>Tel: {{ transaction.item_list.shipping_address.phone }}</p>
+                  </div>
+                  <div class="col-4 text-left">
+                    <h4>Kosten</h4>
+                    <br>
+                    <p>Kosten: {{ transaction.amount.details.subtotal | number:'0.2-2' }}€</p>
+                    <p>Versandkosten: {{ transaction.amount.details.shipping | number:'0.2-2' }}€</p>
+                    <hr>
+                    <strong>Gesamtkosten: {{ transaction.amount.total | number:'0.2-2' }}€</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mdb-tab>
+          <mdb-tab heading="<i class='fa fa-download'></i> Downloads">
+            <div class="row">
+              <div class="col-12">
+                <br>
+                <table class="table text-left">
+                  <thead>
+                    <tr>
+                      <td>#</td>
+                      <td>Name</td>
+                      <td>Öffnen</td>
+                      <td>Download</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of transaction.item_list.items; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ item.name }}</td>
+                      <td>
+                        <a [href]="item.downloadUrl" target="_blank">
+                          <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                      <td>
+                        <a (click)="downloadImage(item.downloadUrl)">Download</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br>
+                <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="downloadAllImages(transaction.item_list.items)">Bilder als .zip Ordner herunterladen</button>
+              </div>
+            </div>
+          </mdb-tab>
+        </mdb-tabset>
+      </div>
+    </div>
+  </div>
+</div>
