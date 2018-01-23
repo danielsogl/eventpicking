@@ -12,8 +12,6 @@ import { AlertService } from '../../services/alert/alert.service';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 
-declare var JSZipUtils;
-
 /**
  * User dashboard component
  * @author Daniel Sogl
@@ -145,13 +143,12 @@ export class DashboardUserComponent implements OnInit {
   downloadAllImages(items: TransactionItem[]) {
     let count = 0;
     const zip = new JSZip();
-    const zipFilename = 'images.zip';
     items.forEach(item => {
       if (item.sku === 'Download') {
         // This can be downloaded directly:
         const xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
-        xhr.onload = function(event) {
+        xhr.onload = event => {
           const blob = xhr.response;
         };
         xhr.open('GET', item.downloadUrl);
@@ -162,7 +159,7 @@ export class DashboardUserComponent implements OnInit {
             zip.file(item.name.split('/')[1], xhr.response, { binary: true });
             count++;
             if (count === items.length) {
-              zip.generateAsync({ type: 'blob' }).then(function(content) {
+              zip.generateAsync({ type: 'blob' }).then(content => {
                 saveAs(content, name);
               });
             }
