@@ -1,6 +1,6 @@
 {
-  "name": "dhbw-projekt-app",
-  "version": "0.0.0",
+  "name": "eventpicking",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -11,8 +11,7 @@
     "test": "jest --browser",
     "test:ci": "jest --browser --runInBand",
     "test:coverage": "jest --browser --runInBand --coverage",
-    "docs": "./node_modules/.bin/compodoc -d ./docs/ -p ./tsconfig.json -n \"Eventpicking - Dokumentation\"",
-    "translate": "i18n-translate-json AIzaSyAQslKY6YsIOA-o1C5n227fc3pddcV3yes ./src/assets/i18n en de"
+    "docs": "./node_modules/.bin/compodoc -d ./docs/ -p ./tsconfig.json -n \"EventPicKing - Dokumentation\""
   },
   "private": true,
   "dependencies": {
