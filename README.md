@@ -38,7 +38,7 @@ Package Repository mit NPM zugegriffen werden. Hierzu die Konsole öffnen und
 folgende Befehle für die Installation der benötigten Tools ausführen:
 
 ```bash
-npm install -g @angular-cli firebase-tools live-server
+npm install -g @angular/cli firebase-tools live-server
 ```
 
 ### Einrichtung von Visual Studio Code
