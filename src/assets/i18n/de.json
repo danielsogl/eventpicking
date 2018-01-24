@@ -68,7 +68,7 @@
     "LOGIN": "Anmelden",
     "UPDATE_PROFILE": "Profil aktualisieren",
     "SAVE": "Speichern",
-    "UPDATE_EVENT": "Ereignis aktualisieren",
+    "UPDATE_EVENT": "Event aktualisieren",
     "UPDATE_USER": "Benutzerdaten aktualisieren",
     "CANCEL": "Stornieren",
     "RESET_PASSWORD": "Passwort zurücksetzen",
@@ -196,7 +196,7 @@
   },
   "TABS": {
     "EDIT_IMAGES": "Bilder bearbeiten",
-    "EVENT_SETTINGS": "Event anlegen",
+    "EVENT_SETTINGS": "Bearbeiten",
     "EVENTS": "Events",
     "GALLERY": "Galerie",
     "PRINTING_HOUSES": "Druckerei",
