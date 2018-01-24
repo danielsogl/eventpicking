@@ -16,6 +16,7 @@
 
 * [Einrichtung der Entwicklungsumgebung](#einrichtung-der-entwicklungsumgebung)
 * [Angular CLI Befehle](#angular-cli-befehle)
+* [Testkonten](#testkonten)
 
 ## Einrichtung der Entwicklungsumgebung
 
@@ -38,7 +39,7 @@ Package Repository mit NPM zugegriffen werden. Hierzu die Konsole öffnen und
 folgende Befehle für die Installation der benötigten Tools ausführen:
 
 ```bash
-npm install -g @angular/cli firebase-tools live-server
+npm install -g @angular/cli firebase-tools
 ```
 
 ### Einrichtung von Visual Studio Code
@@ -89,8 +90,14 @@ ausgeführt werden.
 * Ausführen der Anwendung: `ng serve`
 * Generierung neuer Components/Pipes etc: `ng g <typ> <name>`
 * Bauen der Anwendung als SPA: `ng build--prod`
-* Bauen der Anwendung als PWA: `npm run pwa`
 * Ausführen der Unit-Tests: `npm run test`
 * Ausführen der E2E-Tests: `ng e2e`
 * Generierung der Dokumentation: `npm run docs`
-* Generierung der Dokumentation: `npm run docs`
+
+## Testkonten
+
+* fotograf@test.de - Passwort: passwort
+* user@test.de - Passwort: passwort
+* admin@test.de - Passwort: passwort
+* PayPal Konto: fotograf@test.de - Passwort: passwort
+
