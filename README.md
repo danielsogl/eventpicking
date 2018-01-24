@@ -1,6 +1,6 @@
 # DHBW Projekt 2017
 
-Alle private API-Keys wurden aus der environment.ts Datei entfernt sowie md-bootstrap-pro aus der package.json.
+Alle private API-Keys wurden aus der environment.ts Datei entfernt sowie md-bootstrap-pro aus der package.json. Die Anwendung ist daher nichtmehr voll funktionsfäig.
 
 ## Dokumentation
 
