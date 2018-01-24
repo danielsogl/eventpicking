@@ -8,58 +8,67 @@
         <!--Header-->
         <div class="text-center">
           <h3 class="dark-grey-text mb-5">
-            <strong id="page_title">Anmelden</strong>
+            <strong id="page_title">{{ 'LABELS.LOGIN' | translate }}</strong>
           </h3>
         </div>
 
         <!--Body-->
-        <form (ngSubmit)="loginWithCredentials()">
+        <form [formGroup]="loginForm" (ngSubmit)="loginWithCredentials()">
           <div class="md-form">
             <i class="fa fa-envelope prefix"></i>
-            <input mdbActive type="text" class="form-control" [(ngModel)]="email" id="input_email" name="email">
-            <label for="email" class="">Ihre E-Mail</label>
+            <input mdbActive type="email" class="form-control" formControlName="email" id="input_email" [class.is-valid]="!loginForm.controls.email.errors"
+              [class.is-invalid]="loginForm.controls.email.errors">
+            <label for="email">{{ 'INPUTS.USER_EMAIL' | translate }}</label>
+            <div class="invalid-feedback" *ngIf="loginForm.controls.email.errors">
+              {{ 'TEXTS.PROVIDE_VALID_EMAIL' | translate }}
+            </div>
           </div>
 
           <div class="md-form pb-3">
             <i class="fa fa-lock prefix"></i>
-            <input mdbActive type="password" class="form-control" [(ngModel)]="password" name="password" id="input_password">
-            <label for="password" class="">Ihr Passwort</label>
-            <p class="font-small blue-text d-flex justify-content-end" (click)="resetPasswordModal.show()" id="p_open_reset_modal">
-              <a class="blue-text ml-1">Passwort vergessen?</a>
+            <input mdbActive type="password" class="form-control" formControlName="password" id="input_password" [class.is-valid]="!loginForm.controls.password.errors"
+              [class.is-invalid]="loginForm.controls.password.errors">
+            <label for="password">{{ 'INPUTS.USER_PASSWORD' | translate }}</label>
+            <div class="invalid-feedback" *ngIf="loginForm.controls.password.errors">
+              {{ 'TEXTS.PROVIDE_VALID_PASSWORD' | translate }}
+            </div>
+            <p class="font-small blue-text d-flex justify-content-end" (click)="resetPasswordModal.show()" id="open_reset_modal">
+              <a class="blue-text ml-1">{{ 'LABELS.FORGOT_PASSWORD' | translate }}</a>
             </p>
-            <p1 class="text-danger" *ngIf="error">{{error.code | firebaseError }}</p1>
+            <p1 class="text-danger" *ngIf="error.code">{{ ('FIREBASE_ERRORS.' + error.code) | translate }}</p1>
           </div>
-
 
           <div class="text-center mb-3">
-            <button type="button" class="btn aqua-gradient btn-lg btn-block" (click)="loginWithCredentials()" id="button_login">Anmelden</button>
+            <button type="submit" class="btn pink btn-lg btn-block" id="button_login" [disabled]="!loginForm.valid">{{ 'BUTTONS.LOGIN' | translate }}</button>
           </div>
         </form>
-        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> oder Anmelden mit:</p>
+
+        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2">{{ 'LABELS.SIGN_IN_WITH' | translate }}</p>
 
         <div class="row my-3 d-flex justify-content-center">
           <!--Facebook-->
           <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithFacebook()"
             id="button_login_with_facebook">
-            <i class="fa fa-facebook blue-text text-center"></i>
+            <i class="fa fa-facebook pink-text text-center"></i>
           </button>
           <!--Twitter-->
           <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a waves-effect waves-light" (click)="loginWithTwitter()"
             id="button_login_with_twitter">
-            <i class="fa fa-twitter blue-text"></i>
+            <i class="fa fa-twitter pink-text"></i>
           </button>
           <!--Google +-->
           <button type="button" class="btn btn-white btn-rounded z-depth-1a waves-effect waves-light" (click)="loginWithGoogle()" id="button_login_with_google">
-            <i class="fa fa-google-plus blue-text"></i>
+            <i class="fa fa-google-plus pink-text"></i>
           </button>
         </div>
+
 
       </div>
 
       <!--Footer-->
       <div class="modal-footer mx-5 pt-3 mb-1">
-        <p class="font-small grey-text d-flex justify-content-end">Kein Konto?
-          <a routerLink="/signup" class="blue-text ml-1" id="a_signup"> Hier registrieren</a>
+        <p class="font-small grey-text d-flex justify-content-end">{{ 'LABELS.NO_MEMBER' | translate }}
+          <a routerLink="/signup" class="blue-text ml-1" id="a_signup"> {{ 'LABELS.SIGN_UP' | translate }}</a>
         </p>
       </div>
 
@@ -77,25 +86,33 @@
     <!--Content-->
     <div class="modal-content">
       <!--Header-->
-      <div class="modal-header aqua-gradient darken-3 white-text">
-        <h4 class="title">Passwort zurücksetzen</h4>
-        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="resetPasswordModal.hide()">
+      <div class="modal-header indigo darken-3 white-text">
+        <h4 class="title">{{ 'LABELS.RESET_PASSWORD' | translate }}</h4>
+        <button type="button" id="btn_close_modal" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
+          (click)="resetPasswordModal.hide()">
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <div class="modal-body">
-        <p>Geben Sie Ihre Email-Adresse an, an welche die Rücksetztmail gesendet werden soll</p>
-        <div class="md-form">
-          <input mdbActive type="text" id="form1" class="form-control" [(ngModel)]="emailReset">
-          <label for="form1" class="">Email Adresse</label>
-        </div>
+      <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()">
+        <div class="modal-body">
+          <p>{{ 'TEXTS.PASSWORT_RESET_MODAL' | translate }}</p>
+          <div class="md-form">
+            <input mdbActive type="email" id="input_modal_email" class="form-control" formControlName="email" [class.is-valid]="!resetPasswordForm.controls.email.errors"
+              [class.is-invalid]="resetPasswordForm.controls.email.errors">
+            <label for="form1">{{ 'INPUTS.USER_EMAIL' | translate }}</label>
+            <div class="invalid-feedback" *ngIf="resetPasswordForm.controls.email.errors">
+              {{ 'TEXTS.PROVIDE_VALID_EMAIL' | translate }}
+            </div>
+          </div>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger btn-sm waves-light" data-dismiss="modal" (click)="resetPasswordModal.hide()"
-          mdbRippleRadius>Abbrechen</button>
-        <button type="button" class="btn btn-primary btn-sm waves-light" mdbRippleRadius (click)="resetPasswordModal.hide(); resetPassword()">Passwort zurücksetzen</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="button_modal_cancel" class="btn btn-danger btn-sm waves-light" data-dismiss="modal" (click)="resetPasswordModal.hide()"
+            mdbRippleRadius>{{ 'BUTTONS.CANCEL' | translate }}</button>
+          <button type="submit" id="button_modal_reset" class="btn btn-primary btn-sm waves-light" mdbRippleRadius (click)="resetPasswordModal.hide()"
+            [disabled]="resetPasswordForm.controls.email.errors">{{ 'BUTTONS.RESET_PASSWORD' | translate }}</button>
+        </div>
+      </form>
     </div>
     <!--/.Content-->
   </div>

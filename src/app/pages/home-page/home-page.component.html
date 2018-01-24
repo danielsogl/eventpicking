@@ -1,63 +1,162 @@
-<div class="row mt-5 pt-5">
-  <div class="col text-center">
-    <!--Section: Features v.2-->
-    <section class="section feature-box">
-
-      <!--Section heading-->
-      <h1 class="section-heading pt-4">Why is it so great?</h1>
-
-      <!--Section description-->
-      <p class="section-description lead grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi,
-        veritatis totam voluptas nostrum quisquam eum.</p>
-
-      <!--Grid row-->
-      <div class="row features-small">
-
-        <!--Grid column-->
-        <div class="col-md-4 mb-r">
-          <div class="col-1 col-md-2 float-left">
-            <i class="fa fa-bullhorn blue-text"></i>
-          </div>
-          <div class="col-10 col-md-9 col-lg-10 float-right">
-            <h4 class="feature-title">Marketing</h4>
-            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda.</p>
-            <a class="btn btn-primary btn-sm ml-0">Learn more</a>
-          </div>
+<div class="container-fluid card">
+    <!-- Header-Section -->
+    <div id="header" class="header">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-6  text-center">
+                    <h1>EventPicKing </h1>
+                    <br>
+                    <h5>Willkommen bei ihrem Spezialisten für Event-Fotografie</h5>
+                    <p>
+                        Finden Sie einen Fotografen für ihr Event, kaufen Sie schnell und bequem ihre Bilder online oder registrieren Sie sich als
+                        Fotograf, um für Events gebucht zu werden!
+                    </p>
+                    <p>
+                        <button id="landing_signup" class="btn btn-outline-info btn-rounded waves-effec" routerLink="/signup">{{ 'BUTTONS.SINGUP_NOW' | translate }}</button>
+                    </p>
+                </div>
+            </div>
+            <!--row-end-->
         </div>
-        <!--Grid column-->
+        <!--container-end-->
+    </div>
+    <!--Header-end-->
 
-        <!--Grid column-->
-        <div class="col-md-4 mb-r">
-          <div class="col-1 col-md-2 float-left">
-            <i class="fa fa-cogs pink-text"></i>
-          </div>
-          <div class="col-10 col-md-9 col-lg-10 float-right">
-            <h4 class="feature-title">Customization</h4>
-            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda.</p>
-            <a class="btn btn-pink btn-sm ml-0">Learn more</a>
-          </div>
+    <div id="description" class="description">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 text-center">
+                    <h1>{{ 'NAV.DESCRIPTION' | translate }}</h1>
+                    <div class="text" style="color: grey">
+                        <p>Events anlegen, Bilder hochladen, teilen und verkaufen!</p>
+                        <p>Verkaufen Sie Ihre Fotos schnell über unser Portal. Wir kümmern uns sowohl um Zahlungsabwicklung,
+                            Produktion als auch Versand.</p>
+                        <p>Sie schießen die Bilder - wir machen den Rest!</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!--Grid column-->
 
-        <!--Grid column-->
-        <div class="col-md-4 mb-r">
-          <div class="col-1 col-md-2 float-left">
-            <i class="fa fa-dashboard purple-text"></i>
-          </div>
-          <div class="col-10 col-md-9 col-lg-10 float-right">
-            <h4 class="feature-title">Support</h4>
-            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda.</p>
-            <a class="btn btn-secondary btn-sm ml-0">Learn more</a>
-          </div>
+    </div>
+    <!--Description-end-->
+
+    <!--Best Picture Section: Shows best rated pictures -->
+    <div id="gallery" class="gallery">
+        <div class="container">
+            <h2>{{'TEXTS.LANDING_BESTPICTURES' | translate}}</h2>
+            <p class="text-center">
+                Professionelle Bilder von professionellen Fotografen. Finden auch Sie den perfekten Fotografen für Ihr Event!
+            </p>
         </div>
-        <!--Grid column-->
+        <!-- end-container -->
+        <div class="container card">
+            <div class="card-body gallery-frame">
+                <div class="col-md-12">
+                    <div class="row">
+                        <hr>
 
-      </div>
-      <!--Grid row-->
+                        <div class="gal">
 
-    </section>
-    <!--Section: Features v.2-->
+                            <div class="subtitle" *ngFor="let image of (images | async)">
+                                <img [defaultImage]="'https://www.scandichotels.de/Static/img/placeholders/image-placeholder_3x2.svg'" [lazyLoad]="image.thumbnail"
+                                    [alt]="image.name" [routerLink]="['/event', image.event]">
+                                <span>
+                                    <i class="fa fa-heart" aria-hidden="true"> {{ image.ratings }}</i>
+                                </span>
+                            </div>
 
+                        </div>
 
-  </div>
+                    </div>
+                </div>
+            </div>
+            <!--end-card-body-->
+
+        </div>
+        <!--end-container-->
+
+    </div>
+    <!--end-gallery-->
+
+    <!--Testimonial-Section-->
+    <div id="testimonial" class="testimonial">
+        <div class="container">
+            <h2>{{'LABELS.TESTIMONIALS'|translate}}</h2>
+            <p class="text-center">Egal ob Fotograf, Gast oder Organisator einer Veranstaltung - Wir unterstützen Sie und bieten große Zufriedenheit.
+                Überzeugen Sie sich selbst!
+            </p>
+            <div class="row">
+                <div class="col-md-4 mb-r">
+                    <div class="avatar">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" class="rounded-circle z-depth-1 img-fluid" alt="">
+                    </div>
+                    <h4 class="mb-3">Stephan Naumann</h4>
+                    <h6 class="mb-3 font-bold grey-text">{{'LABELS.PHOTOGRAPHER'|translate}}</h6>
+                    <p>
+                        <i class="fa fa-quote-left"></i>&nbsp;Super Website, um Kunden zu erreichen! Preis-Leistungsverhältnis von EventPicKing TOP.
+                        Werde Zusammenarbeit gerne beibehalten.
+                        <i class="fa fa-quote-right"></i>
+                    </p>
+                    <div class="orange-text" style="margin-top: 30px">
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star-o"> </i>
+                    </div>
+                    <!--review1-end-->
+                </div>
+                <!--col1-end-->
+
+                <div class="col-md-4 mb-r">
+                    <div class="avatar">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="rounded-circle z-depth-1 img-fluid" alt="">
+                    </div>
+                    <h4 class="mb-3">Leonie Dürr</h4>
+                    <h6 class="mb-3 font-bold grey-text">{{'LABELS.EVENT_ORGANISATOR'|translate}}</h6>
+                    <p>
+                        <i class="fa fa-quote-left"></i>&nbsp;Traumhaft schöne Bilder unserer Hochzeit, die uns ein Leben lang begleiten werden. Vielen
+                        Dank für die professionelle Begleitung von unserem großen Tag. Fotografensuche ist benutzerfreundlich
+                        und leicht zu bedienen. EventPicKing ist zu 100% empfehlenswert!
+                        <i class="fa fa-quote-right"></i>
+                    </p>
+                    <div class="orange-text" style="margin-top: 30px">
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                    </div>
+                    <!--review2-end-->
+                </div>
+                <!--col2-end-->
+
+                <div class="col-md-4 mb-r">
+                    <div class="avatar">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" class="rounded-circle z-depth-1 img-fluid" alt="">
+                    </div>
+                    <h4 class="mb-3">Marianne Faust</h4>
+                    <h6 class="mb-3 font-bold grey-text">{{'LABELS.EVENT_GUEST'|translate}}</h6>
+                    <p>
+                        <i class="fa fa-quote-left"></i>&nbsp;Schöne Bilder von der Hochzeit meiner Cousine in Darmstadt-Wixhausen. Fotos sind einfach
+                        zu erwerben und gleich über eine (Wunsch-) Druckerei druckbar. Vor allem die PayPal-Zahlung ist für
+                        mich ein Pluspunkt!
+                        <i class="fa fa-quote-right"></i>
+                    </p>
+                    <div class="orange-text" style="margin-top: 30px">
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star"> </i>
+                        <i class="fa fa-star-half-full"> </i>
+                    </div>
+                    <!--review3-end-->
+                </div>
+                <!--col3-end-->
+            </div>
+            <!--row-end-->
+        </div>
+        <!--container-end-->
+    </div>
+    <!--Testimonial-End-->
 </div>

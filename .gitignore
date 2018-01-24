@@ -42,8 +42,8 @@ testem.log
 Thumbs.db
 
 public/*
-docs/*
 coverage/*
+docs/*
 
 # Firebase
 /functions/node_modules

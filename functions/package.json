@@ -1,0 +1,31 @@
+{
+  "name": "eventpicking-functions",
+  "description": "Cloud Functions for Eventpicking.de",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Daniel Sogl",
+    "email": "daniel@sogls.de"
+  },
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase experimental:functions:shell",
+    "start": "npm run shell",
+    "deploy:dev": "firebase deploy --only functions -P staging",
+    "deploy:prod": "firebase deploy --only functions -P prod",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^1.5.2",
+    "child-process-promise": "^2.2.1",
+    "firebase-admin": "^5.8.1",
+    "firebase-functions": "^0.8.1",
+    "fs-readfile-promise": "^3.0.1",
+    "imageinfo": "^1.0.4",
+    "mkdirp": "^0.5.1",
+    "mkdirp-promise": "^5.0.1",
+    "nodemailer": "^4.4.2",
+    "request-promise": "^4.2.2",
+    "uuid": "^3.2.1"
+  },
+  "private": true
+}

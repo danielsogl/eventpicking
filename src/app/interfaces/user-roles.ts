@@ -1,17 +1,18 @@
 /**
  * User roles interface
+ * @author Daniel Sogl
  */
 export interface UserRoles {
   /**
-   * user role
-   */
-  user?: boolean;
-  /**
-   * admin role
+   * Admin role
    */
   admin?: boolean;
   /**
-   * photographer role
+   * Photographer role
    */
   photographer?: boolean;
+  /**
+   * User role
+   */
+  user?: boolean;
 }

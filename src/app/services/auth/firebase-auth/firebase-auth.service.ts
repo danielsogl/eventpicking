@@ -1,17 +1,14 @@
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/take';
-
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 import * as _ from 'lodash';
+import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
+import { switchMap } from 'rxjs/operators';
 
 import { User } from '../../../classes/user';
+import { FirebaseFirestoreService } from '../../firebase/firestore/firebase-firestore.service';
 
 /**
  * A service to authenticate with the firebase services
@@ -19,39 +16,49 @@ import { User } from '../../../classes/user';
  */
 @Injectable()
 export class FirebaseAuthService {
-  /**
-   * Firebase user
-   */
+  /** Logger */
+  private log = Log.create('FirebaseAuthService');
+  /** Firebase user */
   public user: Observable<User>;
 
-  /**
-   * roles of currently logged in uer
-   */
+  /** roles of currently logged in uer */
   private userRoles: Array<string>;
 
   /**
+   * Constructor
    * @param  {AngularFireAuth} afAuth AngularFire Auth
-   * @param  {AngularFireDatabase} db AngularFire Auth
+   * @param  {FirebaseFirestoreService} afs Firestore Service
+   * @param  {Router} router Router
    */
   constructor(
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
+    private afs: FirebaseFirestoreService,
     private router: Router
   ) {
+    this.log.color = 'green';
+    this.log.d('Service injected');
     this.user = this.afAuth.authState.switchMap(user => {
       if (user) {
-        return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        return this.afs.getUser(user.uid).valueChanges();
       } else {
         return Observable.of(null);
       }
     });
   }
 
-  getAuthState(): Observable<firebase.User> {
+  /**
+   * Get user auth state
+   * @returns {Observable}
+   */
+  public getAuthState(): Observable<firebase.User> {
     return this.afAuth.authState;
   }
 
-  getCurrentFirebaseUser(): firebase.User {
+  /**
+   * Get current firebase user
+   * @returns {firebase.User}
+   */
+  public getCurrentFirebaseUser(): firebase.User {
     return this.afAuth.auth.currentUser;
   }
 
@@ -61,51 +68,59 @@ export class FirebaseAuthService {
    * @param  {string} password user password
    * @returns {Promise<any>}
    */
-  signInWithEmail(email: string, password: string): Promise<any> {
+  public signInWithEmail(email: string, password: string): Promise<any> {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  /**
+   * Signs User in with OAuth
+   * @param  {any} provider Auth provider
+   * @returns {Promise<any>}
+   */
+  public signInWithOAuth(provider: any): Promise<any> {
+    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
+      this.afs.updateUserData(credential.user);
+    });
   }
 
   /**
    * Signs user in with his Google account
    * @returns {Promise<any>}
    */
-  signInWithGoogle(): Promise<any> {
+  public signInWithGoogle(): Promise<any> {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
-      this.updateUserData(credential.user);
-    });
+    return this.signInWithOAuth(provider);
   }
 
   /**
    * Signs user in with his Facebook account
    * @returns {Promise<any>}
    */
-  signInWithFacebook(): Promise<any> {
+  public signInWithFacebook(): Promise<any> {
     const provider = new firebase.auth.FacebookAuthProvider();
-    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
-      this.updateUserData(credential.user);
-    });
+    return this.signInWithOAuth(provider);
   }
 
   /**
    * Signs user in with his twitter account
    * @returns {Promise<any>}
    */
-  signInWithTwitter(): Promise<any> {
+  public signInWithTwitter(): Promise<any> {
     const provider = new firebase.auth.TwitterAuthProvider();
-    return this.afAuth.auth.signInWithPopup(provider).then(credential => {
-      this.updateUserData(credential.user);
-    });
+    return this.signInWithOAuth(provider);
   }
 
   /**
+   * Register user with credentials
+   * @param  {string} email
+   * @param  {string} password
    * @returns {Promise<any>}
    */
-  register(email: string, password: string): Promise<any> {
+  public register(email: string, password: string): Promise<any> {
     return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(credential => {
-        this.updateUserData(credential);
+        this.afs.updateUserData(credential);
       });
   }
 
@@ -113,7 +128,7 @@ export class FirebaseAuthService {
    * Signs user out
    * @returns {Promise<any>}
    */
-  signOut(): Promise<any> {
+  public signOut(): Promise<any> {
     return this.afAuth.auth.signOut().then(() => {
       this.router.navigate(['home']);
     });
@@ -124,24 +139,8 @@ export class FirebaseAuthService {
    * @param  {string} email Email
    * @returns {Promise<any>}
    */
-  sendResetPasswordMail(email: string): Promise<any> {
+  public sendResetPasswordMail(email: string): Promise<any> {
     return this.afAuth.auth.sendPasswordResetEmail(email);
-  }
-
-  /**
-   * Updates users profile in the firebase firestore
-   * @param  {any} user
-   * @returns {Promise<void>}
-   */
-  updateUserData(user: any): Promise<void> {
-    // Sets user data to firestore on login
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
-    if (!user.roles) {
-      user = new User(user);
-    }
-    return userRef.set(JSON.parse(JSON.stringify(user)));
   }
 
   /**

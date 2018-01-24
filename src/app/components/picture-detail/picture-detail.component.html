@@ -1,0 +1,105 @@
+<div mdbModal #pictureModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-fluid" role="document">
+    <div class="modal-content">
+      <div class="modal-header indigo">
+        <h4 class="modal-title w-100 text-white" id="myModalLabel">{{ image.name }}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 col-lg-8 p-3">
+            <img [src]="image.preview" class="img-size" [alt]="image.name">
+            <p class="bildname">{{image.name}}</p>
+            <div class="row">
+              <div class="col-12 col-lg-5 p-3">
+                <table>
+                  <tr>
+                    <td>
+                      <a class="icon-button" [ngStyle]="image.selected && { 'color': '#3f51b5' }" (click)="image.selected = !image.selected">
+                        <i class="fa fa-check fa-2x" aria-hidden="true">&nbsp;</i>
+                      </a>
+                    </td>
+                    <td>
+                      <a class="icon-button" style="color: #3f51b5" (click)="rateImage(image)">
+                        &nbsp;
+                        <i class="fa fa-heart fa-2x" aria-hidden="true">&nbsp;{{ image.ratings }}</i>
+                      </a>
+                    </td>
+                    <td>
+                      <a class="icon-button" style="color: #ff4848" (click)="reportImage(image)">
+                        &nbsp;
+                        <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true">&nbsp;</i>
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-12 col-lg-7 p-3">
+                <button *ngIf="!previousFlag" class="btn pink waves-light navigation" mdbRippleRadius (click)="loadPreviousImage()">
+                  <i class="fa fa-angle-double-left mr-1"></i>{{ 'LABELS.PREVIOUS' | translate }}
+                </button>
+
+
+                <button *ngIf="!nextFlag" class="btn pink waves-light navigation" mdbRippleRadius (click)="loadNextImage()">{{ 'LABELS.NEXT' | translate }}
+                  <i class="fa fa-angle-double-right ml-1"></i>
+                </button>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-4 vertical-ruler p-3">
+            <div class="btn-group">
+              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="left" mdbRippleRadius (click)="this.templateType = this.download; this.price = undefined; this.format = undefined">
+                <i class="fa fa-download fa-5x" aria-hidden="true"></i>
+              </label>
+              <label class="btn btn-primary waves-light" [(ngModel)]="radioModel" mdbRadio="right" mdbRippleRadius (click)="this.templateType = this.print; this.price = undefined; this.format = undefined">
+                <i class="fa fa-print fa-5x" aria-hidden="true"></i>
+              </label>
+            </div>
+
+            <ng-container *ngTemplateOutlet="templateType"></ng-container>
+
+            <button type="button" class="btn btn-pink btn-lg btn-block waves-light" mdbRippleRadius (click)="addToShoppingCart()">
+              <i class="fa fa-shopping-cart mr-1"></i> {{ 'BUTTONS.ADD_TO_SHOPPING_CART' | translate }}</button>
+          </div>
+        </div>
+
+        <!--<div class="modal-footer justify-content-center"></div>-->
+      </div>
+    </div>
+  </div>
+
+  <ng-template #download>
+    <div class="p-4">
+      <table>
+        <tr>
+          <td>
+            <p>{{ 'LABELS.FORMAT' | translate }}:</p>
+            <div *ngIf="priceList" class="form-group">
+              <div *ngFor="let downloadItem of priceList.downloadItems; let i = index">
+                <input name="group1" type="radio" class="with-gap" id="radio{{i}}" (click)="changeFormat('download', downloadItem.name)">
+                <label for="radio{{i}}">{{downloadItem.name}} - {{ downloadItem.price | number:'0.2-2' }}€</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </ng-template>
+
+  <ng-template #print>
+    <div class="p-4">
+      <table>
+        <tr>
+          <td>
+            <p>{{ 'LABELS.FORMAT' | translate }}:</p>
+            <div *ngIf="priceList" class="form-group">
+              <div *ngFor="let article of printPicturePriceList; let i = index">
+                <input name="group1" type="radio" class="with-gap" id="radio{{i}}" (click)="changeFormat('print', article.name)">
+                <label for="radio{{i}}">{{article.name}} - {{ article.price | number:'0.2-2' }}€</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </ng-template>

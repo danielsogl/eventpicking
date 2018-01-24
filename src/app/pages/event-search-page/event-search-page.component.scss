@@ -1,0 +1,39 @@
+.info {
+  text-align: center;
+  padding: 30px;
+}
+
+.btn-primary {
+  width: 200px;
+  height: 50px;
+}
+
+.input-row {
+  padding-bottom: 50px;
+}
+
+.col-12 {
+  padding-bottom: 30px;
+}
+
+.col-lg-6 {
+  text-align: center;
+}
+
+.indigo-gradient {
+  background: linear-gradient(80deg, #9dafff, rgb(104, 129, 253));
+}
+
+.btn-primary {
+  background-color: #7986cb;
+}
+
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #3f51b5 !important;
+}
+
+.btn-primary:hover {
+  background-color: #3f51b5 !important;
+}

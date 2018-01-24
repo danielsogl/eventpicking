@@ -2,9 +2,13 @@ import { inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreModule
+} from 'angularfire2/firestore';
 
 import { environment } from '../../../../environments/environment';
+import { FirebaseFirestoreService } from '../../firebase/firestore/firebase-firestore.service';
 import { FirebaseAuthService } from './firebase-auth.service';
 
 describe('FirebaseAuthService', () => {
@@ -17,28 +21,40 @@ describe('FirebaseAuthService', () => {
       providers: [
         FirebaseAuthService,
         AngularFireAuth,
+        FirebaseFirestoreService,
         { provide: AngularFirestore, depends: AngularFirestoreModule }
       ]
     });
   });
 
-  it('should be created', inject([FirebaseAuthService], (service: FirebaseAuthService) => {
-    expect(service).toBeTruthy();
-  }));
+  it(
+    'should be created',
+    inject([FirebaseAuthService], (service: FirebaseAuthService) => {
+      expect(service).toBeTruthy();
+    })
+  );
 
-  it('should login user', inject([FirebaseAuthService], (service: FirebaseAuthService) => {
-    service.signInWithEmail('daniel@sogls.de', 'passwort').then(() => {
-      expect(service.getCurrentFirebaseUser).toBeDefined().then(() => {
-        service.signOut();
+  it(
+    'should login user',
+    inject([FirebaseAuthService], (service: FirebaseAuthService) => {
+      service.signInWithEmail('daniel@sogls.de', 'passwort').then(() => {
+        expect(service.getCurrentFirebaseUser)
+          .toBeDefined()
+          .then(() => {
+            service.signOut();
+          });
       });
-    });
-  }));
+    })
+  );
 
-  it('should logout user', inject([FirebaseAuthService], (service: FirebaseAuthService) => {
-    service.signInWithEmail('daniel@sogls.de', 'passwort').then(() => {
+  it(
+    'should logout user',
+    inject([FirebaseAuthService], (service: FirebaseAuthService) => {
+      service.signInWithEmail('daniel@sogls.de', 'passwort').then(() => {
         service.signOut().then(() => {
           expect(service.getCurrentFirebaseUser()).toBeUndefined();
         });
-    });
-  }));
+      });
+    })
+  );
 });

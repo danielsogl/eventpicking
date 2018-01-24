@@ -1,5 +1,198 @@
 <div class="row mt-5 pt-5">
-    <div class="col text-center">
-      <h1>Checkout Page</h1>
+  <div class="col-sm-12">
+    <ul class="stepper stepper-horizontal">
+      <li [class.active]="template === checkoutContactDetails">
+        <a>
+          <span class="circle">1</span>
+          <span class="label">{{ 'NAV.CONTACT_DETAILS' | translate }}</span>
+        </a>
+      </li>
+      <li [class.active]="template === checkoutPaymentDelivery">
+        <a>
+          <span class="circle">2</span>
+          <span class="label">{{ 'NAV.PAYMENT_DELIVERY' | translate }}</span>
+        </a>
+      </li>
+      <li [class.active]="template === checkoutCheckOrder">
+        <a>
+          <span class="circle">
+            3
+          </span>
+          <span class="label">{{ 'NAV.CHECK_ORDER' | translate }}</span>
+        </a>
+      </li>
+    </ul>
+    <div class="row m-5">
+      <ng-container *ngTemplateOutlet="template"></ng-container>
     </div>
   </div>
+
+  <!--checkout-templates-->
+  <ng-template #loadingTmpl>
+    <mdb-spinner spinnerType="big" spinnerColor="blue"></mdb-spinner>
+  </ng-template>
+
+  <ng-template #checkoutContactDetails>
+    <div class="container" *ngIf="user">
+      <h2>{{ 'LABELS.CONTACT_DETAILS' | translate }}</h2>
+      <p>{{ user.email }}</p>
+      <br>
+      <div class="row">
+        <div class="col-6">
+          <h2>{{ 'LABELS.DELIVERY_ADDRESS' | translate }}</h2>
+          <p>{{ user.name }} {{ user.lastname }}</p>
+          <p>{{ user.deliveryAdress.street }} {{ user.deliveryAdress.streetnumber }}</p>
+          <p>{{ user.deliveryAdress.zip }} {{ user.deliveryAdress.city }}</p>
+        </div>
+        <!--col1-->
+        <div class="col-6">
+          <h2>{{ 'LABELS.BILLING_ADDRESS' | translate }}</h2>
+          <p>{{ user.name }} {{ user.lastname }}</p>
+          <p>{{ user.billingAdress.street }} {{ user.billingAdress.streetnumber }}</p>
+          <p>{{ user.billingAdress.zip }} {{ user.billingAdress.city }}</p>
+        </div>
+        <!--col1-->
+      </div>
+      <!--row-->
+      <div class="row justify-content-end">
+        <p>
+          <button id="checkout3_send_order" type="button" class="btn pink waves-effect" (click)="setTemplate('paymentDelivery')" mdbRippleRadius>{{ 'BUTTONS.NEXT' | translate }}</button>
+        </p>
+      </div>
+    </div>
+    <!--container-->
+  </ng-template>
+
+  <ng-template #checkoutPaymentDelivery>
+    <div class="container">
+      <h2>{{ 'LABELS.PAYMENT_SHIPPING_DETAILS' | translate }}</h2>
+      <br>
+      <div class="row justify-content-left">
+        <div class="col-12">
+          <h3>{{ 'LABELS.PAYMENT_METHOD' | translate }}</h3>
+          <!-- PayPal Logo -->
+          <a href="https://www.paypal.com/de/webapps/mpp/paypal-popup" title="So funktioniert PayPal">
+            <img src="https://www.paypalobjects.com/webstatic/de_DE/i/de-pp-logo-150px.png" border="0" alt="PayPal Logo" />
+          </a>
+          <!-- PayPal Logo -->
+        </div>
+        <!--col1-->
+      </div>
+      <!--row-->
+      <div class="row justify-content-left">
+        <div class="col-8">
+          <p class="padded">Nach dem Abschicken des Auftrags werden Sie auf die offizielle PayPal-Seite geleitet, um dort komfortabel und sicher
+            zu bezahlen.
+          </p>
+        </div>
+        <!--col1-->
+      </div>
+      <!--row-->
+      <div class="row justify-content-left">
+        <div class="col-12">
+          <h3>{{ 'LABELS.DELIVERY_COSTS' | translate }}</h3>
+        </div>
+        <!--col1-->
+      </div>
+      <!--row-->
+      <div class="row">
+        <div class="col-9">
+          <p>Druckerei: Lieferung in 7-10 Tagen</p>
+          <p>Download: Lieferung in 5-15 Minuten</p>
+        </div>
+        <!--col1-->
+        <div class="col-3">
+          <p class="price">4,95€</p>
+          <p class="price">Kostenlos</p>
+        </div>
+        <!--col2-->
+      </div>
+      <!--row-->
+      <!-- Buttons to previous or next step -->
+      <div class="row justify-content-end">
+        <button id="checkout3_back" type="button" class="btn pink waves-effect" (click)="setTemplate('contactDetails')" mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
+        <button id="checkout3_send_order" type="button" class="btn pink waves-effect" (click)="setTemplate('checkOrder'); renderPaypalButton()"
+          mdbRippleRadius>{{ 'BUTTONS.NEXT' | translate }}</button>
+        <!-- END buttons -->
+      </div>
+      <!--row-->
+    </div>
+    <!--container-->
+  </ng-template>
+
+  <ng-template #checkoutCheckOrder>
+    <div class="container">
+      <h2>{{ 'LABELS.ORDER_DETAILS' | translate }}</h2>
+      <br>
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-striped table-responsive-sm">
+            <thead id="sum_row" class="indigo">
+              <tr>
+                <th scope="col">{{ 'NAV.CART_QUANTITY' | translate }}</th>
+                <th scope="col">{{ 'NAV.CART_ITEM' | translate }}</th>
+                <th scope="col">{{ 'NAV.CART_TYPE' | translate }}</th>
+                <th scope="col">{{ 'NAV.CART_SIZE' | translate }}</th>
+                <th scope="col">{{ 'NAV.CART_PRICE' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-bordered" *ngFor="let item of cartItems; let i = index">
+                <td>{{ item?.amount }}</td>
+                <td>{{ item?.name }}</td>
+                <td>
+                  <i *ngIf="item.itemType === checkType.PRINT" class="fa fa-print fa-lg" aria-hidden="true"></i>
+                  <i *ngIf="item.itemType === checkType.DOWNLOAD" class="fa fa-download fa-lg" aria-hidden="true"></i>
+                </td>
+                <td>{{ item?.format }}</td>
+                <td>{{ item?.price | number:'0.2' }}€</td>
+              </tr>
+              <tr class="table background-white">
+                <td>Zwischensumme</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ subTotal | number:'0.2-2' }}€</td>
+              </tr>
+              <tr class="table  background-white">
+                <td>+ Versandkosten</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ shipping | number:'0.2-2' }}€</td>
+              </tr>
+              <tr class="table  background-white">
+                <td>{{'LABELS.TOTAL'|translate}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ subTotal + shipping | number:'0.2-2' }}€</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--col1-->
+      </div>
+      <!--row-->
+      <div class="row">
+        <div class="col-12">
+          <br> Indem Sie Ihre Bestellung aufgeben, akzeptieren Sie unsere
+          <a class="pink-text" target="_blank" href="./gtc">Allgemeinen Geschäftsbedingungen</a> und unsere
+          <a class="pink-text" target="_blank" href="./data-protection">Datenschutzrichtlinie</a>.
+          <br>
+        </div>
+        <!--col-->
+      </div>
+      <!--row-->
+      <!-- Buttons to previous or next step -->
+      <div class="row justify-content-end">
+        <button id="checkout3_back" type="button" class="btn pink waves-effect" (click)="setTemplate('paymentDelivery')" mdbRippleRadius>{{ 'BUTTONS.BACK' | translate }}</button>
+        <div id="paypal-button"></div>
+        <!-- END buttons -->
+      </div>
+      <!--row-->
+    </div>
+    <!--container-->
+  </ng-template>
+  <!--END checkout-templates-->
+</div>

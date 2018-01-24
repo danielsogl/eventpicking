@@ -1,5 +1,25 @@
 <div class="row mt-5 pt-5">
-    <div class="col text-center">
-      <h1>Event Page</h1>
-    </div>
+  <div class="col text-center">
+    <ng-container *ngTemplateOutlet="template"></ng-container>
   </div>
+</div>
+
+<ng-template #loadingTmpl>
+  <mdb-spinner spinnerType="big" spinnerColor="blue"></mdb-spinner>
+</ng-template>
+
+<ng-template #eventUser>
+  <app-event-user [user]="user" [event]="event"></app-event-user>
+</ng-template>
+
+<ng-template #eventPhotographer>
+  <app-event-photographer [user]="user" [event]="event"></app-event-photographer>
+</ng-template>
+
+<ng-template #eventNotFound>
+  <h1>Event not found</h1>
+</ng-template>
+
+<ng-template #eventDeleted>
+  <h1>Event deleted</h1>
+</ng-template>

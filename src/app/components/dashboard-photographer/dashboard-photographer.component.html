@@ -1,0 +1,796 @@
+<mdb-tabset [buttonClass]="'nav-tabs indigo'" [contentClass]="'card'">
+
+  <mdb-tab heading="{{ 'TABS.EVENTS' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+        <div class="card-columns">
+          <app-dashboard-event-card *ngFor="let event of events | async" [event]="event"></app-dashboard-event-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large pink waves-light" mdbRippleRadius (click)="createNewEvent()">
+        <i class="fa fa-plus"></i>
+      </a>
+    </div>
+
+  </mdb-tab>
+
+  <mdb-tab heading="{{ 'TABS.SALES' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+        <h1>Gesamtumsatz:
+          <span class="light-green-text">{{ totalSales | number:'0.2-2' }} €</span>
+        </h1>
+        <h1>Verkaufte Bilder:
+          <span class="light-green-text">{{ totalPictureSales }}</span>
+        </h1>
+        <hr>
+        <table class="table text-left">
+          <thead class="thead-default">
+            <tr>
+              <td>#</td>
+              <td>Rechnungsnummer</td>
+              <td>Bestelldatum</td>
+              <td>Umsatz</td>
+              <td>Gewinn</td>
+              <td>Bestellstatus</td>
+              <td>Bestellung anzeigen</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of (transactions | async); let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ transaction.invoice_number }}</td>
+              <td>{{ transaction.date | date }}</td>
+              <td>{{ transaction.amount.total | number:'0.2-2' }} €</td>
+              <td>
+                <strong>{{ (transaction.amount.details.subtotal * 0.9) | number:'0.2-2' }} €</strong>
+              </td>
+              <td>{{ transaction.status | uppercase }}</td>
+              <td>
+                <a (click)="openTransaction(transaction)" *ngIf="transaction.status === 'available'">
+                  <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mdb-tab>
+
+  <mdb-tab heading="{{ 'TABS.SUBSCRIPTION' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+
+        <!--Section: Pricing v.1-->
+        <section class="section pb-3">
+          <!--Section heading-->
+          <h1>Unsere Abonnements</h1>
+          <br>
+          <br>
+
+
+          <div class="row">
+
+            <div class="col-lg-4 col-md-12 mb-r">
+
+              <div class="card pricing-card">
+                <!--Price-->
+                <div class="price header indigo indigo-gradient">
+                  <h1>25</h1>
+                  <div class="version indigo-gradient">
+                    <h5>Basic</h5>
+                  </div>
+                </div>
+                <!--/.Price-->
+
+                <!--Features-->
+                <div class="card-body striped">
+                  <ul>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i>15 Events pro Monat</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i>Kein Speicherlimit</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i>10% Provision</p>
+                    </li>
+                  </ul>
+
+                  <button class="btn pink waves-light" mdbRippleRadius>Abo abschließen</button>
+                </div>
+                <!--/.Features-->
+
+              </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-r">
+              <div class="card pricing-card">
+                <!--Price-->
+                <div class="price header indigo indigo-gradient-2">
+                  <h1>35</h1>
+                  <div class="version indigo-gradient-2">
+                    <h5>Smart</h5>
+                  </div>
+                </div>
+                <!--/.Price-->
+
+                <!--Features-->
+                <div class="card-body striped">
+                  <ul>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i>25 Events pro Monat</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i>Kein Speicherlimit</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i>10% Provision</p>
+                    </li>
+                  </ul>
+
+                  <button class="btn pink waves-light" mdbRippleRadius>Abo abschließen</button>
+                </div>
+                <!--/.Features-->
+
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-r">
+              <div class="card pricing-card">
+                <!--Price-->
+                <div class="price header indigo indigo-gradient">
+                  <h1>50</h1>
+                  <div class="version indigo-gradient">
+                    <h5>Professional</h5>
+                  </div>
+                </div>
+                <!--/.Price-->
+
+                <!--Features-->
+                <div class="card-body striped">
+                  <ul>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i>50 Events pro Monat</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i>Kein Speicherlimit</p>
+                    </li>
+                    <li>
+                      <p>
+                        <i class="fa fa-check"></i>10% Provision</p>
+                    </li>
+                  </ul>
+
+                  <button class="btn pink waves-light" mdbRippleRadius>Abo abschließen</button>
+                </div>
+                <!--/.Features-->
+
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </mdb-tab>
+
+  <mdb-tab heading="{{ 'TABS.PRICING_MODEL' | translate }}">
+    <div class="row">
+      <div class="col-12 text-left">
+        <br>
+
+        <mdb-tabset [buttonClass]="'nav-tabs indigo'" [contentClass]="''">
+
+          <mdb-tab heading="<i class='fa fa-download'></i> Downloads">
+            <div class="row">
+              <div class="col-12">
+                <br>
+                <table class="table text-left" *ngIf="priceList">
+                  <thead class="thead-default">
+                    <tr>
+                      <th scope="row">Artikel</th>
+                      <th>Minimaler Preis</th>
+                      <th>Ihr Preis</th>
+                      <th>Ihre Provision (abz&uuml;glich -10%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let article of priceList.downloadItems; let i = index; trackBy:trackByIndex">
+                      <td>{{ article.name}}</td>
+                      <td>{{ article.minPrice | number: '0.2-2' }} €</td>
+                      <td>
+                        <input type="number" class="form-control input-sm" [min]="article.minPrice" [(ngModel)]="priceList.downloadItems[i].price">
+                      </td>
+                      <td>{{ article.price * 0.90 | number: '0.2-2' }} €</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </mdb-tab>
+
+          <mdb-tab heading="<i class='fa fa-print'></i> Druckerei">
+            <div class="row">
+              <div class="col-12">
+                <br>
+                <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
+                  <div *ngIf="priceList && !ownPrintingHouse">
+                    <mdb-item *ngFor="let item of priceList.printingHouseItems; let i = index;">
+                      <mdb-item-head> {{ item.name }} </mdb-item-head>
+                      <mdb-item-body>
+                        <table class="table text-left">
+                          <thead class="thead-default">
+                            <tr>
+                              <th scope="row">Artikel</th>
+                              <th>Format</th>
+                              <th>Minimaler Preis</th>
+                              <th>Ihr Preis</th>
+                              <th>Ihre Provision (abz&uuml;glich -10%)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let article of item.articles; let j = index; trackBy:trackByIndex">
+                              <td>{{ article.name}}</td>
+                              <td>{{ article.width}}x{{ article.heigh}}</td>
+                              <td>{{ article.minPrice | number: '0.2-2' }} €</td>
+                              <td>
+                                <input type="number" class="form-control input-sm" [min]="article.minPrice" [(ngModel)]="priceList.printingHouseItems[i].articles[j].price">
+                              </td>
+                              <td>{{ article.price * 0.90 | number: '0.2-2' }} €</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </mdb-item-body>
+                    </mdb-item>
+                  </div>
+                  <div *ngIf="priceList && ownPrintingHouse">
+                    <mdb-item *ngFor="let item of priceList.printingHouseItems; let i = index;">
+                      <mdb-item-head> {{ item.name }} </mdb-item-head>
+                      <mdb-item-body>
+                        <table class="table text-left">
+                          <thead class="thead-default">
+                            <tr>
+                              <th scope="row">Artikel</th>
+                              <th>Format</th>
+                              <th>Ihr Preis</th>
+                              <th>Ihre Provision (abz&uuml;glich -10%)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let article of item.articles; let j = index; trackBy:trackByIndex">
+                              <td>{{ article.name}}</td>
+                              <td>{{ article.width}}x{{ article.heigh}}</td>
+                              <td>
+                                <input type="number" class="form-control input-sm" [(ngModel)]="priceList.printingHouseItems[i].articles[j].price">
+                              </td>
+                              <td>{{ article.price * 0.90 | number: '0.2-2' }} €</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </mdb-item-body>
+                    </mdb-item>
+                  </div>
+                </mdb-squeezebox>
+              </div>
+            </div>
+          </mdb-tab>
+
+        </mdb-tabset>
+
+        <div class="row no-gutters justify-content-start" style="align-items: center">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updatePriceList()">&Auml;nderungen speichern</button>
+          </div>
+          <div class="col-4"></div>
+        </div>
+
+      </div>
+    </div>
+  </mdb-tab>
+
+  <mdb-tab heading="{{ 'TABS.PRINTING_HOUSES' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+        <div *ngIf="checkDefaultPrintingHouse()">
+          <h1>Standard Druckerei</h1>
+          <div class="text-left">
+            <mdb-squeezebox [multiple]="false" aria-multiselectable="true">
+              <mdb-item>
+                <mdb-item-head>Adresse</mdb-item-head>
+                <mdb-item-body>
+                  <form>
+                    <fieldset disabled>
+                      <br>
+                      <div class="md-form">
+                        <input type="text" class="form-control" name="name" [(ngModel)]="defaultPrintingHouse.address.name">
+                        <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                      </div>
+
+                      <div class="md-form">
+                        <input type="text" class="form-control" name="email" [(ngModel)]="defaultPrintingHouse.address.email">
+                        <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
+                      </div>
+
+                      <div class="md-form">
+                        <input type="text" class="form-control" name="phone" [(ngModel)]="defaultPrintingHouse.address.phone">
+                        <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-9">
+                          <div class="md-form">
+                            <input type="text" class="form-control" name="street" [(ngModel)]="defaultPrintingHouse.address.street">
+                            <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="md-form">
+                            <input type="text" class="form-control" name="streetNumber" [(ngModel)]="defaultPrintingHouse.address.streetnumber">
+                            <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="md-form">
+                            <input type="text" class="form-control" name="zip" [(ngModel)]="defaultPrintingHouse.address.zip">
+                            <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
+                          </div>
+                        </div>
+
+                        <div class="col-md-9">
+                          <div class="md-form">
+                            <input type="text" class="form-control" name="city" [(ngModel)]="defaultPrintingHouse.address.city">
+                            <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </form>
+                </mdb-item-body>
+              </mdb-item>
+              <mdb-item>
+                <mdb-item-head>Preisliste</mdb-item-head>
+                <mdb-item-body>
+                  <p>Sie können die Standardpreise unter dem Tab "Preismodelle" &auml;ndern.</p>
+                  <div *ngIf="priceList">
+                    <div *ngFor="let item of priceList.printingHouseItems">
+                      <h1>{{ item.name }}</h1>
+                      <table class="table text-left">
+                        <thead class="thead-default">
+                          <tr>
+                            <th scope="row">Artikel</th>
+                            <th>Format</th>
+                            <th>Minimaler Preis</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let article of item.articles">
+                            <td>{{ article.name}}</td>
+                            <td>{{ article.width}}x{{ article.heigh}}</td>
+                            <td>{{ article.minPrice | number: '0.2-2' }} €</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </mdb-item-body>
+              </mdb-item>
+            </mdb-squeezebox>
+          </div>
+
+          <br>
+          <div class="row no-gutters justify-content-start" style="align-items: center">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="createPrintingHouse()">Eigene Druckerei speichern</button>
+            </div>
+            <div class="col-4"></div>
+          </div>
+
+        </div>
+        <div *ngIf="ownPrintingHouse">
+          <h1>Eigene Druckerei</h1>
+          <mdb-squeezebox [multiple]="false" aria-multiselectable="true" class="text-left">
+            <mdb-item>
+              <mdb-item-head>Adresse</mdb-item-head>
+              <mdb-item-body>
+                <form>
+                  <fieldset>
+                    <br>
+                    <div class="md-form">
+                      <input type="text" class="form-control" name="name" [(ngModel)]="ownPrintingHouse.address.name">
+                      <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                    </div>
+
+                    <div class="md-form">
+                      <input type="text" class="form-control" name="email" [(ngModel)]="ownPrintingHouse.address.email">
+                      <label class="active">{{ 'INPUTS.EMAIL' | translate }}</label>
+                    </div>
+
+                    <div class="md-form">
+                      <input type="text" class="form-control" name="phone" [(ngModel)]="ownPrintingHouse.address.phone">
+                      <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-9">
+                        <div class="md-form">
+                          <input type="text" class="form-control" name="street" [(ngModel)]="ownPrintingHouse.address.street">
+                          <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="md-form">
+                          <input type="text" class="form-control" name="streetNumber" [(ngModel)]="ownPrintingHouse.address.streetnumber">
+                          <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="md-form">
+                          <input type="text" class="form-control" name="zip" [(ngModel)]="ownPrintingHouse.address.zip">
+                          <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-9">
+                        <div class="md-form">
+                          <input type="text" class="form-control" name="city" [(ngModel)]="ownPrintingHouse.address.city">
+                          <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </form>
+              </mdb-item-body>
+            </mdb-item>
+            <mdb-item>
+              <mdb-item-head>Rechnungsdaten</mdb-item-head>
+              <mdb-item-body>
+                <br>
+                <form>
+                  <div class="md-form">
+                    <input type="text" class="form-control" name="accountOwner" [(ngModel)]="ownPrintingHouse.paymentInformation.accountOwner">
+                    <label class="active">{{ 'INPUTS.ACCOUNT_OWNER' | translate }}</label>
+                  </div>
+
+                  <div class="md-form">
+                    <input type="text" class="form-control" name="iban" [(ngModel)]="ownPrintingHouse.paymentInformation.iban">
+                    <label class="active">{{ 'INPUTS.IBAN' | translate }}</label>
+                  </div>
+
+                  <div class="md-form">
+                    <input type="text" class="form-control" name="bic" [(ngModel)]="ownPrintingHouse.paymentInformation.bic">
+                    <label class="active">{{ 'INPUTS.BIC' | translate }}</label>
+                  </div>
+                </form>
+              </mdb-item-body>
+            </mdb-item>
+            <mdb-item class="text-left">
+              <mdb-item-head>Preisliste</mdb-item-head>
+              <mdb-item-body>
+                <p>Sie können die Standardpreise unter dem Tab "Preismodelle" &auml;ndern.</p>
+                <div *ngIf="priceList">
+                  <div *ngFor="let item of priceList.printingHouseItems">
+                    <h1>{{ item.name }}</h1>
+                    <table class="table text-left">
+                      <thead class="thead-default">
+                        <tr>
+                          <th scope="row">Artikel</th>
+                          <th>Format</th>
+                          <th>Ihr Preis</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let article of item.articles">
+                          <td>{{ article.name}}</td>
+                          <td>{{ article.width}}x{{ article.heigh}}</td>
+                          <td>{{ article.minPrice | number: '0.2-2' }} €</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </mdb-item-body>
+            </mdb-item>
+          </mdb-squeezebox>
+
+          <br>
+          <div class="row no-gutters justify-content-start" style="align-items: center">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <button type="button" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updatePrintingHouse()">Eigene Druckerei speichern</button>
+            </div>
+            <div class="col-4"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </mdb-tab>
+
+  <mdb-tab heading="{{ 'TABS.PROFILE' | translate }}">
+    <div class="row">
+      <div class="col-12">
+        <br>
+        <mdb-squeezebox [multiple]="false" aria-multiselectable="true" class="text-left">
+          <mdb-item>
+            <mdb-item-head>{{ 'LABELS.ACCOUNT_DATA' | translate }}</mdb-item-head>
+            <mdb-item-body>
+              <br>
+              <form [formGroup]="accountDataForm">
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="name">
+                  <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="lastname">
+                  <label class="active">{{ 'INPUTS.LASTNAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="email">
+                  <label class="active">{{ 'INPUTS.CONTACT_EMAIL' | translate }}</label>
+                </div>
+              </form>
+            </mdb-item-body>
+          </mdb-item>
+          <mdb-item>
+            <mdb-item-head>{{ 'LABELS.BILLING_INFORMATION' | translate }}</mdb-item-head>
+            <mdb-item-body>
+              <br>
+              <form [formGroup]="billingAddressForm">
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="company">
+                  <label class="active">{{ 'INPUTS.COMPANY' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="name">
+                  <label class="active">{{ 'INPUTS.NAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="lastname">
+                  <label class="active">{{ 'INPUTS.LASTNAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="phone">
+                  <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="email">
+                  <label class="active">{{ 'INPUTS.CONTACT_EMAIL' | translate }}</label>
+                </div>
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="street">
+                      <label class="active">{{ 'INPUTS.STREET' | translate }}</label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="streetnumber">
+                      <label class="active">{{ 'INPUTS.STREET_NUMBER' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="zip">
+                      <label class="active">{{ 'INPUTS.ZIP' | translate }}</label>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="md-form">
+                      <input type="text" class="form-control" formControlName="city">
+                      <label class="active">{{ 'INPUTS.CITY' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </mdb-item-body>
+          </mdb-item>
+          <mdb-item>
+            <mdb-item-head>{{ 'LABELS.PUBLIC_PROFILE' | translate }}</mdb-item-head>
+            <mdb-item-body>
+              <br>
+              <form [formGroup]="publicProfileForm">
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="name">
+                  <label class="active">{{ 'INPUTS.DISPLAY_NAME' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <textarea class="md-textarea" type="text" length="120" mdbCharCounter formControlName="about"></textarea>
+                  <label class="active">{{ 'INPUTS.ABOUT_YOU' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="facebook">
+                  <label class="active">{{ 'INPUTS.FACEBOOK_PROFILE' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="instagram">
+                  <label class="active">{{ 'INPUTS.INSTAGRAM_PROFILE' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="tumbler">
+                  <label class="active">{{ 'INPUTS.TUMBLER_PROFILE' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="twitter">
+                  <label class="active">{{ 'INPUTS.TWITTER_PROFILE' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="website">
+                  <label class="active">{{ 'INPUTS.WBESITE' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="phone">
+                  <label class="active">{{ 'INPUTS.PHONE' | translate }}</label>
+                </div>
+                <div class="md-form">
+                  <input type="text" class="form-control" formControlName="email">
+                  <label class="active">{{ 'INPUTS.CONTACT_EMAIL' | translate }}</label>
+                </div>
+              </form>
+            </mdb-item-body>
+          </mdb-item>
+        </mdb-squeezebox>
+        <br>
+
+        <div class="row no-gutters justify-content-start" style="align-items: center">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <button type="submit" class="btn btn-lg btn-block waves-light pink" mdbRippleRadius (click)="updateProfile()">{{ 'BUTTONS.UPDATE_PROFILE' | translate }}</button>
+          </div>
+          <div class="col-4"></div>
+        </div>
+
+      </div>
+    </div>
+  </mdb-tab>
+</mdb-tabset>
+
+<div mdbModal #newEventModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+  [config]="{backdrop: true, ignoreBackdropClick: true}">
+  <div class="modal-dialog cascading-modal" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header indigo white-text">
+        <h4 class="title">
+          <i class="fa fa-calendar"></i>{{ 'LABELS.CREATE_NEW_EVENT' | translate }}</h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="newEventModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body mb-0">
+
+
+        <form [formGroup]="newEventForm" (ngSubmit)="saveEvent()">
+
+          <div class="md-form">
+            <input mdbActive type="text" class="form-control" id="input_newevent_name" formControlName="name">
+            <label>{{ 'LABELS.EVENT_NAME' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input mdbActive type="text" class="form-control" id="input_newevent_location" formControlName="location">
+            <label>{{ 'LABELS.EVENT_LOCATION' | translate }}</label>
+          </div>
+
+          <div class="md-form">
+            <input mdbActive type="text" class="form-control" id="input_newevent_date" formControlName="date">
+            <label>{{ 'LABELS.EVENT_DATE' | translate }}</label>
+          </div>
+
+          <div class="text-center mt-1-half">
+            <button type="submit" class="btn pink mb-2 waves-light" mdbRippleRadius>{{ 'LABELS.CREATE' | translate }}
+              <i class="fa fa-plus ml-1"></i>
+            </button>
+          </div>
+
+        </form>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div mdbModal #notValidatedModal="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Ihr Profil ist nicht validiert!</p>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-exclamation-triangle fa-4x mb-3 animated rotateIn"></i>
+          <p>Bitte validieren Sie Ihren Account, indem Sie uns Ihre Handelsregistereintragung an
+            <a href="mailto:validate@eventpicking.de">validate@eventpicking.de</a> senden.
+            <br> Nachdem wir Ihren Account validiert haben können Sie Events anlegen und Bilder daraus verkaufen.</p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary-modal waves-light" mdbRippleRadius (click)="notValidatedModal.hide()">Got it!
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #eventLimitModal="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Limit der monatlichen Events erreicht!</p>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-exclamation-triangle fa-4x mb-3 animated rotateIn"></i>
+          <p>Sie haben Ihr monatliches Limit an Events erreicht! Bitte schließen Sie ein höherwertiges Abonnement ab, um neue
+            Events anzulegen. Alternativ können Sie andere Events l&ouml;schen.</p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-primary-modal waves-light" mdbRippleRadius (click)="eventLimitModal.hide()">Got it!
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #transactionModal="mdb-modal" class="modal fade" id="transactionModal" tabindex="-1" role="dialog" aria-labelledby="transactionModal"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" *ngIf="transaction">
+      <div class="modal-header indigo">
+        <h4 class="modal-title w-100 text-white" id="myModalLabel">Order: {{ transaction.invoice_number }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="transactionModal.hide()">
+          <span aria-hidden="true" class="text-white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mdb-tabset #staticTabs [buttonClass]="'nav-tabs indigo'" [contentClass]="''">
+          <mdb-tab heading="<i class='fa fa-credit-card'></i> Rechnung">
+            <div class="row">
+              <div class="col-12">
+                <br>
+              </div>
+            </div>
+          </mdb-tab>
+        </mdb-tabset>
+      </div>
+    </div>
+  </div>
+</div>

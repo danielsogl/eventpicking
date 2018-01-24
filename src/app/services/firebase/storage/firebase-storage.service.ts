@@ -1,16 +1,45 @@
 import { Injectable } from '@angular/core';
-import { FirebaseApp } from 'angularfire2';
+import {
+  AngularFireStorage,
+  AngularFireStorageReference,
+  AngularFireUploadTask
+} from 'angularfire2/storage';
+import { Log } from 'ng2-logger';
+import { Observable } from 'rxjs/Observable';
+
+import { Upload } from '../../../classes/upload-file';
 
 /**
- * Ein Service für die Kommunikation mit dem Firebase Storage Service
+ * A service to up and download files from Firebase storage
  * @author Daniel Sogl
  */
 @Injectable()
 export class FirebaseStorageService {
+  /** Logger */
+  private log = Log.create('FirebaseStorageService');
+
+  /** Upload files */
+  public uploads: Observable<Upload[]>;
 
   /**
-   * @param  {FirebaseApp} fbApp AngularFire Firebase App
+   * Constructor
+   * @param  {AngularFireStorage} afStorage AngularFire Storage
    */
-  constructor(private fbApp: FirebaseApp) { }
+  constructor(private afStorage: AngularFireStorage) {
+    this.log.color = 'green';
+    this.log.d('Service injected');
+  }
 
+  /**
+   * Upload images to Firebase storage
+   * @param  {string} event Event ID
+   * @param  {Upload} upload Uploadfile
+   * @returns {AngularFireUploadTask}
+   */
+  pushUpload(event: string, upload: Upload): AngularFireUploadTask {
+    const storageRef: AngularFireStorageReference = this.afStorage.ref(
+      `events/${event}/${upload.file.name}`
+    );
+    return storageRef.put(upload.file);
+  }
 }

@@ -1,59 +1,79 @@
-import { BillingDetails } from '../interfaces/billing-details';
-import { Adress } from '../interfaces/adress';
+import { Address } from '../interfaces/address';
+import { EventpickingSub } from '../interfaces/subscription';
 import { UserRoles } from '../interfaces/user-roles';
-import { Event } from './event';
 
 /**
- * Application User
+ * Firebase User
+ * @author Daniel Sogl
  */
 export class User {
-  /**
-   * uid
-   */
-  uid: string;
-  /**
-   * email
-   */
+  /** Billing adress */
+  billingAdress: Address;
+  /** delivery Adress */
+  deliveryAdress: Address;
+  /** Email */
   email: string;
-  /**
-   * avatar url
-   */
-  photoURL?: string;
-
-  /**
-   * display name
-   */
-  displayName?: string;
-
-  /**
-   * user roles
-   */
+  /** Event counter */
+  eventCounter: number;
+  /** Events left */
+  eventsLeft: number;
+  /** is validated */
+  isValidated: boolean;
+  /** Lastname */
+  lastname: string;
+  /** Name */
+  name: string;
+  /** Photographer URL */
+  photographerUrl?: string;
+  /** Photo URL */
+  photoUrl?: string;
+  /** Roles */
   roles: UserRoles;
+  /** Salutation */
+  salutation: string;
+  /** Subscription */
+  subscription: EventpickingSub;
+  /** UID */
+  uid: string;
 
   /**
-   * Adress
-   */
-  adress: Adress;
-
-  /**
-   * Billing details
-   */
-  billingDetails: BillingDetails;
-
-  events: Event[];
-
-  /**
+   * Constructor
    * @param  {any} authData firebase user
    */
   constructor(authData: any) {
-    this.uid = authData.uid;
+    this.billingAdress = {
+      city: '',
+      company: '',
+      email: '',
+      lastname: '',
+      name: '',
+      phone: '',
+      street: '',
+      streetnumber: '',
+      zip: ''
+    };
+    this.deliveryAdress = {
+      city: '',
+      company: '',
+      email: '',
+      lastname: '',
+      name: '',
+      phone: '',
+      street: '',
+      streetnumber: '',
+      zip: ''
+    };
     this.email = authData.email;
-    this.photoURL = authData.photoURL;
-    this.displayName = authData.displayName;
+    this.eventCounter = 0;
+    this.eventsLeft = 1;
+    this.isValidated = false;
+    this.lastname = '';
+    this.name = '';
+    this.photographerUrl = authData.photographerUrl;
+    this.photoUrl = authData.photoUrl;
     this.roles = { user: true, admin: false, photographer: false };
-    this.adress = authData.adress;
-    this.billingDetails = authData.billingDetails;
-    this.events = authData.events;
+    this.salutation = '';
+    this.subscription = { membership: 'user', premium: false, status: 'valid' };
+    this.uid = authData.uid;
   }
-
 }

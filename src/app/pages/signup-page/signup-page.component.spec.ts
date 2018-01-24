@@ -4,37 +4,46 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
+import { FormBuilder } from '@angular/forms';
+import {
+  AngularFirestore,
+  AngularFirestoreModule
+} from 'angularfire2/firestore';
 
 import { FakeLoader } from '../../../../jest-mocks/fake-loader';
 import { environment } from '../../../environments/environment';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
+import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { SignupPageComponent } from './signup-page.component';
-import { FirebaseErrorPipe } from '../../pipes/firebase-error/firebase-error.pipe';
+import { AlertService } from '../../services/alert/alert.service';
 
 describe('SignupPageComponent', () => {
   let component: SignupPageComponent;
   let fixture: ComponentFixture<SignupPageComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        TranslateModule.forRoot({
-          loader: {provide: TranslateLoader, useClass: FakeLoader},
-        })
-      ],
-      providers: [
-        FirebaseAuthService,
-        AngularFireAuth,
-        { provide: AngularFirestore, depends: AngularFirestoreModule }
-      ],
-      declarations: [ SignupPageComponent, FirebaseErrorPipe ],
-      schemas: [NO_ERRORS_SCHEMA]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule,
+          AngularFireModule.initializeApp(environment.firebase),
+          TranslateModule.forRoot({
+            loader: { provide: TranslateLoader, useClass: FakeLoader }
+          })
+        ],
+        providers: [
+          FirebaseAuthService,
+          AngularFireAuth,
+          FirebaseFirestoreService,
+          FormBuilder,
+          AlertService,
+          { provide: AngularFirestore, depends: AngularFirestoreModule }
+        ],
+        declarations: [SignupPageComponent],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SignupPageComponent);

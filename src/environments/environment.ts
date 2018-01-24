@@ -5,12 +5,15 @@
 
 export const environment = {
   production: false,
+  agmKey: 'AIzaSyARLUCxW543JYIU-BfJOTiI2mAlQHLj6vQ',
+  paypal_sandbox:
+    'AWlMGZwpQbS0dq_r2Dt0ejp1TxDm72JD7Pt4Uc2mYlihAE3FU5axxS9wr4HcnVc13gB7TcbYDVLp9Vne',
   firebase: {
-    apiKey: 'AIzaSyCdwMeRUCrTWok90nQsT28-JhiaVQUsoyY',
-    authDomain: 'mercy-5ae35.firebaseapp.com',
-    databaseURL: 'https://mercy-5ae35.firebaseio.com',
-    projectId: 'mercy-5ae35',
-    storageBucket: 'mercy-5ae35.appspot.com',
-    messagingSenderId: '22833461657'
+    apiKey: 'AIzaSyBnB8M0rd5R87WvE57NzQVPuEQ6JiRbq_I',
+    authDomain: 'eventpicking-development.firebaseapp.com',
+    databaseURL: 'https://eventpicking-development.firebaseio.com',
+    projectId: 'eventpicking-development',
+    storageBucket: 'eventpicking-development.appspot.com',
+    messagingSenderId: '311467263618'
   }
 };

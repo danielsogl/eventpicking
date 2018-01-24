@@ -1,0 +1,55 @@
+<div class="card card-cascade" *ngIf="event && !event.deleted">
+
+  <!--Card image-->
+  <div class="view gradient-card-header indigo">
+    <h2 class="h2-responsive">{{ event.name }}</h2>
+    <p>{{ event.location }}</p>
+  </div>
+  <!--/Card image-->
+
+  <a class="btn-floating btn-action waves-light pink" [routerLink]="['/event', event.id]" mdbRippleRadius>
+    <i class="fa fa-pencil"></i>
+  </a>
+
+  <!--Card content-->
+  <div class="card-body">
+    <h1 style="color:red">{{ event.ratings }}
+      <i class="fa fa-heart"></i>
+    </h1>
+  </div>
+
+  <!-- Card footer -->
+  <div class="card-data text-left">
+    <ul>
+      <li>
+        <i class="fa fa-clock-o"></i>{{ event.date }}</li>
+    </ul>
+  </div>
+  <!-- Card footer -->
+
+</div>
+
+<div class="card card-cascade" *ngIf="event && event.deleted">
+  <!--Card image-->
+  <div class="view gradient-card-header danger-color">
+    <h2 class="h2-responsive">{{ event.name }}</h2>
+    <p>{{ event.location }}</p>
+  </div>
+  <!--/Card image-->
+
+  <!--Card content-->
+  <div class="card-body">
+    <h3 class="text-danger">Event wurde gelöscht
+    </h3>
+  </div>
+  <!-- /Card content-->
+
+  <!-- Card footer -->
+  <div class="card-data text-left">
+    <ul>
+      <li>
+        <i class="fa fa-clock-o"></i>{{ &nbsp;event.date }}</li>
+    </ul>
+  </div>
+  <!-- Card footer -->
+</div>

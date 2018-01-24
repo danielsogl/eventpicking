@@ -1,10 +1,16 @@
-<footer class="page-footer center-on-small-only pt-0 mt-5 fixed-bottom aqua-gradient">
-  <!--Copyright-->
+<footer class="page-footer center-on-small-only pt-0 mt-5 fixed-bottom indigo">
+
   <div class="footer-copyright">
-    <div class="container-fluid">
-      © 2017 Copyright:
+    <div class="container-fluid">Made with
+      <i class="fa fa-heart" style="color: red" aria-hidden="true"></i>
+      © {{ year }} Copyright:
       <a routerLink="/"> eventpicking.de </a>
+      &nbsp;|&nbsp;
+      <a routerLink="/imprint">{{ 'LABELS.IMPRINT' | translate }}</a>
+      &nbsp;|&nbsp;
+      <a routerLink="/data-protection">{{ 'LABELS.DATA_PROTECTION' | translate }}</a>
+      &nbsp;|&nbsp;
+      <a routerLink="/gtc">{{ 'LABELS.GTC' | translate }}</a>
     </div>
   </div>
-  <!--/.Copyright-->
 </footer>
