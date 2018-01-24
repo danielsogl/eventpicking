@@ -5,14 +5,13 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../interfaces/printing-house';
+import { PriceList } from '../../classes/price-list';
 import { Upload } from '../../classes/upload-file';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
-import { PriceList } from '../../classes/price-list';
 
 /**
  * Event photographer view component

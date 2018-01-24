@@ -5,7 +5,6 @@ import * as firebase from 'firebase/app';
 import * as _ from 'lodash';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
-import { switchMap } from 'rxjs/operators';
 
 import { User } from '../../../classes/user';
 import { FirebaseFirestoreService } from '../../firebase/firestore/firebase-firestore.service';

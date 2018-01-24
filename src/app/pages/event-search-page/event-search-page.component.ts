@@ -1,4 +1,4 @@
-import { Component, TemplateRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../classes/event';

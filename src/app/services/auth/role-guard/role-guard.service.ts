@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { Log } from 'ng2-logger';
 
 import { FirebaseAuthService } from '../firebase-auth/firebase-auth.service';
-import { Log } from 'ng2-logger';
 
 /**
  * Authguard for user roles

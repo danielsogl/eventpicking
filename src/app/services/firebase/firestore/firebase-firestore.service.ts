@@ -7,11 +7,11 @@ import {
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../../classes/event';
-import { PrintingHouse } from '../../../interfaces/printing-house';
+import { PriceList } from '../../../classes/price-list';
 import { User } from '../../../classes/user';
 import { EventPicture } from '../../../interfaces/event-picture';
 import { PhotographerProfile } from '../../../interfaces/photographer-profile';
-import { PriceList } from '../../../classes/price-list';
+import { PrintingHouse } from '../../../interfaces/printing-house';
 import { Transaction } from '../../../interfaces/transaction';
 
 /**

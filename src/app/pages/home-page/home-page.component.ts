@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
+
 import { EventPicture } from '../../interfaces/event-picture';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 

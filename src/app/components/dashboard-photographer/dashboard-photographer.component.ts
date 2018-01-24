@@ -11,7 +11,7 @@ import { PriceList } from '../../classes/price-list';
 import { User } from '../../classes/user';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
 import { PrintingHouse } from '../../interfaces/printing-house';
-import { Transaction, TransactionItem } from '../../interfaces/transaction';
+import { Transaction } from '../../interfaces/transaction';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';

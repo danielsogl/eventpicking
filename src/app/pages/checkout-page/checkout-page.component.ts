@@ -1,17 +1,18 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Log } from 'ng2-logger';
-import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
-import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
-import { User } from '../../classes/user';
-import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 import * as localforage from 'localforage';
+import { Log } from 'ng2-logger';
+
 import { environment } from '../../../environments/environment';
-import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { Transaction, TransactionItem } from '../../interfaces/transaction';
-import { CURRENCY } from '../../enums/currency';
+import { User } from '../../classes/user';
 import { COUNTRY } from '../../enums/country';
-import { NavigationService } from '../../services/navigation/navigation.service';
+import { CURRENCY } from '../../enums/currency';
 import { SHOPPINGCARTITEMTYPE } from '../../enums/shopping-cart-item-type';
+import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
+import { Transaction, TransactionItem } from '../../interfaces/transaction';
+import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
+import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+import { FirebaseStorageService } from '../../services/firebase/storage/firebase-storage.service';
+import { NavigationService } from '../../services/navigation/navigation.service';
 
 declare let paypal: any;
 

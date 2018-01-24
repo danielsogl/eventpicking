@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import * as localforage from 'localforage';
 import { MDBSpinningPreloader } from 'ng-mdb-pro';
 import { Log } from 'ng2-logger';
-import * as localforage from 'localforage';
 
 /**
  * Root component

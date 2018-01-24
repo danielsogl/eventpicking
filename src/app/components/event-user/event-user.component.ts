@@ -9,12 +9,12 @@ import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../interfaces/printing-house';
+import { PriceList } from '../../classes/price-list';
 import { User } from '../../classes/user';
 import { EventPicture } from '../../interfaces/event-picture';
-import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { PriceList } from '../../classes/price-list';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
+import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
+
 /**
  * Event user view component
  * @author Daniel Sogl, Markus Kirschner, Tim Krießler

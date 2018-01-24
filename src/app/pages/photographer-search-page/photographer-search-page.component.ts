@@ -2,11 +2,11 @@ import { AgmMap } from '@agm/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Log } from 'ng2-logger';
 
+import { Alert } from '../../interfaces/alert';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
+import { AlertService } from '../../services/alert/alert.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
-import { AlertService } from '../../services/alert/alert.service';
-import { Alert } from '../../interfaces/alert';
 
 /**
  * Photographer search page component

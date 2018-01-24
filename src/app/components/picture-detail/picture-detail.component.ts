@@ -1,19 +1,18 @@
-import { Component, TemplateRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import * as localforage from 'localforage';
 import { ModalDirective } from 'ng-mdb-pro/free/modals/modal.directive';
 import { Log } from 'ng2-logger';
-import { Observable } from 'rxjs/Observable';
 
-import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
-import { PrintingHouse } from '../../interfaces/printing-house';
-import { EventPicture } from '../../interfaces/event-picture';
-import { EventUserComponent } from '../event-user/event-user.component';
 import { PriceList } from '../../classes/price-list';
-import { PrintingHouseArticle } from '../../interfaces/printing-house-article';
 import { PRINTTYPE } from '../../enums/print-type';
 import { SHOPPINGCARTITEMTYPE } from '../../enums/shopping-cart-item-type';
-import * as localforage from 'localforage';
-import { AlertService } from '../../services/alert/alert.service';
 import { Alert } from '../../interfaces/alert';
+import { EventPicture } from '../../interfaces/event-picture';
+import { PrintingHouse } from '../../interfaces/printing-house';
+import { PrintingHouseArticle } from '../../interfaces/printing-house-article';
+import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
+import { AlertService } from '../../services/alert/alert.service';
+import { EventUserComponent } from '../event-user/event-user.component';
 
 /**
  * Picture detail modal component

@@ -12,6 +12,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ImprintPageComponent } from './pages/imprint-page/imprint-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { PaymentSuccessPageComponent } from './pages/payment-success-page/payment-success-page.component';
 import { PhotoDetailPageComponent } from './pages/photo-detail-page/photo-detail-page.component';
 import { PhotographerPageComponent } from './pages/photographer-page/photographer-page.component';
 import { PhotographerSearchPageComponent } from './pages/photographer-search-page/photographer-search-page.component';
@@ -19,7 +20,6 @@ import { PricesPageComponent } from './pages/prices-page/prices-page.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { AuthGuard } from './services/auth/auth-guard/auth-guard.service';
-import { PaymentSuccessPageComponent } from './pages/payment-success-page/payment-success-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

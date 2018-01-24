@@ -5,12 +5,12 @@ import { Log } from 'ng2-logger';
 import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../../classes/event';
-import { PrintingHouse } from '../../interfaces/printing-house';
 import { User } from '../../classes/user';
+import { PRINTTYPE } from '../../enums/print-type';
+import { PrintingHouse } from '../../interfaces/printing-house';
+import { Transaction } from '../../interfaces/transaction';
 import { FirebaseAuthService } from '../../services/auth/firebase-auth/firebase-auth.service';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
-import { PRINTTYPE } from '../../enums/print-type';
-import { Transaction } from '../../interfaces/transaction';
 
 /**
  * Admin dashboard component

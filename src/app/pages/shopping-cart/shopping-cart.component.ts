@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import * as localforage from 'localforage';
 import { Log } from 'ng2-logger';
 
-import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 import { SHOPPINGCARTITEMTYPE } from '../../enums/shopping-cart-item-type';
-import * as localforage from 'localforage';
 import { Alert } from '../../interfaces/alert';
+import { ShoppingCartItem } from '../../interfaces/shopping-cart-item';
 import { AlertService } from '../../services/alert/alert.service';
 
 /**

@@ -7,13 +7,12 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Log } from 'ng2-logger';
-import { Observable } from 'rxjs/Observable';
 
-import { PriceList } from '../../classes/price-list';
-import { PrintingHouseArticle } from '../../interfaces/printing-house-article';
-import { PRINTTYPE } from '../../enums/print-type';
 import { Event } from '../../classes/event';
+import { PriceList } from '../../classes/price-list';
+import { PRINTTYPE } from '../../enums/print-type';
 import { PhotographerProfile } from '../../interfaces/photographer-profile';
+import { PrintingHouseArticle } from '../../interfaces/printing-house-article';
 import { FirebaseFirestoreService } from '../../services/firebase/firestore/firebase-firestore.service';
 
 /**

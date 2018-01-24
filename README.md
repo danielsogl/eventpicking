@@ -1,18 +1,9 @@
 # DHBW Projekt 2017
 
-### Master:
+Alle private API-Keys wurden aus der environment.ts Datei entfernt sowie md-bootstrap-pro aus der package.json.
 
-[![Build Status Master](https://travis-ci.com/danielsogl/eventpicking.svg?token=TnE38j2B5MyqLFwcdqer&branch=master)](https://travis-ci.com/danielsogl/eventpicking)
-[![codecov](https://codecov.io/gh/danielsogl/eventpicking/branch/master/graph/badge.svg?token=cFfwpxO3bB)](https://codecov.io/gh/danielsogl/eventpicking)
+## Dokumentation
 
-### Staging:
-
-[![Build Status Staging](https://travis-ci.com/danielsogl/eventpicking.svg?token=TnE38j2B5MyqLFwcdqer&branch=staging)](https://travis-ci.com/danielsogl/eventpicking)
-[![codecov](https://codecov.io/gh/danielsogl/eventpicking/branch/staging/graph/badge.svg?token=cFfwpxO3bB)](https://codecov.io/gh/danielsogl/eventpicking)
-
-## Beschreibung
-
-## Documentation
 https://danielsogl.github.io/eventpicking/
 
 ## Inhaltsverzeichnis
@@ -103,4 +94,3 @@ ausgeführt werden.
 * user@test.de - Passwort: passwort
 * admin@test.de - Passwort: passwort
 * PayPal Konto: fotograf@test.de - Passwort: passwort
-
